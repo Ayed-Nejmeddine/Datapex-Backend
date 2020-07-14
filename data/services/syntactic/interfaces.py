@@ -1,6 +1,6 @@
 class BaseInterface:
     """ Base interface definition """
-    def compute_null_values(self, file):
+    def count_null_values(self, file):
         """
         Indicator of number of NULL values.
         :param file:
@@ -8,15 +8,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_not_null_values(self, file):
-        """
-        Indicator of number of NOT NULL values.
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_distinct_values(self, file):
+    def count_distinct_values(self, file):
         """
         Indicator of number of distinct values.
         :param file:
@@ -24,7 +16,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_unique_values(self, file):
+    def count_unique_values(self, file):
         """
         Indicator of number of unique values.
         :param file:
@@ -32,7 +24,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_duplicated_values(self, file):
+    def count_duplicated_values(self, file):
         """
         Indicator of number of duplicated values.
         :param file:
@@ -40,7 +32,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_words(self, file):
+    def count_number_of_words(self, file):
         """
         Indicator of number of words.
         :param file:
@@ -56,7 +48,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_model_data_frequency(self, file):
+    def model_data_frequency(self, file):
         """
         Indicator of Model Data Frequency.
         :param file:
@@ -64,7 +56,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_string_type_values(self, file):
+    def count_string_type_values(self, file):
         """
         Indicator of Number of values of the STRING TYPE.
         :param file:
@@ -72,7 +64,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_number_type_values(self, file):
+    def count_numeric_values(self, file):
         """
         Indicator of Number of values of the NUMBER TYPE.
         :param file:
@@ -80,7 +72,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_date_type_values(self, file):
+    def count_date_type_values(self, file):
         """
         Indicator of Number of values of the DATE TYPE.
         :param file:
@@ -88,7 +80,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_boolean_type_values(self, file):
+    def count_boolean_type_values(self, file):
         """
         Indicator of Number of values of the BOOLEAN TYPE.
         :param file:
@@ -96,7 +88,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_null_type_values(self, file):
+    def count_null_type_values(self, file):
         """
         Indicator of Number of values of the NULL TYPE.
         :param file:
@@ -104,7 +96,7 @@ class BaseInterface:
         """
         pass
 
-    def compute_number_of_different_values(self, file):
+    def count_the_different_values(self, file):
         """
         Indicator of Number of DIFFERENT values.
         :param file:
@@ -115,7 +107,7 @@ class BaseInterface:
 
 class StringInterface(BaseInterface):
     """ String interface definition """
-    def compute_min_length(self, file):
+    def get_min_length(self, file):
         """
         Indicator of Min length.
         :param file:
@@ -123,7 +115,7 @@ class StringInterface(BaseInterface):
         """
         pass
 
-    def compute_max_length(self, file):
+    def get_max_length(self, file):
         """
         Indicator of Max Length.
         :param file:
@@ -131,7 +123,7 @@ class StringInterface(BaseInterface):
         """
         pass
 
-    def compute_average_length(self, file):
+    def get_average_length(self, file):
         """
         Average Length Indicator.
         :param file:
@@ -185,82 +177,24 @@ class NumberInterface(BaseInterface):
 
 class DateInterface(BaseInterface):
     """ Date Interface definition"""
-    def compute_first_date_format(self, file):
-        """
-        compute date format  MM DD YYYY
-        :param file:
-        :return:
-        """
-        pass
 
-    def compute_second_date_format(self, file):
+    def check_format_for_dataframe(self, file, format='%m-%d-%Y'):
         """
-        compute date format  MM DD YY
+        Indicator for the date and datetime format and for the weekday and the month.
+        The date format can be :
+                -MM DD YYYY
+                -MM DD YY
+                -DD MM YYYY (french date format)
+                -DD MMM YYYY (french date format with the month in letters, exp:Jan, Feb)
+                -YYYY MM DD (ISO date format)
+        The datetime format can be :
+                - hh:mm
+                - mm/dd/yyyy hh:mm
+                - mm/dd/yyyy hh:mm:ss
+        The format for the month: %B or %b
+        The format for weekday: %A or %a
         :param file:
-        :return:
-        """
-        pass
-
-    def compute_third_date_format(self, file):
-        """
-        compute date format DD MMM YYYY
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_french_date_format(self, file):
-        """
-        compute date format DD MM YYYY
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_iso_date_format(self, file):
-        """
-        compute ISO date format YYYY MM DD
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_24_hour_time(self, file):
-        """
-        compute 24 Hour Time.
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_first_datetime_format(self, file):
-        """
-        compute instances of the following dateTime format: mm/dd/yyyy hh:mm
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_second_datetime_format(self, file):
-        """
-        compute the following dateTime format: mm/dd/yyyy hh:mm:ss
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_month(self, file):
-        """
-        Month Indicator.
-        :param file:
-        :return:
-        """
-        pass
-
-    def compute_weekday(self, file):
-        """
-        Week Day Indicator.
-        :param file:
+        :param format:
         :return:
         """
         pass
