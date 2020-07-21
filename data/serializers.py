@@ -15,4 +15,4 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:  # pylint: disable=C0115
         model = File
-        fields = '__all__'
+        fields = ('id', 'file',)

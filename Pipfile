@@ -12,6 +12,9 @@ django = "==3.0.8"
 numpy = "==1.19.0"
 pandas = "==1.0.5"
 drf-yasg = {extras = ["validation"], version = "==1.17.1"}
+django-allauth = "==0.42.0"
+django-rest-auth = "==0.9.5"
+django-crum = "==0.7.6"
 
 [requires]
 python_version = "3.8"
