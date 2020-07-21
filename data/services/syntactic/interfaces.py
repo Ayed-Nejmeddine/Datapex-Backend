@@ -24,18 +24,6 @@ class BaseInterface:
         """
         pass
 
-    def compute_data_frequency(self):
-        """
-        Indicator of data frequecy.
-        """
-        pass
-
-    def model_data_frequency(self):
-        """
-        Indicator of Model Data Frequency.
-        """
-        pass
-
     def count_boolean_type_values(self):
         """
         Indicator of Number of values of the BOOLEAN TYPE.
@@ -92,6 +80,12 @@ class StringInterface(BaseInterface):
     def count_values(self):
         """
         count the number of values of the STRING TYPE.
+        """
+        pass
+
+    def model_data_frequency(self):
+        """
+        model the data and count the number of occurrences and percentage for the models.
         """
         pass
 
