@@ -4,6 +4,7 @@ from data.serializers import FileSerializer
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 
 class FileViewSet(viewsets.ModelViewSet):
@@ -14,10 +15,5 @@ class FileViewSet(viewsets.ModelViewSet):
     queryset = File.objects.all()
     serializer_class = FileSerializer
     parser_class = (FileUploadParser,)
+    permission_classes = (IsAuthenticated, )
 
-    def post(self, request, *args, **kwargs):
-
-        file_serializer = FileSerializer(data=request.data)
-        if file_serializer.is_valid(raise_exception=True):
-            file_serializer.save()
-        return Response(file_serializer.data, status=status.HTTP_201_CREATED)

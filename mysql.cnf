@@ -1,0 +1,5 @@
+[client]
+database = data
+user = root
+password = daxme
+default-character-set = utf8
