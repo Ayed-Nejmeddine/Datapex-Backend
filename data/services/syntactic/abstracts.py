@@ -70,16 +70,6 @@ class BaseAbstract(BaseInterface):
                 res[columns.get_loc(i)] = df[i].fillna('').apply(check_bool).sum()
         return res
 
-    def compute_data_frequency(self):
-        """ indicator of data frequency."""
-        # TODO: Compute data frequency  # pylint: disable=W0511
-        pass
-
-    def model_data_frequency(self):
-        """ model data frequency."""
-        # TODO: model data frequency  # pylint: disable=W0511
-        pass
-
     def count_syntactically_valid_values(self, invalid=False):
         """count the number of syntactically valid values"""
         df = self.df

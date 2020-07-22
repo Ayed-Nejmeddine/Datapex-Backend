@@ -16,3 +16,14 @@ def check_bool(text):
         return True
     else:
         return False
+
+
+def model_text(text):
+    """ replace the characters in a string with 'A' """
+    res=''
+    for i in text.split():
+        if bool(res):
+            res += ' ' + 'A' * len(i)
+        else:
+            res += 'A' * len(i)
+    return res
