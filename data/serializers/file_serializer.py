@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from data.models import File
+from data.models.basic_models import File
 from django.utils.translation import ugettext_lazy as _
 
 

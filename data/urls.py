@@ -1,5 +1,5 @@
 from rest_framework import routers
-from data.views import FileViewSet
+from data.views.file_views import FileViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 

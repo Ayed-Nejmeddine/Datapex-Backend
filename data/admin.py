@@ -1,3 +1,5 @@
 from django.contrib import admin
+from data.models.basic_models import RegularExp
 
-# Register your models here.
+
+admin.site.register(RegularExp)
