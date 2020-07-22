@@ -1,9 +1,7 @@
 from rest_framework import viewsets
-from data.models import File
-from data.serializers import FileSerializer
+from data.models.basic_models import File
+from data.serializers.file_serializer import FileSerializer
 from rest_framework.parsers import FileUploadParser
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
 
