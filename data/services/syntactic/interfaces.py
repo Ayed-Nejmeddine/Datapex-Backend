@@ -36,19 +36,6 @@ class BaseInterface:
         """
         pass
 
-    def count_the_different_values(self):
-        """
-        Indicator of Number of DIFFERENT values.
-        """
-        pass
-
-    def count_syntactically_valid_values(self, invalid=False):
-        """
-        count the syntactically valid and invalid values.
-        :param invalid:
-        :return:
-        """
-        pass
 
 
 class StringInterface(BaseInterface):
@@ -86,6 +73,12 @@ class StringInterface(BaseInterface):
     def model_data_frequency(self):
         """
         model the data and count the number of occurrences and percentage for the models.
+        """
+        pass
+
+    def syntactic_validation_with_regexp(self):
+        """
+        Syntaxically validate the data according to the regular expressions in the model RegularExp
         """
         pass
 

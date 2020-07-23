@@ -39,15 +39,6 @@ class BaseAbstract(BaseInterface):
         res = self.count_distinct_values() - self.count_unique_values()
         return res
 
-    def count_the_different_values(self):
-        """ indicator of Number of DIFFERENT values. """
-        df = self.df
-        columns = df.columns
-        res = np.zeros(len(columns), dtype=int)
-        for i in columns:
-            res[columns.get_loc(i)] = df[i].value_counts().count()
-        return res
-
     def count_null_type_values(self, null='NULL'):
         """ indicator of number of null type values."""
         df = self.df
@@ -68,21 +59,4 @@ class BaseAbstract(BaseInterface):
                 res[columns.get_loc(i)] = df[i].count()
             elif is_string_dtype(df[i].dtypes):
                 res[columns.get_loc(i)] = df[i].fillna('').apply(check_bool).sum()
-        return res
-
-    def count_syntactically_valid_values(self, invalid=False):
-        """count the number of syntactically valid values"""
-        df = self.df
-        columns = df.columns
-        res = np.array(df.count())
-        for i in columns:
-            if is_string_dtype(df[i].dtypes):
-                num = df[i].apply(pd.to_numeric, errors='coerce').count()
-                date = df[i].apply(pd.to_datetime, errors='coerce').count()
-                bools = df[i].fillna('').apply(check_bool).sum()
-                alph = df[i].str.isalnum().sum() - (bool + num)
-                res[columns.get_loc(i)] = max(num, alph, date, bools)
-
-        if invalid:
-            res = np.array(df.count()) - res
         return res

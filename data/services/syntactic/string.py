@@ -1,7 +1,7 @@
 from data.services.syntactic.interfaces import StringInterface
 import numpy as np
 from pandas.api.types import is_string_dtype
-from data.services.syntactic.utils import model_text
+from data.services.syntactic.utils import model_text, get_regexp
 
 
 class StringAnalyser(StringInterface):
@@ -73,3 +73,15 @@ class StringAnalyser(StringInterface):
                 occurrences.append(modeled_df.value_counts())
                 data_model.append(np.array(modeled_df.value_counts().axes))
         return data_model, percentages, occurrences
+
+    def syntactic_validation_with_regexp(self, invalid=False):
+        """ Syntaxically validate the data according to the regular expressions in the model RegularExp"""
+        df = self.df
+        columns = df.columns
+        res = np.zeros(len(columns), dtype=int)
+        for i in columns:
+            if is_string_dtype(df[i].dtypes):
+                res[columns.get_loc(i)] = df[i].apply(get_regexp).count()
+        if invalid:
+            res = np.array(df.shape[0]) - res
+        return res
