@@ -9,7 +9,7 @@ def fill_out_regexp_model(sender, **kwargs):  # pylint: disable=W0613
     """
     fill in the RegularExp table from DDRE file
     """
-    from data.models.models import RegularExp
+    from data.models.basic_models import RegularExp
     file = os.path.join(settings.BASE_DIR, 'data', 'data_types', 'DDRE.csv')
     with open(file, encoding='iso-8859-1') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')

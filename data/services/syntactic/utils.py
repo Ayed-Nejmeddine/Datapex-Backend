@@ -1,4 +1,7 @@
 import datetime
+from data.models.basic_models import RegularExp
+import re
+import pandas as pd
 
 
 def check_format(date_text, date_format='%Y-%m-%d'):
@@ -27,3 +30,14 @@ def model_text(text):
         else:
             res += 'A' * len(i)
     return res
+
+
+def get_regexp(text):
+    """ Get the matching regular expression. """
+    if not pd.isnull(text):
+        expressions = RegularExp.objects.all().values('expression')
+        for exp in expressions:
+            pattern = re.compile(exp['expression'])
+            if pattern.match(text.upper()):
+                return RegularExp.objects.filter(expression=exp['expression'])[0]
+    return None
