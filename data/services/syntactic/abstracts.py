@@ -3,25 +3,33 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import is_bool_dtype, is_string_dtype
 from data.services.syntactic.utils import check_bool
+from data.models.basic_models import SyntacticResult
 
 
 class BaseAbstract(BaseInterface):
     """ contains services for the BaseInterface """
 
-    def __init__(self, df):
+    def __init__(self, df, document_id):
         self.df = df
+        self.document_id = document_id
 
     def count_null_values(self, inverse=False):
         """ count the NULL values and the NOT NULL values"""
         df = self.df
         res = pd.isnull(df).sum()
+        rule = 'M100 [3]'
         if inverse:
             res = df.count()
+            rule = 'M101 [4]'
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=rule,
+                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
     def count_distinct_values(self):
         """ Indicator of the number of distinct values."""
         res = np.array(self.df.nunique())
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M102 [5]',
+                                                 defaults={'result':{i : res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
     def count_unique_values(self):
@@ -32,11 +40,15 @@ class BaseAbstract(BaseInterface):
         res = np.zeros(len(columns), dtype=int)
         for i in columns:
             res[columns.get_loc(i)] = len(df[i].drop_duplicates(keep=False))
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M103 [6]',
+                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
     def count_duplicated_values(self):
         """ indicator of number of duplicated values."""
         res = self.count_distinct_values() - self.count_unique_values()
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M104 [7]',
+                                                 defaults={'result':{i : res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
     def count_null_type_values(self, null='NULL'):
@@ -47,6 +59,8 @@ class BaseAbstract(BaseInterface):
         for i in columns:
             if is_bool_dtype(df[i].dtypes):
                 res[columns.get_loc(i)] = df[i].str.count(null).sum()
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M112 [15]',
+                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
     def count_boolean_type_values(self):
@@ -59,4 +73,6 @@ class BaseAbstract(BaseInterface):
                 res[columns.get_loc(i)] = df[i].count()
             elif is_string_dtype(df[i].dtypes):
                 res[columns.get_loc(i)] = df[i].fillna('').apply(check_bool).sum()
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M111 [14]',
+                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
