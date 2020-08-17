@@ -125,7 +125,7 @@ class NumberInterface(BaseInterface):
 class DateInterface(BaseInterface):
     """ Date Interface definition"""
 
-    def check_format_for_dataframe(self, date_format='%m-%d-%Y'):
+    def check_format_for_dataframe(self, rule, date_format='%m-%d-%Y'):
         """
         Indicator for the date and datetime format and for the weekday and the month.
         The date format can be :
@@ -140,6 +140,7 @@ class DateInterface(BaseInterface):
                 - mm/dd/yyyy hh:mm:ss
         The format for the month: %B or %b
         The format for weekday: %A or %a
+        :param rule:
         :param date_format:
         :return:
         """
