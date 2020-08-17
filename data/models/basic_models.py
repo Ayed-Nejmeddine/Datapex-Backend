@@ -60,3 +60,7 @@ class AnalysisTrace(models.Model):
         """
         return f'{self.document} - {self.analysis_type}'
 
+
+class DataDict(models.Model):
+    data_dict = JSONField()
+    objects = models.Manager()
