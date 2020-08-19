@@ -4,7 +4,7 @@ import pandas as pd
 from data.models.basic_models import SyntacticResult
 from threading import Thread
 from data.models.basic_models import AnalysisTrace
-from data.models import FINISHED_STATE, NUMBER_ANALYSIS
+from data.models import FINISHED_STATE, NUMBER_ANALYSIS, M102_20, M103_20, M103_21, M104_22, M105_23, M109_12
 
 
 class NumberAnalyser(NumberInterface, Thread):
@@ -17,35 +17,35 @@ class NumberAnalyser(NumberInterface, Thread):
     def compute_min_value(self):
         """ indicator for min value."""
         res = self.df.apply(pd.to_numeric, errors='coerce').min()
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M102 [20]',
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_20,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
     def compute_max_value(self):
         """ indicator for max value."""
         res = self.df.apply(pd.to_numeric, errors='coerce').max()
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M103 [20]',
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_20,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
     def compute_average_value(self):
         """ indicator for average value."""
         res = self.df.apply(pd.to_numeric, errors='coerce').mean()
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M103 [21]',
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_21,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
     def compute_mode_value(self):
         """ indicator for mode value."""
         res = self.df.apply(pd.to_numeric, errors='coerce').mode().to_numpy()[0]
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M104 [22]',
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M104_22,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
     def compute_median_value(self):
         """ indicator for median value."""
         res = self.df.apply(pd.to_numeric, errors='coerce').median()
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M105 [23]',
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M105_23,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
@@ -53,7 +53,7 @@ class NumberAnalyser(NumberInterface, Thread):
         """indicator of Number of values of the NUMBER TYPE."""
         df = self.df
         res = df.apply(pd.to_numeric, errors='coerce').count()
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='M109 [12]',
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M109_12,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
