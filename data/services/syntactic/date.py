@@ -5,7 +5,7 @@ import pandas as pd
 from pandas.api.types import is_string_dtype, is_datetime64_any_dtype
 from data.models.basic_models import SyntacticResult, AnalysisTrace
 from threading import Thread
-from data.models import DATE_ANALYSIS, FINISHED_STATE
+from data.models import DATE_ANALYSIS, FINISHED_STATE, M110_13, M112, M113, M114, M115, M116, M117, M118, M119, M120, M121
 
 
 class DateAnalyser(DateInterface, Thread):
@@ -32,7 +32,7 @@ class DateAnalyser(DateInterface, Thread):
 
     def count_values(self):
         """ Datetime type indicator. """
-        rule = 'M110 [13]'
+        rule = M110_13
         df = self.df
         columns = df.columns
         res = np.zeros(len(columns), dtype=int)
@@ -45,15 +45,15 @@ class DateAnalyser(DateInterface, Thread):
 
     def run(self):
         self.count_values()
-        self.check_format_for_dataframe(rule='M112', date_format=['%m/%d/%Y', '%m-%d-%Y'])
-        self.check_format_for_dataframe(rule='M113', date_format=['%m/%d/%y', '%m-%d-%y'])
-        self.check_format_for_dataframe(rule='M114', date_format=['%d/%b/%Y', '%d-%b-%Y', '%d %b %Y'])
-        self.check_format_for_dataframe(rule='M115', date_format=['%d/%m/%Y', '%d-%m-%Y'])
-        self.check_format_for_dataframe(rule='M116', date_format=['%Y/%m/%d', '%Y-%m-%d'])
-        self.check_format_for_dataframe(rule='M117', date_format=['%H:%M', '%H:%M:%S'])
-        self.check_format_for_dataframe(rule='M118', date_format=['%m/%d/%Y %H:%M'])
-        self.check_format_for_dataframe(rule='M119', date_format=['%m/%d/%Y %H:%M:%S'])
-        self.check_format_for_dataframe(rule='M120', date_format=['%B'])
-        self.check_format_for_dataframe(rule='M121', date_format=['%A', '%a'])
+        self.check_format_for_dataframe(rule=M112, date_format=['%m/%d/%Y', '%m-%d-%Y'])
+        self.check_format_for_dataframe(rule=M113, date_format=['%m/%d/%y', '%m-%d-%y'])
+        self.check_format_for_dataframe(rule=M114, date_format=['%d/%b/%Y', '%d-%b-%Y', '%d %b %Y'])
+        self.check_format_for_dataframe(rule=M115, date_format=['%d/%m/%Y', '%d-%m-%Y'])
+        self.check_format_for_dataframe(rule=M116, date_format=['%Y/%m/%d', '%Y-%m-%d'])
+        self.check_format_for_dataframe(rule=M117, date_format=['%H:%M', '%H:%M:%S'])
+        self.check_format_for_dataframe(rule=M118, date_format=['%m/%d/%Y %H:%M'])
+        self.check_format_for_dataframe(rule=M119, date_format=['%m/%d/%Y %H:%M:%S'])
+        self.check_format_for_dataframe(rule=M120, date_format=['%B'])
+        self.check_format_for_dataframe(rule=M121, date_format=['%A', '%a'])
         AnalysisTrace.objects.update_or_create(document_id=self.document_id, analysis_type=DATE_ANALYSIS,
                                                defaults={'state': FINISHED_STATE})

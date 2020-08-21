@@ -41,3 +41,13 @@ def get_regexp(text):
             if pattern.match(text.upper()):
                 return RegularExp.objects.filter(expression=exp['expression'])[0]
     return None
+
+
+def get_data_dict(text, data_dict):
+    """ Get the matching data dictionary."""
+    if not pd.isnull(text):
+        text = " ".join(text.split())
+        for d in data_dict:
+            if text.upper() in d.data_dict.values():
+                return d.data_dict["CATEGORY"]
+    return None

@@ -28,4 +28,4 @@ class DocumentViewSet(viewsets.ModelViewSet):
                                                defaults={'document': document, 'analysis_type': BASIC_ANALYSIS, 'state': RUNNING_STATE})
         analyser = Analyser(document=document)
         analyser.start()
-        return Response(status.HTTP_200_OK)
+        return Response({"message": "The syntactic analysis has been launched."}, status.HTTP_200_OK)
