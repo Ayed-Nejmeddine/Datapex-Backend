@@ -5,7 +5,7 @@ from data.services.syntactic.utils import model_text, get_regexp, get_data_dict
 from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict
 from threading import Thread
 from data.models import STRING_ANALYSIS, FINISHED_STATE, M102_17, M103_18, M104_19, M105_8, M108_11, \
-    M107_10, M106_9, M102_25, M103_25, M102_26, M103_26
+    M107_10, M106_9, M102_25, M103_25, M102_26, M103_26, DATA_TYPES
 
 
 class StringAnalyser(StringInterface, Thread):
@@ -96,8 +96,7 @@ class StringAnalyser(StringInterface, Thread):
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M107_10,
                                                  defaults={'result':{i: data_model[columns.get_loc(i)] for i in columns}})
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M106_9,
-                                                 defaults={'result':[{i: occurrences[columns.get_loc(i)] for i in columns},
-                                                                     {i: percentages[columns.get_loc(i)] for i in columns}]})
+                                                 defaults={'result':{i: (occurrences[columns.get_loc(i)], percentages[columns.get_loc(i)]) for i in columns}})
 
         return data_model, percentages, occurrences
 
@@ -132,6 +131,7 @@ class StringAnalyser(StringInterface, Thread):
         df = self.df
         columns = df.columns
         res = np.zeros(len(columns), dtype=int)
+        #  TODO: Matching with the data dict takes a long time due to the size of the data_dict.  # pylint: disable=W0511
         data_dict = DataDict.objects.all()
         data_types = []
         percentages = []
@@ -139,7 +139,7 @@ class StringAnalyser(StringInterface, Thread):
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 d = df[i].apply(get_data_dict, data_dict=data_dict)
-                data_types.append(d.value_counts().keys())
+                data_types.append(d.value_counts(dropna=False).keys())
                 percentages.append(d.value_counts(normalize=True, dropna=False) * 100)
                 res[columns.get_loc(i)] = d.count()
             else:
@@ -149,10 +149,10 @@ class StringAnalyser(StringInterface, Thread):
             rule = M103_26
             res = np.array(df.shape[0]) - res
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=rule,
-                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule='Data-types',
-                                                 defaults={'result': [{i: data_types[columns.get_loc(i)] for i in columns},
-                                                                      {i: percentages[columns.get_loc(i)] for i in columns}]})
+                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=DATA_TYPES,
+                                                 defaults={'result': {i: (data_types[columns.get_loc(i)],
+                                                                          percentages[columns.get_loc(i)]) for i in columns}})
         return res, data_types, percentages
 
     def run(self):
