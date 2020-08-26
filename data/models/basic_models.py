@@ -2,10 +2,12 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from jsonfield import JSONField
 from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES
+from django_currentuser.db.models import CurrentUserField
 
 
 class Document(models.Model):
     document_path = models.FileField(blank=False, null=False, validators=[FileExtensionValidator(allowed_extensions=['csv'])])
+    owner = CurrentUserField()
 
     objects = models.Manager()
 
@@ -36,7 +38,7 @@ class AnalysisResult(models.Model):
 
 
 class SyntacticResult(AnalysisResult):
-    rule = models.CharField(max_length=150)
+    rule = JSONField()
 
     objects = models.Manager()
 
