@@ -137,9 +137,10 @@ class StringAnalyser(StringInterface, Thread):
         percentages = []
         for i in columns:
             if is_string_dtype(df[i].dtypes):
-                d = df[i].apply(get_data_dict, data_dict=data_dict)
-                data_types.append(d.value_counts(dropna=False).keys())
-                percentages.append(d.value_counts(normalize=True, dropna=False) * 100)
+                d = df[i].apply(get_data_dict, data_dict=data_dict).fillna('no-match')
+                d = d
+                data_types.append(d.value_counts().keys())
+                percentages.append(d.value_counts(normalize=True) * 100)
                 res[columns.get_loc(i)] = d.count()
             else:
                 data_types.append(None)

@@ -4,7 +4,7 @@ import pandas as pd
 from pandas.api.types import is_bool_dtype, is_string_dtype
 from data.services.syntactic.utils import check_bool
 from data.models.basic_models import SyntacticResult
-from data.models import M100_3, M101_4, M102_5, M103_6, M104_7, M112_15, M111_14
+from data.models import M100_3, M101_4, M102_5, M103_6, M104_7, M112_15, M111_14, TOTAL
 
 
 class BaseAbstract(BaseInterface):
@@ -17,6 +17,10 @@ class BaseAbstract(BaseInterface):
     def count_null_values(self, inverse=False):
         """ count the NULL values and the NOT NULL values"""
         df = self.df
+        # Total number of values
+        total = df.shape[0]
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=TOTAL,
+                                                 defaults={'result': {i: total for i in self.df.columns}})
         res = pd.isnull(df).sum()
         rule = M100_3
         if inverse:
