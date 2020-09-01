@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from jsonfield import JSONField
-from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES
+from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES, DATE_LINK_OPTIONS
 from django_currentuser.db.models import CurrentUserField
 
 
@@ -66,3 +66,13 @@ class AnalysisTrace(models.Model):
 class DataDict(models.Model):
     data_dict = JSONField()
     objects = models.Manager()
+
+
+class Link(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    first_column = models.CharField(max_length=200)
+    second_column = models.CharField(max_length=200)
+    relationship = models.CharField(max_length=100,  choices=DATE_LINK_OPTIONS)
+
+    objects = models.Manager()
+

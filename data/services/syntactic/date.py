@@ -3,9 +3,9 @@ from data.services.syntactic.utils import check_format
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_string_dtype, is_datetime64_any_dtype
-from data.models.basic_models import SyntacticResult, AnalysisTrace
+from data.models.basic_models import SyntacticResult, AnalysisTrace, Link
 from threading import Thread
-from data.models import DATE_ANALYSIS, FINISHED_STATE, M110_13, M112, M113, M114, M115, M116, M117, M118, M119, M120, M121
+from data.models import DATE_ANALYSIS, FINISHED_STATE, M110_13, M112, M113, M114, M115, M116, M117, M118, M119, M120, M121, AFTER, BEFORE, EQUALS
 
 
 class DateAnalyser(DateInterface, Thread):
@@ -43,6 +43,32 @@ class DateAnalyser(DateInterface, Thread):
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
+    def link(self):
+        """Define the links (either before , after or equals) between columns of the type date"""
+        df = self.df
+        columns = df.columns
+        for col1 in columns:
+            for col2 in columns[columns.get_loc(col1) + 1:]:
+                if (is_string_dtype(df[col1].dtypes) or is_datetime64_any_dtype(df[col1].dtypes)) and (
+                        is_string_dtype(df[col2].dtypes) or is_datetime64_any_dtype(df[col2].dtypes)):
+                    first_col = df[col1].apply(pd.to_datetime, errors='coerce')
+                    second_col = df[col2].apply(pd.to_datetime, errors='coerce')
+                    if (first_col == second_col).all():
+                        Link.objects.update_or_create(document_id=self.document_id,
+                                                      first_column=col1,
+                                                      second_column=col2,
+                                                      defaults={'relationship': EQUALS})
+                    elif (first_col <= second_col).all():
+                        Link.objects.update_or_create(document_id=self.document_id,
+                                                      first_column=col1,
+                                                      second_column=col2,
+                                                      defaults={'relationship': BEFORE})
+                    elif (first_col >= second_col).all():
+                        Link.objects.update_or_create(document_id=self.document_id,
+                                                      first_column=col1,
+                                                      second_column=col2,
+                                                      defaults={'relationship': AFTER})
+
     def run(self):
         self.count_values()
         self.check_format_for_dataframe(rule=M112, date_format=['%m/%d/%Y', '%m-%d-%Y'])
@@ -57,3 +83,4 @@ class DateAnalyser(DateInterface, Thread):
         self.check_format_for_dataframe(rule=M121, date_format=['%A', '%a'])
         AnalysisTrace.objects.update_or_create(document_id=self.document_id, analysis_type=DATE_ANALYSIS,
                                                defaults={'state': FINISHED_STATE})
+        self.link()
