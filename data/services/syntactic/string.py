@@ -24,7 +24,7 @@ class StringAnalyser(StringInterface, Thread):
             if is_string_dtype(df[i].dtypes):
                 res[columns.get_loc(i)] = df[i].fillna('').str.len().min()
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_17,
-                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
     def get_max_length(self):
@@ -100,31 +100,31 @@ class StringAnalyser(StringInterface, Thread):
 
         return data_model, percentages, occurrences
 
-    def syntactic_validation_with_regexp(self, invalid=False):
+    def syntactic_validation_with_regexp(self):
         """
         Syntaxically validate the data according to the regular expressions in the model RegularExp.
-        If invalid = False then the result (res) will be an array of the number of syntactically valid data according to the regular expressions.
-        If invalid = True then the result (res) will be an array of the number of syntactically invalid data according to the regular expressions.
+        res will be an array of the number of syntactically valid data according to the regular expressions.
+        invalid_res will be an array of the number of syntactically invalid data according to the regular expressions.
         """
         df = self.df
         columns = df.columns
         res = np.zeros(len(columns), dtype=int)
-        rule = M102_25
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 res[columns.get_loc(i)] = df[i].apply(get_regexp).count()
-        if invalid:
-            res = np.array(df.shape[0]) - res
-            rule = M103_25
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=rule,
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_25,
                                                  defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
-        return res
+        # the number of syntactically invalid data according to the regular expressions
+        invalid_res = np.array(df.shape[0]) - res
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_25,
+                                                 defaults={'result': {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+        return res, invalid_res
 
-    def syntactic_validation_with_data_dict(self, invalid=False):
+    def syntactic_validation_with_data_dict(self):
         """
         Syntactically validate the data according to the data dictionary.
-        if invalid = False then the result (res) will be an array of the number of syntactically valid data according to the data dictionary.
-        if invalid = True then the result (res) will be an array of the number of syntactically invalid data according to the data dictionary.
+        res is an array of the number of syntactically valid data according to the data dictionary.
+        invalid_res is an array of the number of syntactically invalid data according to the data dictionary.
         data_types will contain the data types of each column (exp: city, airportn firstame, etc...) and percentages will contain the percentages of
         the data_types in each column.
         """
@@ -135,7 +135,6 @@ class StringAnalyser(StringInterface, Thread):
         data_dict = DataDict.objects.all()
         data_types = []
         percentages = []
-        rule = M102_26
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 d = df[i].apply(get_data_dict, data_dict=data_dict)
@@ -145,15 +144,16 @@ class StringAnalyser(StringInterface, Thread):
             else:
                 data_types.append(None)
                 percentages.append(0)
-        if invalid:
-            rule = M103_26
-            res = np.array(df.shape[0]) - res
-        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=rule,
-                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_26,
+                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=DATA_TYPES,
                                                  defaults={'result': {i: (data_types[columns.get_loc(i)],
                                                                           percentages[columns.get_loc(i)]) for i in columns}})
-        return res, data_types, percentages
+        # number of syntactically invalid data according to the data dictionary
+        invalid_res = np.array(df.shape[0]) - res
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_26,
+                                                 defaults={'result': {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+        return res, invalid_res, data_types, percentages
 
     def run(self):
         self.get_min_length()
@@ -163,8 +163,6 @@ class StringAnalyser(StringInterface, Thread):
         self.count_values()
         self.model_data_frequency()
         self.syntactic_validation_with_data_dict()
-        self.syntactic_validation_with_data_dict(invalid=True)
         self.syntactic_validation_with_regexp()
-        self.syntactic_validation_with_regexp(invalid=True)
         AnalysisTrace.objects.update_or_create(document_id=self.document_id, analysis_type=STRING_ANALYSIS,
                                                defaults={'state': FINISHED_STATE})

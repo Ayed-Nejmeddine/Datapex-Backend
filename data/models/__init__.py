@@ -61,3 +61,12 @@ M103_25 = {'rule': 'M103 [25]', 'signification': 'Number of invalid values accor
 M103_26 = {'rule': 'M103 [26]', 'signification': 'Number of invalid values according to the data dictionary'}
 DATA_TYPES = {'rule': 'Data-types', 'signification': 'Data types and their respectful percentages'}
 
+
+# links between date type columns
+AFTER = 'after'
+BEFORE = 'before'
+EQUALS = 'equals'
+DATE_LINK_OPTIONS = (
+    (AFTER, _('After')),
+    (BEFORE, _('Before')),
+    (EQUALS, _('Equals')))
