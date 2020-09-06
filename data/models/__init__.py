@@ -60,7 +60,7 @@ M102_26 = {'rule': 'M102 [26]', 'signification': 'Number of valid values accordi
 M103_25 = {'rule': 'M103 [25]', 'signification': 'Number of invalid values according to regexp'}
 M103_26 = {'rule': 'M103 [26]', 'signification': 'Number of invalid values according to the data dictionary'}
 DATA_TYPES = {'rule': 'Data-types', 'signification': 'Data types and their respectful percentages'}
-
+TOTAL = {'rule': 'Total', 'signification': 'Total number of values(NULL values and NOT NULL values'}
 
 # links between date type columns
 AFTER = 'after'
@@ -70,3 +70,12 @@ DATE_LINK_OPTIONS = (
     (AFTER, _('After')),
     (BEFORE, _('Before')),
     (EQUALS, _('Equals')))
+
+# links between numeric type columns
+GREATER_THAN = 'greater-than'
+LESS_THAN = 'less-then'
+NUMERIC_LINK_OPTIONS = (
+    (GREATER_THAN, _('Greater-than')),
+    (LESS_THAN, _('Less-then')),
+    (EQUALS, _('Equals')))
+
