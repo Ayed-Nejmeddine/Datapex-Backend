@@ -21,6 +21,7 @@ class Command(BaseCommand):
                 first_row = next(csv_reader)
                 for row in csv_reader:
                     bulk_mgr.add(DataDict(data_dict={first_row[i]: row[i] for i in range(len(first_row))}))
+                bulk_mgr.done()
 
     def handle(self, *args, **options):
         self.fill_out_data_dict_model()

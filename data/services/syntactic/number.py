@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from data.models.basic_models import SyntacticResult
 from threading import Thread
-from data.models.basic_models import AnalysisTrace
-from data.models import FINISHED_STATE, NUMBER_ANALYSIS, M102_20, M103_20, M103_21, M104_22, M105_23, M109_12
+from data.models.basic_models import AnalysisTrace, Link
+from data.models import FINISHED_STATE, NUMBER_ANALYSIS, M102_20, M103_20, M103_21, M104_22, M105_23, M109_12, EQUALS, GREATER_THAN, LESS_THAN
 
 
 class NumberAnalyser(NumberInterface, Thread):
@@ -63,6 +63,29 @@ class NumberAnalyser(NumberInterface, Thread):
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return np.array(res)
 
+    def link(self):
+        """Define the links (either greater than , less than or equals) between columns of the type numeric"""
+        df = self.df
+        df = df.apply(pd.to_numeric, errors='coerce')
+        columns = df.columns
+        for col1 in columns:
+            for col2 in columns[columns.get_loc(col1) + 1:]:
+                    if (df[col1] == df[col2]).all():
+                        Link.objects.update_or_create(document_id=self.document_id,
+                                                      first_column=col1,
+                                                      second_column=col2,
+                                                      defaults={'relationship': EQUALS})
+                    elif (df[col1] <= df[col2]).all():
+                        Link.objects.update_or_create(document_id=self.document_id,
+                                                      first_column=col1,
+                                                      second_column=col2,
+                                                      defaults={'relationship': LESS_THAN})
+                    elif (df[col1] >= df[col2]).all():
+                        Link.objects.update_or_create(document_id=self.document_id,
+                                                      first_column=col1,
+                                                      second_column=col2,
+                                                      defaults={'relationship': GREATER_THAN})
+
     def run(self):
         self.compute_min_value()
         self.compute_max_value()
@@ -72,3 +95,4 @@ class NumberAnalyser(NumberInterface, Thread):
         self.count_values()
         AnalysisTrace.objects.update_or_create(document_id=self.document_id, analysis_type=NUMBER_ANALYSIS,
                                                defaults={'state': FINISHED_STATE})
+        self.link()
