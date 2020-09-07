@@ -386,8 +386,7 @@ URL,URL WITH OR WITHOUT PROTOCOL,^(([\d\w.]+?\.(a[cdefgilmnoqrstuwz]|b[abdefghij
 HTAG ?,HTAG ?,^(((http|https):\/\/)?(www[.])?([a-zA-Z0-9]|-)+([.][a-zA-Z(-|\/|=|?)?]+)+$)$,,
 SCIENTIFIC_WRITING,SCIENTIFIC_WRITING,^(-?[1-9](\.\d+)?)(\s?[x*]\s?10[E^]([\+-]?\d+))|(E([\+-]?\d+))$,,
 EMAIL,EMAIL1,"^([a-zA-Z0-9._-]+@[a-zA-Z._-]{2,}\.[a-zA-Z]{2,3}$)$",,
-EMAIL,EMAIL2-ADRESS,"^((>[a-zA-Z\d!#$%&'*+\-/=?^_`{|}~]+\x20*|((?=[\x01-\x7f])[^\\]|\\[\x01-\x7f])*\x20*)*(?P<angle><))?((?!\.)(>\.?[a-zA-Z\d!#$%&'*+\-/=?^_`{|}~]+)+|((?=[\x01-\x7f])[^\\]|\\[\x01-\x7f])*)@(((?!-)[a-zA-Z\d\-]+(?<!-)\.)+[a-zA-Z]{2,}|\[((((<\[)\.)(25[0-5]|2[0-4]\d|[01]?\d?\d)){4}|[a-zA-Z\d\-]*[a-zA-Z\d]:((?=[\x01-\x7f])[^\\\[\]]|\\[\x01-\x7f])+)\])((angle)>)$",,
-EMAIL,EMAIL3-ADDRESS,^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)$,,
+EMAIL,EMAIL2-ADDRESS,^([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel))$
 COLOR,COLOR_CODE,^(#(([A-F0-9]{6})))$,,
 COLOR,RGB COLOR FORMAT ,"^((?:(?:^|,\s*)([01]?\d\d?|2[0-4]\d|25[0-5])){3}$)$",,
 IPADRESS,IPADRESS1,^((25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$)$,,

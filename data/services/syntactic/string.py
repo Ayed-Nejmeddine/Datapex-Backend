@@ -2,10 +2,10 @@ from data.services.syntactic.interfaces import StringInterface
 import numpy as np
 from pandas.api.types import is_string_dtype
 from data.services.syntactic.utils import model_text, get_regexp, get_data_dict
-from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict
+from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict, RegularExp
 from threading import Thread
 from data.models import STRING_ANALYSIS, FINISHED_STATE, M102_17, M103_18, M104_19, M105_8, M108_11, \
-    M107_10, M106_9, M102_25, M103_25, M102_26, M103_26, DATA_TYPES
+    M107_10, M106_9, M102_25, M103_25, M102_26, M103_26, DATA_TYPES, MATCHED_EXPRESSIONS, COLUMN_TYPE
 
 
 class StringAnalyser(StringInterface, Thread):
@@ -109,16 +109,28 @@ class StringAnalyser(StringInterface, Thread):
         df = self.df
         columns = df.columns
         res = np.zeros(len(columns), dtype=int)
+        matched_expressions = []
+        percentages = []
+        expressions = RegularExp.objects.all().values('expression')
         for i in columns:
             if is_string_dtype(df[i].dtypes):
-                res[columns.get_loc(i)] = df[i].apply(get_regexp).count()
+                reg_exp = df[i].apply(get_regexp, expressions=expressions).fillna('no-match')
+                res[columns.get_loc(i)] = reg_exp.count()
+                matched_expressions.append(reg_exp.value_counts().keys())
+                percentages.append(reg_exp.value_counts(normalize=True) * 100)
+            else:
+                matched_expressions.append(['non-applicable'])
+                percentages.append([0])
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_25,
                                                  defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=MATCHED_EXPRESSIONS,
+                                                 defaults={'result': {i: (matched_expressions[columns.get_loc(i)],
+                                                                          percentages[columns.get_loc(i)]) for i in columns}})
         # the number of syntactically invalid data according to the regular expressions
         invalid_res = np.array(df.shape[0]) - res
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_25,
                                                  defaults={'result': {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
-        return res, invalid_res
+        return matched_expressions, percentages
 
     def syntactic_validation_with_data_dict(self):
         """
@@ -138,13 +150,12 @@ class StringAnalyser(StringInterface, Thread):
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 d = df[i].apply(get_data_dict, data_dict=data_dict).fillna('no-match')
-                d = d
                 data_types.append(d.value_counts().keys())
                 percentages.append(d.value_counts(normalize=True) * 100)
                 res[columns.get_loc(i)] = d.count()
             else:
-                data_types.append(None)
-                percentages.append(0)
+                data_types.append(['non-applicable'])
+                percentages.append([0])
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_26,
                                                  defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=DATA_TYPES,
@@ -154,7 +165,36 @@ class StringAnalyser(StringInterface, Thread):
         invalid_res = np.array(df.shape[0]) - res
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_26,
                                                  defaults={'result': {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
-        return res, invalid_res, data_types, percentages
+        return data_types, percentages
+
+    def get_columns_type(self):
+        """ Get an estimate of the column type """
+        data_types, data_percentages = self.syntactic_validation_with_data_dict()
+        expressions, exp_percentages = self.syntactic_validation_with_regexp()
+        res = []
+        for i in range(len(data_percentages)):
+            if data_types[i][0] == 'no-match' and expressions[i][0] != 'no-match':
+                res.append(expressions[i][0])
+            elif data_types[i][0] != 'no-match' and expressions[i][0] == 'no-match':
+                res.append(data_types[i][0])
+            elif data_types[i][0] != 'no-match' and expressions[i][0] != 'no-match':
+                if data_percentages[i][0] >= exp_percentages[i][0]:
+                    res.append(data_types[i][0])
+                else:
+                    res.append(expressions[i][0])
+            elif data_percentages[i][0] == 100 and exp_percentages[i][0] == 100:
+                res.append(expressions[i][0])
+            elif exp_percentages[i][0] == 100:
+                res.append(data_types[i][1])
+            elif data_percentages[i][0] == 100:
+                res.append(expressions[i][1])
+            else:
+                if data_percentages[i][1] >= exp_percentages[i][1]:
+                    res.append(data_types[i][1])
+                else:
+                    res.append(expressions[i][1])
+        SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=COLUMN_TYPE,
+                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
 
     def run(self):
         self.get_min_length()
@@ -163,7 +203,6 @@ class StringAnalyser(StringInterface, Thread):
         self.count_number_of_words()
         self.count_values()
         self.model_data_frequency()
-        self.syntactic_validation_with_data_dict()
-        self.syntactic_validation_with_regexp()
+        self.get_columns_type()
         AnalysisTrace.objects.update_or_create(document_id=self.document_id, analysis_type=STRING_ANALYSIS,
                                                defaults={'state': FINISHED_STATE})
