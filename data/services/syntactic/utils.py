@@ -23,7 +23,7 @@ def check_bool(text):
 
 def model_text(text):
     """ replace the characters in a string with 'A' """
-    res=''
+    res = ''
     for i in text.split():
         if bool(res):
             res += ' ' + 'A' * len(i)
@@ -32,14 +32,12 @@ def model_text(text):
     return res
 
 
-def get_regexp(text):
+def get_regexp(text, expressions):
     """ Get the matching regular expression. """
     if not pd.isnull(text):
-        expressions = RegularExp.objects.all().values('expression')
         for exp in expressions:
-            pattern = re.compile(exp['expression'])
-            if pattern.match(text.upper()):
-                return RegularExp.objects.filter(expression=exp['expression'])[0]
+            if re.search(exp['expression'], text.upper()):
+                return RegularExp.objects.filter(expression=exp['expression'])[0].category
     return None
 
 

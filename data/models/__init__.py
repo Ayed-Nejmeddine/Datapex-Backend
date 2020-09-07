@@ -61,6 +61,8 @@ M103_25 = {'rule': 'M103 [25]', 'signification': 'Number of invalid values accor
 M103_26 = {'rule': 'M103 [26]', 'signification': 'Number of invalid values according to the data dictionary'}
 DATA_TYPES = {'rule': 'Data-types', 'signification': 'Data types and their respectful percentages'}
 TOTAL = {'rule': 'Total', 'signification': 'Total number of values(NULL values and NOT NULL values'}
+MATCHED_EXPRESSIONS = {'rule': 'Matched-regexp', 'signification': 'Matched regular expressions and their respectful percentages'}
+COLUMN_TYPE = {'rule': 'Column-type', 'signification': 'An estimate of the column type'}
 
 # links between date type columns
 AFTER = 'after'
