@@ -2,10 +2,11 @@ from data.services.syntactic.interfaces import StringInterface
 import numpy as np
 from pandas.api.types import is_string_dtype
 from data.services.syntactic.utils import model_text, get_regexp, get_data_dict
-from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict, RegularExp
+from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict, RegularExp, Link
 from threading import Thread
 from data.models import STRING_ANALYSIS, FINISHED_STATE, M102_17, M103_18, M104_19, M105_8, M108_11, \
     M107_10, M106_9, M102_25, M103_25, M102_26, M103_26, DATA_TYPES, MATCHED_EXPRESSIONS, COLUMN_TYPE
+from fuzzywuzzy import fuzz
 
 
 class StringAnalyser(StringInterface, Thread):
@@ -72,7 +73,7 @@ class StringAnalyser(StringInterface, Thread):
             if is_string_dtype(df[i].dtypes):
                 res[columns.get_loc(i)] = df[i].count()
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M108_11,
-                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         return res
 
     def model_data_frequency(self):
@@ -137,7 +138,7 @@ class StringAnalyser(StringInterface, Thread):
         Syntactically validate the data according to the data dictionary.
         res is an array of the number of syntactically valid data according to the data dictionary.
         invalid_res is an array of the number of syntactically invalid data according to the data dictionary.
-        data_types will contain the data types of each column (exp: city, airportn firstame, etc...) and percentages will contain the percentages of
+        data_types will contain the data types of each column (exp: city, airport, firstname, etc...) and percentages will contain the percentages of
         the data_types in each column.
         """
         df = self.df
@@ -157,7 +158,7 @@ class StringAnalyser(StringInterface, Thread):
                 data_types.append(['non-applicable'])
                 percentages.append([0])
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_26,
-                                                 defaults={'result':{i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=DATA_TYPES,
                                                  defaults={'result': {i: (data_types[columns.get_loc(i)],
                                                                           percentages[columns.get_loc(i)]) for i in columns}})
@@ -196,6 +197,22 @@ class StringAnalyser(StringInterface, Thread):
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=COLUMN_TYPE,
                                                  defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
 
+    def link(self):
+        """
+        Define the links between columns of the type string by calculating the rate of similarity between these columns.
+        For example two columns with identical values have a similarity score of 100%.
+        """
+        df = self.df
+        columns = df.columns
+        for col1 in columns:
+            for col2 in columns[columns.get_loc(col1) + 1:]:
+                s = df[col1].apply(fuzz.token_set_ratio, s2=df[col2]).mean()
+                if is_string_dtype(df[col1].dtypes) and is_string_dtype(df[col2].dtypes) and s > 80:
+                    Link.objects.update_or_create(document_id=self.document_id,
+                                                  first_column=col1,
+                                                  second_column=col2,
+                                                  defaults={'relationship': str(s)+'% similarity score'})
+
     def run(self):
         self.get_min_length()
         self.get_max_length()
@@ -206,3 +223,4 @@ class StringAnalyser(StringInterface, Thread):
         self.get_columns_type()
         AnalysisTrace.objects.update_or_create(document_id=self.document_id, analysis_type=STRING_ANALYSIS,
                                                defaults={'state': FINISHED_STATE})
+        self.link()
