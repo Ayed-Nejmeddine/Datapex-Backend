@@ -6,10 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from data.services.syntactic import Analyser
 from rest_framework.response import Response
-from data.models.basic_models import AnalysisTrace, SyntacticResult
+from data.models.basic_models import AnalysisTrace, SyntacticResult, Link
 from data.models import BASIC_ANALYSIS, RUNNING_STATE
 import csv
 from django.http import HttpResponse
+from data.serializers.link_serializer import LinkSerializer
 
 
 class DocumentViewSet(viewsets.ModelViewSet):
@@ -64,10 +65,21 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 l = list(r.result.values())
                 l.insert(0,r.rule['rule'])
                 l.insert(1, r.rule['signification'])
-                # output.append(r.rule)
                 output.append(l)
             writer.writerows(output)
             return response
         if not AnalysisTrace.objects.filter(document=document):
             return Response({"message": "Please launch the syntactic analysis first!"})
         return Response({"message": "The syntactic analysis is still running!"})
+
+    @action(detail=True, methods=['GET'], url_name='get-links-between-columns', url_path='get-links-between-columns')
+    def get_links_between_columns(self, request, pk=None):
+        """ Get the results of the comparison between the columns """
+        document = self.get_object()
+        qs = AnalysisTrace.objects.filter(document=document)
+        if not qs.filter(state='running') and qs:
+            links = Link.objects.filter(document=document)
+            return Response(LinkSerializer(links, read_only=True, many=True).data)
+        if not AnalysisTrace.objects.filter(document=document):
+            return Response({"message": "Please launch the syntactic analysis first!"})
+        return Response({"message": "Please wait for the syntactic analysis to complete!"})
