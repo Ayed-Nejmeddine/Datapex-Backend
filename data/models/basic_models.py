@@ -44,7 +44,19 @@ class SyntacticResult(AnalysisResult):
 
     def __str__(self):
         """
-        Override this method to format RegularExp object.'
+        Override this method to format SyntacticResult object.'
+        """
+        return f'{self.document} - {self.rule}'
+
+
+class SemanticResult(AnalysisResult):
+    rule = JSONField()
+
+    objects = models.Manager()
+
+    def __str__(self):
+        """
+        Override this method to format SemanticResult object.'
         """
         return f'{self.document} - {self.rule}'
 
