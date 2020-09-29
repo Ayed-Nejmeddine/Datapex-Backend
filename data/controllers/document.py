@@ -62,7 +62,12 @@ class DocumentViewSet(viewsets.ModelViewSet):
             output = []
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
-                l = list(r.result.values())
+                l = []
+                for i in header[2:]:
+                    if i not in r.result.keys():
+                        l.append('')
+                    else:
+                        l.append(r.result[i])
                 l.insert(0,r.rule['rule'])
                 l.insert(1, r.rule['signification'])
                 output.append(l)

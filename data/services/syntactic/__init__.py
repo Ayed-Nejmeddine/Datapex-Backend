@@ -15,9 +15,20 @@ class Analyser(BaseAbstract, Thread):
         with document.document_path.open('r') as f:
             df = pd.DataFrame(pd.read_csv(f))
             self.df = df.convert_dtypes()
-        self.string_analyser = StringAnalyser(df, document.id)
-        self.number_analyser = NumberAnalyser(df, document.id)
-        self.date_analyser = DateAnalyser(df, document.id)
+        columns = self.df.columns
+        num_col = []
+        date_col = []
+        string_col = []
+        for i in columns:
+            if pd.to_numeric(df[i], errors='coerce').any():
+                num_col.append(i)
+            elif df[i].apply(pd.to_datetime, errors='coerce').count() > 0:
+                date_col.append(i)
+            else:
+                string_col.append(i)
+        self.string_analyser = StringAnalyser(df[string_col], document.id)
+        self.number_analyser = NumberAnalyser(df[num_col], document.id)
+        self.date_analyser = DateAnalyser(df[date_col], document.id)
         Thread.__init__(self)
 
     def run(self):
