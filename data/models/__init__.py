@@ -23,7 +23,7 @@ ANALYSIS_TYPES = (
     (NUMBER_ANALYSIS, _('Number-Analysis')),
     (DATE_ANALYSIS, _('Date-Analysis')))
 
-# rules:
+# rules for the syntactic analysis:
 M100_3 = {'rule': 'M100 [3]','signification': 'Number of NULL values'}
 M101_4 = {'rule': 'M101 [4]', 'signification': 'Number of NOT NULL values'}
 M102_5 = {'rule': 'M102 [5]', 'signification': 'Number of distinct values'}
@@ -63,6 +63,13 @@ DATA_TYPES = {'rule': 'Data-types', 'signification': 'Data types and their respe
 TOTAL = {'rule': 'Total', 'signification': 'Total number of values(NULL values and NOT NULL values'}
 MATCHED_EXPRESSIONS = {'rule': 'Matched-regexp', 'signification': 'Matched regular expressions and their respectful percentages'}
 COLUMN_TYPE = {'rule': 'Column-type', 'signification': 'An estimate of the column type'}
+# rules for the semantic analysis:
+M101_1 = {'rule': 'M101 [1]','signification': 'Number of the detected categories'}
+M102_2 = {'rule': 'M102 [2]','signification': 'Number of subcategories'}
+M103_3 = {'rule': 'M103 [3]','signification': 'Number of semantically valid values according to the dominant category'}
+M104_4 = {'rule': 'M104 [4]','signification': 'Number of semantically invalid values according to the dominant category'}
+M105_5 = {'rule': 'M105 [5]','signification': 'Number of semantically valid values according to the dominant subcategory'}
+M106_6 = {'rule': 'M106 [6]','signification': 'Number of semantically invalid values according to the dominant subcategory'}
 
 # links between date type columns
 AFTER = 'after'
