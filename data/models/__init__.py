@@ -72,6 +72,7 @@ M105_5 = {'rule': 'M105 [5]','signification': 'Number of semantically valid valu
 M106_6 = {'rule': 'M106 [6]','signification': 'Number of semantically invalid values according to the dominant subcategory'}
 
 # links between date type columns
+
 AFTER = 'after'
 BEFORE = 'before'
 EQUALS = 'equals'

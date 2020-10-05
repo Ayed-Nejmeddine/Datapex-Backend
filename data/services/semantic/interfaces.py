@@ -1,14 +1,8 @@
 class SemanticInterface:
     """ Semantic interface definition """
-    def count_number_of_categories(self):
+    def count_number_of_categories_and_subcategories(self):
         """
-        Indicator of number of categories detected
-        """
-        pass
-
-    def count_number_of_subcategories(self):
-        """
-        Indicator of number of subcategories detected
+        Indicator of number of detected categories and subcategories.
         """
         pass
 
