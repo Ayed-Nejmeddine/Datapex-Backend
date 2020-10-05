@@ -20,9 +20,21 @@ def fill_out_regexp_model(sender, **kwargs):  # pylint: disable=W0613
                                                 expression=row[2])
 
 
+def create_tasks(sender, **kwargs):  # pylint: disable=W0613
+    """
+    Create scheduled periodic task to trace the running threads.
+    """
+    from background_task.models import Task
+    from django.utils import timezone
+    Task.objects.update_or_create(task_name='data.services.trace_threads',
+                                  run_at=timezone.now(),
+                                  repeat=2 * Task.HOURLY,
+                                  task_params='[[], {}]')
+
+
 class DataConfig(AppConfig):
     name = 'data'
 
     def ready(self):
         post_migrate.connect(fill_out_regexp_model, sender=self)
-
+        post_migrate.connect(create_tasks, sender=self)
