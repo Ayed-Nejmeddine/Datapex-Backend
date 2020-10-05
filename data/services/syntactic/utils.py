@@ -37,7 +37,8 @@ def get_regexp(text, expressions):
     if not pd.isnull(text):
         for exp in expressions:
             if re.search(exp['expression'], text.upper()):
-                return RegularExp.objects.filter(expression=exp['expression'])[0].category
+                res = RegularExp.objects.filter(expression=exp['expression'])[0]
+                return res.category, res.subcategory
     return None
 
 
@@ -46,6 +47,7 @@ def get_data_dict(text, data_dict):
     if not pd.isnull(text):
         text = " ".join(text.split())
         for d in data_dict:
-            if text.upper() in d.data_dict.values():
-                return d.data_dict["CATEGORY"]
+            for sub, val in d.data_dict.items():
+                if text.upper()==val:
+                    return d.data_dict["CATEGORY"], sub
     return None

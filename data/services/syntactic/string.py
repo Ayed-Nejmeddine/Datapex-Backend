@@ -117,8 +117,9 @@ class StringAnalyser(StringInterface, Thread):
             if is_string_dtype(df[i].dtypes):
                 reg_exp = df[i].value_counts(dropna=False).keys().to_series().apply(get_regexp, expressions=expressions)
                 invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[reg_exp.isna()].sum()
-                matched_expressions.append(reg_exp.fillna('no-match').value_counts().keys())
-                percentages.append(reg_exp.fillna('no-match').value_counts(normalize=True) * 100)
+                r = reg_exp.apply(lambda x: ('no-match', 'no-match') if x is None else x)
+                matched_expressions.append(r.value_counts().keys())
+                percentages.append(r.value_counts(normalize=True) * 100)
             else:
                 matched_expressions.append(['non-applicable'])
                 percentages.append([0])
@@ -151,8 +152,9 @@ class StringAnalyser(StringInterface, Thread):
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 d = df[i].value_counts(dropna=False).keys().to_series().apply(get_data_dict, data_dict=data_dict)
-                data_types.append(d.fillna('no-match').value_counts().keys())
-                percentages.append(d.fillna('no-match').value_counts(normalize=True) * 100)
+                matched_res = d.apply(lambda x: ('no-match', 'no-match') if x is None else x)
+                data_types.append(matched_res.value_counts().keys())
+                percentages.append(matched_res.value_counts(normalize=True) * 100)
                 invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[d.isna()].sum()
             else:
                 data_types.append(['non-applicable'])
@@ -173,12 +175,13 @@ class StringAnalyser(StringInterface, Thread):
         data_types, data_percentages = self.syntactic_validation_with_data_dict()
         expressions, exp_percentages = self.syntactic_validation_with_regexp()
         res = []
+        no_match = ('no-match', 'no-match')
         for i in range(len(data_percentages)):
-            if data_types[i][0] == 'no-match' and expressions[i][0] != 'no-match':
+            if data_types[i][0] == no_match and expressions[i][0] != no_match:
                 res.append(expressions[i][0])
-            elif data_types[i][0] != 'no-match' and expressions[i][0] == 'no-match':
+            elif data_types[i][0] != no_match and expressions[i][0] == no_match:
                 res.append(data_types[i][0])
-            elif data_types[i][0] != 'no-match' and expressions[i][0] != 'no-match':
+            elif data_types[i][0] != no_match and expressions[i][0] != no_match:
                 if data_percentages[i][0] >= exp_percentages[i][0]:
                     res.append(data_types[i][0])
                 else:
@@ -201,7 +204,7 @@ class StringAnalyser(StringInterface, Thread):
                 else:
                     res.append(expressions[i][1])
             else:
-                res.append('no-match')
+                res.append(no_match)
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=COLUMN_TYPE,
                                                  defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
 
