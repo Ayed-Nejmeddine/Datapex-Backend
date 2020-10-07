@@ -10,7 +10,7 @@ django-encrypted-filefield = "==0.2.2"
 djangorestframework = "==3.11.0"
 django = "==3.0.8"
 numpy = "==1.19.0"
-pandas = "==1.0.5"
+pandas = "==1.1.2"
 drf-yasg = {extras = ["validation"], version = "==1.17.1"}
 django-allauth = "==0.42.0"
 django-rest-auth = "==0.9.5"
