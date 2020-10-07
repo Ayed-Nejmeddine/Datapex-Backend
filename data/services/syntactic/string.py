@@ -1,5 +1,6 @@
 from data.services.syntactic.interfaces import StringInterface
 import numpy as np
+import pandas as pd
 from pandas.api.types import is_string_dtype
 from data.services.syntactic.utils import model_text, get_regexp, get_data_dict
 from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict, RegularExp, Link
@@ -112,17 +113,30 @@ class StringAnalyser(StringInterface, Thread):
         invalid_res = np.full(len(columns), np.array(df.shape[0]))
         matched_expressions = []
         percentages = []
+        column_type = []
+        total_dict = []
         expressions = RegularExp.objects.all().values('expression')
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 reg_exp = df[i].value_counts(dropna=False).keys().to_series().apply(get_regexp, expressions=expressions)
+                column_type.append(reg_exp)
                 invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[reg_exp.isna()].sum()
                 r = reg_exp.apply(lambda x: ('no-match', 'no-match') if x is None else x)
-                matched_expressions.append(r.value_counts().keys())
-                percentages.append(r.value_counts(normalize=True) * 100)
+                matched_dict = {}
+                percentage = df[i].value_counts(dropna=False, normalize=True) * 100
+                for j in range(len(r)):
+                    if r[j] in matched_dict.keys():
+                        matched_dict[r[j]] += percentage[j]
+                    else:
+                        matched_dict[r[j]] = percentage[j]
+                matched_expressions.append(matched_dict.keys())
+                percentages.append(matched_dict.values())
+                total_dict.append(matched_dict)
             else:
                 matched_expressions.append(['non-applicable'])
                 percentages.append([0])
+                column_type.append([])
+                total_dict.append({})
         res = np.array(df.shape[0]) - invalid_res
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_25,
                                                  defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
@@ -132,7 +146,7 @@ class StringAnalyser(StringInterface, Thread):
         # the number of syntactically invalid data according to the regular expressions
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_25,
                                                  defaults={'result': {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
-        return matched_expressions, percentages
+        return column_type, total_dict
 
     def syntactic_validation_with_data_dict(self):
         """
@@ -149,16 +163,30 @@ class StringAnalyser(StringInterface, Thread):
         data_dict = DataDict.objects.all()
         data_types = []
         percentages = []
+        column_type = []
+        total_dict = []
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 d = df[i].value_counts(dropna=False).keys().to_series().apply(get_data_dict, data_dict=data_dict)
+                column_type.append(d)
                 matched_res = d.apply(lambda x: ('no-match', 'no-match') if x is None else x)
-                data_types.append(matched_res.value_counts().keys())
-                percentages.append(matched_res.value_counts(normalize=True) * 100)
+                matched_dict = {}
+                percentage = df[i].value_counts(dropna=False, normalize=True) * 100
+                for j in range(len(matched_res)):
+                    if matched_res[j] in matched_dict.keys():
+                        matched_dict[matched_res[j]] += percentage[j]
+                    else:
+                        matched_dict[matched_res[j]] = percentage[j]
+
+                data_types.append(matched_dict.keys())
+                percentages.append(matched_dict.values())
+                total_dict.append(matched_dict)
                 invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[d.isna()].sum()
             else:
                 data_types.append(['non-applicable'])
                 percentages.append([0])
+                column_type.append([])
+                total_dict.append({})
         res = np.array(df.shape[0]) - invalid_res
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M102_26,
                                                  defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
@@ -168,45 +196,24 @@ class StringAnalyser(StringInterface, Thread):
         # number of syntactically invalid data according to the data dictionary
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=M103_26,
                                                  defaults={'result': {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
-        return data_types, percentages
+        return column_type, total_dict
 
     def get_columns_type(self):
         """ Get an estimate of the column type """
-        data_types, data_percentages = self.syntactic_validation_with_data_dict()
-        expressions, exp_percentages = self.syntactic_validation_with_regexp()
-        res = []
-        no_match = ('no-match', 'no-match')
-        for i in range(len(data_percentages)):
-            if data_types[i][0] == no_match and expressions[i][0] != no_match:
-                res.append(expressions[i][0])
-            elif data_types[i][0] != no_match and expressions[i][0] == no_match:
-                res.append(data_types[i][0])
-            elif data_types[i][0] != no_match and expressions[i][0] != no_match:
-                if data_percentages[i][0] >= exp_percentages[i][0]:
-                    res.append(data_types[i][0])
-                else:
-                    res.append(expressions[i][0])
-            elif data_percentages[i][0] == 100 and exp_percentages[i][0] == 100:
-                res.append(expressions[i][0])
-            elif data_percentages[i][0] == 100 and exp_percentages[i][0] != 100:
-                if exp_percentages[i][1] >= 20:
-                    res.append(expressions[i][1])
-                else:
-                    res.append(expressions[i][0])
-            elif data_percentages[i][0] != 100 and exp_percentages[i][0] == 100:
-                if data_percentages[i][1] >= 20:
-                    res.append(data_types[i][1])
-                else:
-                    res.append(data_types[i][0])
-            elif max(data_percentages[i][1], exp_percentages[i][1]) >= 20:
-                if data_percentages[i][1] >= exp_percentages[i][1]:
-                    res.append(data_types[i][1])
-                else:
-                    res.append(expressions[i][1])
+        data_column_type, data_matching_dict = self.syntactic_validation_with_data_dict()
+        regexp_column_type, regexp_matching_dict = self.syntactic_validation_with_regexp()
+        matched_res = []
+        for i in range(len(regexp_column_type)):
+            res = []
+            most_matched_reg = max(regexp_matching_dict[i], key=regexp_matching_dict[i].get)
+            most_matched_data = max(data_matching_dict[i], key=data_matching_dict[i].get)
+            if most_matched_reg == ('no-match', 'no-match'):
+                res.append(most_matched_data)
             else:
-                res.append(no_match)
+                res.append(most_matched_reg)
+            matched_res.append(res)
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=COLUMN_TYPE,
-                                                 defaults={'result': {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}})
+                                                 defaults={'result': {i: matched_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
 
     def link(self):
         """
