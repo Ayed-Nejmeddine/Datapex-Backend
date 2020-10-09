@@ -66,10 +66,10 @@ COLUMN_TYPE = {'rule': 'Column-type', 'signification': 'An estimate of the colum
 # rules for the semantic analysis:
 M101_1 = {'rule': 'M101 [1]','signification': 'Number of the detected categories'}
 M102_2 = {'rule': 'M102 [2]','signification': 'Number of subcategories'}
-M103_3 = {'rule': 'M103 [3]','signification': 'Number of semantically valid values according to the dominant category'}
-M104_4 = {'rule': 'M104 [4]','signification': 'Number of semantically invalid values according to the dominant category'}
-M105_5 = {'rule': 'M105 [5]','signification': 'Number of semantically valid values according to the dominant subcategory'}
-M106_6 = {'rule': 'M106 [6]','signification': 'Number of semantically invalid values according to the dominant subcategory'}
+M103_3 = {'rule': 'M103 [3]','signification': 'Percentage of semantically valid values according to the dominant category'}
+M104_4 = {'rule': 'M104 [4]','signification': 'Percentage of semantically invalid values according to the dominant category'}
+M105_5 = {'rule': 'M105 [5]','signification': 'Percentage of semantically valid values according to the dominant subcategory'}
+M106_6 = {'rule': 'M106 [6]','signification': 'Percentage of semantically invalid values according to the dominant subcategory'}
 
 # links between date type columns
 
