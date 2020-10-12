@@ -1,9 +1,9 @@
 from data.services.semantic.interfaces import SemanticInterface
-from data.models.basic_models import SyntacticResult, SemanticResult
-from data.models import MATCHED_EXPRESSIONS, DATA_TYPES
+from data.models.basic_models import SyntacticResult, SemanticResult, SemanticData
+from data.models import MATCHED_EXPRESSIONS, DATA_TYPES, COLUMN_TYPE
 from data.services.syntactic.string import StringAnalyser
 import numpy as np
-from data.models import M101_1, M102_2
+from data.models import M101_1, M102_2, M103_3, M104_4
 
 
 class SemanticAnalyser(SemanticInterface):
@@ -33,3 +33,28 @@ class SemanticAnalyser(SemanticInterface):
                                                 defaults={'result':{i: res_cat[columns.get_loc(i)] for i in columns}})
         SemanticResult.objects.update_or_create(document_id=self.document_id, rule=M102_2,
                                                 defaults={'result': {i: res_subcat[columns.get_loc(i)] for i in columns}})
+
+    def count_percentage_of_semantically_valid_values_according_to_the_dominant_category(self):
+        """ Count the percentage of the semantically valid and invalid dominant category"""
+        qs = SyntacticResult.objects.get(document_id=self.document_id, rule=COLUMN_TYPE)
+        data_type = SemanticData.objects.get(document_id=self.document_id)
+        nbr_valid_cat = []
+        for i in qs.result:
+            if data_type.data[i] == 'datadict':
+                qs_res = SyntacticResult.objects.get(document_id=self.document_id, rule=DATA_TYPES)
+            else:
+                qs_res = SyntacticResult.objects.get(document_id=self.document_id, rule=MATCHED_EXPRESSIONS)
+            res_cat = 0
+            for j in qs_res.result[i][0]:
+                if j[0] == qs.result[i][0][0]:
+                    res_cat += qs_res.result[i][1][qs_res.result[i][0].index(j)]
+            nbr_valid_cat.append(res_cat)
+        SemanticResult.objects.update_or_create(document_id=self.document_id, rule=M103_3,
+                                                defaults={'result': {i: nbr_valid_cat[self.df.columns.get_loc(i)] for i in self.df.columns}})
+        nbr_invalid_cat = [100 - num for num in nbr_valid_cat]
+        SemanticResult.objects.update_or_create(document_id=self.document_id, rule=M104_4,
+                                                defaults={'result': {i: nbr_invalid_cat[self.df.columns.get_loc(i)] for i in self.df.columns}})
+
+
+
+

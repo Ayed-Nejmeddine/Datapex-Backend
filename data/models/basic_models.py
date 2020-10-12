@@ -61,6 +61,12 @@ class SemanticResult(AnalysisResult):
         return f'{self.document} - {self.rule}'
 
 
+class SemanticData(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    data = JSONField()
+    objects = models.Manager()
+
+
 class AnalysisTrace(models.Model):
     document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
     state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)

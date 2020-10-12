@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import is_string_dtype
 from data.services.syntactic.utils import model_text, get_regexp, get_data_dict
-from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict, RegularExp, Link
+from data.models.basic_models import SyntacticResult, AnalysisTrace, DataDict, RegularExp, Link, SemanticData
 from threading import Thread
 from data.models import STRING_ANALYSIS, FINISHED_STATE, M102_17, M103_18, M104_19, M105_8, M108_11, \
     M107_10, M106_9, M102_25, M103_25, M102_26, M103_26, DATA_TYPES, MATCHED_EXPRESSIONS, COLUMN_TYPE
@@ -203,15 +203,19 @@ class StringAnalyser(StringInterface, Thread):
         data_column_type, data_matching_dict = self.syntactic_validation_with_data_dict()
         regexp_column_type, regexp_matching_dict = self.syntactic_validation_with_regexp()
         matched_res = []
+        res_types = []
         for i in range(len(regexp_column_type)):
             res = []
             most_matched_reg = max(regexp_matching_dict[i], key=regexp_matching_dict[i].get)
             most_matched_data = max(data_matching_dict[i], key=data_matching_dict[i].get)
             if most_matched_reg == ('no-match', 'no-match'):
                 res.append(most_matched_data)
+                res_types.append('datadict')
             else:
                 res.append(most_matched_reg)
+                res_types.append('regexp')
             matched_res.append(res)
+        SemanticData.objects.update_or_create(document_id=self.document_id, defaults={'data': {i: res_types[self.df.columns.get_loc(i)] for i in self.df.columns}})
         SyntacticResult.objects.update_or_create(document_id=self.document_id, rule=COLUMN_TYPE,
                                                  defaults={'result': {i: matched_res[self.df.columns.get_loc(i)] for i in self.df.columns}})
 
