@@ -1,0 +1,115 @@
+<div class="row create-account">
+    <div class="col-12 col-md-4 column-left">
+        <div class="text-representative-container">
+            <p class="text-representative">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+        </div>
+        <div class="img-representative-container">
+            <img class="img-representative" src="../../../assets/images/create-account/image-right-create-account.svg">
+        </div>
+    </div>
+    <div class="col-12 col-md-8 column-right">
+        <div class="form-container ">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-12 logo">
+                        <img src="../../../assets/images/create-account/logo-datapex.svg">
+                    </div>
+
+                    <div class="col-12 title">
+                        <p class="inscription-title">Inscription</p>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Nom</mat-label>
+                            <input matInput type="text" formControlName="lastName"
+                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Prénom</mat-label>
+                            <input matInput type="text" formControlName="firstName"
+                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstName.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Pays</mat-label>
+                            <input matInput type="text" formControlName="country"
+                                [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                            <div *ngIf="f.country.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Code postale</mat-label>
+                            <input matInput type="text" formControlName="postalCode"
+                                [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                            <div *ngIf="f.postalCode.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Adresse email</mat-label>
+                            <input matInput type="text" formControlName="email"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Numéro de téléphone</mat-label>
+                            <input matInput type="text" formControlName="phone"
+                                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                            <div *ngIf="f.phone.errors.required">Phone is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Mot de passe</mat-label>
+                            <input matInput type="text" formControlName="password"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Confimrer mot de passe</mat-label>
+                            <input matInput type="text" formControlName="passwordVerif"
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordVerif.errors }">
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.passwordVerif.errors" class="invalid-feedback">
+                            <div *ngIf="f.passwordVerif.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="login-container">
+                    <button class="btn btn-primary btn-create-account" [disabled]="loading"><span *ngIf="loading"
+                            class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Inscription</button>
+                </div>
+                <div>
+                    <p class="have-account"><span>Vous avez déjà un compte ? &nbsp;</span> <a
+                            [routerLink]="['/login']">Connexion</a></p>
+                </div>
+            </form>
+        </div>
+        <div class="copyright"><span>© Copyright Datapex 2020, All right reserved</span></div>
+    </div>
+</div>
