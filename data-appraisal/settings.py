@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth.registration',
     'background_task',
+    'corsheaders',
     # Local
     'data.apps.DataConfig',
 ]
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -153,4 +155,27 @@ SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend",)
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+"""
+email sending
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER="data.appraisal20@gmail.com"
+EMAIL_HOST_PASSWORD = 'datapex2020'
+
+"""
+CORS headers
+"""
+BACKEND_ROOT_URL = "http://127.0.0.1:8000"
+FRONTEND_ROOT_URL = "http://localhost:3000"
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    FRONTEND_ROOT_URL,
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    FRONTEND_ROOT_URL,
+]
