@@ -50,12 +50,20 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
-                  
-
+                  this.accountService.getCurrentUser().subscribe({
+                    next: () => {
                     // get return url from query parameters or default to home page
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     this.router.navigateByUrl(returnUrl);
                     this.alertService.success("Bienvenue");
+                    },
+                    error: error => {
+                        this.alertService.error(error);
+                        this.loading = false;
+                    }
+                });
+                  
+
                 },
                 error: error => {
                     this.alertService.error(error);
