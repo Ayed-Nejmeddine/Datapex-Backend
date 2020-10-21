@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
     loading = false;
     submitted = false;
+    typepassword = true;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -49,9 +50,12 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
+                  
+
                     // get return url from query parameters or default to home page
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     this.router.navigateByUrl(returnUrl);
+                    this.alertService.success("Bienvenue");
                 },
                 error: error => {
                     this.alertService.error(error);

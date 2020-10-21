@@ -21,6 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard, ErrorInterceptor, TokenInterceptor } from './_helpers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
+import { AlertComponent } from './alert';
+import { HighlightDirective } from './_directives/highlight.directive';
 //   import {
 //   MatChipsModule,
 //   MatDatepickerModule,
@@ -52,7 +55,10 @@ import { RouterTestingModule } from '@angular/router/testing';
     AppComponent,
     CreateAccountComponent,
     LoginComponent,
-    MainPageComponent
+    MainPageComponent,
+    ForgotPasswordComponent,
+    AlertComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

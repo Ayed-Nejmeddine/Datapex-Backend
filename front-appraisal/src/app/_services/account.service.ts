@@ -25,7 +25,7 @@ export class AccountService {
     }
 
     login(username, password) {
-        return this.http.post<User>(`${environment.apiUrl}/rest-auth/login`, { username, password })
+        return this.http.post<User>(`${environment.apiUrl}/rest-auth/login/`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
@@ -41,8 +41,8 @@ export class AccountService {
         this.router.navigate(['/login']);
     }
 
-    register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
+    register(user: any) {
+        return this.http.post(`${environment.apiUrl}/rest-auth/registration`, user);
     }
 
     getAll() {

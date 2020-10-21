@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreateAccountComponent } from './account/create-account/create-account.component';
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
 import { LoginComponent } from './account/login/login.component';
 import { MainPageComponent } from './dashboard/main-page/main-page.component';
 import { AuthGuard } from './_helpers/auth.guard';
@@ -18,7 +19,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  }
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 
