@@ -24,6 +24,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
 import { AlertComponent } from './alert';
 import { HighlightDirective } from './_directives/highlight.directive';
+import { FormSmsComponent } from './account/forgot-password/forms/form-sms/form-sms.component';
+import { FormCodeComponent } from './account/forgot-password/forms/form-code/form-code.component';
+import { FormReinitializeComponent } from './account/forgot-password/forms/form-reinitialize/form-reinitialize.component';
+import { VerifyAccountComponent } from './account/create-account/verify-account/verify-account.component';
+import { ProfileSettingComponent } from './account/create-account/profile-setting/profile-setting.component';
 //   import {
 //   MatChipsModule,
 //   MatDatepickerModule,
@@ -58,7 +63,12 @@ import { HighlightDirective } from './_directives/highlight.directive';
     MainPageComponent,
     ForgotPasswordComponent,
     AlertComponent,
-    HighlightDirective
+    HighlightDirective,
+    FormSmsComponent,
+    FormCodeComponent,
+    FormReinitializeComponent,
+    VerifyAccountComponent,
+    ProfileSettingComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +84,7 @@ import { HighlightDirective } from './_directives/highlight.directive';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
     NgbModule,
     HttpClientModule,
     RouterTestingModule

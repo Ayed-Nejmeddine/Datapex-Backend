@@ -1,4 +1,4 @@
-<div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+<div *ngFor="let alert of alerts" class="{{cssClass(alert)}}" [style.top]="alert.order ? (alert.order*(60) + 10)+'px' :  '10px'">
     <a class="close" (click)="removeAlert(alert)">&times;</a>
     <span [innerHTML]="alert.message" class="alert-content"></span>
 </div>

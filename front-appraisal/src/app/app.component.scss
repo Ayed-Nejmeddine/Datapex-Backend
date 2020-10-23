@@ -28,6 +28,10 @@
     margin-left: 30px;
     .menu-item{
         margin: 0px 25px;
+        cursor: pointer;
+        &:hover{
+            color: #0078FF;
+        }
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
@@ -64,6 +68,7 @@
 }
 .profiledetailsexapnded{
     display: none;
+    width: 100%;
 }
 .profile-details-exapnded{
     position: relative;
@@ -94,20 +99,6 @@
     margin: 20px;
 }
 
-.welcome-text{
-    margin: 0px 35px;
-    padding-bottom: 15px;
-    .welcome-text-content{
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        color: rgba(0,14,43,1);
-        .username{
-            font-weight: bold;
-        }
-    }
-}
 
 .defaultuser{
     width: 40px;
@@ -218,6 +209,10 @@
     .popupaction{
         display: block;
         margin: 5px 10px;
+        text-decoration: none;
+        &:hover{
+            opacity: 0.7;
+        }
     }
   }
   

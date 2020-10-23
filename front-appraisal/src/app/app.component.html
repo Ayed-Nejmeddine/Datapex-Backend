@@ -13,7 +13,7 @@
                     </div>
                     <div class="nav-item profile-details-exapnded text-center">
                         <div class="d-flex-centered">
-                            <a class="popupaction d-flex" href="#">Mohamed wael</a>
+                            <a class="popupaction d-flex" *ngIf="user?.id" routerLink="/profile" routerLinkActive="active">{{ user.firstName }} {{ user.lastName }}</a>
                         </div> 
                         <div class="d-flex-centered">
                             <a class="popupaction d-flex" (click)="logout()">
@@ -61,6 +61,10 @@
                     <div class="bar2"></div>
                     <div class="bar3"></div>
                 </div>
+                <div class="pull-right profiledetailsexapnded text-right" >
+                    <img class="" src="../assets/images/sidebar/logo-right.svg">
+                </div>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="menu d-flex">
                         <div class="menu-item">
@@ -92,13 +96,13 @@
                         </div>
                         <div class="nav-item profile-details">
                             <div class="absolute-elem">
-                                <a class="nav-link name" href="#">Mohamed wael</a>
+                                <a class="nav-link name" routerLink="/profile" routerLinkActive="active" *ngIf="user?.id">{{ user.firstName }} {{ user.lastName }}</a>
                                 <div class="nav-link expand_more popup"
                                     (click)="togglePopupProfile = !togglePopupProfile;" clickOutside
                                     (clickOutside)="togglePopupProfile = false">
                                     <mat-icon>expand_more</mat-icon>
                                     <div class="popuptext" [ngClass]="{'show' : togglePopupProfile}">
-                                        <a class="popupaction d-flex">
+                                        <a class="popupaction d-flex" routerLink="/profile" routerLinkActive="active">
                                             <mat-icon>account_box</mat-icon>&nbsp;Mon profil
                                         </a>
                                         <a class="popupaction d-flex" (click)="logout()">
@@ -116,11 +120,7 @@
 
             </div>
         </nav>
-        <div class="welcome-text border-bottom">
-            <span class="welcome-text-content">
-                Bienvenue à nouveau, <span class="username">Mohamed Wael!</span>
-            </span>
-        </div>
+        
 
         <div class="container-fluid">
             <router-outlet></router-outlet>

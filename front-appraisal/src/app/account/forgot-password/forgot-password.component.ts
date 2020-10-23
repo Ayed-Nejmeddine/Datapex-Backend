@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService, AlertService } from 'src/app/_services';
+import { parse } from 'libphonenumber-js';
+import { first, map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -8,52 +13,34 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordComponent implements OnInit {
   step: number = 1;
-  loading = false;
-  resend = false;
-  email = "";
-  code = "";
-  password1 = "";
-  password2 = "";
+  golobalTelephone: string = "";
+  golobalCode: string = "";
 
-  constructor(private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
+
   }
 
-  nextStep() {
-    if (this.step == 4)
-      this.router.navigate(['/login'])
-    this.loading = true;
-    switch (this.step){
-      case 1:
-        this.sendCode()
-        break;
-      case 2:
-        this.verifCode()
-        break;
-      case 3:
-        this.modifPassword()
-        break;
+  getIntroducedPhoneNumber(phone){
+    this.golobalTelephone = phone;
+    this.step = 2;
+  }
+  getIntroducedCode(code){
+    this.golobalCode = code;
+    this.step = 3;
+  }
+
+  getDoneModification(done){
+    if(done){
+      this.step = 4;
     }
-    setTimeout(() => {
-      this.loading = false;
-      this.step++;
-    }, 1000);
 
   }
-
-  sendCode(){
-    setTimeout(() => {
-      this.resend = false;
-    }, 1000);
-  }
-
-  verifCode(){
-
-  }
-
-  modifPassword(){
-
-  }
-
 }

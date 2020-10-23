@@ -58,7 +58,7 @@ export class AccountService {
     }
 
     register(user: any) {
-        return this.http.post(`${environment.apiUrl}/rest-auth/registration`, user);
+        return this.http.post(`${environment.apiUrl}/rest-auth/registration/`, user);
     }
 
     getAll() {
@@ -94,5 +94,9 @@ export class AccountService {
                 }
                 return x;
             }));
+    }
+
+    getCountries() {
+        return this.http.get('/assets/codes/countries.json');
     }
 }
