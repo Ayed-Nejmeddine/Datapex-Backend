@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { first, map, startWith } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '../../_services';
+import { AccountService, AlertService } from '../../../_services';
 import { Observable } from 'rxjs';
 import { parse } from 'libphonenumber-js';
 declare var require: any
@@ -11,18 +11,18 @@ declare var require: any
 const postalCodes = require('postal-codes-js');
 
 @Component({
-  selector: 'app-create-account',
-  templateUrl: './create-account.component.html',
-  styleUrls: ['./create-account.component.scss']
+  selector: 'app-profile-setting',
+  templateUrl: './profile-setting.component.html',
+  styleUrls: ['./profile-setting.component.scss']
 })
-export class CreateAccountComponent implements OnInit {
+export class ProfileSettingComponent implements OnInit {
+
   form: FormGroup;
   loading = false;
   submitted = false;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)/;
   countryList: { name: string, code: string, dial_code: string }[];
   phoneNumber :  string = ""
-  golobalCode :  string = ""
   step :  number = 1
   error_messages = {
     'firstName': [
@@ -49,22 +49,20 @@ export class CreateAccountComponent implements OnInit {
     ],
     'country': [
       { type: 'required', message: 'country is required.' },
-      //{ type: 'validCountry', message: 'please enter a valid country (select country from the list).' }
+      { type: 'validCountry', message: 'please enter a valid country (select country from the list).' }
     ],
     'postalCode': [
       { type: 'required', message: 'postalCode is required.' },
-      //{ type: 'validPostalCode', message: 'please enter a valid postal code.' }
+      { type: 'validPostalCode', message: 'please enter a valid postal code.' }
+    ],
+    'passwordactual': [
+      { type: 'required', message: 'actual password is required.' },
     ],
     'password': [
-      { type: 'required', message: 'password is required.' },
-      { type: 'minlength', message: 'password length.' },
       { type: 'maxlength', message: 'password length.' },
       { type: 'pattern', message: 'password must contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character, 1 numeric character, 1 special character.' },
     ],
     'passwordVerif': [
-      { type: 'required', message: 'password is required.' },
-      { type: 'minlength', message: 'password length.' },
-      { type: 'maxlength', message: 'password length.' },
       { type: 'passwordNotMatch', message: 'password Not Match.' },
     ],
   }
@@ -107,10 +105,10 @@ export class CreateAccountComponent implements OnInit {
          country: new FormControl('', Validators.compose([
            
          ])),
-        // postalCode: new FormControl('', Validators.compose([
-        //   Validators.required,
-        //   Validators.pattern("^[0-9]+(\.[0-9][0-9]?)?$")
-        // ])),
+         postalCode: new FormControl('', Validators.compose([
+           Validators.required,
+           Validators.pattern("^[0-9]+(\.[0-9][0-9]?)?$")
+        ])),
         email: new FormControl('', Validators.compose([
           Validators.required,
           Validators.minLength(6),
@@ -121,18 +119,16 @@ export class CreateAccountComponent implements OnInit {
           Validators.required,
           Validators.pattern("^[0-9]+(\.[0-9][0-9]?)?$")
         ])),
+        passwordactual: new FormControl('', Validators.compose([
+        ])),
         password: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.minLength(8),
           Validators.maxLength(30),
           Validators.pattern(this.passwordRegex)
         ])),
         passwordVerif: new FormControl('', Validators.compose([
-          Validators.required
         ])),
       }, {
-      //validators: [this.password.bind(this), this.validCountry.bind(this), this.validPhone.bind(this), this.validPostalCode.bind(this)]
-      validators: [this.password.bind(this), this.validPhone.bind(this)]
+      validators: [this.password.bind(this), this.validCountry.bind(this), this.validPhone.bind(this), this.validPostalCode.bind(this)]
     });
     this.accountService.getCountries()
       .subscribe(countries => {
@@ -147,10 +143,20 @@ export class CreateAccountComponent implements OnInit {
   }
 
   password(formGroup: FormGroup) {
+    const { value: passwordActual } = formGroup.get('passwordactual');
     const { value: password } = formGroup.get('password');
     const { value: passwordVerif } = formGroup.get('passwordVerif');
     let error = (password === passwordVerif) ? null : { passwordNotMatch: true };
+    let errorActual = (password === "" && passwordVerif === "") ? null : { required: true };
+    let errorNew = (password !== "") ? this.passwordRegex.test(password) ? null : {pattern : true} : {pattern : true, required: true };
     formGroup.get('passwordVerif').setErrors(error);
+    if(passwordActual !== ""){
+      formGroup.get('password').setErrors(errorNew);
+      formGroup.get('passwordactual').setErrors(null);
+    }else{
+      formGroup.get('passwordactual').setErrors(errorActual);
+      formGroup.get('password').setErrors(null);
+    }
     return error;
   }
 
@@ -187,7 +193,7 @@ export class CreateAccountComponent implements OnInit {
     let code = countryCodeArray[1]
     if (code && country) {
       let resultsearch: any = this.countryList.filter(state =>
-        state.code.toLowerCase().indexOf(country.toLowerCase()) === 0);
+        state.name.toLowerCase().indexOf(country.toLowerCase()) === 0);
       if (resultsearch.length == 1 && resultsearch[0].dial_code == code) {
         exist = true;
         if (value) {
@@ -252,10 +258,11 @@ export class CreateAccountComponent implements OnInit {
     let data: any = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      //country: this.form.value.country,
-      //postalCode: this.form.value.postalCode,
+      country: this.form.value.country,
+      postalCode: this.form.value.postalCode,
       username: this.form.value.email,
       email: this.form.value.email,
+      passwordactual: this.form.value.password,
       password1: this.form.value.password,
       password2: this.form.value.passwordVerif,
       profile : {
@@ -280,9 +287,4 @@ export class CreateAccountComponent implements OnInit {
         }
       });
   }
-
-  getIntroducedCode(code){
-    this.golobalCode = code;
-    this.step = 3;
-  } 
 }

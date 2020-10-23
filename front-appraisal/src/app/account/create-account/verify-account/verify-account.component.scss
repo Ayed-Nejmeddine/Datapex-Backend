@@ -1,38 +1,6 @@
-.forgot-account{
+.form-code-verify-account{
     margin: 0px;
     height: 100%;
-    .column-left{
-        bottom: 0;
-        margin: auto;
-        height: 100%;
-        background-color: #0078FF;
-        .text-representative-container{
-            min-height: 35%;
-            position: relative;
-            .text-representative{
-                font-family: Helvetica Neue;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 20px;
-                color: rgba(129,200,230,1);
-                position: absolute;
-                transform: translate(-50%, -50%);
-                top: 50%;
-                left: 50%;
-            }
-        }
-        .img-representative-container{
-            position: relative;
-            .img-representative{
-               max-width: 100%;
-               position: absolute;
-               transform: translate(-50%, 0%);
-               left: 50%;
-               width: 300px;
-            }
-        }
-    }
-    .column-right{
         height: 100%;
         background-color: white;
         .inscription-title{
@@ -70,7 +38,11 @@
             width: 15%;
             border-radius: 0px !important;
             border: 1px solid gray;
+            padding: 0px;
         }
+        }
+        .elem-invalid{
+            border: 1px solid red !important;
         }
         .step4{
             img{
@@ -100,23 +72,18 @@
             width: 100%;
             margin-bottom: 5px;
         }
+        .create-account-form-country-field {
+            margin-bottom: 5px;
+        }
+        .create-account-form-phone-field {
+            margin-bottom: 5px;
+        }
         }
         .title{
             margin-bottom: 30px;
         }
 
-        .copyright{
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 8px;
-            color: rgba(139,140,142,1);
-            position: fixed;
-            bottom: 0;
-            width: 66.66%;
-            text-align: center;
-        }
-    }
+    
     .create-account-form-field {
         width: 100%;
         margin-bottom: 40px;

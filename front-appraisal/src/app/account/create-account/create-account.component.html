@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="col-12 col-md-8 column-right">
-        <div class="form-container row">
+        <div class="form-container row" *ngIf="step == 1">
             <div class="col-md-1 col-12"></div>
             <div class="col-md-10 col-12">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -16,7 +16,7 @@
                         <div class="col-12 logo">
                             <img src="../../../assets/images/create-account/logo-datapex.svg">
                         </div>
-    
+
                         <div class="col-12 title">
                             <p class="inscription-title">Inscription</p>
                         </div>
@@ -39,7 +39,7 @@
                                 <mat-label>Prénom</mat-label>
                                 <input matInput type="text" formControlName="firstName"
                                     [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
-                                
+
                             </mat-form-field>
                             <mat-hint *ngIf="submitted && f.firstName.errors">
                                 <ng-container *ngFor="let error of error_messages.firstName">
@@ -49,11 +49,32 @@
                                 </ng-container>
                             </mat-hint>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <mat-form-field class="create-account-form-field ">
-                                <mat-label>Pays</mat-label>
-                                <input matInput type="text" formControlName="country"
-                                    [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+                                <mat-label>Nom de l'entreprise</mat-label>
+                                <input matInput type="text" formControlName="companyName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
+
+                            </mat-form-field>
+                            <mat-hint *ngIf="submitted && f.companyName.errors">
+                                <ng-container *ngFor="let error of error_messages.companyName">
+                                    <div class="error-message text-danger" *ngIf="f.companyName.hasError(error.type)">
+                                        {{ error.message }}
+                                    </div>
+                                </ng-container>
+                            </mat-hint>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <mat-form-field class="create-account-form-field">
+                                <input type="text" placeholder="pays" aria-label="Country" matInput
+                                    [formControl]="f.country" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let country of filteredCountries | async"
+                                        [value]="country.name +'|'+ country.dial_code">
+                                        <span>{{ country.name }}</span> |
+                                        <small>({{ country.dial_code }})</small>
+                                    </mat-option>
+                                </mat-autocomplete>
                             </mat-form-field>
                             <mat-hint *ngIf="submitted && f.country.errors">
                                 <ng-container *ngFor="let error of error_messages.country">
@@ -62,8 +83,8 @@
                                     </div>
                                 </ng-container>
                             </mat-hint>
-                        </div>
-                        <div class="col-md-6">
+                        </div> -->
+                        <!-- <div class="col-md-6">
                             <mat-form-field class="create-account-form-field ">
                                 <mat-label>Code postale</mat-label>
                                 <input matInput type="text" formControlName="postalCode"
@@ -76,7 +97,7 @@
                                     </div>
                                 </ng-container>
                             </mat-hint>
-                        </div>
+                        </div> -->
                         <div class="col-md-6">
                             <mat-form-field class="create-account-form-field ">
                                 <mat-label>Adresse email</mat-label>
@@ -92,7 +113,18 @@
                             </mat-hint>
                         </div>
                         <div class="col-md-6">
-                            <mat-form-field class="create-account-form-field ">
+                            <mat-form-field class="create-account-form-country-field">
+                                <input type="text" placeholder="Code" aria-label="Country" matInput
+                                    [formControl]="f.country" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let country of filteredCountries | async"
+                                        [value]="country.code +'|'+ country.dial_code">
+                                        <span>{{ country.code }}</span> |
+                                        <small>({{ country.dial_code }})</small>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <mat-form-field class="create-account-form-phone-field ">
                                 <mat-label>Numéro de téléphone</mat-label>
                                 <input matInput type="text" formControlName="phone"
                                     [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
@@ -145,7 +177,38 @@
                 </form>
             </div>
             <div class="col-md-1 col-12"></div>
-            
+        </div>
+        <div class="form-container row" *ngIf="step >= 2">
+            <div class="col-md-1 col-12"></div>
+            <div class="col-md-10 col-12">
+                <div class="logo">
+                    <img src="../../../assets/images/create-account/logo-datapex.svg">
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-12"></div>
+                    <div class="col-md-8 col-12 text-center">
+                        <app-verify-account [phoneNumberIntroduced]="phoneNumber"
+                            (codeEmitter)="getIntroducedCode($event)" *ngIf="step == 2"></app-verify-account>
+                        <div class="row step4" *ngIf="step == 3">
+                            <div class="col-12 text-center">
+                                <img src="../../../assets/images/forgotpassword/treatementcompleted.svg">
+                            </div>
+                            <div class="col-12 title">
+                                <p class="inscription-title-detail mb-4">Votre compte a été confirmé avec succès!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="login-container" *ngIf="step == 3">
+                            <button class="btn btn-primary btn-create-account" [routerLink]="['/login']"><span
+                                    *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>&nbsp;
+                                <span>Connexion</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-12"></div>
+                </div>
+            </div>
+            <div class="col-md-1 col-12"></div>
         </div>
         <div class="copyright"><span>© Copyright Datapex 2020, All right reserved</span></div>
     </div>

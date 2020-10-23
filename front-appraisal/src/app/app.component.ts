@@ -8,7 +8,7 @@ import { AccountService } from './_services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'front-appraisal';
+  title = 'datapex';
   toggled : boolean = false;
   togglePopupProfile : boolean = false;
   user: User;

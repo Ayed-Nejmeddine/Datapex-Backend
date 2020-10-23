@@ -25,6 +25,9 @@ export class AlertComponent implements OnInit, OnDestroy {
         // subscribe to new alert notifications
         this.alertSubscription = this.alertService.onAlert(this.id)
             .subscribe(alert => {
+                if(!alert.order){
+                    alert.order = 0;
+                }
                 // clear alerts when an empty alert is received
                 if (!alert.message) {
                     // filter out alerts without 'keepAfterRouteChange' flag
@@ -69,11 +72,18 @@ export class AlertComponent implements OnInit, OnDestroy {
             // remove alert after faded out
             setTimeout(() => {
                 this.alerts = this.alerts.filter(x => x !== alert);
+                this.alerts.forEach(x => {
+                    x.order--;
+                });
             }, 250);
         } else {
             // remove alert
             this.alerts = this.alerts.filter(x => x !== alert);
+            this.alerts.forEach(x => {
+                x.order--;
+            });
         }
+        
     }
 
     cssClass(alert: Alert) {

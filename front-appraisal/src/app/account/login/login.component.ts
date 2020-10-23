@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-    }
+     }
 
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
