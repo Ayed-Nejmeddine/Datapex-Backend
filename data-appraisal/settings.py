@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'background_task',
     'corsheaders',
+    'django_countries',
+    'phonenumber_field',
     # Local
     'data.apps.DataConfig',
 ]
@@ -120,6 +122,7 @@ SWAGGER_SETTINGS = {
     'LOGOUT_URL': 'rest_framework:logout',
 }
 LOGIN_REDIRECT_URL = "/api/v1/"
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -156,7 +159,6 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 
-AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend",)
 
 
 """
@@ -182,3 +184,19 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ORIGIN_REGEX_WHITELIST = [
     FRONTEND_ROOT_URL,
 ]
+"""
+****************** ATHENTIFCATION CONFIGS *******************
+"""
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+# Following is added to enable registration with email instead of username
+AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend",)
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "data.serializers.user_serializer.RegisterSerializer",
+}
+ACCOUNT_ADAPTER = 'data.managers.user_manager.RegisterAdapter'
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'data.serializers.user_serializer.UserSerializer',
+}
