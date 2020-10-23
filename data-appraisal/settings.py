@@ -115,8 +115,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+}
+LOGIN_REDIRECT_URL = "/api/v1/"
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
