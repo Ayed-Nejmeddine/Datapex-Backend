@@ -9,6 +9,8 @@ class Profile(models.Model):
     This model represent the profile of the user.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = PhoneNumberField(null=True, blank=True, )
-    country = CountryField()
-    postalCode = models.IntegerField()
+    phone = PhoneNumberField()
+    phone_is_verified = models.BooleanField(default=False)
+    country = CountryField(null=True, blank=True)
+    postalCode = models.IntegerField(null=True, blank=True)
+    company_name = models.CharField(max_length=100)

@@ -4,15 +4,50 @@ from django_countries.serializer_fields import CountryField
 from phonenumber_field.serializerfields import PhoneNumberField
 from rest_auth.serializers import UserDetailsSerializer
 from data.models.user_model import Profile
+from phonenumber_field import phonenumber
+from django_countries import Countries
+
+
+class SerializableCountryField(serializers.ChoiceField):
+    def __init__(self, **kwargs):
+        super(SerializableCountryField, self).__init__(choices=Countries())
+
+    def to_representation(self, value):
+        if value in ('', None):
+            return '' # normally here it would return value. which is Country(u'') and not serialiable
+        return super(SerializableCountryField, self).to_representation(value)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for Profile model.
     """
+    country = SerializableCountryField(allow_blank=True)
+    def validate_phone(self, phone):
+        """
+         Validate phone number field
+        """
+        user = self.context.get("request").user
+        if self.context.get('request').method == 'PUT':
+            phone_count = Profile.objects.filter(user=user, phone=phone).count()
+            if phone_count != 1:
+                # new phone number
+                phone_count = Profile.objects.filter(phone=phone).count()
+                if phone_count:
+                    raise serializers.ValidationError("Invalid phone number!")
+        if self.context.get('request').method == 'POST':
+            phone_count = Profile.objects.filter(phone=phone).count()
+            if phone_count:
+                raise serializers.ValidationError("Phone number is already in use!")
+
+        phone_number = phonenumber.to_python(phone)  # pylint: disable = W0642
+        if phone_number and not phone_number.is_valid():
+            raise serializers.ValidationError("Invalid phone number!")
+        return phone
+
     class Meta:  # pylint: disable=C0115
         model = Profile
-        fields = ('id', 'phone', 'country', 'postalCode')
+        fields = ('id', 'phone', 'postalCode','country', 'company_name', 'phone_is_verified')
 
 
 class RegisterSerializer(RootRegSerializer):  # pylint: disable=W0223
