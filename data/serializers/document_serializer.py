@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from data.models.basic_models import Document
+from data.models.basic_models import Document, SemanticResult
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -16,3 +16,12 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:  # pylint: disable=C0115
         model = Document
         fields = ('id', 'document_path',)
+
+
+class SemanticResultSerializer(serializers.ModelSerializer):
+    """
+    Serializer class for SemanticResult.
+    """
+    class Meta:  # pylint: disable=C0115
+        model = SemanticResult
+        fields = ('rule', 'result',)
