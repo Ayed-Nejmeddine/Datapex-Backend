@@ -16,7 +16,10 @@ class RegisterAdapter(DefaultAccountAdapter):
             profile_data.update(country=data.get('country', False))
         if data.get('postalCode', False):
             profile_data.update(postalCode=data.get('postalCode', False))
+        if data.get('company_name', False):
+            profile_data.update(company_name=data.get('company_name', False))
         profile_obj = Profile.objects.update_or_create(user=user, defaults=profile_data)
+        print(profile_obj)
         return profile_obj
 
     def save_user(self, request, user, form, commit=True):  # pylint: disable=W0613
@@ -31,11 +34,11 @@ class RegisterAdapter(DefaultAccountAdapter):
         if data.get('lastName', False):
             user.last_name = data.get('lastName')
         # create profile
+        user.save()
         try:
             self.save_profile(user, data.get('profile'))
         except Exception:  # pylint: disable=W0703
             # delete just created user instance when exception is raised
             user.delete()
             return None
-        user.save()
         return user

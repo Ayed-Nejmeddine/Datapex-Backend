@@ -36,5 +36,6 @@ class DataConfig(AppConfig):
     name = 'data'
 
     def ready(self):
+        import data.signals
         post_migrate.connect(fill_out_regexp_model, sender=self)
         post_migrate.connect(create_tasks, sender=self)

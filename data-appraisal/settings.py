@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_countries',
     'phonenumber_field',
+    'phone_verify',
     # Local
     'data.apps.DataConfig',
 ]
@@ -122,6 +123,7 @@ SWAGGER_SETTINGS = {
     'LOGOUT_URL': 'rest_framework:logout',
 }
 LOGIN_REDIRECT_URL = "/api/v1/"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -199,4 +201,20 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 ACCOUNT_ADAPTER = 'data.managers.user_manager.RegisterAdapter'
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'data.serializers.user_serializer.UserSerializer',
+}
+
+# Add settings for phone_verify to work
+PHONE_VERIFICATION = {
+    "BACKEND": "data.managers.sms_manager.CustomTwilioBackend",
+    "OPTIONS": {
+        "SID": "fake",
+        "SECRET": "fake",
+        "FROM": "+14755292729",
+        "SANDBOX_TOKEN": "123456",
+    },
+    "TOKEN_LENGTH": 6,
+    "MESSAGE": "Welcome to {app}! Please use security code {security_code} to proceed.",
+    "APP_NAME": "Phone Verify",
+    "SECURITY_CODE_EXPIRATION_TIME": 3600,  # In seconds only
+    "VERIFY_SECURITY_CODE_ONLY_ONCE": False,  # If False, then a security code can be used multiple times for verification
 }
