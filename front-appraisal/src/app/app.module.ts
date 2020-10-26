@@ -51,7 +51,6 @@ import { HighlightDirective } from './_directives/highlight.directive';
   declarations: [
     AppComponent,
     AlertComponent,
-    HighlightDirective,
   ],
   imports: [
     BrowserModule,
