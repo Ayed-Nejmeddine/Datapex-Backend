@@ -1,0 +1,179 @@
+<div class="row settings-account">
+    <div class="form-container row">
+        <div class="col-md-1 col-12"></div>
+        <div class="col-md-10 col-12">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-12 title">
+                        <p class="inscription-title">Profil</p>
+                    </div>
+                    <div class="sub-title col-md-12">
+                        <p>
+                            Informations génerales
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Nom</mat-label>
+                            <input matInput type="text" formControlName="lastName"
+                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.lastName.errors">
+                            <ng-container *ngFor="let error of error_messages.lastName">
+                                <div class="error-message text-danger" *ngIf="f.lastName.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Prénom</mat-label>
+                            <input matInput type="text" formControlName="firstName"
+                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.firstName.errors">
+                            <ng-container *ngFor="let error of error_messages.firstName">
+                                <div class="error-message text-danger" *ngIf="f.firstName.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Nom de l'entreprise</mat-label>
+                            <input matInput type="text" formControlName="companyName"
+                                [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
+
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.companyName.errors">
+                            <ng-container *ngFor="let error of error_messages.companyName">
+                                <div class="error-message text-danger" *ngIf="f.companyName.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field">
+                            <input type="text" placeholder="Pays" aria-label="Country" matInput
+                                [formControl]="f.country" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let country of filteredCountries | async"
+                                    [value]="country.name +'|'+ country.dial_code">
+                                    <span>{{ country.name }}</span> |
+                                    <small>({{ country.dial_code }})</small>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.country.errors">
+                            <ng-container *ngFor="let error of error_messages.country">
+                                <div class="error-message text-danger" *ngIf="f.country.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Code postale</mat-label>
+                            <input matInput type="text" formControlName="postalCode"
+                                [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.postalCode.errors">
+                            <ng-container *ngFor="let error of error_messages.postalCode">
+                                <div class="error-message text-danger" *ngIf="f.postalCode.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Adresse email</mat-label>
+                            <input matInput type="text" formControlName="email"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.email.errors">
+                            <ng-container *ngFor="let error of error_messages.email">
+                                <div class="error-message text-danger" *ngIf="f.email.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Numéro de téléphone</mat-label>
+                            <input matInput type="text" formControlName="phone"
+                                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.phone.errors">
+                            <ng-container *ngFor="let error of error_messages.phone">
+                                <div class="error-message text-danger" *ngIf="f.phone.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+
+                    <div class="sub-title col-md-12">
+                        <p>
+                            Sécurité
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Mot de passe actuel</mat-label>
+                            <input matInput type="password" formControlName="passwordactual"
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordactual.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.passwordactual.errors">
+                            <ng-container *ngFor="let error of error_messages.passwordactual">
+                                <div class="error-message text-danger" *ngIf="f.passwordactual.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Nouveau mot de passe</mat-label>
+                            <input matInput type="password" formControlName="password"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.password.errors">
+                            <ng-container *ngFor="let error of error_messages.password">
+                                <div class="error-message text-danger" *ngIf="f.password.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                            {{f.password.hasError('required')}}
+                        </mat-hint>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="create-account-form-field ">
+                            <mat-label>Confimrer mot de passe</mat-label>
+                            <input matInput type="password" formControlName="passwordVerif"
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordVerif.errors }">
+                        </mat-form-field>
+                        <mat-hint *ngIf="submitted && f.passwordVerif.errors">
+                            <ng-container *ngFor="let error of error_messages.passwordVerif">
+                                <div class="error-message text-danger" *ngIf="f.passwordVerif.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </div>
+                </div>
+                <div class="login-container">
+                    <button class="btn btn-primary btn-create-account" [disabled]="loading"><span *ngIf="loading"
+                            class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-1 col-12"></div>
+    </div>
+</div>

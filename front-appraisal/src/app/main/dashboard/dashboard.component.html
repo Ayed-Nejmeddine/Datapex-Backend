@@ -1,0 +1,45 @@
+
+<div class="main-page">
+    <div class="welcome-text border-bottom">
+        <span class="welcome-text-content">
+            Bienvenue à nouveau, <span class="username" *ngIf="user?.id" routerLink="/main/profile"
+                routerLinkActive="active">{{ user.firstName }} {{ user.lastName }}!</span>
+        </span>
+    </div>
+    <div class="files">
+        <p class="files-title">FICHIER</p>
+        <div class="files-content">
+
+        </div>
+    </div>
+    <div class="rapid-access">
+        <p class="rapid-access-title">ACCÈS RAPIDE</p>
+        <div class="row">
+            <div class="col-md-3 col-6 container-file-active mb-1 container-file">
+                <div class="title-file-active">
+                    <p class="title-text-file-active">Dernier fichier traité</p>
+                </div>
+                <div class="details-file-active">
+                    <span class="details-1-file-active">
+                        TAILLE DU FICHIER
+                    </span>
+                    <br>
+                    <span class="details-2-file-active">
+                        250 MO
+                    </span>
+                </div>
+
+                <img src="../../../assets/images/main-page/file-active.svg" class="img-access-rapid">
+            </div>
+            <div class="col-md-3 col-6 mb-1 container-file">
+                <img src="../../../assets/images/main-page/file.svg" class="img-access-rapid">
+            </div>
+            <div class="col-md-3 col-6 mb-1 container-file">
+                <img src="../../../assets/images/main-page/file.svg" class="img-access-rapid">
+            </div>
+            <div class="col-md-3 col-6 mb-1 container-file">
+
+            </div>
+        </div>
+    </div>
+</div>
