@@ -11,6 +11,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = PhoneNumberField()
     phone_is_verified = models.BooleanField(default=False)
-    country = CountryField(null=True, blank=True)
+    country = CountryField(null=True, blank=True, default=None)
     postalCode = models.IntegerField(null=True, blank=True)
     company_name = models.CharField(max_length=100)
