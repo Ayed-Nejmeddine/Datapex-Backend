@@ -1,41 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CreateAccountComponent } from './account/create-account/create-account.component';
-import { ProfileSettingComponent } from './account/create-account/profile-setting/profile-setting.component';
-import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
-import { LoginComponent } from './account/login/login.component';
-import { MainPageComponent } from './dashboard/main-page/main-page.component';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from './_helpers/auth.guard';
 
-const routes: Routes = [
-  { path: '', redirectTo:  'dashboard', pathMatch:  'full'},
-  {
-    path: 'dashboard',
-    component: MainPageComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'profile',
-    component: ProfileSettingComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'create-account',
-    component: CreateAccountComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  { path: '**', redirectTo: '' },  // Wildcard route for a 404 page
 
+const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
+const mainModule = () => import('./main/main.module').then(x => x.MainModule);
+
+
+const routes: Routes = [
+  { path: 'users', loadChildren: usersModule },
+  { path: 'main', loadChildren: mainModule, canActivate: [AuthGuard] },
+  { path: '',   redirectTo: '/main', pathMatch: 'full' },
+  { path: '**', redirectTo: '' },  // Wildcard route for a 404 page
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing : true, useHash: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: true, preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

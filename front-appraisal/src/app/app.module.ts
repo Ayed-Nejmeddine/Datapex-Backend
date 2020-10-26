@@ -4,9 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateAccountComponent } from './account/create-account/create-account.component';
-import { LoginComponent } from './account/login/login.component';
-import { MainPageComponent } from './dashboard/main-page/main-page.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 
@@ -21,14 +19,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard, ErrorInterceptor, TokenInterceptor } from './_helpers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
 import { AlertComponent } from './alert';
 import { HighlightDirective } from './_directives/highlight.directive';
-import { FormSmsComponent } from './account/forgot-password/forms/form-sms/form-sms.component';
-import { FormCodeComponent } from './account/forgot-password/forms/form-code/form-code.component';
-import { FormReinitializeComponent } from './account/forgot-password/forms/form-reinitialize/form-reinitialize.component';
-import { VerifyAccountComponent } from './account/create-account/verify-account/verify-account.component';
-import { ProfileSettingComponent } from './account/create-account/profile-setting/profile-setting.component';
 //   import {
 //   MatChipsModule,
 //   MatDatepickerModule,
@@ -58,17 +50,7 @@ import { ProfileSettingComponent } from './account/create-account/profile-settin
 @NgModule({
   declarations: [
     AppComponent,
-    CreateAccountComponent,
-    LoginComponent,
-    MainPageComponent,
-    ForgotPasswordComponent,
     AlertComponent,
-    HighlightDirective,
-    FormSmsComponent,
-    FormCodeComponent,
-    FormReinitializeComponent,
-    VerifyAccountComponent,
-    ProfileSettingComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +69,7 @@ import { ProfileSettingComponent } from './account/create-account/profile-settin
     MatAutocompleteModule,
     NgbModule,
     HttpClientModule,
-    RouterTestingModule
+    RouterTestingModule,
   ],
   providers: [
     AuthGuard,

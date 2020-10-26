@@ -8,6 +8,7 @@ import { Alert, AlertType } from '../_models';
 export class AlertService {
     private subject = new Subject<Alert>();
     private defaultId = 'default-alert';
+    private index = 0;
 
     // enable subscribing to alerts observable
     onAlert(id = this.defaultId): Observable<Alert> {
@@ -40,5 +41,22 @@ export class AlertService {
     // clear alerts
     clear(id = this.defaultId) {
         this.subject.next(new Alert({ id }));
+    }
+
+    errorlaunch(error, first = true) {
+        if(first)
+        this.index = 0;
+        if (typeof error === "object") {
+            for (const property in error) {
+                if(typeof error[property] === "object" ){
+                    this.errorlaunch(error[property], false)
+                }else{
+                    this.error(`${error[property]}`, { order: this.index })
+                    this.index++;
+                }
+            }
+        } else {
+            this.error(error);
+        }
     }
 }

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { User } from '../_models';
+import { Profile, User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -24,25 +24,36 @@ export class AccountService {
         return this.userSubject.value;
     }
 
-    login(username, password) {
-        return this.http.post<User>(`${environment.apiUrl}/rest-auth/login/`, { username, password }).pipe(map(key => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+    login(email, password) {
+        return this.http.post<User>(`${environment.apiUrl}/rest-auth/login/`, { email, password }).pipe(map(key => {
+            // store token in local storage to keep user logged in between page refreshes
             localStorage.setItem('key', JSON.stringify(key));
             return key;
-        }));
+        }))
     }
 
     getCurrentUser(){
         return this.http.get(`${environment.apiUrl}/rest-auth/user/`).pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             let userSession = new User()
+            let profileSession = new Profile()
             let data : any = user;
             let keyObj : any = JSON.parse(localStorage.getItem('key'));
+
+            // Store user data
             userSession.id = data.pk;
             userSession.lastName = data.last_name;
             userSession.firstName = data.first_name;
             userSession.email = data.email;
             userSession.token = keyObj.key;
+            // Store profile user Data
+            profileSession.id = data.profile.id
+            profileSession.country = data.profile.country
+            profileSession.postalCode = data.profile.postalCode
+            profileSession.company_name = data.profile.company_name
+            profileSession.phone = data.profile.phone
+            userSession.profile = profileSession;
+            //Store user data on local storage
             localStorage.setItem('user', JSON.stringify(userSession));
             this.userSubject.next(userSession);
             return user;
@@ -54,11 +65,15 @@ export class AccountService {
         localStorage.removeItem('user');
         localStorage.removeItem('key');
         this.userSubject.next(null);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/users/login']);
     }
 
     register(user: any) {
         return this.http.post(`${environment.apiUrl}/rest-auth/registration/`, user);
+    }
+
+    updateAccount(user: any) {
+        return this.http.put(`${environment.apiUrl}/rest-auth/user/`, user);
     }
 
     getAll() {

@@ -1,3 +1,5 @@
+import { Profile } from './profile';
+
 export class User {
     id: string;
     email: string;
@@ -5,4 +7,5 @@ export class User {
     lastName: string;
     photo?: string;
     token: string;
+    profile? : Profile;
 }

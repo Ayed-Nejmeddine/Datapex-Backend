@@ -3,11 +3,11 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AccountService } from '../_services';
+import { AccountService, AlertService } from '../_services';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private accountService: AccountService) {}
+    constructor(private accountService: AccountService, private alertService: AlertService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
@@ -15,9 +15,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // auto logout if 401 or 403 response returned from api
                 this.accountService.logout();
             }
-
-            const error = err.error?.message || err.statusText;
-            console.error(err);
+            const error = err.error || err.statusText;
             return throwError(error);
         }))
     }
