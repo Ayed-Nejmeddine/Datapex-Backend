@@ -14,3 +14,4 @@ class Profile(models.Model):
     country = CountryField(null=True, blank=True, default=None)
     postalCode = models.IntegerField(null=True, blank=True)
     company_name = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='profile_pictures', null=True, blank=True, default=None)
