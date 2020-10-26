@@ -10,11 +10,11 @@ from django_countries import Countries
 
 class SerializableCountryField(serializers.ChoiceField):
     def __init__(self, **kwargs):
-        super(SerializableCountryField, self).__init__(choices=Countries())
+        super(SerializableCountryField, self).__init__(choices=Countries(), default=None)
 
     def to_representation(self, value):
         if value in ('', None):
-            return '' # normally here it would return value. which is Country(u'') and not serialiable
+            return None # normally here it would return value. which is Country(u'') and not serialiable
         return super(SerializableCountryField, self).to_representation(value)
 
 
@@ -22,7 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for Profile model.
     """
-    country = SerializableCountryField(allow_blank=True)
+    country = SerializableCountryField(allow_null=True, required=False, allow_blank=True)
     def validate_phone(self, phone):
         """
          Validate phone number field
@@ -47,7 +47,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:  # pylint: disable=C0115
         model = Profile
-        fields = ('id', 'phone', 'postalCode','country', 'company_name', 'phone_is_verified')
+        fields = ('id', 'phone', 'postalCode', 'country', 'company_name', 'phone_is_verified')
 
 
 class RegisterSerializer(RootRegSerializer):  # pylint: disable=W0223
