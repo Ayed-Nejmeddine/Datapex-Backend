@@ -13,8 +13,6 @@ export class AppComponent {
     constructor(private accountService: AccountService, private router: Router) {
       this.accountService.user.subscribe(x => {
         this.user = x
-        if(!this.user)
-      this.router.navigateByUrl('/account/login');
       } );
     }
     ngOnInit(): void {

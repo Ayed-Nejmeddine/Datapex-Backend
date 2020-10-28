@@ -1,0 +1,51 @@
+.profile-section-settings{
+    padding: 10px 0px 10px 20px;
+    .title{
+        display: flex;
+        justify-content: left;
+        .text{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: lighter;
+            font-size: 12px;
+            color: rgba(139,140,142,1);
+        }
+        .edit-pen{
+            margin-left: 10px;
+            cursor: pointer;
+            width: 11px;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
+    .displayed-data{
+        margin-top: 15px;
+        .label-data{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: rgba(139,140,142,1);
+            margin-right: 10px;
+        }
+        .value-data{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: rgba(0,14,43,1);
+        }
+        .value-data-blue{
+            text-align: left;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: rgba(0,120,255,1);
+        }
+    }
+}

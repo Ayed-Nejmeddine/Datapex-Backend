@@ -22,6 +22,40 @@
                         </div>
                         <div class="col-md-6">
                             <mat-form-field class="create-account-form-field ">
+                                <mat-label>Nom de compagnie</mat-label>
+                                <input matInput type="text" formControlName="companyName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
+
+                            </mat-form-field>
+                            <mat-hint *ngIf="submitted && f.companyName.errors">
+                                <ng-container *ngFor="let error of error_messages.companyName">
+                                    <div class="error-message text-danger" *ngIf="f.companyName.hasError(error.type)">
+                                        {{ error.message }}
+                                    </div>
+                                </ng-container>
+                            </mat-hint>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="create-account-form-field">
+                                <input type="text" placeholder="Ville" aria-label="City" matInput
+                                    [formControl]="f.city" [matAutocomplete]="autocity">
+                                <mat-autocomplete #autocity="matAutocomplete">
+                                    <mat-option *ngFor="let city of filteredCities"
+                                        [value]="city.name">
+                                        <span>{{ city.name }}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <mat-hint *ngIf="submitted && f.city.errors">
+                                <ng-container *ngFor="let error of error_messages.city">
+                                    <div class="error-message text-danger" *ngIf="f.city.hasError(error.type)">
+                                        {{ error.message }}
+                                    </div>
+                                </ng-container>
+                            </mat-hint>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="create-account-form-field ">
                                 <mat-label>Nom</mat-label>
                                 <input matInput type="text" formControlName="lastName"
                                     [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
@@ -49,69 +83,7 @@
                                 </ng-container>
                             </mat-hint>
                         </div>
-                        <div class="col-md-12">
-                            <mat-form-field class="create-account-form-field ">
-                                <mat-label>Nom de l'entreprise</mat-label>
-                                <input matInput type="text" formControlName="companyName"
-                                    [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
-
-                            </mat-form-field>
-                            <mat-hint *ngIf="submitted && f.companyName.errors">
-                                <ng-container *ngFor="let error of error_messages.companyName">
-                                    <div class="error-message text-danger" *ngIf="f.companyName.hasError(error.type)">
-                                        {{ error.message }}
-                                    </div>
-                                </ng-container>
-                            </mat-hint>
-                        </div>
-                        <!-- <div class="col-md-6">
-                            <mat-form-field class="create-account-form-field">
-                                <input type="text" placeholder="pays" aria-label="Country" matInput
-                                    [formControl]="f.country" [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option *ngFor="let country of filteredCountries | async"
-                                        [value]="country.name +'|'+ country.dial_code">
-                                        <span>{{ country.name }}</span> |
-                                        <small>({{ country.dial_code }})</small>
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                            <mat-hint *ngIf="submitted && f.country.errors">
-                                <ng-container *ngFor="let error of error_messages.country">
-                                    <div class="error-message text-danger" *ngIf="f.country.hasError(error.type)">
-                                        {{ error.message }}
-                                    </div>
-                                </ng-container>
-                            </mat-hint>
-                        </div> -->
-                        <!-- <div class="col-md-6">
-                            <mat-form-field class="create-account-form-field ">
-                                <mat-label>Code postale</mat-label>
-                                <input matInput type="text" formControlName="postalCode"
-                                    [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }">
-                            </mat-form-field>
-                            <mat-hint *ngIf="submitted && f.postalCode.errors">
-                                <ng-container *ngFor="let error of error_messages.postalCode">
-                                    <div class="error-message text-danger" *ngIf="f.postalCode.hasError(error.type)">
-                                        {{ error.message }}
-                                    </div>
-                                </ng-container>
-                            </mat-hint>
-                        </div> -->
-                        <div class="col-md-6">
-                            <mat-form-field class="create-account-form-field ">
-                                <mat-label>Adresse email</mat-label>
-                                <input matInput type="text" formControlName="email"
-                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-                            </mat-form-field>
-                            <mat-hint *ngIf="submitted && f.email.errors">
-                                <ng-container *ngFor="let error of error_messages.email">
-                                    <div class="error-message text-danger" *ngIf="f.email.hasError(error.type)">
-                                        {{ error.message }}
-                                    </div>
-                                </ng-container>
-                            </mat-hint>
-                        </div>
+                        
                         <div class="col-md-6">
                             <mat-form-field class="create-account-form-country-field">
                                 <input type="text" placeholder="Code" aria-label="Country" matInput
@@ -132,6 +104,21 @@
                             <mat-hint *ngIf="submitted && f.phone.errors">
                                 <ng-container *ngFor="let error of error_messages.phone">
                                     <div class="error-message text-danger" *ngIf="f.phone.hasError(error.type)">
+                                        {{ error.message }}
+                                    </div>
+                                </ng-container>
+                            </mat-hint>
+                        </div>
+
+                        <div class="col-md-6">
+                            <mat-form-field class="create-account-form-field ">
+                                <mat-label>Adresse email</mat-label>
+                                <input matInput type="text" formControlName="email"
+                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                            </mat-form-field>
+                            <mat-hint *ngIf="submitted && f.email.errors">
+                                <ng-container *ngFor="let error of error_messages.email">
+                                    <div class="error-message text-danger" *ngIf="f.email.hasError(error.type)">
                                         {{ error.message }}
                                     </div>
                                 </ng-container>

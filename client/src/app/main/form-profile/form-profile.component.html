@@ -1,0 +1,32 @@
+<div class="row" class="profile-section-settings">
+    <div class="col-12">
+        <div class="title">
+            <span class="text"> Profil utilisateur </span>&nbsp;
+            <img src="../../../assets/images/profile/draw.svg" class="edit-pen">
+        </div>
+    </div>
+    <div class="col-12 displayed-data">
+        <div class="row">
+            <div class="col-md-3">
+                <span class="label-data">Nom</span>
+                <span class="value-data">{{user.lastName | uppercase }}</span>
+            </div>
+            <div class="col-md-3">
+                <span class="label-data">Prénom</span>
+                <span class="value-data">{{user.firstName}}</span>
+            </div>
+            <div class="col-md-3">
+                <span class="label-data">Compagnie</span>
+                <span class="value-data">{{user.profile.company_name}}</span>
+            </div>
+            <div class="col-md-3">
+                <span class="label-data">Fonction</span>
+                <span class="value-data">{{user.profile.function}}</span>
+            </div>
+            <div class="col-md-3">
+                <span class="label-data">Ville</span>
+                <span class="value-data">{{user.profile.city}}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,16 +1,20 @@
 .settings-account{
-    padding-top: 30px;
-    margin: 0px;
-    height: 100%;
-        background-color: white;
-        .inscription-title{
+
+    .welcome-text{
+        padding-bottom: 15px;
+        width: 100%;
+        .welcome-text-content{
             text-align: left;
             font-family: Roboto;
             font-style: normal;
-            font-weight: bold;
-            font-size: 20px;
-            color: rgba(41,42,44,1);
+            font-weight: normal;
+            font-size: 18px;
+            color: rgba(0,14,43,1);
         }
+    }
+    margin: 0px 35px;
+    height: 100%;
+        
         .sub-title{
             margin-top: 20px;
             margin-bottom: 10px;
@@ -25,7 +29,65 @@
             }
         }
         .form-container{
-            padding: 0px 10px;
+            padding: 20px 10px;
+            margin-top: 30px;
+            width: 100%;
+            background-color: white;
+            
+            .column-image{
+                position: relative;
+                
+                @media screen and (min-width: 1280px) {
+                    border-right: 1px solid #E8E8E8;
+                    .column-image-absolute{
+                        transform: translate(0%, 15%);
+                        width: 70%;
+                        margin : auto;
+                    }
+                }
+                @media screen and (max-width: 1279px) {
+                    border-bottom: 1px solid #E8E8E8;
+                }
+            .user-photo{
+                    border-radius: 50%;
+                }
+                .username{
+                    white-space: nowrap;
+                    line-height: 50px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 18px;
+                    color: rgba(0,14,43,1);
+                }
+            .profile-done{
+                position: relative;
+                .progress-container{
+                    width: 85%;
+                    background-color: rgba(0,120,255,0.294);
+                    .progress-bar-element{
+                        background-image: linear-gradient(-90deg,#77B3F5, #0078FF);
+                    }
+                    height: 5px;
+                    border-radius: 30px;
+                    position: relative;
+                }
+                .percent{
+                    position: absolute;
+                    right: 2px;
+                    top: -7px;
+                    text-align: left;
+                    font-family: Sofia Pro;
+                    font-style: normal;
+                    font-weight: lighter;
+                    font-size: 10px;
+                    color: rgba(140,162,193,1);
+                    text-transform: capitalize;
+                }
+            }
+            }
+
+
         }
         .logo{
             margin: 70px 0px;
