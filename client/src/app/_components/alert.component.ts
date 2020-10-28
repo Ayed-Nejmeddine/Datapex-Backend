@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { Alert, AlertType } from '../_models';
 import { AlertService } from '../_services';
 
-@Component({ 
-    selector: 'alert', 
+@Component({
+    selector: 'alert',
     templateUrl: 'alert.component.html',
     styleUrls: ['alert.component.scss']
 
@@ -25,7 +25,7 @@ export class AlertComponent implements OnInit, OnDestroy {
         // subscribe to new alert notifications
         this.alertSubscription = this.alertService.onAlert(this.id)
             .subscribe(alert => {
-                if(!alert.order){
+                if (!alert.order) {
                     alert.order = 0;
                 }
                 // clear alerts when an empty alert is received
@@ -45,7 +45,7 @@ export class AlertComponent implements OnInit, OnDestroy {
                 if (alert.autoClose) {
                     setTimeout(() => this.removeAlert(alert), 3000);
                 }
-           });
+            });
 
         // clear alerts on location change
         this.routeSubscription = this.router.events.subscribe(event => {
@@ -73,24 +73,26 @@ export class AlertComponent implements OnInit, OnDestroy {
             setTimeout(() => {
                 this.alerts = this.alerts.filter(x => x !== alert);
                 this.alerts.forEach(x => {
-                    x.order--;
+                    if (x.order)
+                        x.order--;
                 });
             }, 250);
         } else {
             // remove alert
             this.alerts = this.alerts.filter(x => x !== alert);
             this.alerts.forEach(x => {
-                x.order--;
+                if (x.order)
+                    x.order--;
             });
         }
-        
+
     }
 
     cssClass(alert: Alert) {
         if (!alert) return;
 
         const classes = ['alert', 'alert-dismissable', 'mt-4', 'container'];
-                
+
         const alertTypeClass = {
             [AlertType.Success]: 'alert alert-success',
             [AlertType.Error]: 'alert alert-danger',

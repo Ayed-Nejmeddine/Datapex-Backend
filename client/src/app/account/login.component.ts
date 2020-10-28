@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
+
      }
 
     // convenience getter for easy access to form fields
@@ -58,7 +59,8 @@ export class LoginComponent implements OnInit {
                   this.accountService.getCurrentUser().subscribe({
                     next: () => {
                     // get return url from query parameters or default to home page
-                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                    const returnUrl = '/main';
+                    window.location.reload();
                     this.router.navigate([returnUrl]);
                     this.alertService.success("Bienvenue");
                     },

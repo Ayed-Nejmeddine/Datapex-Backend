@@ -18,10 +18,8 @@
 }
 
 .navbar{
-    margin: 0px 20px;
-    padding-right: 0px;
-    padding-left: 0px;
-    padding-bottom: 35px;
+  padding: 0px 20px;
+  background-color: white;
 }
 
 .menu{
@@ -149,6 +147,11 @@
 
 #page-content-wrapper {
   min-width: 100vw;
+  background-color: #F6F7FB;
+
+  .container-fluid{
+    padding-top: 40px;
+  }
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -253,7 +256,7 @@
   }
 
   .nav-content{
-    padding-bottom: 20px;
+    padding-bottom: 0px;
     width: 100%;
     display: flex;
   }

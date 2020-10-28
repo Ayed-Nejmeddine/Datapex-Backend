@@ -2,7 +2,7 @@
 <alert></alert>
 <div id="wrapper" [ngClass]="{'toggled' : (toggled && user) , 'd-flex' : user}" *ngIf="user">
     <!-- Sidebar -->
-    <div class="border-right" id="sidebar-wrapper"  *ngIf="user">
+    <div class="border-right" id="sidebar-wrapper" >
         <div class="sidebar-heading">
             <img class="logo-image" src="../assets/images/sidebar/logo.svg">
             <div class="profiledetailsexapnded">
@@ -55,7 +55,7 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light  " *ngIf="user">
+        <nav class="navbar navbar-expand-lg navbar-light  ">
             <div class="nav-content">
                 <div class="container-bars" [ngClass]="{'change' : !toggled}" (click)="toggled = !toggled">
                     <div class="bar1"></div>
@@ -123,7 +123,7 @@
         </nav>
         
 
-        <div class="" [ngClass]="{'container-fluid' : user}">
+        <div class="container-fluid">
             <router-outlet></router-outlet>
         </div>
     </div>

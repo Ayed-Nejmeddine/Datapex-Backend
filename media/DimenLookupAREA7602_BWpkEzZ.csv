@@ -1,0 +1,2363 @@
+Code,Description,Sort Order
+RTotal,Total NZ by Regional Council/Statistical Area,1
+TTotal,Total NZ by Territorial Authority/Statistical Area,2
+CTotal,Total Auckland Territorial Authority/Community Board,3
+R01 ,Northland Region,4
+R02 ,Auckland Region,5
+R03 ,Waikato Region,6
+R04 ,Bay of Plenty Region,7
+R05 ,Gisborne Region,8
+R06 ,Hawke's Bay Region,9
+R07 ,Taranaki Region,10
+R08 ,Manawatu-Wanganui Region,11
+R09 ,Wellington Region,12
+R16 ,Tasman Region,13
+R17 ,Nelson Region,14
+R18 ,Marlborough Region,15
+R12 ,West Coast Region,16
+R13 ,Canterbury Region,17
+R14 ,Otago Region,18
+R15 ,Southland Region,19
+R99 ,Area Outside Region,20
+T001 ,Far North District,21
+T002 ,Whangarei District,22
+T003 ,Kaipara District,23
+T076 ,Auckland,24
+C07601,Rodney Local Board Area,25
+C07602,Hibiscus and Bays Local Board Area,26
+C07603,Upper Harbour Local Board Area,27
+C07604,Kaipatiki Local Board Area,28
+C07605,Devonport-Takapuna Local Board Area,29
+C07606,Henderson-Massey Local Board Area,30
+C07607,Waitakere Ranges Local Board Area,31
+C07608,Great Barrier Local Board Area,32
+C07609,Waiheke Local Board Area,33
+C07610,Waitemata Local Board Area,34
+C07611,Whau Local Board Area,35
+C07612,Albert-Eden Local Board Area,36
+C07613,Puketapapa Local Board Area,37
+C07614,Orakei Local Board Area,38
+C07615,Maungakiekie-Tamaki Local Board Area,39
+C07616,Howick Local Board Area,40
+C07617,Mangere-Otahuhu Local Board Area,41
+C07618,Otara-Papatoetoe Local Board Area,42
+C07619,Manurewa Local Board Area,43
+C07620,Papakura Local Board Area,44
+C07621,Franklin Local Board Area,45
+T011 ,Thames-Coromandel District,46
+T012 ,Hauraki District,47
+T013 ,Waikato District,48
+T015 ,Matamata-Piako District,49
+T016 ,Hamilton City,50
+T017 ,Waipa District,51
+T018 ,Otorohanga District,52
+T019 ,South Waikato District,53
+T020 ,Waitomo District,54
+T021 ,Taupo District,55
+T022 ,Western Bay of Plenty District,56
+T023 ,Tauranga City,57
+T024 ,Rotorua District,58
+T025 ,Whakatane District,59
+T026 ,Kawerau District,60
+T027 ,Opotiki District,61
+T028 ,Gisborne District,62
+T029 ,Wairoa District,63
+T030 ,Hastings District,64
+T031 ,Napier City,65
+T032 ,Central Hawke's Bay District,66
+T033 ,New Plymouth District,67
+T034 ,Stratford District,68
+T035 ,South Taranaki District,69
+T036 ,Ruapehu District,70
+T037 ,Whanganui District,71
+T038 ,Rangitikei District,72
+T039 ,Manawatu District,73
+T040 ,Palmerston North City,74
+T041 ,Tararua District,75
+T042 ,Horowhenua District,76
+T043 ,Kapiti Coast District,77
+T044 ,Porirua City,78
+T045 ,Upper Hutt City,79
+T046 ,Lower Hutt City,80
+T047 ,Wellington City,81
+T048 ,Masterton District,82
+T049 ,Carterton District,83
+T050 ,South Wairarapa District,84
+T051 ,Tasman District,85
+T052 ,Nelson City,86
+T053 ,Marlborough District,87
+T054 ,Kaikoura District,88
+T055 ,Buller District,89
+T056 ,Grey District,90
+T057 ,Westland District,91
+T058 ,Hurunui District,92
+T059 ,Waimakariri District,93
+T060 ,Christchurch City,94
+T062 ,Selwyn District,95
+T063 ,Ashburton District,96
+T064 ,Timaru District,97
+T065 ,Mackenzie District,98
+T066 ,Waimate District,99
+T067 ,Chatham Islands Territory,100
+T068 ,Waitaki District,101
+T069 ,Central Otago District,102
+T070 ,Queenstown-Lakes District,103
+T071 ,Dunedin City,104
+T072 ,Clutha District,105
+T073 ,Southland District,106
+T074 ,Gore District,107
+T075 ,Invercargill City,108
+T999 ,Area Outside Territorial Authority,109
+A100100,North Cape,110
+A100200,Rangaunu Harbour,111
+A100300,Inlets Far North District,112
+A100400,Karikari Peninsula,113
+A100500,Tangonge,114
+A100600,Ahipara,115
+A100700,Kaitaia East,116
+A100800,Kaitaia West,117
+A100900,Rangitihi,118
+A101000,Oruru-Parapara,119
+A101100,Taumarumaru,120
+A101200,Herekino-Takahue,121
+A101300,Peria,122
+A101400,Taemaro-Oruaiti,123
+A101500,Whakapaku,124
+A101600,Hokianga North,125
+A101700,Kohukohu-Broadwood,126
+A101800,Whakarara,127
+A101900,Kaeo,128
+A102000,Omahuta Forest-Horeke,129
+A102100,Hokianga South,130
+A102200,Lake Manuwai-Kapiro,131
+A102300,Okaihau,132
+A102400,Rangitane-Purerua,133
+A102500,Waipapa,134
+A102600,Puketotara,135
+A102700,Waima Forest,136
+A102800,Riverview,137
+A102900,Waipoua Forest,138
+A103000,Kerikeri Central,139
+A103100,Kerikeri South,140
+A103200,Ohaeawai-Waimate North,141
+A103300,Puketona-Waitangi,142
+A103400,Ngapuhi,143
+A103500,Kaikohe,144
+A103600,Pakaraka,145
+A103700,Haruru,146
+A103800,Russell,147
+A103900,Paihia,148
+A104000,Mataraua Forest,149
+A104100,Matawaia-Taumarere,150
+A104200,Russell Peninsula,151
+A104300,Opua (Far North District),152
+A104400,Russell Forest-Rawhiti,153
+A104500,Moerewa,154
+A104600,Kawakawa,155
+A104700,Maromaku,156
+A104800,Mangakahia-Hukerenui,157
+A104900,Whangaruru,158
+A105000,Inlets other Whangarei District,159
+A105100,Matarau,160
+A105200,Hikurangi,161
+A105300,Kauri,162
+A105400,Maungatapere,163
+A105500,Kamo West,164
+A105600,Matapouri-Tutukaka,165
+A105700,Kiripaka,166
+A105800,Kamo East,167
+A105900,Granfield Reserve,168
+A106000,Kamo Central,169
+A106100,Whau Valley,170
+A106200,Tikipunga North,171
+A106300,Pukenui,172
+A106400,Otangarei,173
+A106500,Tikipunga South,174
+A106600,Kensington (Whangarei District),175
+A106700,Abbey Caves-Glenbervie,176
+A106800,Mairtown,177
+A106900,Maunu-Horahora,178
+A107000,Woodhill-Vinetown,179
+A107100,Whangarei Central,180
+A107200,Riverside,181
+A107300,Raumanga,182
+A107400,Tarewa,183
+A107500,Morningside (Whangarei District),184
+A107600,Ngunguru,185
+A107700,Otaika-Portland,186
+A107800,Oakleigh-Mangapai,187
+A107900,Port-Limeburners,188
+A108000,Pataua,189
+A108100,Onerahi Park,190
+A108200,Sherwood Rise,191
+A108300,Onerahi,192
+A108400,Inlet Whangarei Harbour,193
+A108500,Parua Bay,194
+A108600,Bream Bay,195
+A108700,Marsden Bay,196
+A108800,Ruakaka,197
+A108900,Bream Head,198
+A109000,Waipu,199
+A109100,Kaipara Coastal,200
+A109200,Maungaru,201
+A109300,Dargaville,202
+A109400,Ruawai-Matakohe,203
+A109500,Otamatea (Kaipara District),204
+A109600,Maungaturoto,205
+A109700,Kaiwaka,206
+A109800,Mangawhai Rural,207
+A109900,Mangawhai Heads,208
+A110000,Inlet Mangawhai Harbour,209
+A110100,Mangawhai,210
+A110200,Okahukura Peninsula,211
+A110300,Inlet Kaipara Harbour South,212
+A110400,Cape Rodney,213
+A110500,Wellsford,214
+A110600,Oceanic Auckland Region East,215
+A110700,South Head,216
+A110800,Kaipara Hills,217
+A110900,Dome Valley-Matakana,218
+A111000,Oceanic Auckland Region West,219
+A111100,Warkworth West,220
+A111200,Puhoi Valley,221
+A111300,Warkworth East,222
+A111400,Sandspit,223
+A111500,Tawharanui Peninsula,224
+A111600,Te Kuru,225
+A111700,Snells Beach,226
+A111800,Barrier Islands,227
+A111900,Algies Bay-Scotts Landing,228
+A112000,Inlets other Auckland,229
+A112100,Wainui-Waiwera,230
+A112200,Parakai,231
+A112300,Helensville Rural,232
+A112400,Helensville,233
+A112500,Waitoki,234
+A112600,Waikoukou Valley,235
+A112700,Orewa North,236
+A112800,Hatfields Beach,237
+A112900,Orewa South,238
+A113000,Orewa Central,239
+A113100,Millwater North,240
+A113200,Waipatukahu,241
+A113300,Millwater South,242
+A113400,Dairy Flat North,243
+A113500,Dairy Flat West,244
+A113600,Kingsway,245
+A113700,Riverhead Forest,246
+A113800,Silverdale Central (Auckland),247
+A113900,Red Beach West,248
+A114000,Red Beach East,249
+A114100,Silverdale South (Auckland),250
+A114200,Waimauku,251
+A114300,Gulf Islands,252
+A114400,Vipond,253
+A114500,Muriwai,254
+A114600,Stanmore Bay West,255
+A114700,Kumeu Rural West,256
+A114800,Okura Bush,257
+A114900,Whangaparoa Central,258
+A115000,Kumeu-Huapai,259
+A115100,Stanmore Bay East,260
+A115200,Manly West,261
+A115300,Muriwai Valley-Bethells Beach,262
+A115400,Tindalls-Matakatia,263
+A115500,Coatesville,264
+A115600,Dairy Flat South,265
+A115700,Gulf Harbour North,266
+A115800,Manly East,267
+A115900,Riverhead,268
+A116000,Army Bay,269
+A116100,Kumeu Rural East,270
+A116200,Gulf Harbour South,271
+A116300,Paremoremo West,272
+A116400,Taupaki,273
+A116500,Long Bay,274
+A116600,Paremoremo East,275
+A116700,Albany Heights,276
+A116800,Awaruku,277
+A116900,Fairview Heights,278
+A117000,Whenuapai,279
+A117100,Waitakere Ranges North,280
+A117200,Torbay,281
+A117300,Albany Central,282
+A117400,Albany West,283
+A117500,Glamorgan,284
+A117600,Oteha East,285
+A117700,Northcross,286
+A117800,Oteha West,287
+A117900,Waiake,288
+A118000,Waitakere,289
+A118100,Albany South,290
+A118200,Browns Bay South West,291
+A118300,Browns Bay Central,292
+A118400,Schnapper Rock,293
+A118500,Pinehill,294
+A118600,North Harbour,295
+A118700,Browns Bay South East,296
+A118800,Westgate Central,297
+A118900,Greenhithe West,298
+A119000,Rothesay Bay,299
+A119100,Greenhithe East,300
+A119200,Hobsonville,301
+A119300,Inlet Waitemata Harbour,302
+A119400,Greenhithe South,303
+A119500,Murrays Bay West,304
+A119600,Westgate South,305
+A119700,Windsor Park,306
+A119800,West Harbour West,307
+A119900,Unsworth Heights West,308
+A120000,Murrays Bay East,309
+A120100,Birdwood West,310
+A120200,Hobsonville Point,311
+A120300,West Harbour Clearwater Cove,312
+A120400,Unsworth Heights East,313
+A120500,Mairangi Bay North,314
+A120600,Massey Central,315
+A120700,West Harbour Luckens Point,316
+A120800,Mairangi Bay South,317
+A120900,Massey Royal Road West,318
+A121000,Bayview East,319
+A121100,Swanson Rural,320
+A121200,Sunnynook South,321
+A121300,Sunnynook North,322
+A121400,Bayview West,323
+A121500,Totara Vale North,324
+A121600,Royal Heights North,325
+A121700,Massey West,326
+A121800,Beach Haven West,327
+A121900,Totara Vale South,328
+A122000,Swanson,329
+A122100,Bayview South,330
+A122200,Campbells Bay,331
+A122300,Royal Heights South,332
+A122400,Beach Haven East,333
+A122500,Massey East,334
+A122600,Forrest Hill North,335
+A122700,Glenfield North,336
+A122800,Birkdale North,337
+A122900,Massey South,338
+A123000,Ranui North,339
+A123100,Glenfield West,340
+A123200,Te Atatu Peninsula North West,341
+A123300,Glenfield South West,342
+A123400,Forrest Hill West,343
+A123500,Wairau Valley,344
+A123600,Forrest Hill East,345
+A123700,Castor Bay,346
+A123800,Ranui Domain,347
+A123900,Beach Haven South,348
+A124000,Glenfield Central,349
+A124100,Piha,350
+A124200,Ranui South West,351
+A124300,Henderson Larnoch,352
+A124400,Birkdale South,353
+A124500,Te Atatu Peninsula Central,354
+A124600,Glenfield East,355
+A124700,Henderson Valley,356
+A124800,Te Atatu Peninsula West,357
+A124900,Henderson Lincoln West,358
+A125000,Ranui South East,359
+A125100,Henderson Lincoln East,360
+A125200,Birkenhead West,361
+A125300,Te Atatu Peninsula East,362
+A125400,Milford West,363
+A125500,Westlake,364
+A125600,Hillcrest North (Auckland),365
+A125700,Henderson Lincoln South,366
+A125800,Hillcrest West (Auckland),367
+A125900,Milford Central,368
+A126000,Summerland South,369
+A126100,Summerland North,370
+A126200,Hillcrest East (Auckland),371
+A126300,Chatswood,372
+A126400,Te Atatu South-Edmonton,373
+A126500,Birkenhead North,374
+A126600,Takapuna West,375
+A126700,Henderson North,376
+A126800,Takapuna Central,377
+A126900,Western Heights (Auckland),378
+A127000,Te Atatu South-Central,379
+A127100,Northcote Central (Auckland),380
+A127200,Akoranga,381
+A127300,Northcote South (Auckland),382
+A127400,Birkenhead South,383
+A127500,Henderson Central,384
+A127600,Waiatarua,385
+A127700,Te Atatu South-McLeod North,386
+A127800,Henderson Valley Park,387
+A127900,Henderson North East,388
+A128000,Waitakere Ranges South,389
+A128100,Northcote Tuff Crater,390
+A128200,Northcote Point (Auckland),391
+A128300,McLaren Park,392
+A128400,Henderson East,393
+A128500,Te Atatu South-McLeod South,394
+A128600,Takapuna South,395
+A128700,Rosebank Peninsula,396
+A128800,Hauraki,397
+A128900,Glendene North,398
+A129000,Sunnyvale West-Parrs Park,399
+A129100,Sunnyvale East,400
+A129200,Point Chevalier West,401
+A129300,Belmont (Auckland),402
+A129400,Bayswater,403
+A129500,Glendene South,404
+A129600,Glen Eden West,405
+A129700,Herne Bay,406
+A129800,Westmere North,407
+A129900,Point Chevalier East,408
+A130000,Oratia,409
+A130100,Glen Eden Rosier,410
+A130200,Saint Marys Bay,411
+A130300,Westmere South-Western Springs,412
+A130400,Ponsonby West,413
+A130500,Kelston North,414
+A130600,Avondale Rosebank,415
+A130700,Narrow Neck,416
+A130800,Glen Eden North,417
+A130900,Glen Eden Woodglen,418
+A131000,Kelston South,419
+A131100,Waterview,420
+A131200,Ponsonby East,421
+A131300,Wynyard-Viaduct,422
+A131400,Stanley Point,423
+A131500,Glen Eden Central,424
+A131600,Grey Lynn North,425
+A131700,Avondale West (Auckland),426
+A131800,Freemans Bay,427
+A131900,Mount Albert West,428
+A132000,Avondale North (Auckland),429
+A132100,Grey Lynn West,430
+A132200,Mount Albert North,431
+A132300,New Lynn North,432
+A132400,Victoria Park,433
+A132500,Konini,434
+A132600,New Lynn North West,435
+A132700,Hobson Ridge North,436
+A132800,Grey Lynn Central,437
+A132900,Fruitvale,438
+A133000,Devonport,439
+A133100,Avondale Central (Auckland),440
+A133200,Queen Street,441
+A133300,Quay Street-Customs Street,442
+A133400,Hobson Ridge Central,443
+A133500,Grey Lynn East,444
+A133600,Morningside (Auckland),445
+A133700,Shortland Street,446
+A133800,Hobson Ridge South,447
+A133900,New Lynn Central,448
+A134000,Cheltenham,449
+A134100,Queen Street South West,450
+A134200,Mount Albert Central,451
+A134300,Karangahape,452
+A134400,Kingsland,453
+A134500,Anzac Avenue,454
+A134600,Waima-Woodlands Park,455
+A134700,Kaurilands,456
+A134800,Auckland-University,457
+A134900,New Lynn Seabrook,458
+A135000,Avondale South (Auckland),459
+A135100,Symonds Street North West,460
+A135200,Mount Albert South,461
+A135300,Symonds Street West,462
+A135400,West Lynn,463
+A135500,Owairaka West,464
+A135600,New Lynn Central South,465
+A135700,The Strand,466
+A135800,St Lukes,467
+A135900,Symonds Street East,468
+A136000,Eden Terrace,469
+A136100,Grafton,470
+A136200,Eden Park,471
+A136300,Sandringham North,472
+A136400,Parnell West,473
+A136500,New Lynn South,474
+A136600,New Windsor North,475
+A136700,Titirangi South,476
+A136800,Owairaka East,477
+A136900,Eden Valley,478
+A137000,Sandringham Central,479
+A137100,Glenavon,480
+A137200,Blockhouse Bay North,481
+A137300,Green Bay North,482
+A137400,Parnell East,483
+A137500,Laingholm,484
+A137600,Sandringham West,485
+A137700,Mount Eden North East,486
+A137800,Mount Eden North,487
+A137900,Wesley West,488
+A138000,Green Bay South,489
+A138100,Balmoral,490
+A138200,Sandringham East,491
+A138300,New Windsor South,492
+A138400,Mount Eden West,493
+A138500,Newmarket,494
+A138600,Blockhouse Bay North East,495
+A138700,Epsom North,496
+A138800,Wesley South,497
+A138900,Blockhouse Bay South,498
+A139000,Mount Eden East,499
+A139100,Wesley East,500
+A139200,Orakei West,501
+A139300,Maungawhau,502
+A139400,Remuera West,503
+A139500,Blockhouse Bay East,504
+A139600,Lynfield North,505
+A139700,Mount Roskill North,506
+A139800,Mount Roskill White Swan,507
+A139900,Mount Eden South,508
+A140000,Remuera Waitaramoa,509
+A140100,Orakei East,510
+A140200,Epsom Central-North,511
+A140300,Mount St John,512
+A140400,Mount Roskill Central North,513
+A140500,Remuera North,514
+A140600,Three Kings West,515
+A140700,Mount Roskill Central South,516
+A140800,Epsom Central-South,517
+A140900,Lynfield South,518
+A141000,Remuera South,519
+A141100,Mission Bay,520
+A141200,Three Kings East,521
+A141300,Mount Roskill South,522
+A141400,Inlet Manukau Harbour,523
+A141500,Epsom East,524
+A141600,Remuera Waiata,525
+A141700,Epsom South,526
+A141800,Kohimarama,527
+A141900,Meadowbank West,528
+A142000,Hillsborough North (Auckland),529
+A142100,Hillsborough West (Auckland),530
+A142200,Greenlane North,531
+A142300,Waikowhai North,532
+A142400,Remuera East,533
+A142500,Waikowhai South,534
+A142600,Royal Oak West (Auckland),535
+A142700,Saint Heliers West,536
+A142800,One Tree Hill,537
+A142900,Hillsborough East (Auckland),538
+A143000,Saint Heliers North,539
+A143100,Remuera Abbotts Park,540
+A143200,Meadowbank East,541
+A143300,Ellerslie Central,542
+A143400,Royal Oak East (Auckland),543
+A143500,Saint Heliers South,544
+A143600,Hillsborough South (Auckland),545
+A143700,Saint Johns West,546
+A143800,Greenlane South,547
+A143900,Remuera Waiatarua,548
+A144000,Glendowie North,549
+A144100,Onehunga West,550
+A144200,Ellerslie West,551
+A144300,Onehunga North,552
+A144400,Ellerslie East,553
+A144500,Saint Johns East,554
+A144600,Oneroa West,555
+A144700,Glen Innes West,556
+A144800,Ellerslie South,557
+A144900,Stonefields West,558
+A145000,Onehunga Central,559
+A145100,Glendowie South,560
+A145200,Oranga,561
+A145300,Mount Wellington North West,562
+A145400,Panmure Glen Innes Industrial,563
+A145500,Onehunga-Te Papapa Industrial,564
+A145600,Te Papapa,565
+A145700,Stonefields East,566
+A145800,Glen Innes East-Wai O Taiki Bay,567
+A145900,Penrose,568
+A146000,Mount Wellington North East,569
+A146100,Mangere Bridge Ambury,570
+A146200,Mount Wellington Ferndale,571
+A146300,Point England,572
+A146400,Bucklands Beach North,573
+A146500,Mount Wellington East,574
+A146600,Mount Wellington West,575
+A146700,Panmure West,576
+A146800,Mangere Bridge,577
+A146900,Oneroa East-Palm Beach,578
+A147000,Tamaki,579
+A147100,Panmure East,580
+A147200,Mount Wellington Central,581
+A147300,Bays Waiheke Island,582
+A147400,Sylvia Park,583
+A147500,Mangere Mountain View,584
+A147600,Surfdale,585
+A147700,Mount Wellington Industrial,586
+A147800,Half Moon Bay West,587
+A147900,Auckland Airport,588
+A148000,Eastern Beach,589
+A148100,Sunnyhills West-Pakuranga North,590
+A148200,Favona North,591
+A148300,Bucklands Beach Central,592
+A148400,Farm Cove,593
+A148500,Mangere North,594
+A148600,Favona West,595
+A148700,Ostend,596
+A148800,Half Moon Bay North East,597
+A148900,Mangere West,598
+A149000,Pakuranga West,599
+A149100,Mount Wellington South West,600
+A149200,Sunnyhills East,601
+A149300,Half Moon Bay South East,602
+A149400,Favona East,603
+A149500,Mount Wellington South East,604
+A149600,Otahuhu Industrial,605
+A149700,Bucklands Beach South,606
+A149800,Pakuranga Central,607
+A149900,Awhitu,608
+A150000,Harania North,609
+A150100,Otahuhu Central,610
+A150200,Mangere Central,611
+A150300,Otahuhu North,612
+A150400,Howick West,613
+A150500,Pakuranga Heights North West,614
+A150600,Mellons Bay,615
+A150700,Pakuranga Heights East,616
+A150800,Sutton Park,617
+A150900,Otahuhu East,618
+A151000,Mangere South,619
+A151100,Onetangi,620
+A151200,Harania South,621
+A151300,Highland Park (Auckland),622
+A151400,Otahuhu South West,623
+A151500,Pakuranga Heights South West,624
+A151600,Mangere Mascot,625
+A151700,Waiheke East,626
+A151800,Massey Road West,627
+A151900,Otahuhu South,628
+A152000,Howick Central,629
+A152100,Massey Road North,630
+A152200,Botany Downs West,631
+A152300,East Tamaki,632
+A152400,Howick East,633
+A152500,Burswood,634
+A152600,Massey Road South,635
+A152700,Middlemore,636
+A152800,Mangere South East,637
+A152900,Botany Downs East,638
+A153000,Grange,639
+A153100,Golflands,640
+A153200,Aorere North,641
+A153300,Mangere East,642
+A153400,Cockle Bay,643
+A153500,Otara West,644
+A153600,Aorere Central,645
+A153700,Northpark North,646
+A153800,Somerville,647
+A153900,Northpark South,648
+A154000,Papatoetoe North,649
+A154100,Dingwall,650
+A154200,Aorere South,651
+A154300,Shelly Park,652
+A154400,Otara Central,653
+A154500,Huntington Park,654
+A154600,Botany Central,655
+A154700,Botany North,656
+A154800,Papatoetoe West,657
+A154900,Papatoetoe Central,658
+A155000,Sunkist Bay,659
+A155100,Otara East,660
+A155200,Redcastle,661
+A155300,Botany East,662
+A155400,Botany South,663
+A155500,Manukau Central,664
+A155600,Papatoetoe East,665
+A155700,Otara South,666
+A155800,Ferguson,667
+A155900,Papatoetoe South West,668
+A156000,Botany Junction,669
+A156100,Dannemora North,670
+A156200,Papatoetoe South,671
+A156300,East Tamaki Heights,672
+A156400,Te Puru,673
+A156500,Puhinui North,674
+A156600,Dannemora South,675
+A156700,Puhinui South,676
+A156800,Rongomai West,677
+A156900,Baverstock,678
+A157000,Puhinui East,679
+A157100,Turanga,680
+A157200,Rongomai East,681
+A157300,Ormiston North,682
+A157400,Maraetai,683
+A157500,Chapel Downs,684
+A157600,Wiri West,685
+A157700,Clover Park North,686
+A157800,Mission Heights North,687
+A157900,Clover Park South,688
+A158000,Donegal Park,689
+A158100,Ormiston South,690
+A158200,Mission Heights South,691
+A158300,Hilltop (Auckland),692
+A158400,Wiri East,693
+A158500,Goodwood Heights,694
+A158600,Ormiston East,695
+A158700,Clendon Park North,696
+A158800,Burbank,697
+A158900,Tuscany Heights,698
+A159000,Totara Heights,699
+A159100,Homai East,700
+A159200,Homai West,701
+A159300,The Gardens (Auckland),702
+A159400,Clarks Beach,703
+A159500,Clendon Park West,704
+A159600,Hillpark North,705
+A159700,Clendon Park East,706
+A159800,Karaka Creek,707
+A159900,Rowandale West,708
+A160000,Rowandale East,709
+A160100,Manurewa Central,710
+A160200,Weymouth North,711
+A160300,Hillpark South,712
+A160400,Alfriston,713
+A160500,Weymouth East,714
+A160600,Leabank,715
+A160700,Weymouth South,716
+A160800,Manurewa East,717
+A160900,Manurewa South,718
+A161000,Randwick Park East,719
+A161100,Wattle Downs West,720
+A161200,Wattle Downs North,721
+A161300,Randwick Park West,722
+A161400,Kingseat-Karaka,723
+A161500,Wattle Downs East,724
+A161600,Takanini North,725
+A161700,Takanini Industrial,726
+A161800,Conifer Grove West,727
+A161900,Conifer Grove East,728
+A162000,Takanini West,729
+A162100,Takanini South,730
+A162200,Takanini Central,731
+A162300,Ardmore,732
+A162400,Glenbrook,733
+A162500,Hingaia,734
+A162600,Takanini South East,735
+A162700,Kawakawa Bay-Orere,736
+A162800,Papakura West,737
+A162900,Clevedon,738
+A163000,Papakura North,739
+A163100,Pahurehure,740
+A163200,Papakura Central,741
+A163300,Papakura North East,742
+A163400,Karaka Lakes,743
+A163500,Papakura Kelvin,744
+A163600,Papakura Massey Park,745
+A163700,Rosehill,746
+A163800,Patumahoe,747
+A163900,Papakura East,748
+A164000,Opaheke,749
+A164100,Papakura Industrial,750
+A164200,Red Hill,751
+A164300,Drury,752
+A164400,Tamakae,753
+A164500,Hamilton Estate,754
+A164600,Drury Rural,755
+A164700,Waiuku Central,756
+A164800,Waiuku East,757
+A164900,Kendallvale,758
+A165000,Puni,759
+A165100,Ramarama,760
+A165200,Hunua,761
+A165300,Pukekohe North West,762
+A165400,Anselmi Ridge,763
+A165500,Pukekohe West,764
+A165600,Cape Hill,765
+A165700,Rosa Birch Park,766
+A165800,Rooseville Park,767
+A165900,Cloverlea (Auckland),768
+A166000,Pukekohe Central,769
+A166100,Pukekohe Hospital,770
+A166200,Buckland,771
+A166300,Bombay Hills,772
+A166400,Ararimu,773
+A166500,Colville,774
+A166600,Islands Thames-Coromandel District,775
+A166700,Coromandel,776
+A166800,Inlets Thames-Coromandel District,777
+A166900,Mercury Bay North,778
+A167000,Whitianga North,779
+A167100,Whitianga South,780
+A167200,Thames Coast,781
+A167300,Cooks Beach-Ferry Landing,782
+A167400,Mercury Bay South,783
+A167500,Kauaeranga,784
+A167600,Thames North,785
+A167700,Thames Central,786
+A167800,Thames South,787
+A167900,Hikuai,788
+A168000,Totora-Kopu,789
+A168100,Tairua,790
+A168200,Pauanui,791
+A168300,Matatoki-Puriri,792
+A168400,Whangamata Rural,793
+A168500,Whangamata,794
+A168600,Miranda-Pukorokoro,795
+A168700,Hauraki Plains North,796
+A168800,Hauraki Plains East,797
+A168900,Ngatea,798
+A169000,Hauraki Plains South,799
+A169100,Paeroa Rural,800
+A169200,Paeroa,801
+A169300,Waihi Rural,802
+A169400,Waihi North,803
+A169500,Waihi East,804
+A169600,Waihi South,805
+A169700,Aka Aka,806
+A169800,Mangatangi,807
+A169900,Tuakau Rural,808
+A170000,Tuakau North,809
+A170100,Onewhero,810
+A170200,Pokeno Rural,811
+A170300,Tuakau South,812
+A170400,Port Waikato-Waikaretu,813
+A170500,Pokeno,814
+A170600,Pukekawa,815
+A170700,Maramarua,816
+A170800,Rangiriri,817
+A170900,Te Akau,818
+A171000,Inlets Waikato District,819
+A171100,Te Kauwhata,820
+A171200,Huntly Rural,821
+A171300,Waerenga,822
+A171400,Huntly West,823
+A171500,Huntly East,824
+A171600,Raglan,825
+A171700,Whitikahu,826
+A171800,Te Uku,827
+A171900,Taupiri-Lake Kainui,828
+A172000,Ngaruawahia North,829
+A172100,Ngaruawahia Central,830
+A172200,Ngaruawahia South,831
+A172300,Kainui-Gordonton,832
+A172400,Te Kowhai,833
+A172500,Whatawhata West,834
+A172600,Horotiu,835
+A172700,Horsham Downs,836
+A172800,Whatawhata East,837
+A172900,Rotokauri,838
+A173000,Hamilton Park,839
+A173100,Eureka-Tauwhare,840
+A173200,Tamahere North,841
+A173300,Pukemoremore,842
+A173400,Tamahere South,843
+A173500,Tahuna-Mangateparu,844
+A173600,Mangaiti,845
+A173700,Tatuanui,846
+A173800,Tahuroa,847
+A173900,Morrinsville East,848
+A174000,Morrinsville West,849
+A174100,Te Aroha East,850
+A174200,Te Aroha West,851
+A174300,Waihou-Manawaru,852
+A174400,Waitoa-Ngarua,853
+A174500,Richmond Downs-Wardville,854
+A174600,Waharoa-Peria,855
+A174700,Okauia,856
+A174800,Hinuera,857
+A174900,Matamata North,858
+A175000,Matamata South,859
+A175100,Te Poi,860
+A175200,Te Rapa North,861
+A175300,Flagstaff North,862
+A175400,Rotokauri-Waiwhakareke,863
+A175500,Flagstaff South,864
+A175600,Rototuna North,865
+A175700,Pukete West,866
+A175800,Flagstaff East,867
+A175900,Rototuna Central,868
+A176000,Pukete East,869
+A176100,Te Manatu,870
+A176200,Rototuna South,871
+A176300,Te Rapa South,872
+A176400,Saint Andrews West,873
+A176500,Saint Andrews East,874
+A176600,Queenwood (Hamilton City),875
+A176700,St James,876
+A176800,Crawshaw,877
+A176900,Huntington,878
+A177000,Western Heights (Hamilton City),879
+A177100,Nawton West,880
+A177200,Nawton East,881
+A177300,Chartwell,882
+A177400,Forest Lake (Hamilton City),883
+A177500,Chedworth,884
+A177600,Beerescourt,885
+A177700,Miropiko,886
+A177800,Porritt,887
+A177900,Dinsdale North,888
+A178000,Maeroa,889
+A178100,Dinsdale South,890
+A178200,Fairfield (Hamilton City),891
+A178300,Whitiora,892
+A178400,Enderley North,893
+A178500,Fairview Downs,894
+A178600,Temple View,895
+A178700,Swarbrick,896
+A178800,Kahikatea,897
+A178900,Frankton Junction,898
+A179000,Kirikiriroa,899
+A179100,Enderley South,900
+A179200,Ruakura,901
+A179300,Claudelands,902
+A179400,Hamilton Central,903
+A179500,Hamilton Lake,904
+A179600,Peachgrove,905
+A179700,Hamilton East Village,906
+A179800,Hamilton West,907
+A179900,Greensboro,908
+A180000,Hamilton East Cook,909
+A180100,Melville North,910
+A180200,Hamilton East,911
+A180300,Melville South,912
+A180400,Deanwell,913
+A180500,Bader,914
+A180600,Hillcrest West (Hamilton City),915
+A180700,Hillcrest East (Hamilton City),916
+A180800,Silverdale (Hamilton City),917
+A180900,Glenview,918
+A181000,Resthill,919
+A181100,Fitzroy,920
+A181200,Riverlea,921
+A181300,Peacockes,922
+A181400,Te Pahu,923
+A181500,Ngahinapouri,924
+A181600,Lake Cameron,925
+A181700,Lake Ngaroto,926
+A181800,Kaipaki,927
+A181900,Pirongia,928
+A182000,Hautapu Rural,929
+A182100,Pokuru,930
+A182200,Te Rahu,931
+A182300,Fencourt,932
+A182400,Hautapu,933
+A182500,Karapiro,934
+A182600,Cambridge North,935
+A182700,Cambridge West,936
+A182800,Cambridge East,937
+A182900,Cambridge Park-River Garden,938
+A183000,Oaklands-St Kilda,939
+A183100,Pukerimu,940
+A183200,Cambridge Central,941
+A183300,Te Awamutu North,942
+A183400,Te Awamutu West,943
+A183500,Leamington West,944
+A183600,Goodfellow Park,945
+A183700,Leamington South,946
+A183800,Leamington Central,947
+A183900,Leamington East,948
+A184000,Te Awamutu Stadium,949
+A184100,Te Awamutu Central,950
+A184200,Pekerau,951
+A184300,Fraser Street,952
+A184400,Sherwin Park,953
+A184500,St Leger,954
+A184600,Rotoorangi,955
+A184700,Tokanui,956
+A184800,Kihikihi Central,957
+A184900,Maungatautari,958
+A185000,Rotongata,959
+A185100,Inlets Otorohanga District,960
+A185200,Pirongia Forest,961
+A185300,Honikiwi,962
+A185400,Te Kawa,963
+A185500,Otorohanga,964
+A185600,Maihiihi,965
+A185700,Puniu,966
+A185800,Tirau,967
+A185900,Putararu Rural,968
+A186000,Putararu,969
+A186100,Kinleith,970
+A186200,Paraonui,971
+A186300,Parkdale,972
+A186400,Matarawa,973
+A186500,Stanley Park,974
+A186600,Strathmore (South Waikato District),975
+A186700,Tokoroa Central,976
+A186800,Moananui,977
+A186900,Inlet Waitomo District,978
+A187000,Herangi,979
+A187100,Hangatiki,980
+A187200,Aria,981
+A187300,Te Kuiti West,982
+A187400,Te Kuiti East,983
+A187500,Waipa Valley,984
+A187600,Tiroa,985
+A187700,Marotiri,986
+A187800,Ohakuri,987
+A187900,Lake Taupo Bays,988
+A188000,Mapara,989
+A188100,Inland water Lake Taupo,990
+A188200,Wairakei-Broadlands,991
+A188300,Acacia Bay,992
+A188400,Brentwood (Taupo District),993
+A188500,Nukuhau-Rangatira Park,994
+A188600,Taupo Central West,995
+A188700,Tauhara,996
+A188800,Taupo Central East,997
+A188900,Mountview,998
+A189000,Bird Area,999
+A189100,Hilltop (Taupo District),1000
+A189200,Waipahihi,1001
+A189300,Richmond Heights,1002
+A189400,Wharewaka,1003
+A189500,Kaimanawa,1004
+A189600,Waitahanui,1005
+A189700,Turangi,1006
+A189800,Rangataiki,1007
+A189900,Taharua,1008
+A190000,Te More,1009
+A190100,Waiau,1010
+A190200,Waihi Beach-Bowentown,1011
+A190300,Tahawai,1012
+A190400,Athenree,1013
+A190500,Aongatete,1014
+A190600,Katikati,1015
+A190700,Inlet Tauranga Harbour North,1016
+A190800,Matakana Island,1017
+A190900,Pahoia,1018
+A191000,Omokoroa,1019
+A191100,Omokoroa Rural,1020
+A191200,Te Puna,1021
+A191300,Minden,1022
+A191400,Kaimai,1023
+A191500,Kopurererua,1024
+A191600,Kaitemako (Western Bay of Plenty District),1025
+A191700,Waiorohi,1026
+A191800,Otawa,1027
+A191900,Te Puke West,1028
+A192000,Rangiuru,1029
+A192100,Te Puke East,1030
+A192200,Inlets Maketu,1031
+A192300,Maketu,1032
+A192400,Pukehina Beach,1033
+A192500,Pongakawa,1034
+A192600,Matua North,1035
+A192700,Inlet Tauranga Harbour South,1036
+A192800,Mount Maunganui North,1037
+A192900,Matua South,1038
+A193000,Bethlehem North,1039
+A193100,Bellevue,1040
+A193200,Otumoetai North,1041
+A193300,Otumoetai South,1042
+A193400,Brookfield West,1043
+A193500,Bethlehem Central,1044
+A193600,Brookfield East,1045
+A193700,Mount Maunganui South,1046
+A193800,Tauranga Central,1047
+A193900,Mount Maunganui Central,1048
+A194000,Judea,1049
+A194100,Te Reti,1050
+A194200,Bethlehem South,1051
+A194300,Omanu Beach,1052
+A194400,Tauranga Hospital,1053
+A194500,Tauriko,1054
+A194600,Gate Pa,1055
+A194700,Greerton South,1056
+A194800,Tauranga South,1057
+A194900,Arataki North,1058
+A195000,Matapihi,1059
+A195100,Pyes Pa West,1060
+A195200,Greerton North,1061
+A195300,Yatton Park,1062
+A195400,Pyes Pa North,1063
+A195500,Arataki South,1064
+A195600,Pyes Pa South,1065
+A195700,Poike,1066
+A195800,Te Maunga North,1067
+A195900,Maungatapu,1068
+A196000,Hairini,1069
+A196100,Pyes Pa East,1070
+A196200,Te Maunga South,1071
+A196300,Kaitemako (Tauranga City),1072
+A196400,Ohauiti,1073
+A196500,Baypark-Kairua,1074
+A196600,Welcome Bay West,1075
+A196700,Welcome Bay East,1076
+A196800,Pacific View,1077
+A196900,Welcome Bay South,1078
+A197000,Palm Beach North,1079
+A197100,Palm Beach South-Gravatt,1080
+A197200,Papamoa Beach North,1081
+A197300,Doncaster,1082
+A197400,Papamoa Beach South,1083
+A197500,Motiti,1084
+A197600,Wairakei,1085
+A197700,Tui Ridge,1086
+A197800,Arahiwi,1087
+A197900,Ngongotaha Valley,1088
+A198000,Hamurana,1089
+A198100,Ngongotaha East,1090
+A198200,Ngongotaha West,1091
+A198300,Inland water Lake Rotorua,1092
+A198400,Ngongotaha South,1093
+A198500,Selwyn Heights,1094
+A198600,Pleasant Heights,1095
+A198700,Rotoiti-Rotoehu,1096
+A198800,Kawaha,1097
+A198900,Fairy Springs,1098
+A199000,Western Heights (Rotorua District),1099
+A199100,Pukehangi North,1100
+A199200,Pukehangi South,1101
+A199300,Mangakakahi Central,1102
+A199400,Koutu,1103
+A199500,Mangakakahi West,1104
+A199600,Sunnybrook,1105
+A199700,Fordlands,1106
+A199800,Kuirau,1107
+A199900,Utuhina,1108
+A200000,Pomare,1109
+A200100,Rotorua Central,1110
+A200200,Hillcrest (Rotorua District),1111
+A200300,Victoria,1112
+A200400,Waiohewa,1113
+A200500,Glenholme North,1114
+A200600,Springfield South,1115
+A200700,Springfield North,1116
+A200800,Glenholme South,1117
+A200900,Owhata West,1118
+A201000,Holdens Bay-Rotokawa,1119
+A201100,Ngapuna,1120
+A201200,Fenton Park,1121
+A201300,Tihiotonga-Whakarewarewa,1122
+A201400,Owhata East,1123
+A201500,Lynmore,1124
+A201600,Ngakuru,1125
+A201700,Kaingaroa-Whakarewarewa,1126
+A201800,Golden Springs,1127
+A201900,Manawahe,1128
+A202000,Matata-Otakiri,1129
+A202100,Onepu Spring,1130
+A202200,Edgecumbe,1131
+A202300,Thornton-Awakeri,1132
+A202400,Te Teko Lakes,1133
+A202500,Coastlands,1134
+A202600,Whakatane West,1135
+A202700,Whakatane Central,1136
+A202800,Trident,1137
+A202900,Allandale,1138
+A203000,Mokorua Bush,1139
+A203100,Wainui,1140
+A203200,Ohope,1141
+A203300,Inlet Ohiwa Harbour West,1142
+A203400,Galatea,1143
+A203500,Waingarara-Waimana,1144
+A203600,Murupara,1145
+A203700,Monika Reserve,1146
+A203800,Kawerau Industrial,1147
+A203900,Tarawera Park,1148
+A204000,Inlet Ohiwa Harbour East,1149
+A204100,Waiotahi,1150
+A204200,Cape Runaway,1151
+A204300,Woodlands,1152
+A204400,Opotiki,1153
+A204500,Otara-Tirohanga,1154
+A204600,Oponae,1155
+A204700,East Cape,1156
+A204800,Waipaoa,1157
+A204900,Ruatoria-Raukumara,1158
+A205000,Tokomaru,1159
+A205100,Hangaroa,1160
+A205200,Wharekaka,1161
+A205300,Te Arai,1162
+A205400,Hexton,1163
+A205500,Lytton,1164
+A205600,Makaraka-Awapuni,1165
+A205700,Riverdale,1166
+A205800,Te Hapara North,1167
+A205900,Mangapapa North,1168
+A206000,Elgin,1169
+A206100,Te Hapara South,1170
+A206200,Mangapapa East,1171
+A206300,Mangapapa South,1172
+A206400,Te Hapara East,1173
+A206500,Centennial Crescent,1174
+A206600,Whataupoko East,1175
+A206700,Whataupoko West,1176
+A206800,Gisborne Central,1177
+A206900,Kaiti North,1178
+A207000,Kaiti South,1179
+A207100,Outer Kaiti,1180
+A207200,Tamarau,1181
+A207300,Wainui-Okitu,1182
+A207400,Maungataniwha-Raupunga,1183
+A207500,Inland water Lake Waikaremoana,1184
+A207600,Frasertown-Ruakituri,1185
+A207700,Whakaki,1186
+A207800,Wairoa,1187
+A207900,Mahia,1188
+A208000,Puketitiri-Tutira,1189
+A208100,Sherenden-Crownthorpe,1190
+A208200,Maraekakaho,1191
+A208300,Puketapu-Eskdale,1192
+A208400,Omahu-Pakowhai,1193
+A208500,Bridge Pa,1194
+A208600,Twyford,1195
+A208700,Poukawa,1196
+A208800,Flaxmere West,1197
+A208900,Omahu Strip,1198
+A209000,Lochain Park,1199
+A209100,Flaxmere Park,1200
+A209200,Flaxmere South,1201
+A209300,Irongate,1202
+A209400,Frimley,1203
+A209500,Camberley,1204
+A209600,Clive,1205
+A209700,St Leonards,1206
+A209800,Mahora,1207
+A209900,Raureka,1208
+A210000,Cornwall Park,1209
+A210100,Tomoana,1210
+A210200,Longlands-Pukahu,1211
+A210300,Raceway Park,1212
+A210400,Karamu,1213
+A210500,Hastings Central,1214
+A210600,Tomoana Crossing,1215
+A210700,Akina Park,1216
+A210800,Queens Square,1217
+A210900,Mayfair,1218
+A211000,Parkhaven,1219
+A211100,Parkvale,1220
+A211200,Mangateretere,1221
+A211300,Haumoana-Te Awanga,1222
+A211400,Lucknow,1223
+A211500,Karanema-St Hill,1224
+A211600,Havelock North-Central,1225
+A211700,Brookvale,1226
+A211800,Iona,1227
+A211900,Hereworth,1228
+A212000,Te Mata Hills,1229
+A212100,Havelock Hills,1230
+A212200,Kahuranaki,1231
+A212300,Bay View,1232
+A212400,Poraiti Hills,1233
+A212500,Poraiti Flat,1234
+A212600,Westshore,1235
+A212700,Inlet Napier City,1236
+A212800,Onekawa West,1237
+A212900,Ahuriri,1238
+A213000,Taradale West,1239
+A213100,Greenmeadows West,1240
+A213200,Taradale South,1241
+A213300,Bluff Hill,1242
+A213400,Hospital Hill,1243
+A213500,Tamatea West,1244
+A213600,Tamatea North,1245
+A213700,Taradale Central,1246
+A213800,Tamatea East,1247
+A213900,Marewa West,1248
+A214000,Greenmeadows Central,1249
+A214100,Onekawa Central,1250
+A214200,Pirimai West,1251
+A214300,Napier Central,1252
+A214400,Greenmeadows South,1253
+A214500,Nelson Park,1254
+A214600,Bledisloe Park,1255
+A214700,Pirimai East,1256
+A214800,Onekawa East,1257
+A214900,Tareha Reserve,1258
+A215000,Marewa East,1259
+A215100,Onekawa South,1260
+A215200,McLean Park,1261
+A215300,Maraenui,1262
+A215400,Meeanee-Awatoto,1263
+A215500,Mangaonuku,1264
+A215600,Makaretu,1265
+A215700,Waipawa,1266
+A215800,Waipukurau West,1267
+A215900,Mangarara,1268
+A216000,Waipukurau East,1269
+A216100,Taurekaitai,1270
+A216200,Port Taranaki,1271
+A216300,Spotswood,1272
+A216400,Omata,1273
+A216500,Oakura,1274
+A216600,Moturoa,1275
+A216700,Kaitake,1276
+A216800,Blagdon-Lynmouth,1277
+A216900,Kawaroa,1278
+A217000,New Plymouth Central,1279
+A217100,Marfell,1280
+A217200,Whalers Gate,1281
+A217300,Strandon,1282
+A217400,Westown,1283
+A217500,Bell Block West,1284
+A217600,Bell Block East,1285
+A217700,Waiwhakaiho-Bell Block South,1286
+A217800,Lower Vogeltown,1287
+A217900,Hurdon,1288
+A218000,Frankleigh Park,1289
+A218100,Merrilands,1290
+A218200,Ferndale,1291
+A218300,Welbourn,1292
+A218400,Fitzroy-Glen Avon,1293
+A218500,Waitara West,1294
+A218600,Upper Vogeltown,1295
+A218700,Highlands Park (New Plymouth District),1296
+A218800,Paraite,1297
+A218900,Waitara East,1298
+A219000,Lepperton-Brixton,1299
+A219100,Mangorei,1300
+A219200,Mount Messenger,1301
+A219300,Mangaoraka,1302
+A219400,Tikorangi,1303
+A219500,Everett Park,1304
+A219600,Inglewood,1305
+A219700,Tarata,1306
+A219800,Pembroke,1307
+A219900,Douglas,1308
+A220000,Toko,1309
+A220100,Stratford North,1310
+A220200,Whangamomona,1311
+A220300,Stratford Central,1312
+A220400,Stratford South,1313
+A220500,Cape Egmont,1314
+A220600,Taungatara,1315
+A220700,Opunake,1316
+A220800,Kaponga-Mangatoki,1317
+A220900,Manaia-Kapuni,1318
+A221000,Eltham,1319
+A221100,Okaiawa,1320
+A221200,Te Roti-Moeroa,1321
+A221300,Egmont Showgrounds,1322
+A221400,Normanby-Tawhiti,1323
+A221500,Ohangai,1324
+A221600,Turuturu,1325
+A221700,King Edward Park,1326
+A221800,Ramanui,1327
+A221900,Hawera Central,1328
+A222000,Mangawhio,1329
+A222100,Manutahi-Waitotora,1330
+A222200,Patea,1331
+A222300,Otangiwai-Ohura,1332
+A222400,Ngapuke,1333
+A222500,Taumarunui North,1334
+A222600,Taumarunui Central,1335
+A222700,Taumarunui East,1336
+A222800,National Park,1337
+A222900,Tangiwai,1338
+A223000,Raetihi,1339
+A223100,Ohakune,1340
+A223200,Waiouru,1341
+A223300,Upper Whanganui,1342
+A223400,Mowhanau,1343
+A223500,Brunswick-Papaiti,1344
+A223600,Castlecliff West,1345
+A223700,Otamatea (Whanganui District),1346
+A223800,Castlecliff East,1347
+A223900,Springvale North,1348
+A224000,Lower Aramoho,1349
+A224100,St Johns Hill East,1350
+A224200,St Johns Hill West,1351
+A224300,Titoki,1352
+A224400,Springvale West,1353
+A224500,Springvale East,1354
+A224600,Upper Aramoho,1355
+A224700,Balgownie,1356
+A224800,Laird Park,1357
+A224900,Wembley Park,1358
+A225000,College Estate,1359
+A225100,Whanganui East-Williams Domain,1360
+A225200,Gonville West,1361
+A225300,Gonville North,1362
+A225400,Cornmarket,1363
+A225500,Whanganui East-Riverlands,1364
+A225600,Kaitoke-Fordell,1365
+A225700,Whanganui Central,1366
+A225800,Gonville South,1367
+A225900,Bastia-Durie Hill,1368
+A226000,Putiki,1369
+A226100,Mokai Patea,1370
+A226200,Ngamatea,1371
+A226300,Turakina,1372
+A226400,Otairi,1373
+A226500,Taihape,1374
+A226600,Marton Rural,1375
+A226700,Marton North,1376
+A226800,Parewanui,1377
+A226900,Marton South,1378
+A227000,Bulls,1379
+A227100,Kiwitea,1380
+A227200,Tokorangi,1381
+A227300,Ohakea-Sanson,1382
+A227400,Oroua Downs,1383
+A227500,Awahuri,1384
+A227600,Pohangina-Apiti,1385
+A227700,Mount Taylor,1386
+A227800,Taikorea,1387
+A227900,Makino,1388
+A228000,Sandon,1389
+A228100,Kimbolton North,1390
+A228200,Warwick,1391
+A228300,Kimbolton West,1392
+A228400,Feilding Central,1393
+A228500,Kimbolton South,1394
+A228600,Kauwhata,1395
+A228700,Taonui,1396
+A228800,Newbury,1397
+A228900,Palmerston North Airport,1398
+A229000,Milson North,1399
+A229100,Cloverlea (Palmerston North City),1400
+A229200,Tremaine,1401
+A229300,Milson South,1402
+A229400,Whakarongo,1403
+A229500,Westbrook,1404
+A229600,Takaro North,1405
+A229700,Pioneer West,1406
+A229800,Palmerston North Hospital,1407
+A229900,Highbury East,1408
+A230000,Park West,1409
+A230100,Takaro South,1410
+A230200,Roslyn (Palmerston North City),1411
+A230300,Kelvin Grove West,1412
+A230400,Kelvin Grove North,1413
+A230500,Papaioea North,1414
+A230600,Palmerston North Central,1415
+A230700,Awapuni North,1416
+A230800,Terrace End,1417
+A230900,Maraetarata,1418
+A231000,Papaioea South,1419
+A231100,Royal Oak (Palmerston North City),1420
+A231200,West End,1421
+A231300,Awapuni South,1422
+A231400,Milverton,1423
+A231500,Ruamahanga,1424
+A231600,Esplanade,1425
+A231700,Hokowhitu Central,1426
+A231800,Hokowhitu East,1427
+A231900,Turitea,1428
+A232000,Ruahine,1429
+A232100,Linton Camp,1430
+A232200,Ashhurst,1431
+A232300,Hokowhitu South,1432
+A232400,Aokautere,1433
+A232500,Pihauatua,1434
+A232600,Aokautere Rural,1435
+A232700,Poutoa,1436
+A232800,Norsewood,1437
+A232900,Papatawa,1438
+A233000,Mangatainoka,1439
+A233100,Woodville,1440
+A233200,Dannevirke West,1441
+A233300,Dannevirke East,1442
+A233400,Waitahora,1443
+A233500,Kaitawa,1444
+A233600,Pahiatua,1445
+A233700,Nireaha-Eketahuna,1446
+A233800,Owhanga,1447
+A233900,Mara,1448
+A234000,Kere Kere,1449
+A234100,Foxton Beach,1450
+A234200,Foxton North,1451
+A234300,Foxton South,1452
+A234400,Waitarere,1453
+A234500,Waikawa (Horowhenua District),1454
+A234600,Miranui,1455
+A234700,Donnelly Park,1456
+A234800,Ohau-Manakau,1457
+A234900,Kawiu South,1458
+A235000,Makomako,1459
+A235100,Kawiu North,1460
+A235200,Levin Central,1461
+A235300,Tararua,1462
+A235400,Shannon,1463
+A235500,Queenwood (Horowhenua District),1464
+A235600,Playford Park,1465
+A235700,Fairfield (Horowhenua District),1466
+A235800,Taitoko,1467
+A235900,Waiopehu,1468
+A236000,Makahika,1469
+A236100,Kimberley,1470
+A236200,Kapiti Island,1471
+A236300,Otaki Beach,1472
+A236400,Forest Lakes (Kapiti Coast District),1473
+A236500,Otaki,1474
+A236600,Te Horo,1475
+A236700,Waitohu,1476
+A236800,Waikanae Beach,1477
+A236900,Peka Peka,1478
+A237000,Paraparaumu Beach North,1479
+A237100,Paraparaumu Beach West,1480
+A237200,Waikanae Park,1481
+A237300,Paraparaumu Beach East,1482
+A237400,Otaihanga,1483
+A237500,Paraparaumu North,1484
+A237600,Waikanae West,1485
+A237700,Otaki Forks,1486
+A237800,Paraparaumu Central,1487
+A237900,Maungakotukutuku,1488
+A238000,Raumati Beach West,1489
+A238100,Waikanae East,1490
+A238200,Tararua Forest Park,1491
+A238300,Raumati Beach East,1492
+A238400,Paraparaumu East,1493
+A238500,Raumati South,1494
+A238600,Paekakariki,1495
+A238700,Mana Island,1496
+A238800,Pukerua Bay,1497
+A238900,Paekakariki Hill,1498
+A239000,Plimmerton,1499
+A239100,Titahi Bay North,1500
+A239200,Titahi Bay South,1501
+A239300,Elsdon-Takapuwahia,1502
+A239400,Pauatahanui,1503
+A239500,Onepoto,1504
+A239600,Camborne,1505
+A239700,Inlet Porirua Harbour,1506
+A239800,Paremata,1507
+A239900,Porirua Central,1508
+A240000,Papakowhai,1509
+A240100,Aotea,1510
+A240200,Postgate,1511
+A240300,Ascot Park,1512
+A240400,Whitby,1513
+A240500,Porirua East,1514
+A240600,Endeavour,1515
+A240700,Cannons Creek North,1516
+A240800,Waitangirua,1517
+A240900,Ranui Heights,1518
+A241000,Cannons Creek East,1519
+A241100,Cannons Creek South,1520
+A241200,Akatarawa,1521
+A241300,Riverstone Terraces,1522
+A241400,Heretaunga,1523
+A241500,Birchville-Brown Owl,1524
+A241600,Poets Block,1525
+A241700,Brentwood (Upper Hutt City),1526
+A241800,Silverstream (Upper Hutt City),1527
+A241900,Elderslea,1528
+A242000,Trentham North,1529
+A242100,Totara Park,1530
+A242200,Trentham South,1531
+A242300,Mangaroa,1532
+A242400,Ebdentown,1533
+A242500,Wallaceville,1534
+A242600,Maoribank,1535
+A242700,Te Marua,1536
+A242800,Pinehaven,1537
+A242900,Clouston Park,1538
+A243000,Upper Hutt Central,1539
+A243100,Belmont Park,1540
+A243200,Maungaraki,1541
+A243300,Korokoro,1542
+A243400,Kelson,1543
+A243500,Normandale,1544
+A243600,Belmont (Lower Hutt City),1545
+A243700,Petone Central,1546
+A243800,Tirohanga,1547
+A243900,Manor Park,1548
+A244000,Alicetown-Melling,1549
+A244100,Taita North,1550
+A244200,Boulcott,1551
+A244300,Hutt Central North,1552
+A244400,Avalon West,1553
+A244500,Stokes Valley Central,1554
+A244600,Taita South,1555
+A244700,Petone East,1556
+A244800,Hutt Central South,1557
+A244900,Stokes Valley North,1558
+A245000,Petone Esplanade,1559
+A245100,Epuni West,1560
+A245200,Avalon East,1561
+A245300,Woburn,1562
+A245400,Naenae Central,1563
+A245500,Waterloo West,1564
+A245600,Epuni East,1565
+A245700,Gracefield,1566
+A245800,Moera,1567
+A245900,Delaney,1568
+A246000,Waiwhetu,1569
+A246100,Waterloo East,1570
+A246200,Naenae North,1571
+A246300,Manuka,1572
+A246400,Naenae South,1573
+A246500,Towai,1574
+A246600,Arakura,1575
+A246700,Eastern Bays,1576
+A246800,Pencarrow,1577
+A246900,Wainuiomata West,1578
+A247000,Glendale,1579
+A247100,Wainuiomata Central,1580
+A247200,Eastbourne,1581
+A247300,Homedale East,1582
+A247400,Homedale West,1583
+A247500,Makara-Ohariu,1584
+A247600,Tawa North,1585
+A247700,Linden,1586
+A247800,Tawa South,1587
+A247900,Tawa Central,1588
+A248000,Grenada North,1589
+A248100,Churton Park North,1590
+A248200,Takapu-Horokiwi,1591
+A248300,Churton Park South,1592
+A248400,Johnsonville West,1593
+A248500,Grenada Village,1594
+A248600,Johnsonville North,1595
+A248700,Paparangi,1596
+A248800,Ngaio North,1597
+A248900,Johnsonville Central,1598
+A249000,Broadmeadows,1599
+A249100,Crofton Downs,1600
+A249200,Johnsonville South,1601
+A249300,Khandallah Reserve,1602
+A249400,Karori Park,1603
+A249500,Newlands North,1604
+A249600,Ngaio South,1605
+A249700,Newlands South,1606
+A249800,Woodridge,1607
+A249900,Karori North,1608
+A250000,Khandallah North,1609
+A250100,Wilton,1610
+A250200,Khandallah South,1611
+A250300,Wadestown,1612
+A250400,Karori South,1613
+A250500,Onslow,1614
+A250600,Karori East,1615
+A250700,Pipitea-Kaiwharawhara,1616
+A250800,Northland (Wellington City),1617
+A250900,Thorndon,1618
+A251000,Wellington Botanic Gardens,1619
+A251100,Kelburn,1620
+A251200,Aro Valley,1621
+A251300,Wellington University,1622
+A251400,Wellington Central,1623
+A251500,Brooklyn North,1624
+A251600,Dixon Street,1625
+A251700,Vivian West,1626
+A251800,Courtenay,1627
+A251900,Brooklyn East,1628
+A252000,Mount Cook West,1629
+A252100,Vivian East,1630
+A252200,Brooklyn South,1631
+A252300,Oriental Bay,1632
+A252400,Mount Cook East,1633
+A252500,Mount Victoria,1634
+A252600,Roseneath,1635
+A252700,Owhiro Bay,1636
+A252800,Kingston-Mornington-Vogeltown,1637
+A252900,Newtown North,1638
+A253000,Newtown West,1639
+A253100,Hataitai North,1640
+A253200,Evans Bay,1641
+A253300,Berhampore,1642
+A253400,Hataitai South,1643
+A253500,Maupuia,1644
+A253600,Newtown South,1645
+A253700,Kilbirnie Central,1646
+A253800,Island Bay West,1647
+A253900,Melrose,1648
+A254000,Island Bay East,1649
+A254100,Miramar North,1650
+A254200,Kilbirnie East,1651
+A254300,Lyall Bay,1652
+A254400,Miramar Central,1653
+A254500,Southgate,1654
+A254600,Karaka Bay-Worser Bay,1655
+A254700,Houghton Bay,1656
+A254800,Miramar East,1657
+A254900,Miramar South,1658
+A255000,Rongotai,1659
+A255100,Strathmore (Wellington City),1660
+A255200,Seatoun,1661
+A255300,Kopuaranga,1662
+A255400,Upper Plain,1663
+A255500,Opaki,1664
+A255600,Ngaumutawa,1665
+A255700,Solway North,1666
+A255800,Lansdowne West,1667
+A255900,Masterton Central,1668
+A256000,Kuripuni,1669
+A256100,Douglas Park,1670
+A256200,Solway South,1671
+A256300,Lansdowne East,1672
+A256400,Cameron and Soldiers Park,1673
+A256500,Whareama,1674
+A256600,Homebush-Te Ore Ore,1675
+A256700,McJorrow Park,1676
+A256800,Mount Holdsworth,1677
+A256900,Carterton North,1678
+A257000,Kokotau,1679
+A257100,Carterton South,1680
+A257200,Gladstone (Carterton District),1681
+A257300,Tauherenikau,1682
+A257400,Kahutara,1683
+A257500,Featherston,1684
+A257600,Inland water Lake Wairarapa,1685
+A257700,Greytown,1686
+A257800,Aorangi Forest,1687
+A257900,Martinborough,1688
+A258000,Oceanic Three Kings Islands,1689
+A258100,Three Kings Islands,1690
+A258200,Oceanic Northland Region,1691
+A258300,Inlet Doubtless Bay,1692
+A258400,Inlet Kaipara Harbour North,1693
+A258500,Oceanic Waikato Region East,1694
+A258600,Inlets Waikato Region,1695
+A258700,Oceanic Waikato Region West,1696
+A258800,Oceanic Bay of Plenty Region,1697
+A258900,Islands Bay of Plenty Region,1698
+A259000,Oceanic Taranaki Region,1699
+A259100,Inlet Port Taranaki,1700
+A259200,Oceanic Gisborne Region,1701
+A259300,Oceanic Manawatu-Wanganui Region West,1702
+A259400,Oceanic Hawke's Bay Region,1703
+A259500,Inlet Port Napier,1704
+A259600,Oceanic Wellington Region,1705
+A259700,Inlet Wellington Harbour,1706
+A259800,Bare Island,1707
+A259900,Oceanic Manawatu-Wanganui Region East,1708
+A300200,Oceanic Tasman Region,1709
+A300300,Golden Bay/Mohua,1710
+A300400,Inlets Golden Bay,1711
+A300500,Takaka,1712
+A300600,Pohara-Abel Tasman,1713
+A300700,Takaka Hills,1714
+A300800,Kaiteriteri-Riwaka,1715
+A300900,Upper Moutere,1716
+A301000,Lower Moutere,1717
+A301100,Motueka North,1718
+A301200,Motueka West,1719
+A301300,Motueka East,1720
+A301400,Inlets Motueka,1721
+A301500,Golden Downs,1722
+A301600,Moutere Hills,1723
+A301700,Ruby Bay-Mapua,1724
+A301800,Murchison-Nelson Lakes,1725
+A301900,Inlet Waimea West,1726
+A302000,Islands Tasman District,1727
+A302100,Waimea West,1728
+A302200,Appleby,1729
+A302300,Wakefield,1730
+A302400,Richmond West (Tasman District),1731
+A302500,Wakefield Rural,1732
+A302600,Brightwater,1733
+A302700,Hope,1734
+A302800,Richmond Central (Tasman District),1735
+A302900,Ben Cooper Park,1736
+A303000,Richmond South (Tasman District),1737
+A303100,Wilkes Park,1738
+A303200,Templemore,1739
+A303300,Easby Park,1740
+A303400,Fairose,1741
+A303500,Aniseed Valley,1742
+A303600,Nelson Rural,1743
+A303700,Inlets Nelson City,1744
+A303800,Marybank,1745
+A303900,Port Nelson,1746
+A304000,Nelson Airport,1747
+A304100,Tahunanui,1748
+A304200,Britannia,1749
+A304300,Atawhai,1750
+A304400,Broadgreen-Monaco,1751
+A304500,Washington,1752
+A304600,Tahuna Hills,1753
+A304700,Nelson Central-Trafalgar,1754
+A304800,The Wood,1755
+A304900,Toi Toi,1756
+A305000,Nayland,1757
+A305100,Aldinga,1758
+A305200,Victory,1759
+A305300,Rutherford,1760
+A305400,Maitlands,1761
+A305500,Maitai,1762
+A305600,Grampians,1763
+A305700,Saxton,1764
+A305800,Suffolk,1765
+A305900,Omaio,1766
+A306000,Enner Glynn,1767
+A306100,Daelyn,1768
+A306200,The Brook,1769
+A306300,Marlborough Sounds West,1770
+A306400,Marlborough Sounds Coastal Marine,1771
+A306500,Marlborough Sounds East,1772
+A306600,Upper Wairau,1773
+A306700,Waikawa (Marlborough District),1774
+A306800,Waitohi (Marlborough District),1775
+A306900,Tuamarina,1776
+A307000,Awatere,1777
+A307100,Renwick,1778
+A307200,Lower Wairau,1779
+A307300,Woodbourne,1780
+A307400,Spring Creek-Grovetown,1781
+A307500,Springlands,1782
+A307600,Yelverton,1783
+A307700,Mayfield,1784
+A307800,Whitney West,1785
+A307900,Blenheim Central,1786
+A308000,Riversdale-Islington,1787
+A308100,Whitney East,1788
+A308200,Redwoodtown West,1789
+A308300,Witherlea West,1790
+A308400,Redwoodtown East,1791
+A308500,Riverlands,1792
+A308600,Witherlea East,1793
+A308700,Inlet Wairau River,1794
+A308800,Kaikoura Ranges,1795
+A308900,Kaikoura,1796
+A309000,Karamea,1797
+A309100,Inlets Buller District,1798
+A309200,Westport North,1799
+A309300,Westport Rural,1800
+A309400,Westport South,1801
+A309500,Buller Coalfields,1802
+A309600,Charleston (Buller District),1803
+A309700,Inangahua,1804
+A309800,Reefton,1805
+A309900,Barrytown,1806
+A310000,Runanga,1807
+A310100,Cobden,1808
+A310200,Blaketown,1809
+A310300,Greymouth Central,1810
+A310400,King Park,1811
+A310500,Marsden,1812
+A310600,Karoro,1813
+A310700,Rutherglen-Camerons,1814
+A310800,Greymouth Rural,1815
+A310900,Dobson,1816
+A311000,Nelson Creek,1817
+A311100,Lake Brunner,1818
+A311200,Haast,1819
+A311300,Westland Glaciers-Bruce Bay,1820
+A311400,Arahura-Kumara,1821
+A311500,Hokitika,1822
+A311600,Inlets Westland District,1823
+A311700,Hokitika Rural,1824
+A311800,Waitaha,1825
+A311900,Whataroa-Harihari,1826
+A312000,Hokitika Valley-Otira,1827
+A312100,Hanmer Range,1828
+A312200,Amuri,1829
+A312300,Hanmer Springs,1830
+A312400,Upper Hurunui,1831
+A312500,Parnassus,1832
+A312600,Ashley Forest,1833
+A312700,Omihi,1834
+A312800,Balcairn,1835
+A312900,Amberley,1836
+A313000,Okuku,1837
+A313100,Ashley Gorge,1838
+A313200,Oxford,1839
+A313300,Starvation Hill-Cust,1840
+A313400,Loburn,1841
+A313500,Eyrewell,1842
+A313600,West Eyreton,1843
+A313700,Ashley-Sefton,1844
+A313800,Fernside,1845
+A313900,Rangiora North West,1846
+A314000,Kingsbury,1847
+A314100,Ashgrove,1848
+A314200,Rangiora North East,1849
+A314300,Oxford Estate,1850
+A314400,Rangiora Central,1851
+A314500,Rangiora South West,1852
+A314600,Lilybrook,1853
+A314700,Waikuku,1854
+A314800,Mandeville-Ohoka,1855
+A314900,Rangiora South East,1856
+A315000,Southbrook,1857
+A315100,Swannanoa-Eyreton,1858
+A315200,Tuahiwi,1859
+A315300,Woodend,1860
+A315400,Pegasus,1861
+A315500,Clarkville,1862
+A315600,Pegasus Bay,1863
+A315700,Kaiapoi North West,1864
+A315800,Silverstream (Waimakariri District),1865
+A315900,Sovereign Palms,1866
+A316000,Kaiapoi West,1867
+A316100,Kaiapoi Central,1868
+A316200,Kaiapoi South,1869
+A316300,Kaiapoi East,1870
+A316400,McLeans Island,1871
+A316500,Paparua,1872
+A316600,Yaldhurst,1873
+A316700,Christchurch Airport,1874
+A316800,Clearwater,1875
+A316900,Belfast West,1876
+A317000,Harewood,1877
+A317100,Brooklands-Spencerville,1878
+A317200,Styx,1879
+A317300,Belfast East,1880
+A317400,Northwood,1881
+A317500,Russley,1882
+A317600,Regents Park,1883
+A317700,Hawthornden,1884
+A317800,Bishopdale North,1885
+A317900,Casebrook,1886
+A318000,Bishopdale West,1887
+A318100,Templeton,1888
+A318200,Islington,1889
+A318300,Burnside Park,1890
+A318400,Marshland,1891
+A318500,Avonhead North,1892
+A318600,Redwood North,1893
+A318700,Broomfield,1894
+A318800,Redwood West,1895
+A318900,Avonhead West,1896
+A319000,Bishopdale South,1897
+A319100,Islington-Hornby Industrial,1898
+A319200,Burnside,1899
+A319300,Hei Hei,1900
+A319400,Papanui North,1901
+A319500,Avonhead East,1902
+A319600,Redwood East,1903
+A319700,Avonhead South,1904
+A319800,Riccarton Racecourse,1905
+A319900,Bryndwr North,1906
+A320000,Northlands (Christchurch City),1907
+A320100,Papanui West,1908
+A320200,Ilam North,1909
+A320300,Hornby West,1910
+A320400,Hornby Central,1911
+A320500,Northcote (Christchurch City),1912
+A320600,Jellie Park,1913
+A320700,Ilam South,1914
+A320800,Bryndwr South,1915
+A320900,Papanui East,1916
+A321000,Sockburn North,1917
+A321100,Hornby South,1918
+A321200,Ilam University,1919
+A321300,Prestons,1920
+A321400,Strowan,1921
+A321500,Fendalton,1922
+A321600,Waitikiri,1923
+A321700,Mairehau North,1924
+A321800,Bush Inn,1925
+A321900,Awatea North,1926
+A322000,Upper Riccarton,1927
+A322100,Malvern,1928
+A322200,Rutland,1929
+A322300,Sockburn South,1930
+A322400,Deans Bush,1931
+A322500,Wigram North,1932
+A322600,Holmwood,1933
+A322700,Wharenui,1934
+A322800,Wigram West,1935
+A322900,Awatea South,1936
+A323000,Merivale,1937
+A323100,Mairehau South,1938
+A323200,Mona Vale,1939
+A323300,Riccarton West,1940
+A323400,Shirley West,1941
+A323500,Middleton,1942
+A323600,Wigram South,1943
+A323700,Queenspark,1944
+A323800,St Albans North,1945
+A323900,St Albans West,1946
+A324000,Travis Wetlands,1947
+A324100,Wigram East,1948
+A324200,Riccarton Central,1949
+A324300,Oaklands West,1950
+A324400,Riccarton South,1951
+A324500,Halswell West,1952
+A324600,Shirley East,1953
+A324700,Broken Run,1954
+A324800,St Albans East,1955
+A324900,Hagley Park,1956
+A325000,Hillmorton,1957
+A325100,Parklands,1958
+A325200,Riccarton East,1959
+A325300,Edgeware,1960
+A325400,Aidanfield,1961
+A325500,Tower Junction,1962
+A325600,Burwood,1963
+A325700,Christchurch Central-West,1964
+A325800,Christchurch Central-North,1965
+A325900,Richmond North (Christchurch City),1966
+A326000,Waimairi Beach,1967
+A326100,Addington West,1968
+A326200,Otakaro-Avon River Corridor,1969
+A326300,Oaklands East,1970
+A326400,Addington North,1971
+A326500,Dallington,1972
+A326600,Christchurch Central,1973
+A326700,Hoon Hay West,1974
+A326800,Richmond South (Christchurch City),1975
+A326900,Spreydon West,1976
+A327000,Christchurch Central-East,1977
+A327100,Christchurch Central-South,1978
+A327200,North Beach,1979
+A327300,Halswell North,1980
+A327400,Addington East,1981
+A327500,Avondale (Christchurch City),1982
+A327600,Spreydon North,1983
+A327700,Hoon Hay East,1984
+A327800,Avonside,1985
+A327900,Linwood West,1986
+A328000,Halswell South,1987
+A328100,Sydenham Central,1988
+A328200,Spreydon South,1989
+A328300,Rawhiti,1990
+A328400,Wainoni,1991
+A328500,Linwood North,1992
+A328600,Aranui,1993
+A328700,Sydenham West,1994
+A328800,Lancaster Park,1995
+A328900,Phillipstown,1996
+A329000,Kennedys Bush,1997
+A329100,Somerfield East,1998
+A329200,Somerfield West,1999
+A329300,Linwood East,2000
+A329400,Sydenham North,2001
+A329500,Hoon Hay South,2002
+A329600,Charleston (Christchurch City),2003
+A329700,Sydenham South,2004
+A329800,Bexley,2005
+A329900,Waltham,2006
+A330000,Westmorland,2007
+A330100,Woolston North,2008
+A330200,New Brighton,2009
+A330300,Cashmere West,2010
+A330400,Bromley South,2011
+A330500,Ensors,2012
+A330600,Beckenham,2013
+A330700,Bromley North,2014
+A330800,St Martins,2015
+A330900,Opawa,2016
+A331000,Woolston West,2017
+A331100,Woolston East,2018
+A331200,Huntsbury,2019
+A331300,Cashmere East,2020
+A331400,Hillsborough (Christchurch City),2021
+A331500,Woolston South,2022
+A331600,Port Hills,2023
+A331700,South New Brighton,2024
+A331800,Brookhaven-Ferrymead,2025
+A331900,Heathcote Valley,2026
+A332000,Mount Pleasant,2027
+A332100,Redcliffs,2028
+A332200,Governors Bay,2029
+A332300,Inlets other Christchurch City,2030
+A332400,Clifton Hill,2031
+A332500,Lyttelton,2032
+A332600,Inlet Port Lyttelton,2033
+A332700,Sumner,2034
+A332800,Teddington,2035
+A332900,Diamond Harbour,2036
+A333000,Inland water Lake Ellesmere/Te Waihora South,2037
+A333100,Banks Peninsula South,2038
+A333200,Eastern Bays-Banks Peninsula,2039
+A333300,Akaroa Harbour,2040
+A333400,Inlet Akaroa Harbour,2041
+A333500,Akaroa,2042
+A333600,Craigieburn,2043
+A333700,Torlesse,2044
+A333800,Glenroy-Hororata,2045
+A333900,Glentunnel,2046
+A334000,Darfield,2047
+A334100,Kirwee,2048
+A334200,Bankside,2049
+A334300,Charing Cross,2050
+A334400,Halkett,2051
+A334500,Newtons Road,2052
+A334600,West Melton,2053
+A334700,Burnham Camp,2054
+A334800,Rolleston Izone,2055
+A334900,Rolleston North West,2056
+A335000,Springston,2057
+A335100,Rolleston Central,2058
+A335200,Rolleston North East,2059
+A335300,Rolleston South West,2060
+A335400,Southbridge,2061
+A335500,Rolleston South East,2062
+A335600,Trents,2063
+A335700,Prebbleton,2064
+A335800,Irwell,2065
+A335900,Ladbrooks,2066
+A336000,Lincoln West,2067
+A336100,Lincoln East,2068
+A336200,Leeston,2069
+A336300,Tai Tapu,2070
+A336400,Motukarara,2071
+A336500,Inland water Lake Ellesmere/Te Waihora North,2072
+A336600,Ashburton Lakes,2073
+A336700,Cairnbrae,2074
+A336800,Ashburton Forks,2075
+A336900,Methven,2076
+A337000,Ealing-Lowcliffe,2077
+A337100,Eiffelton,2078
+A337200,Chertsey,2079
+A337300,Winchmore-Wakanui,2080
+A337400,Allenton North,2081
+A337500,Allenton South,2082
+A337600,Rakaia,2083
+A337700,Ashburton North,2084
+A337800,Allenton East,2085
+A337900,Tinwald North,2086
+A338000,Ashburton Central,2087
+A338100,Ashburton West,2088
+A338200,Tinwald South,2089
+A338300,Ashburton East,2090
+A338400,Netherby,2091
+A338500,Hampstead,2092
+A338600,Ben McLeod,2093
+A338700,Arundel,2094
+A338800,Levels Valley,2095
+A338900,Geraldine,2096
+A339000,Rangitata,2097
+A339100,Waitohi (Timaru District),2098
+A339200,Pleasant Point,2099
+A339300,Temuka West,2100
+A339400,Hadlow,2101
+A339500,Levels,2102
+A339600,Temuka East,2103
+A339700,Gleniti North,2104
+A339800,Washdyke,2105
+A339900,Fairview,2106
+A340000,Gleniti South,2107
+A340100,Glenwood,2108
+A340200,Marchwiel West,2109
+A340300,Marchwiel East,2110
+A340400,Highfield North,2111
+A340500,Highfield South,2112
+A340600,Waimataitai-Maori Hill,2113
+A340700,Fraser Park,2114
+A340800,Seaview,2115
+A340900,Inlet Port Timaru,2116
+A341000,Watlington,2117
+A341100,Timaru Central,2118
+A341200,Timaru East,2119
+A341300,Parkside,2120
+A341400,Kensington (Timaru District),2121
+A341500,Mackenzie Lakes,2122
+A341600,Inland water Lake Pukaki,2123
+A341700,Inland water Lake Tekapo,2124
+A341800,Twizel,2125
+A341900,Opua (Mackenzie District),2126
+A342000,Fairlie,2127
+A342100,Hakataramea,2128
+A342200,Maungati,2129
+A342300,Lyalldale,2130
+A342400,Makikihi-Willowbridge,2131
+A342500,Waimate North,2132
+A342600,Morven-Glenavy-Ikawai,2133
+A342700,Waimate West,2134
+A342800,Waimate East,2135
+A342900,Oceanic Chatham Islands,2136
+A343000,Chatham Islands,2137
+A343100,Aviemore,2138
+A343200,Inland water Lake Ohau,2139
+A343300,Danseys Pass,2140
+A343400,Ngapara,2141
+A343500,Lower Waitaki,2142
+A343600,Waihemo,2143
+A343700,Maheno,2144
+A343800,Weston,2145
+A343900,Oamaru North Milner Park,2146
+A344000,Oamaru North Orana Park,2147
+A344100,Oamaru Gardens,2148
+A344200,Glen Warren,2149
+A344300,Holmes Hill,2150
+A344400,Oamaru Central,2151
+A344500,South Hill,2152
+A344600,Inlet Port Oamaru,2153
+A344700,Palmerston,2154
+A344800,Lindis-Nevis Valleys,2155
+A344900,Cromwell West,2156
+A345000,Cromwell East,2157
+A345100,Manuherikia-Ida Valleys,2158
+A345200,Earnscleugh,2159
+A345300,Dunstan-Galloway,2160
+A345400,Clyde,2161
+A345500,Alexandra North,2162
+A345600,Alexandra South,2163
+A345700,Maniototo,2164
+A345800,Teviot Valley,2165
+A345900,Outer Wanaka,2166
+A346000,Glenorchy,2167
+A346100,Inland water Lake Wanaka,2168
+A346200,Outer Wakatipu,2169
+A346300,Inland water Lake Hawea,2170
+A346400,Cardrona,2171
+A346500,Inland water Lake Wakatipu,2172
+A346600,Wanaka Waterfront,2173
+A346700,Wanaka North,2174
+A346800,Wanaka West,2175
+A346900,Albert Town,2176
+A347000,Wanaka Central,2177
+A347100,Lake Hawea,2178
+A347200,Upper Clutha Valley,2179
+A347300,Kingston,2180
+A347400,Arthurs Point,2181
+A347500,Wakatipu Basin,2182
+A347600,Queenstown Hill,2183
+A347700,Warren Park,2184
+A347800,Sunshine Bay-Fernhill,2185
+A347900,Arrowtown,2186
+A348000,Quail Rise,2187
+A348100,Queenstown Central,2188
+A348200,Queenstown East,2189
+A348300,Frankton Arm,2190
+A348400,Frankton,2191
+A348500,Lake Hayes,2192
+A348600,Kelvin Heights,2193
+A348700,Shotover Country,2194
+A348800,Lake Hayes Estate,2195
+A348900,Jacks Point,2196
+A349000,Strath Taieri,2197
+A349100,Bucklands Crossing,2198
+A349200,Waikouaiti,2199
+A349300,Momona,2200
+A349400,Taieri,2201
+A349500,Inlets other Dunedin City,2202
+A349600,Mount Cargill,2203
+A349700,Bush Road,2204
+A349800,Mosgiel East,2205
+A349900,Mosgiel Central,2206
+A350000,Seddon Park,2207
+A350100,Wingatui,2208
+A350200,Saddle Hill-Chain Hills,2209
+A350300,East Taieri,2210
+A350400,Halfway Bush,2211
+A350500,Helensburgh,2212
+A350600,Glenleith,2213
+A350700,Fairfield (Dunedin City),2214
+A350800,Inlet Otago Harbour,2215
+A350900,Brockville,2216
+A351000,Wakari,2217
+A351100,Abbotsford,2218
+A351200,Brighton,2219
+A351300,Pine Hill-Dalmore,2220
+A351400,Kaikorai-Bradford,2221
+A351500,Maori Hill,2222
+A351600,Roslyn (Dunedin City),2223
+A351700,North East Valley Chingford,2224
+A351800,Roseneath-Sawyers Bay,2225
+A351900,Normanby,2226
+A352000,North East Valley Knox,2227
+A352100,Belleknowes,2228
+A352200,Gardens (Dunedin City),2229
+A352300,Kenmure,2230
+A352400,Campus West,2231
+A352500,Waldronville,2232
+A352600,Green Island,2233
+A352700,Port Chalmers,2234
+A352800,Royal Terrace,2235
+A352900,Arthur Street,2236
+A353000,Opoho,2237
+A353100,Campus North,2238
+A353200,Campus South,2239
+A353300,Mornington,2240
+A353400,Dunedin Central,2241
+A353500,Maryhill,2242
+A353600,Ravensbourne-St Leonards,2243
+A353700,Harbourside,2244
+A353800,Fernhill,2245
+A353900,Otago Peninsula,2246
+A354000,Concord,2247
+A354100,Calton Hill,2248
+A354200,Caversham,2249
+A354300,Hillside-Portsmouth Drive,2250
+A354400,Kew (Dunedin City),2251
+A354500,Corstorphine,2252
+A354600,Forbury,2253
+A354700,Bathgate Park,2254
+A354800,St Clair,2255
+A354900,Waverley,2256
+A355000,Macandrew Bay-Company Bay,2257
+A355100,Broad Bay-Portobello,2258
+A355200,St Kilda South,2259
+A355300,Musselburgh,2260
+A355400,Shiel Hill,2261
+A355500,St Kilda North,2262
+A355600,Andersons Bay,2263
+A355700,Tainui,2264
+A355800,West Otago,2265
+A355900,Tuapeka,2266
+A356000,Clinton,2267
+A356100,Clutha Valley,2268
+A356200,Bruce,2269
+A356300,Catlins,2270
+A356400,Milton,2271
+A356500,Balclutha South,2272
+A356600,Balclutha North,2273
+A356700,Benhar-Stirling,2274
+A356800,Kaitangata-Matau,2275
+A356900,Inlet Catlins,2276
+A357000,Fiordland,2277
+A357100,Inlets Fiordland,2278
+A357200,Inland water Lake Te Anau,2279
+A357300,Mararoa,2280
+A357400,Inland water Lake Manapouri,2281
+A357500,Te Anau,2282
+A357600,Whitestone,2283
+A357700,Mossburn,2284
+A357800,Inland water Lake Hauroko,2285
+A357900,Longwood Forest,2286
+A358000,Ohai-Nightcaps,2287
+A358100,Riversdale-Piano Flat,2288
+A358200,Lumsden-Balfour,2289
+A358300,Oreti River,2290
+A358400,Otautau,2291
+A358500,Hedgehope,2292
+A358600,Winton,2293
+A358700,Waianiwa,2294
+A358800,Riverton,2295
+A358900,Wallacetown,2296
+A359000,Grove Bush,2297
+A359100,Edendale-Woodlands,2298
+A359200,Inlets other Southland District,2299
+A359300,Stewart Island,2300
+A359400,Awarua Plains,2301
+A359500,Wyndham-Catlins,2302
+A359600,Waikaka,2303
+A359700,Waimumu-Kaiwera,2304
+A359800,Gore North,2305
+A359900,Gore West,2306
+A360000,East Gore,2307
+A360100,Gore Central,2308
+A360200,Gore Main,2309
+A360300,Gore South,2310
+A360400,Mataura,2311
+A360500,West Plains-Makarewa,2312
+A360600,Prestonville-Grasmere,2313
+A360700,Donovan Park,2314
+A360800,Myross Bush,2315
+A360900,Otatara,2316
+A361000,Invercargill Central,2317
+A361100,Gladstone (Invercargill City),2318
+A361200,Rosedale,2319
+A361300,Avenal,2320
+A361400,Hargest,2321
+A361500,Windsor,2322
+A361600,Richmond (Invercargill City),2323
+A361700,Glengarry,2324
+A361800,Inlet New River Estuary,2325
+A361900,Turnbull Thompson Park,2326
+A362000,Crinan,2327
+A362100,Georgetown,2328
+A362200,Kew (Invercargill City),2329
+A362300,Kennington-Tisbury,2330
+A362400,Newfield,2331
+A362500,Strathern,2332
+A362600,Elizabeth Park,2333
+A362700,Aurora,2334
+A362800,Moulson,2335
+A362900,Kingswell,2336
+A363000,Clifton,2337
+A363100,Woodend-Greenhills,2338
+A363200,Inlet Bluff Harbour,2339
+A363300,Bluff,2340
+A363400,Oceanic West Coast Region,2341
+A363500,Oceanic Nelson Region,2342
+A363600,Oceanic Marlborough Region,2343
+A363700,Oceanic Southland Region,2344
+A363800,Oceanic Canterbury Region,2345
+A363900,Oceanic Otago Region,2346
+A400001,New Zealand Economic Zone,2347
+A400002,Oceanic Kermadec Islands,2348
+A400003,Kermadec Islands,2349
+A400004,Oceanic Oil Rig Taranaki,2350
+A400005,Oceanic Campbell Island,2351
+A400006,Campbell Island,2352
+A400007,Oceanic Oil Rig Southland,2353
+A400008,Oceanic Auckland Islands,2354
+A400009,Auckland Islands,2355
+A400010,Oceanic Bounty Islands,2356
+A400011,Bounty Islands,2357
+A400012,Oceanic Snares Islands,2358
+A400013,Snares Islands,2359
+A400014,Oceanic Antipodes Islands,2360
+A400015,Antipodes Islands,2361
+A400016,Ross Dependency,2362

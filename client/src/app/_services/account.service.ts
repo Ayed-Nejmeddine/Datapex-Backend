@@ -112,6 +112,10 @@ export class AccountService {
     }
 
     getCountries() {
-        return this.http.get('../../assets/codes/countries.json');
+        return this.http.get('/assets/codes/countries.json');
+    }
+
+    getCities(query) {
+        return this.http.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyCAyWWqOVj_p9HBmph4X-tbbWJSe_D-vC0`, { withCredentials: true });
     }
 }

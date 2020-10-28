@@ -27,7 +27,63 @@
         line-height: 76px
     }
     .files-content{
-        min-height: 175px;
+        min-height: 110px;
+        position: relative;
+        .input-file-customized{
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        .input-file-container{
+            width: 100%;
+            .button-input-file-container{
+            .button-input-file{
+                position: relative;
+                width: 100%;
+                text-align: center;
+                .rectangle{
+                    max-width: 100%;
+                    cursor: pointer;
+                    width: 310px;
+                }
+                .uploaddata{
+                    cursor: pointer;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    .uploadicon{
+                        width: 30px;
+                    }
+                    .text-container{
+                        margin-left: 30px;
+                        margin-top: 12px;
+                        .title{
+                            text-align: left;
+                            font-family: Roboto;
+                            font-style: normal;
+                            font-weight: normal;
+                            font-size: 10px;
+                            color: rgba(0,120,255,1);
+                            margin: 0px;
+                        }
+                        .sizenb{
+                            text-align: left;
+                            font-family: Roboto;
+                            font-style: normal;
+                            font-weight: bold;
+                            font-size: 10px;
+                            color: rgba(0,120,255,1);
+    
+                        }
+                    }
+                    
+                }
+            } 
+            }
+
+        }
     }
 }
 .rapid-access{
@@ -101,6 +157,52 @@
         max-width: 100%;
         width: 227px;
         
+    }
+}
+
+.progress-container{
+    &.clicked-progress-bar{
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+    .progress-bar-element{
+        background-image: linear-gradient(-90deg,#77B3F5, #0078FF);
+    }
+    height: 50px;
+    border-radius: 30px;
+    position: relative;
+    .loading-text{
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+    }
+    .clicked-text{
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .absolute-warning{
+        color: red;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translate(0px, -50%);
+    }
+
+    .absolute-redo{
+        color: red;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        right: 50px;
+        transform: translate(0px, -50%);
+        cursor: pointer;
     }
 }
 }

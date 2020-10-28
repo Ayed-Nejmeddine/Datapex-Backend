@@ -1,22 +1,22 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { first, map, startWith } from 'rxjs/operators';
+import { debounceTime, finalize, first, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '../_services';
 import { Observable } from 'rxjs';
 import { parse } from 'libphonenumber-js';
+import { City } from '@app/_models';
 declare var require: any
 
 const postalCodes = require('postal-codes-js');
 
 @Component({ templateUrl: 'register.component.html', styleUrls: ['register.component.scss'] })
 export class RegisterComponent implements OnInit {
-    form: FormGroup;
+  form: FormGroup;
   loading = false;
   submitted = false;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)/;
-  countryList: { name: string, code: string, dial_code: string }[];
   phoneNumber :  string = ""
   golobalCode :  string = ""
   step :  number = 1
@@ -32,6 +32,10 @@ export class RegisterComponent implements OnInit {
     'companyName': [
       { type: 'required', message: 'Company name is required.' },
       { type: 'minlength', message: 'Company name length.' },
+    ],
+    'city': [
+      { type: 'required', message: 'city name is required.' },
+      { type: 'validCity', message: 'please enter a valid city (select city from the search list).' }
     ],
     'email': [
       { type: 'required', message: 'Email is required.' },
@@ -64,8 +68,9 @@ export class RegisterComponent implements OnInit {
       { type: 'passwordNotMatch', message: 'password Not Match.' },
     ],
   }
-
+  countryList: { name: string, code: string, dial_code: string }[];
   filteredCountries: Observable<any[]>;
+  filteredCities: City[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -77,10 +82,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  filterCountries(name: string) {
-    return this.countryList.filter(state =>
-      state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
-  }
+  
 
   onEnter(evt: any) {
   }
@@ -103,10 +105,9 @@ export class RegisterComponent implements OnInit {
          country: new FormControl('', Validators.compose([
            
          ])),
-        // postalCode: new FormControl('', Validators.compose([
-        //   Validators.required,
-        //   Validators.pattern("^[0-9]+(\.[0-9][0-9]?)?$")
-        // ])),
+         city: new FormControl('', Validators.compose([
+          Validators.required,
+         ])),
         email: new FormControl('', Validators.compose([
           Validators.required,
           Validators.minLength(6),
@@ -139,7 +140,34 @@ export class RegisterComponent implements OnInit {
             startWith(''),
             map(state => state ? this.filterCountries(state) : this.countryList.slice())
           );
+          
       });
+
+      this.form.get('city')
+      .valueChanges
+      .pipe(
+        tap(() => {}),
+        debounceTime(300),
+        switchMap(value => this.accountService.getCities(value)
+        .pipe(
+          finalize(() => {}),
+          )
+        )
+      )
+      .subscribe(cities => this.filteredCities = this.filterCities(cities));
+  }
+
+  displayFn(city: City) {
+    if (city) { return city.name; }
+  }
+  filterCountries(name: string) {
+    return this.countryList.filter(state =>
+      state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  }
+  filterCities(cities) {
+    console.log(cities)
+    let cityListaux: City[] = []; 
+    return cityListaux;
   }
 
   password(formGroup: FormGroup) {
@@ -170,7 +198,6 @@ export class RegisterComponent implements OnInit {
   validPostalCode(formGroup: FormGroup) {
     const { value: postalCode } = formGroup.get('postalCode');
     const { value: country } = formGroup.get('country');
-
     let error = this.parseWithPostalCodes(postalCode, country) ? null : { validPostalCode: true };
     formGroup.get('postalCode').setErrors(error);
     return error;
@@ -259,7 +286,8 @@ export class RegisterComponent implements OnInit {
       profile : {
         company_name: this.form.value.companyName,
         phone: this.phoneNumber,
-        country: country_value
+        country: country_value,
+        city: this.form.value.city,
       }
     }
 

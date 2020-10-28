@@ -24,6 +24,7 @@
     "@angular/router": "^10.0.3",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.0",
+    "fontawesome": "^5.6.3",
     "libphonenumber-js": "^1.8.5",
     "postal-codes-js": "^2.5.2",
     "rxjs": "^6.5.5",

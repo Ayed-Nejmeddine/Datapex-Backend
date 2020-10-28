@@ -18,6 +18,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { FormProfileComponent } from './form-profile/form-profile.component';
+import { FormInfosComponent } from './form-infos/form-infos.component';
+import { FormLanguageComponent } from './form-language/form-language.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -33,11 +37,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatCardModule,
         MatCheckboxModule,
         MatFormFieldModule,
+        MatProgressBarModule
     ],
     declarations: [
         LayoutComponent,
         ProfileComponent,
-        DefaultComponent
+        DefaultComponent,
+        FormProfileComponent,
+        FormInfosComponent,
+        FormLanguageComponent
     ]
 })
 export class MainModule { }
