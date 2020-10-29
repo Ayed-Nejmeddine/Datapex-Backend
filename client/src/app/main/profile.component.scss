@@ -43,6 +43,21 @@
                         transform: translate(0%, 15%);
                         width: 70%;
                         margin : auto;
+                        position: relative;
+                        .file-photo{
+                            opacity: 0;
+                        }
+                        .pen-edit-photo{
+                            position: absolute;
+                            top: 30px;
+                            right: 20px;
+                            cursor: pointer;
+                            z-index: 1;
+                            width: 11px;
+                            &:hover{
+                                opacity: 0.8;
+                            }
+                        }
                     }
                 }
                 @media screen and (max-width: 1279px) {
@@ -57,7 +72,7 @@
                     font-family: Roboto;
                     font-style: normal;
                     font-weight: normal;
-                    font-size: 18px;
+                    font-size: 14px;
                     color: rgba(0,14,43,1);
                 }
             .profile-done{
@@ -74,15 +89,42 @@
                 }
                 .percent{
                     position: absolute;
-                    right: 2px;
+                    right: 0px;
                     top: -7px;
                     text-align: left;
                     font-family: Sofia Pro;
                     font-style: normal;
                     font-weight: lighter;
-                    font-size: 10px;
+                    font-size: 11px;
                     color: rgba(140,162,193,1);
                     text-transform: capitalize;
+                }
+            }
+            .image-container{
+                position: relative;
+                .fatimes{
+                    position: absolute;
+                    bottom: 10%;
+                    left: 50%;
+                    transform: translate(calc(-50% - 25px), 0%);
+                    color: rgb(223, 176, 21);
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding : 5px;
+                    border-radius: 50%;
+                    background-color: lightblue;
+                }
+                .fasave{
+                    position: absolute;
+                    bottom: 10%;
+                    left: 50%;
+                    transform: translate(calc(25px - 50%), 0%);
+                    color: rgba(0,120,255);
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding : 5px;
+                    border-radius: 50%;
+                    background-color: lightblue;
                 }
             }
             }

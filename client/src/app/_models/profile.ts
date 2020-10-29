@@ -7,4 +7,6 @@ export class Profile {
     company_name: string;
     function?: string;
     language?: string;
+    photo?: string;
+
 }

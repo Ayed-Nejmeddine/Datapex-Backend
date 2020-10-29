@@ -5,7 +5,6 @@ export class User {
     email: string;
     firstName: string;
     lastName: string;
-    photo?: string;
     token: string;
     profile? : Profile;
 }

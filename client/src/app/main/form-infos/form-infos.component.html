@@ -2,10 +2,10 @@
     <div class="col-12">
         <div class="title">
             <span class="text"> Information utilisateur </span>&nbsp;
-            <img src="../../../assets/images/profile/draw.svg" class="edit-pen">
+            <img src="../../../assets/images/profile/draw.svg" class="edit-pen" (click)="displayFormFn()">
         </div>
     </div>
-    <div class="col-12 displayed-data">
+    <div class="col-12 displayed-data" *ngIf="!displayForm">
         <div class="row">
             <div class="col-md-6">
                 <span class="label-data">Adresse mail</span>
@@ -16,5 +16,56 @@
                 <span class="value-data-blue">{{ user.profile.phone }}</span>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-12 " *ngIf="displayForm">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field class="create-account-form-field ">
+                        <mat-label>Adresse email</mat-label>
+                        <input matInput type="text" formControlName="email"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    </mat-form-field>
+                    <mat-hint *ngIf="submitted && f.email.errors">
+                        <ng-container *ngFor="let error of error_messages.email">
+                            <div class="error-message text-danger" *ngIf="f.email.hasError(error.type)">
+                                {{ error.message }}
+                            </div>
+                        </ng-container>
+                    </mat-hint>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="create-account-form-country-field">
+                        <input type="text" placeholder="Code" aria-label="Country" matInput
+                            [formControl]="f.country" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let country of filteredCountries | async"
+                                [value]="country.code +'|'+ country.dial_code">
+                                <span>{{ country.code }}</span> |
+                                <small>({{ country.dial_code }})</small>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-form-field class="create-account-form-phone-field ">
+                        <mat-label>Numéro de téléphone</mat-label>
+                        <input matInput type="text" formControlName="phone"
+                            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                    </mat-form-field>
+                    <mat-hint *ngIf="submitted && f.phone.errors">
+                        <ng-container *ngFor="let error of error_messages.phone">
+                            <div class="error-message text-danger" *ngIf="f.phone.hasError(error.type)">
+                                {{ error.message }}
+                            </div>
+                        </ng-container>
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="login-container">
+                <button class="btn btn-primary btn-create-account pull-right" [disabled]="loading"><span *ngIf="loading"
+                        class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
+                <button class="btn btn-default btn-cancel-account" type="button" [disabled]="loading" (click)="reinitializeData()">&nbsp;Annuler</button>
+            </div>
+        </form>
     </div>
 </div>

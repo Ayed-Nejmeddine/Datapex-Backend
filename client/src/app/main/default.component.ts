@@ -2,8 +2,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
-import { User } from 'src/app/_models';
-import { AccountService, AlertService } from 'src/app/_services';
+import { User, Document } from 'src/app/_models';
+import { AccountService, AlertService, DocumentService } from 'src/app/_services';
 @Component({ templateUrl: 'default.component.html', styleUrls: ['default.component.scss'] })
 export class DefaultComponent {
   toggled: boolean = false;
@@ -13,17 +13,16 @@ export class DefaultComponent {
   user: User;
   percentDone: number = 0;
   uploadSuccess: boolean;
+  document : Document;
   @ViewChild('myInput') myInputVariable: ElementRef;
-  constructor(private accountService: AccountService, private router: Router, private http: HttpClient, private alertService : AlertService) {
+  constructor(private accountService: AccountService,private documentService: DocumentService, private router: Router, private http: HttpClient, private alertService : AlertService) {
     this.accountService.user.subscribe(x => {
       this.user = x
       if (!this.user)
         this.router.navigateByUrl('/account/login');
     });
   }
-  ngOnInit(): void {
-    console.log('dash')
-    
+  ngOnInit(): void {    
   }
   logout() {
     this.togglePopupProfile = false;
@@ -68,9 +67,10 @@ export class DefaultComponent {
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          console.log(event)
           this.uploadSuccess = true;
           this.uploading = false;
+          let doc: any = event.body
+          this.document = doc
         }
       },
       error => {
@@ -81,7 +81,12 @@ export class DefaultComponent {
 
   analyseFile(){
     if(this.uploadSuccess){
-      alert('analyse ........')
+      this.documentService.getById(this.document.id).subscribe(data => {
+        console.log(data)
+      },
+      error => {
+        this.alertService.errorlaunch(error)
+      });
     }
   }
 }
