@@ -18,8 +18,9 @@ class RegisterAdapter(DefaultAccountAdapter):
             profile_data.update(postalCode=data.get('postalCode', False))
         if data.get('company_name', False):
             profile_data.update(company_name=data.get('company_name', False))
+        if data.get('photo', False):
+            profile_data.update(photo=data.get('photo', False))
         profile_obj = Profile.objects.update_or_create(user=user, defaults=profile_data)
-        print(profile_obj)
         return profile_obj
 
     def save_user(self, request, user, form, commit=True):  # pylint: disable=W0613
