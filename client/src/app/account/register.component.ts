@@ -111,7 +111,7 @@ export class RegisterComponent implements OnInit {
         email: new FormControl('', Validators.compose([
           Validators.required,
           Validators.minLength(6),
-          Validators.maxLength(30),
+          Validators.maxLength(50),
           Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
         ])),
         phone: new FormControl('', Validators.compose([
@@ -121,7 +121,7 @@ export class RegisterComponent implements OnInit {
         password: new FormControl('', Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(30),
+          Validators.maxLength(50),
           Validators.pattern(this.passwordRegex)
         ])),
         passwordVerif: new FormControl('', Validators.compose([
@@ -298,7 +298,7 @@ export class RegisterComponent implements OnInit {
           this.loading = false;
           this.step++;
           this.alertService.success('Création de compte effectué avec succés', { keepAfterRouteChange: true});          
-          this.alertService.success('Veuillez valider votre compte', { keepAfterRouteChange: true, order : 1 });          
+          this.alertService.success('Veuillez valider votre compte, un code a été envoyé par sms', { keepAfterRouteChange: true, order : 1 });          
         },
         error: error => {
           this.alertService.errorlaunch(error);

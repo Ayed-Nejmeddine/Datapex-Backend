@@ -48,4 +48,41 @@
             color: rgba(0,120,255,1);
         }
     }
+
+    form{
+        padding-top: 10px;
+        .login-container{
+            margin: 25px 0px;
+            width: 100%;
+            .btn-create-account{
+            width: 40%;
+            border-radius: 0px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            color: rgba(255,255,255,1);
+            box-shadow: 0px 0px 50px#b3b3b3;
+            height: 40px;
+            padding: 10px;
+            margin-right: auto;
+        }
+            .btn-cancel-account{
+            width: 40%;
+            border-radius: 0px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            color:#0078FF;
+            box-shadow: 0px 0px 50px#b3b3b3;
+            height: 40px;
+            padding: 10px;
+            margin-left: auto;
+        }
+        }
+        .create-account-form-field {
+            width: 100%;
+        }
+    }
 }

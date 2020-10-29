@@ -49,7 +49,7 @@ export class FormReinitializeComponent implements OnInit {
         password: new FormControl('', Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(30),
+          Validators.maxLength(50),
           Validators.pattern(this.passwordRegex)
         ])),
         passwordVerif: new FormControl('', Validators.compose([

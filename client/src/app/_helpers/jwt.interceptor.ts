@@ -15,13 +15,14 @@ export class TokenInterceptor implements HttpInterceptor {
         const isLoggedIn = user && user.token;
         const isApiUrl = request.url.startsWith(environment.apiUrl);
         const isCurrentUserQuery = request.url.endsWith("rest-auth/user/");
+        const isPhoneVerif = request.url.endsWith("phone/register/");
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {
                     Authorization: `Token ${user.token}`
                 }
             });
-        }else if(isCurrentUserQuery){
+        }else if(isCurrentUserQuery || isPhoneVerif){
             let keyObj : any = JSON.parse(localStorage.getItem('key'));
             request = request.clone({
                 setHeaders: {

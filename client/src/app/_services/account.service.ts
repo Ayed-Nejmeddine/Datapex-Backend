@@ -32,13 +32,13 @@ export class AccountService {
         }))
     }
 
-    getCurrentUser(){
+    getCurrentUser() {
         return this.http.get(`${environment.apiUrl}/rest-auth/user/`).pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             let userSession = new User()
             let profileSession = new Profile()
-            let data : any = user;
-            let keyObj : any = JSON.parse(localStorage.getItem('key'));
+            let data: any = user;
+            let keyObj: any = JSON.parse(localStorage.getItem('key'));
 
             // Store user data
             userSession.id = data.pk;
@@ -52,11 +52,17 @@ export class AccountService {
             profileSession.postalCode = data.profile.postalCode
             profileSession.company_name = data.profile.company_name
             profileSession.phone = data.profile.phone
+            profileSession.function = data.profile.function
+            profileSession.city = data.profile.city
+            profileSession.photo = data.profile.photo
             userSession.profile = profileSession;
             //Store user data on local storage
+
+
             localStorage.setItem('user', JSON.stringify(userSession));
             this.userSubject.next(userSession);
             return user;
+
         }));
     }
 
@@ -69,7 +75,17 @@ export class AccountService {
     }
 
     register(user: any) {
-        return this.http.post(`${environment.apiUrl}/rest-auth/registration/`, user);
+        return this.http.post(`${environment.apiUrl}/rest-auth/registration/`, user).pipe(map(key => {
+            localStorage.setItem('key', JSON.stringify(key));
+            return key;
+        }));
+    }
+
+    sendSmsCodePhone(data) {
+        return this.http.post(`${environment.apiUrl}/api/v1/phone/register/`, data);
+    }
+    applyAccountVerificationApi(data) {
+        return this.http.post(`${environment.apiUrl}/api/v1/phone/verify/`, data);
     }
 
     updateAccount(user: any) {
