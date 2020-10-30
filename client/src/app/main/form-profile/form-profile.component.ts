@@ -190,23 +190,23 @@ export class FormProfileComponent implements OnInit, AfterViewInit {
     }
 
     this.loading = true;
-    let data: any = {
-      username: this.user.email,
-      email: this.user.email,
-      first_name: this.form.value.firstName,
-      last_name: this.form.value.lastName,
-      profile: {
-        id: this.user.profile.id,
-        phone: this.user.profile.phone,
-        country: this.user.profile.country,
-        company_name: this.form.value.companyName,
-        city: this.form.value.city,
-        function: this.form.value.function,
-        postalCode: this.form.value.postalCode,
-      }
-    }
 
-    this.accountService.updateAccount(data)
+    var formData = new FormData();
+    formData.append('username', this.user.email)
+    formData.append('email', this.user.email)
+    formData.append('first_name', this.form.value.firstName)
+    formData.append('last_name', this.form.value.firstName)
+    formData.append('profile', "profile")
+    formData.append('profile.id', this.user.profile.id)
+    formData.append('profile.phone', this.user.profile.phone)
+    formData.append('profile.country', this.user.profile.country)
+    formData.append('profile.company_name', this.form.value.companyName)
+    formData.append('profile.city', this.form.value.city)
+    formData.append('profile.function', this.form.value.function)
+    formData.append('profile.postalCode', this.form.value.postalCode ? this.form.value.postalCode : null)
+
+
+    this.accountService.updateAccount(formData)
       .pipe(first())
       .subscribe({
         next: () => {

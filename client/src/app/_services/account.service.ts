@@ -52,8 +52,9 @@ export class AccountService {
             profileSession.postalCode = data.profile.postalCode
             profileSession.company_name = data.profile.company_name
             profileSession.phone = data.profile.phone
-            profileSession.function = data.profile.function
-            profileSession.city = data.profile.city
+            profileSession.function = data.profile.function ? data.profile.function : ''
+            profileSession.city = data.profile.city ? data.profile.city : ''
+            profileSession.language = data.profile.language ? data.profile.language : 'fr'
             profileSession.photo = data.profile.photo
             userSession.profile = profileSession;
             //Store user data on local storage

@@ -19,7 +19,7 @@
     </div>
 
     <div class="col-md-12 " *ngIf="displayForm">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmitVerification()">
             <div class="row">
                 <div class="col-md-6">
                     <mat-form-field class="create-account-form-field ">
@@ -37,8 +37,8 @@
                 </div>
                 <div class="col-md-6">
                     <mat-form-field class="create-account-form-country-field">
-                        <input type="text" placeholder="Code" aria-label="Country" matInput
-                            [formControl]="f.country" [matAutocomplete]="auto">
+                        <input type="text" placeholder="Code" aria-label="Country" matInput [formControl]="f.country"
+                            [matAutocomplete]="auto">
                         <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let country of filteredCountries | async"
                                 [value]="country.code +'|'+ country.dial_code">
@@ -61,11 +61,28 @@
                     </mat-hint>
                 </div>
             </div>
-            <div class="login-container">
-                <button class="btn btn-primary btn-create-account pull-right" [disabled]="loading"><span *ngIf="loading"
+            <div class="login-container text-right">
+
+                <button class="btn btn-default btn-cancel-account" type="button" [disabled]="loading"
+                    (click)="reinitializeData()">&nbsp;Annuler</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary btn-create-account" [disabled]="loading"><span *ngIf="loading"
                         class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
-                <button class="btn btn-default btn-cancel-account" type="button" [disabled]="loading" (click)="reinitializeData()">&nbsp;Annuler</button>
+
             </div>
         </form>
+    </div>
+</div>
+
+<div class="modal-valid-credential">
+    <!-- The Modal -->
+    <div id="myModal" class="modal" [ngClass]="{'show' : showCodeModal}">
+        <!-- Modal content -->
+        <div class="modal-content text-center"  clickOutside
+        (clickOutside)="showCodeModal = false">
+            <span class="close ml-auto" (click)="hideCodeModal()">&times;</span>
+            <app-verify-change-account [phoneNumberIntroduced]="user.profile.phone"
+            (codeEmitter)="getIntroducedCode($event)" *ngIf="showCodeModal"></app-verify-change-account>
+        </div>
     </div>
 </div>

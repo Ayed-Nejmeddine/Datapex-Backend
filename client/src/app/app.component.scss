@@ -4,7 +4,7 @@
 
 #sidebar-wrapper {
   min-height: 100vh;
-  margin-left: -15rem;
+  margin-left: -13.5rem;
   -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
@@ -13,44 +13,54 @@
 }
 
 #sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
+  //padding: 0.875rem 1.25rem;
   font-size: 1.2rem;
 }
 
 .navbar{
   padding: 0px 20px;
+  padding-right: 0px;
   background-color: white;
 }
 
 .menu{
-    margin-left: 30px;
+    margin-left: 37px;
     .menu-item{
-        margin: 0px 25px;
         cursor: pointer;
         &:hover{
             color: #0078FF;
         }
+        margin: 0px 25px;
+        cursor: pointer;
         font-family: Roboto;
         font-style: normal;
-        font-weight: bold;
-        font-size: 12px;
-        color: rgba(41,42,44,1);
+        font-weight: BOLD;
+        font-size: 9px;
+        color: #292a2c;
+        margin-bottom: 3px;
+        margin-left: 54px;
     }
 }
 
 .sidebar-heading{
     color: white !important;
-    height: 250px;
+    height: 238px;
 }
 .profile-details{
+  .mat-expand-more{
+    font-size: 15px !important;
+    font-weight: bold !important;
+  }
     position: relative;
-    min-width: 160px;
+    min-width: 130px;
     .name{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 9px;
     color: rgba(0,14,43,1);
+    padding: 1.5rem 0rem;
+    padding-left: 11px;
     }
     .absolute-elem{
     display: flex;
@@ -62,6 +72,9 @@
     .expand_more{
         color: #0078FF;
         cursor: pointer;
+        padding: 0px;
+        padding-top: 32px;
+        padding-left: 12px;
     }
 }
 .profiledetailsexapnded{
@@ -77,6 +90,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
+    white-space: nowrap;
     color:white;
     }
     .popupaction{
@@ -93,23 +107,24 @@
     }
 }
 .logo-image{
-    width: 30px;
-    margin: 20px;
+  width: 25px;
+  margin: 32px;
 }
 
 
 .defaultuser{
-    width: 40px;
-    height: 40px;
+  width: 42px;
+  height: 42px;
     border-radius: 50%;
+    background: #DCE6EC;;
 }
 
 #sidebar-wrapper .list-group {
-  width: 15rem;
+  width: 13.5rem;
 }
 .space-menu{
     width: 100%;
-    margin: 8px 0px;
+    margin: 12px 0px;
 }
 .list-group-item{
     cursor: pointer;
@@ -123,25 +138,26 @@
     border: none;
     z-index: 2;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    margin-left: 5px;
+    background-color: #0078FF;
+    border-color:#0078FF;
+    margin-left: 4px;
     .icon{
         width: 13px;
         margin-left: 20px;
     }
     &.active{
         margin-left: 0px;
-        border-left: 5px solid white;
+        border-left: 4px solid white;
     }
     .text-item{
         font-family: Roboto;
         font-style: normal;
         font-weight: normal;
-        font-size: 12px;
-        color: rgba(255,255,255,1);
-        margin-left: 20px;
+        font-size: 9px;
+        color: white;
+        margin-left: 19px;
     }
+    padding: 0.2rem 0.8rem 0.35rem 0.8rem !important;
     
 }
 
@@ -169,7 +185,7 @@
   }
 
   #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
+    margin-left: -13.5rem;
   }
  
 }
@@ -233,7 +249,7 @@
     padding: 8px 0;
     position: absolute;
     z-index: 1;
-    top : 66%;
+    top : 75%;
     right: 0%;
     margin-left: -80px;
     box-shadow:  0px 0px 50px#b3b3b3;
@@ -244,7 +260,7 @@
     content: "";
     position: absolute;
     top: -10px;
-    left: 87%;
+    left: 90%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;

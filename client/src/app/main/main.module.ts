@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -21,7 +21,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { FormProfileComponent } from './form-profile/form-profile.component';
 import { FormInfosComponent } from './form-infos/form-infos.component';
+import { VerifyChangeAccountComponent } from './form-infos/verify-account/verify-change-account.component';
 import { FormLanguageComponent } from './form-language/form-language.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { HighlightDirective } from '@app/_directives/highlight.directive';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -37,7 +41,9 @@ import { FormLanguageComponent } from './form-language/form-language.component';
         MatCardModule,
         MatCheckboxModule,
         MatFormFieldModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        ImageCropperModule,
+        
     ],
     declarations: [
         LayoutComponent,
@@ -45,7 +51,13 @@ import { FormLanguageComponent } from './form-language/form-language.component';
         DefaultComponent,
         FormProfileComponent,
         FormInfosComponent,
-        FormLanguageComponent
+        FormLanguageComponent,
+        VerifyChangeAccountComponent,
+        HighlightDirective
+    ],
+    exports:[HighlightDirective],
+    providers : [
+        DatePipe
     ]
 })
 export class MainModule { }

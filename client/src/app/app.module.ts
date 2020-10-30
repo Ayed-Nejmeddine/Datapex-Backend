@@ -25,7 +25,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { HighlightDirective } from './_directives/highlight.directive';
+import { MainModule } from './main/main.module';
 
 @NgModule({
     imports: [
@@ -44,13 +44,12 @@ import { HighlightDirective } from './_directives/highlight.directive';
         MatCardModule,
         MatCheckboxModule,
         MatFormFieldModule,
-        
+        MainModule
     ],
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent,
-        HighlightDirective
+        HomeComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

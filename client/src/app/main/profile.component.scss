@@ -36,17 +36,15 @@
             
             .column-image{
                 position: relative;
-                
+                .file-photo{
+                    opacity: 0;
+                }
                 @media screen and (min-width: 1280px) {
                     border-right: 1px solid #E8E8E8;
                     .column-image-absolute{
-                        transform: translate(0%, 15%);
                         width: 70%;
                         margin : auto;
                         position: relative;
-                        .file-photo{
-                            opacity: 0;
-                        }
                         .pen-edit-photo{
                             position: absolute;
                             top: 30px;
@@ -65,6 +63,10 @@
                 }
             .user-photo{
                     border-radius: 50%;
+                    width: 130px;
+                    height: 130px;
+                    max-width: 90%;
+                    background: #DCE6EC;;
                 }
                 .username{
                     white-space: nowrap;
@@ -214,6 +216,17 @@
         color: rgba(41,42,44,1);
         }
 
+    }
+
+    .crop-container{
+        .btn-zoom{
+            &:focus{
+                border: none;
+                box-shadow: none;
+                outline: none;
+            }
+            color: #A5D0FF;
+        }
     }
 }
 

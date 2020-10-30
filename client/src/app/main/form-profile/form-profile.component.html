@@ -36,7 +36,7 @@
     <div class="col-md-12 " *ngIf="displayForm">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Nom</mat-label>
                         <input matInput type="text" formControlName="lastName"
@@ -50,7 +50,7 @@
                         </ng-container>
                     </mat-hint>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Prénom</mat-label>
                         <input matInput type="text" formControlName="firstName"
@@ -65,7 +65,7 @@
                         </ng-container>
                     </mat-hint>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Nom de compagnie</mat-label>
                         <input matInput type="text" formControlName="companyName"
@@ -81,7 +81,7 @@
                     </mat-hint>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Position/poste dans l'entreprise</mat-label>
                         <input matInput type="text" formControlName="function"
@@ -96,7 +96,7 @@
                         </ng-container>
                     </mat-hint>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Ville</mat-label>
                         <input matInput type="text" formControlName="city"
@@ -110,7 +110,7 @@
                         </ng-container>
                     </mat-hint>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Code postale</mat-label>
                         <input matInput type="text" formControlName="postalCode"
@@ -125,10 +125,12 @@
                     </mat-hint>
                 </div>
             </div>
-            <div class="login-container">
-                <button class="btn btn-primary btn-create-account pull-right" [disabled]="loading"><span *ngIf="loading"
-                        class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
+            <div class="login-container text-right">
                 <button class="btn btn-default btn-cancel-account" type="button" [disabled]="loading" (click)="reinitializeData()">&nbsp;Annuler</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary btn-create-account" [disabled]="loading"><span *ngIf="loading"
+                        class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
+                       
             </div>
         </form>
     </div>

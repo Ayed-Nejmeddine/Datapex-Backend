@@ -9,7 +9,9 @@
             <div class="row">
                 <div class="col-md-3 text-center column-image">
                     <div class="column-image-absolute">
-                        <input type="file"   #myInput (change)="upload($event.target.files)" accept="image/x-png,image/gif,image/jpeg" name="file-photo" id="file-photo" class="file-photo">
+                        <input type="file" #myInput (change)="upload($event)"
+                            accept="image/x-png,image/gif,image/jpeg" name="file-photo" id="file-photo"
+                            class="file-photo">
                         <label for="file-photo" class="pen-edit-photo">
                             <img src="../../assets/images/profile/draw.svg">
                         </label>
@@ -17,19 +19,33 @@
                             <span class="fa fa-times fatimes" *ngIf="choosedImage" (click)="reinitializeInput()"></span>
                             <span class="fa fa-save fasave" *ngIf="choosedImage" (click)="saveImage()"></span>
                             <img [src]="user.profile.photo ? user.profile.photo :  '../assets/images/defaultuser.png'"
-                                width="90%" class="user-photo" *ngIf="!choosedImageData">
-                            <img [src]="choosedImageData"
-                                width="90%" class="user-photo" *ngIf="choosedImageData">
+                                 class="user-photo" *ngIf="!choosedImageData">
+                            <img [src]="choosedImageData" class="user-photo" *ngIf="choosedImageData">
+                        </div>
+                        <div class="crop-container" *ngIf="choosedImage">
+                            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                [aspectRatio]="1 / 1" [resizeToWidth]="0" [cropperMinWidth]="80" format="png"
+                                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"
+                                [transform]="transform" [roundCropper]="true"
+                                [style.display]="showCropper ? null : 'none'">
+                            </image-cropper>
+                            <div style="width: 100%;" class="text-center">
+                                <button (click)="zoomOut()" class="btn  btn-zoom" *ngIf="choosedImageData"> <span
+                                        class="fa fa-search-plus"></span></button>
+                                &nbsp;
+                                <button (click)="zoomIn()" class="btn  btn-zoom" *ngIf="choosedImageData"><span
+                                        class="fa fa-search-minus"></span></button>
+                            </div>
                         </div>
                         <p class="username"> {{ user.firstName }} {{ user.lastName }}</p>
                         <div class="profile-done">
                             <div class="progress progress-container">
-                                <div class="progress-bar progress-bar-element" role="progressbar" [style]="'width: 85%'"
-                                    aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar progress-bar-element" role="progressbar" [style]="'width:' + percentCompletion +'%'"></div>
                             </div>
                             &nbsp;
                             <span class="percent">
-                                85%
+                                {{percentCompletion}}%
                             </span>
                         </div>
                     </div>
