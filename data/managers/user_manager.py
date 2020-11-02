@@ -1,5 +1,10 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from data.models.user_model import Profile
+from django.contrib.sites.shortcuts import get_current_site
+from data_appraisal.settings import FRONTEND_ROOT_URL, ROOT_VERIFICATION, EMAIL_HOST_USER
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
+from django.core.mail import EmailMultiAlternatives
 
 
 class RegisterAdapter(DefaultAccountAdapter):
@@ -43,3 +48,19 @@ class RegisterAdapter(DefaultAccountAdapter):
             user.delete()
             return None
         return user
+
+    def send_confirmation_mail(self, request, emailconfirmation, signup):
+        """ Override the send confirmation mail method. """
+        site = get_current_site(request)
+        link = FRONTEND_ROOT_URL + ROOT_VERIFICATION + '?token=' + emailconfirmation.key
+        ctx = {
+            "username": emailconfirmation.email_address.user.username,
+            "site": site,
+            "link": link,
+        }
+        html_content = render_to_string(template_name="confirm_email.html",
+                                        context=ctx)
+        msg = EmailMultiAlternatives(_("Please confirm your email"), html_content,
+                                     EMAIL_HOST_USER, [emailconfirmation.email_address])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
