@@ -1,29 +1,24 @@
 from rest_auth.registration.serializers import RegisterSerializer as RootRegSerializer
 from rest_framework import serializers
-from django_countries.serializer_fields import CountryField
-from phonenumber_field.serializerfields import PhoneNumberField
 from rest_auth.serializers import UserDetailsSerializer
 from data.models.user_model import Profile
 from phonenumber_field import phonenumber
-from django_countries import Countries
-
-
-class SerializableCountryField(serializers.ChoiceField):
-    def __init__(self, **kwargs):
-        super(SerializableCountryField, self).__init__(choices=Countries(), default=None)
-
-    def to_representation(self, value):
-        if value in ('', None):
-            return None # normally here it would return value. which is Country(u'') and not serialiable
-        return super(SerializableCountryField, self).to_representation(value)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for Profile model.
     """
-    country = SerializableCountryField(allow_null=True, required=False, allow_blank=True)
     phone_is_verified = serializers.ReadOnlyField()
+    def validate(self, attrs):
+        """Validate country field"""
+        city= attrs.get('city')
+        country = attrs.get('country')
+        if city.country != country:
+            raise serializers.ValidationError("The city does not match the country!")
+        return attrs
+
+
     def validate_phone(self, phone):
         """
          Validate phone number field
@@ -48,7 +43,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:  # pylint: disable=C0115
         model = Profile
-        fields = ('id', 'phone', 'postalCode', 'country', 'company_name', 'phone_is_verified','photo')
+        fields = ('id', 'phone', 'postalCode', 'country', 'city', 'company_name',
+                  'occupation', 'phone_is_verified','photo', 'language')
 
 
 class RegisterSerializer(RootRegSerializer):  # pylint: disable=W0223
@@ -76,11 +72,22 @@ class UserSerializer(UserDetailsSerializer):
         profile = data.pop('profile')
         instance = super(UserSerializer, self).update(instance, data)
         if hasattr(instance, 'profile'):
-            instance.profile.phone = profile['phone']
-            instance.profile.country = profile['country']
-            instance.profile.postalCode = profile['postalCode']
-            instance.profile.company_name = profile['company_name']
-            instance.profile.photo = profile['photo']
+            if profile.get('phone', False):
+                instance.profile.phone = profile['phone']
+            if profile.get('country', False):
+                instance.profile.country = profile['country']
+            if profile.get('city', False):
+                instance.profile.city = profile['city']
+            if profile.get('postalCode', False):
+                instance.profile.postalCode = profile['postalCode']
+            if profile.get('company_name', False):
+                instance.profile.company_name = profile['company_name']
+            if profile.get('photo', False):
+                instance.profile.photo = profile['photo']
+            if profile.get('occupation', False):
+                instance.profile.occupation = profile['occupation']
+            if profile.get('language', False):
+                instance.profile.language = profile['language']
             instance.profile.save()
         return instance
 

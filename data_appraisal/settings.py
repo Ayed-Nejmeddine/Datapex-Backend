@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_countries',
     'phonenumber_field',
     'phone_verify',
+    'cities_light',
+    'django_filters',
     # Local
     'data.apps.DataConfig',
 ]
@@ -222,3 +224,8 @@ PHONE_VERIFICATION = {
     "SECURITY_CODE_EXPIRATION_TIME": 3600,  # In seconds only
     "VERIFY_SECURITY_CODE_ONLY_ONCE": False,  # If False, then a security code can be used multiple times for verification
 }
+
+""" cities light setting"""
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['FR', 'US', 'CA']
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]

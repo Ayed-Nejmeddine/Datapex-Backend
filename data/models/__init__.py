@@ -89,3 +89,10 @@ NUMERIC_LINK_OPTIONS = (
     (LESS_THAN, _('Less-then')),
     (EQUALS, _('Equals')))
 
+# Language choices
+FRENCH = 'fr'
+ENGLISH = 'en'
+LANGUAGE_OPTIONS = (
+    (FRENCH, _('French')),
+    (ENGLISH, _('English')),
+)
