@@ -224,6 +224,8 @@ PHONE_VERIFICATION = {
     "SECURITY_CODE_EXPIRATION_TIME": 3600,  # In seconds only
     "VERIFY_SECURITY_CODE_ONLY_ONCE": False,  # If False, then a security code can be used multiple times for verification
 }
+# password change
+OLD_PASSWORD_FIELD_ENABLED = True
 
 """ cities light setting"""
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']

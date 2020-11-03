@@ -69,4 +69,4 @@ class RegisterAdapter(DefaultAccountAdapter):
         msg = EmailMultiAlternatives(_("Please confirm your email"), html_content,
                                      EMAIL_HOST_USER, [emailconfirmation.email_address])
         msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        msg.send(fail_silently=True)
