@@ -20,3 +20,4 @@ class Profile(models.Model):
     occupation = models.CharField(max_length=100,null=True, blank=True)
     photo = models.ImageField(upload_to='profile_pictures', null=True, blank=True, default=None)
     language = models.CharField(max_length=50, choices=LANGUAGE_OPTIONS, default=ENGLISH)
+    email_is_verified = models.BooleanField(default=False)
