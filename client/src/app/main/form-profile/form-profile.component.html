@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-3">
                 <span class="label-data">Position/poste dans l'entreprise</span>
-                <span class="value-data">{{user.profile.function}}</span>
+                <span class="value-data">{{user.profile.occupation}}</span>
             </div>
             <div class="col-md-3">
                 <span class="label-data">Ville</span>
@@ -84,13 +84,13 @@
                 <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Position/poste dans l'entreprise</mat-label>
-                        <input matInput type="text" formControlName="function"
-                            [ngClass]="{ 'is-invalid': submitted && f.function.errors }">
+                        <input matInput type="text" formControlName="occupation"
+                            [ngClass]="{ 'is-invalid': submitted && f.occupation.errors }">
 
                     </mat-form-field>
-                    <mat-hint *ngIf="submitted && f.function.errors">
-                        <ng-container *ngFor="let error of error_messages.function">
-                            <div class="error-message text-danger" *ngIf="f.function.hasError(error.type)">
+                    <mat-hint *ngIf="submitted && f.occupation.errors">
+                        <ng-container *ngFor="let error of error_messages.occupation">
+                            <div class="error-message text-danger" *ngIf="f.occupation.hasError(error.type)">
                                 {{ error.message }}
                             </div>
                         </ng-container>

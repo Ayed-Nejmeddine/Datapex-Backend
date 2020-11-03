@@ -5,8 +5,9 @@ export class Profile {
     city?: string;
     postalCode?: string;
     company_name: string;
-    function?: string;
+    occupation?: string;
     language?: string;
     photo?: string;
+    phone_is_verified?: boolean;
 
 }

@@ -22,6 +22,7 @@ export class VerifyAccountComponent implements OnInit, AfterViewInit {
   submitted = false;
   coderegexp: RegExp = /^[a-zA-Z0-9]*$/;
   @Input() phoneNumberIntroduced: string;
+  @Input() hiddenPhoneNumber: boolean = false;
   @Output() codeEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(

@@ -73,7 +73,6 @@ export class ProfileComponent implements OnInit {
             if(typeof data[property] === "object" ){
                 this.countCompletion(data[property])
             }else{
-              console.log(property)
               if(data[property] && this.notCountedField.indexOf(property) < 0)
                 this.completedFields++;
             }
@@ -131,7 +130,7 @@ export class ProfileComponent implements OnInit {
     formData.append('profile.country', this.user.profile.country)
     formData.append('profile.company_name', this.user.profile.company_name)
     formData.append('profile.city', this.user.profile.city)
-    formData.append('profile.function', this.user.profile.function)
+    formData.append('profile.occupation', this.user.profile.occupation)
     formData.append('profile.postalCode', this.user.profile.postalCode)
     formData.append('profile.photo', photo)
     this.accountService.updateAccount(formData)

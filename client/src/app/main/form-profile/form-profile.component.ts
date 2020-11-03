@@ -34,9 +34,9 @@ export class FormProfileComponent implements OnInit, AfterViewInit {
       { type: 'required', message: 'Company name is required.' },
       { type: 'minlength', message: 'Company name length.' },
     ],
-    'function': [
-      { type: 'required', message: 'function is required.' },
-      { type: 'minlength', message: 'function length.' },
+    'occupation': [
+      { type: 'required', message: 'occupation is required.' },
+      { type: 'minlength', message: 'occupation length.' },
     ],
     'postalCode': [
       { type: 'required', message: 'postalCode is required.' },
@@ -74,7 +74,7 @@ export class FormProfileComponent implements OnInit, AfterViewInit {
           Validators.required,
           Validators.minLength(3),
         ])),
-        function: new FormControl('', Validators.compose([
+        occupation: new FormControl('', Validators.compose([
           Validators.required,
           Validators.minLength(3),
         ])),
@@ -108,7 +108,7 @@ export class FormProfileComponent implements OnInit, AfterViewInit {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
         companyName: this.user.profile.company_name,
-        function: this.user.profile.function,
+        occupation: this.user.profile.occupation,
         city: this.user.profile.city,
         postalCode: this.user.profile.postalCode ? this.user.profile.postalCode : '',
       });
@@ -122,7 +122,7 @@ export class FormProfileComponent implements OnInit, AfterViewInit {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
         companyName: this.user.profile.company_name,
-        function: this.user.profile.function,
+        occupation: this.user.profile.occupation,
         city: this.user.profile.city,
         postalCode: this.user.profile.postalCode ? this.user.profile.postalCode : '',
       });
@@ -202,7 +202,7 @@ export class FormProfileComponent implements OnInit, AfterViewInit {
     formData.append('profile.country', this.user.profile.country)
     formData.append('profile.company_name', this.form.value.companyName)
     formData.append('profile.city', this.form.value.city)
-    formData.append('profile.function', this.form.value.function)
+    formData.append('profile.occupation', this.form.value.occupation)
     formData.append('profile.postalCode', this.form.value.postalCode ? this.form.value.postalCode : null)
 
 

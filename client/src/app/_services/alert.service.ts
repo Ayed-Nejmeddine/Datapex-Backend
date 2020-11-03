@@ -40,12 +40,14 @@ export class AlertService {
 
     // clear alerts
     clear(id = this.defaultId) {
+        this.index = 0;
         this.subject.next(new Alert({ id }));
     }
 
-    errorlaunch(error, first = true, key= '') {
+    errorlaunch(error, first = true, key= '', options?: any) {
         if(first)
         this.index = 0;
+        console.log(error)
         if (typeof error === "object") {
             for (const property in error) {
                 if(typeof error[property] === "object" ){

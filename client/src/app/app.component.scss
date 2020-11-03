@@ -61,6 +61,7 @@
     color: rgba(0,14,43,1);
     padding: 1.5rem 0rem;
     padding-left: 11px;
+    cursor: pointer;
     }
     .absolute-elem{
     display: flex;
@@ -115,8 +116,9 @@
 .defaultuser{
   width: 42px;
   height: 42px;
-    border-radius: 50%;
-    background: #DCE6EC;;
+  border-radius: 50%;
+  background: #DCE6EC;;
+  cursor: pointer;
 }
 
 #sidebar-wrapper .list-group {
@@ -187,14 +189,46 @@
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -13.5rem;
   }
- 
+}
+@media (max-width: 767px) {
+  #wrapper:not(.toggled)>#sidebar-wrapper {
+    z-index: 999;
+    margin-left: 0px !important;
+  }
+  #wrapper.toggled>#sidebar-wrapper {
+    margin-left: -13.5rem !important;
+  }
+
+
+
+  #wrapper:not(.toggled)>#sidebar-wrapper>.list-group {
+    width: 13.5rem;
+  }
+  #wrapper:not(.toggled)>#page-content-wrapper {
+    margin-left: -13.5rem;
+  }
+
+  .toggleBarsInside{
+    display: block !important;
+  }
 }
 @media (max-width: 991px) {
  .profiledetailsexapnded{
       display: block;
   }
+
 }
 
+
+.toggleBarsInside{
+  display: none;
+  cursor: pointer;
+  color:white;
+  .content{
+    margin-left: auto;
+    width: 20px;
+  }
+}
 .container-bars{
     display: inline-block;
     cursor: pointer;
@@ -207,13 +241,32 @@
     margin: 8px 0;
     transition: 0.4s;
   }
+.barinside1, .barinside3 {
+    width: 20px;
+    height: 2px;
+    background-color: white;
+    margin: 8px 0;
+    transition: 0.4s;
+  }
   
-  .change .bar1 {
+  .change .barinside1 {
     -webkit-transform: rotate(-45deg) translate(-7px, 6px);
     transform: rotate(-45deg) translate(-7px, 6px);
   }
   
-  .change .bar2 {opacity: 0;}
+  
+  .change .barinside3 {
+    -webkit-transform: rotate(45deg) translate(0px, 0px);
+    transform: rotate(45deg) translate(0px, 0px);
+  }
+  .change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-7px, 6px);
+    transform: rotate(-45deg) translate(-7px, 6px);
+  }
+  .change .bar2 {
+    opacity: 0;
+  }
+  
   
   .change .bar3 {
     -webkit-transform: rotate(45deg) translate(-8px, -8px);

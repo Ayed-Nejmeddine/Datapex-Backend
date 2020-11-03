@@ -74,3 +74,17 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal-login-credential">
+    <!-- The Modal -->
+    <div id="myModal" class="modal" [ngClass]="{'show' : showCodeModal}">
+        <!-- Modal content -->
+        <div class="modal-content text-center"  clickOutside
+        (clickOutside)="showCodeModal = false">
+            <span class="close ml-auto" (click)="hideCodeModal()">&times;</span>
+            <app-verify-account [phoneNumberIntroduced]="userPhone" [hiddenPhoneNumber]="true"
+            (codeEmitter)="getIntroducedCode($event)" *ngIf="showCodeModal"></app-verify-account>
+        </div>
+    </div>
+</div>

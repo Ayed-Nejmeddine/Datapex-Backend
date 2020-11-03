@@ -251,7 +251,7 @@ export class FormInfosComponent implements OnInit, AfterViewInit {
     formData.append('profile.country', country_value)
     formData.append('profile.company_name', this.user.profile.company_name)
     formData.append('profile.city', this.user.profile.city)
-    formData.append('profile.function', this.user.profile.function)
+    formData.append('profile.occupation', this.user.profile.occupation)
     formData.append('profile.postalCode', this.user.profile.postalCode ? this.user.profile.postalCode : null)
 
     this.accountService.updateAccount(formData)

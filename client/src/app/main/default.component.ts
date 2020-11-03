@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 import { User, Document } from 'src/app/_models';
 import { AccountService, AlertService, DocumentService } from 'src/app/_services';
+import { saveAs } from 'file-saver';
+
 @Component({ templateUrl: 'default.component.html', styleUrls: ['default.component.scss'] })
 export class DefaultComponent {
   toggled: boolean = false;
@@ -13,16 +15,16 @@ export class DefaultComponent {
   user: User;
   percentDone: number = 0;
   uploadSuccess: boolean;
-  document : Document;
+  document: Document;
   @ViewChild('myInput') myInputVariable: ElementRef;
-  constructor(private accountService: AccountService,private documentService: DocumentService, private router: Router, private http: HttpClient, private alertService : AlertService) {
+  constructor(private accountService: AccountService, private documentService: DocumentService, private router: Router, private http: HttpClient, private alertService: AlertService) {
     this.accountService.user.subscribe(x => {
       this.user = x
       if (!this.user)
         this.router.navigateByUrl('/account/login');
     });
   }
-  ngOnInit(): void {    
+  ngOnInit(): void {
   }
   logout() {
     this.togglePopupProfile = false;
@@ -37,12 +39,12 @@ export class DefaultComponent {
   upload(files: File[]) {
     this.loadingerror = false
     let sizeError = false;
-    
+
     Array.from(files).forEach(f => {
-      if(f.size > 524288000 )
+      if (f.size > 524288000)
         sizeError = true;
     })
-    if(sizeError){
+    if (sizeError) {
       this.alertService.error('Taille Maximum 500 MO !')
       this.reinitializeInput()
       return;
@@ -50,11 +52,11 @@ export class DefaultComponent {
     this.uploadAndProgress(files);
   }
 
-  reinitializeInput(){
+  reinitializeInput() {
     this.uploading = false
     this.uploadSuccess = false
     this.loadingerror = false
-    setTimeout(() => {this.myInputVariable.nativeElement.value = "";}, 100)
+    setTimeout(() => { this.myInputVariable.nativeElement.value = ""; }, 100)
     this.alertService.clear()
   }
 
@@ -73,20 +75,61 @@ export class DefaultComponent {
           this.document = doc
         }
       },
-      error => {
-        this.loadingerror = true
-        this.alertService.errorlaunch(error)
-      });
+        error => {
+          this.loadingerror = true
+          this.alertService.errorlaunch(error)
+        });
   }
 
-  analyseFile(){
-    if(this.uploadSuccess){
+  analyseFile() {
+    let order = 0
+    if (this.uploadSuccess) {
       this.documentService.getById(this.document.id).subscribe(data => {
-        console.log(data)
+        this.alertService.success(`Demande d\'analyse de document ...`, { order: order })
+
+        this.documentService.launchSyntacticAnalyse(this.document).subscribe(data => {
+          order++;
+          this.alertService.success('L\'analyse Syntaxique a été lancé !', { order: order })
+        },
+          error => {
+            this.alertService.errorlaunch(error)
+          });
       },
+        error => {
+          this.alertService.errorlaunch(error)
+        });
+    }
+  }
+
+  launchSemanticAnalysis() {
+    this.documentService.launchSemanticAnalyse(this.document).subscribe((data: any) => {
+      this.alertService.success('L\'analyse Sémantique a été lancé !', { order: 0 })
+      const blob = new Blob([data], { type: 'application/octet-stream' });
+      const fileName = 'Your File Name.csv';
+      saveAs(blob, fileName);
+    },
+      error => {
+        this.alertService.errorlaunch(error)
+      })
+  }
+
+  getSyntacticAnalysisResults() {
+    this.documentService.getSyntacticAnalysisResults(this.document).subscribe((data: any) => {
+      const blob = new Blob([data], { type: 'application/octet-stream' });
+      const fileName = 'Your File Name.csv';
+      saveAs(blob, fileName);
+    },
+      error => {
+        this.alertService.errorlaunch(error)
+      })
+  }
+
+  getLinksBetweenColumns() {
+    this.documentService.getLinksBetweenColumns(this.document).subscribe(data => {
+      alert(JSON.stringify(data))
+    },
       error => {
         this.alertService.errorlaunch(error)
       });
-    }
   }
 }
