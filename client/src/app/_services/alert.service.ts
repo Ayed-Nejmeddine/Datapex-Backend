@@ -40,23 +40,25 @@ export class AlertService {
 
     // clear alerts
     clear(id = this.defaultId) {
+        this.index = 0;
         this.subject.next(new Alert({ id }));
     }
 
-    errorlaunch(error, first = true) {
+    errorlaunch(error, first = true, key= '', options?: any) {
         if(first)
         this.index = 0;
+        console.log(error)
         if (typeof error === "object") {
             for (const property in error) {
                 if(typeof error[property] === "object" ){
-                    this.errorlaunch(error[property], false)
+                    this.errorlaunch(error[property], false, property)
                 }else{
-                    this.error(`${error[property]}`, { order: this.index })
+                    this.error(`${key} : ${error[property]}`, { order: this.index })
                     this.index++;
                 }
             }
         } else {
-            this.error(error);
+            this.error("an error occured");
         }
     }
 }

@@ -39,7 +39,6 @@ export class AccountService {
             let profileSession = new Profile()
             let data: any = user;
             let keyObj: any = JSON.parse(localStorage.getItem('key'));
-
             // Store user data
             userSession.id = data.pk;
             userSession.lastName = data.last_name;
@@ -52,15 +51,19 @@ export class AccountService {
             profileSession.postalCode = data.profile.postalCode
             profileSession.company_name = data.profile.company_name
             profileSession.phone = data.profile.phone
-            profileSession.function = data.profile.function
-            profileSession.city = data.profile.city
+            profileSession.occupation = data.profile.occupation ? data.profile.occupation : ''
+            profileSession.city = data.profile.city ? data.profile.city : ''
+            profileSession.language = data.profile.language ? data.profile.language : 'fr'
             profileSession.photo = data.profile.photo
+            profileSession.phone_is_verified = data.profile.phone_is_verified
             userSession.profile = profileSession;
             //Store user data on local storage
 
+            if(profileSession.phone_is_verified){
+                localStorage.setItem('user', JSON.stringify(userSession));
+                this.userSubject.next(userSession);
+            }
 
-            localStorage.setItem('user', JSON.stringify(userSession));
-            this.userSubject.next(userSession);
             return user;
 
         }));

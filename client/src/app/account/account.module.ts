@@ -23,6 +23,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { HidePhonePipe } from '@app/_pipes/hide-phone.pipe';
 @NgModule({
     imports: [
         CommonModule,
@@ -47,7 +48,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         ForgotPasswordComponent,
         FormSmsComponent,
         FormCodeComponent,
-        FormReinitializeComponent
+        FormReinitializeComponent,
+        HidePhonePipe
     ]
 })
 export class AccountModule { }

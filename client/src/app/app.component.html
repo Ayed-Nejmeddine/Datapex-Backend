@@ -1,121 +1,35 @@
 ﻿<!-- nav -->
 <alert></alert>
-<div id="wrapper" [ngClass]="{'toggled' : (toggled && user) , 'd-flex' : user}" *ngIf="user">
-    <!-- Sidebar -->
-    <div class="border-right" id="sidebar-wrapper" >
-        <div class="sidebar-heading">
-            <img class="logo-image" src="../assets/images/sidebar/logo.svg">
-            <div class="profiledetailsexapnded">
-                <div class="navbar-nav ml-auto mt-2 mt-lg-0 d-flex">
-                    <div class="nav-item active text-center">
-                        <a class="nav-link" href="#">
-                            <img class="defaultuser" [src]="user.profile.photo ? user.profile.photo :  '../assets/images/defaultuser.png'">
-                        </a>
-                    </div>
-                    <div class="nav-item profile-details-exapnded text-center">
-                        <div class="d-flex-centered">
-                            <a class="popupaction d-flex" *ngIf="user?.id"  routerLink="/main/profile">{{ user.firstName }} {{ user.lastName }}</a>
-                        </div> 
-                        <div class="d-flex-centered">
-                            <a class="popupaction d-flex" (click)="logout()">
-                                <mat-icon>settings_power</mat-icon>&nbsp;Se déconnecter
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
+<ng-container>
 
+    <div id="wrapper" [ngClass]="{'toggled' : (toggled && user) , 'd-flex' : user}" *ngIf="user">
+        <!-- Sidebar -->
+        <div class="border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <div class="toggleBarsInside change text-right" (click)="toggled = true">
+                    <div class="content">
+                        <div class="barinside1"></div>
+                        <div class="barinside3"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="list-group list-group-flush">
-            <!-- items -->
-            <div class="list-group-item active d-flex" [routerLink]="['/']">
-                <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">
-                &nbsp; <span class="text-item">Accueil</span>
-            </div>
-            <div class="space-menu"></div>
-            <div class="list-group-item  d-flex">
-                <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">&nbsp;
-                <span class="text-item">Analyse statistique</span>
-            </div>
-            <div class="space-menu"></div>
-            <div class="list-group-item  d-flex">
-                <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">&nbsp;
-                <span class="text-item">Liens entre les colonnes</span>
-            </div>
-            <div class="space-menu"></div>
-            <div class="list-group-item  d-flex">
-                <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">&nbsp;
-                <span class="text-item">Analyse avancée</span>
-            </div>
-            <div class="space-menu"></div>
-            <div class="list-group-item  d-flex" [routerLink]="['/main/profile']">
-                <img class="icon" src="../assets/images/sidebar/profile.svg">&nbsp;
-                <span class="text-item">Profil</span>
-            </div>
-        </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light  ">
-            <div class="nav-content">
-                <div class="container-bars" [ngClass]="{'change' : !toggled}" (click)="toggled = !toggled">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </div>
-                <div class="pull-right profiledetailsexapnded text-right" >
-                    <img class="" src="../assets/images/sidebar/logo-right.svg">
-                </div>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="menu d-flex">
-                        <div class="menu-item">
-                            <span>
-                                Home
-                            </span>
-                        </div>
-                        <div class="menu-item">
-                            <span>
-                                Home
-                            </span>
-                        </div>
-                        <div class="menu-item">
-                            <span>
-                                Home
-                            </span>
-                        </div>
-                        <div class="menu-item">
-                            <span>
-                                Home
-                            </span>
-                        </div>
-                    </div>
+                <img class="logo-image" src="../assets/images/sidebar/logo.svg">
+                <div class="profiledetailsexapnded">
                     <div class="navbar-nav ml-auto mt-2 mt-lg-0 d-flex">
-                        <div class="nav-item active first-nav-item">
-                            <a class="nav-link" href="#">
-                                <img class="defaultuser" [src]="user.profile.photo ? user.profile.photo :  '../assets/images/defaultuser.png'">
+                        <div class="nav-item active text-center">
+                            <a class="nav-link" (click)="gotoProfile()">
+                                <img class="defaultuser"
+                                    [src]="user.profile.photo ? user.profile.photo :  '../assets/images/defaultuser.png'">
                             </a>
                         </div>
-                        <div class="nav-item profile-details">
-                            <div class="absolute-elem">
-                                <a class="nav-link name"  (click)="gotoProfile()" *ngIf="user?.id">{{ user.firstName }} {{ user.lastName }}</a>
-                                <div class="nav-link expand_more popup"
-                                    (click)="togglePopupProfile = !togglePopupProfile;" clickOutside
-                                    (clickOutside)="togglePopupProfile = false">
-                                    <mat-icon>expand_more</mat-icon>
-                                    <div class="popuptext" [ngClass]="{'show' : togglePopupProfile}">
-                                        <a class="popupaction d-flex"  (click)="gotoProfile()" >
-                                            <mat-icon>account_box</mat-icon>&nbsp;Mon profil
-                                        </a>
-                                        <a class="popupaction d-flex" (click)="logout()">
-                                            <mat-icon>settings_power</mat-icon>&nbsp;Se déconnecter
-                                        </a>
-                                    </div>
-                                </div>
+                        <div class="nav-item profile-details-exapnded text-center">
+                            <div class="d-flex-centered">
+                                <a class="popupaction d-flex" *ngIf="user?.id"
+                                    routerLink="/main/profile">{{ user.firstName }} {{ user.lastName }}</a>
+                            </div>
+                            <div class="d-flex-centered">
+                                <a class="popupaction d-flex" (click)="logout()">
+                                    <mat-icon>settings_power</mat-icon>&nbsp;Se déconnecter
+                                </a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -123,16 +37,114 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-        </nav>
-        
+            <div class="list-group list-group-flush">
+                <!-- items -->
+                <div class="list-group-item  d-flex" [routerLink]="['/main']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">
+                    <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">
+                    &nbsp; <span class="text-item"> {{ 'menu.home' | translate }}</span>
+                </div>
+                <div class="space-menu"></div>
+                <div class="list-group-item  d-flex">
+                    <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">&nbsp;
+                    <span class="text-item">Analyse statistique</span>
+                </div>
+                <div class="space-menu"></div>
+                <div class="list-group-item  d-flex">
+                    <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">&nbsp;
+                    <span class="text-item">Liens entre les colonnes</span>
+                </div>
+                <div class="space-menu"></div>
+                <div class="list-group-item  d-flex">
+                    <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">&nbsp;
+                    <span class="text-item">Analyse avancée</span>
+                </div>
+                <div class="space-menu"></div>
+                <div class="list-group-item  d-flex" [routerLink]="['/main/profile']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">
+                    <img class="icon" src="../assets/images/sidebar/profile.svg">&nbsp;
+                    <span class="text-item">Profil</span>
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-        <div class="container-fluid">
-            <router-outlet></router-outlet>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light  ">
+                <div class="nav-content">
+                    <div class="container-bars" [ngClass]="{'change' : !toggled}" (click)="toggled = !toggled">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="menu d-flex">
+                            <div class="menu-item">
+                                <span>
+                                    {{'menu.home' | translate}}
+                                </span>
+                            </div>
+                            <div class="menu-item">
+                                <span>
+                                    {{'menu.home' | translate}}
+                                </span>
+                            </div>
+                            <div class="menu-item">
+                                <span>
+                                    {{'menu.home' | translate}}
+                                </span>
+                            </div>
+                            <div class="menu-item">
+                                <span>
+                                    {{'menu.home' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="navbar-nav ml-auto mt-2 mt-lg-0 d-flex">
+                            <div class="nav-item active first-nav-item">
+                                <a class="nav-link" (click)="gotoProfile()">
+                                    <img class="defaultuser"
+                                        [src]="user.profile.photo ? user.profile.photo :  '../assets/images/defaultuser.png'">
+                                </a>
+                            </div>
+                            <div class="nav-item profile-details">
+                                <div class="absolute-elem">
+                                    <a class="name" (click)="gotoProfile()" *ngIf="user?.id">{{ user.firstName }}
+                                        {{ user.lastName }}</a>
+                                    <div class="nav-link expand_more popup"
+                                        (click)="togglePopupProfile = !togglePopupProfile;" clickOutside
+                                        (clickOutside)="togglePopupProfile = false">
+                                        <mat-icon class="mat-expand-more">expand_more</mat-icon>
+                                        <div class="popuptext" [ngClass]="{'show' : togglePopupProfile}">
+                                            <a class="popupaction d-flex" (click)="gotoProfile()">
+                                                <mat-icon>account_box</mat-icon>&nbsp;Mon profil
+                                            </a>
+                                            <a class="popupaction d-flex" (click)="logout()">
+                                                <mat-icon>settings_power</mat-icon>&nbsp;Se déconnecter
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-item dropdown">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
-</div>
+</ng-container>
 <ng-container *ngIf="!user">
     <router-outlet></router-outlet>
 </ng-container>

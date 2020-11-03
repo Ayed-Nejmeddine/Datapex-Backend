@@ -17,6 +17,7 @@ export class FormInfosComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   loading = false;
   submitted = false;
+  showCodeModal = false;
   passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)/;
   countryList: { name: string, code: string, dial_code: string }[];
   phoneNumber: string = ""
@@ -189,7 +190,7 @@ export class FormInfosComponent implements OnInit, AfterViewInit {
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  onSubmitVerification() {
     this.submitted = true;
 
     // reset alerts on submit
@@ -200,28 +201,60 @@ export class FormInfosComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.loading = true;
     let countrycode = this.form.value.country;
     let dial = this.existCountry(countrycode, false, true)
     let country_value = this.existCountry(countrycode, true)
     this.phoneNumber = `${dial}${this.form.value.phone}`
-    let data: any = {
-      first_name: this.user.firstName,
-      last_name: this.user.lastName,
-      username: this.form.value.email,
-      email: this.form.value.email,
-      profile: {
-        id: this.user.profile.id,
-        company_name:  this.user.profile.company_name,
-        postalCode: this.user.profile.postalCode,
-        city: this.user.profile.city,
-        function: this.user.profile.function,
-        phone: this.phoneNumber,
-        country: country_value,
-      }
+    if(this.form.value.email !== this.user.email || this.phoneNumber !== this.user.profile.phone){
+      this.showCodeModal = true;
+      return;
+    }else{
+      this.displayForm = false
+    }
+    //this.loading = true;
+    
+  }
+
+  hideCodeModal(){
+    this.showCodeModal = false
+  }
+
+  getIntroducedCode(code){
+    this.onSubmit()
+  }
+
+
+  onSubmit() {
+    this.submitted = true;
+    // reset alerts on submit
+    this.alertService.clear();
+
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
     }
 
-    this.accountService.updateAccount(data)
+    
+    let countrycode = this.form.value.country;
+    let dial = this.existCountry(countrycode, false, true)
+    let country_value = this.existCountry(countrycode, true)
+    this.phoneNumber = `${dial}${this.form.value.phone}`
+    
+
+    var formData = new FormData();
+    formData.append('username', this.form.value.email)
+    formData.append('email', this.form.value.email)
+    formData.append('first_name', this.user.firstName)
+    formData.append('last_name', this.user.lastName)
+    formData.append('profile.id', this.user.profile.id)
+    formData.append('profile.phone', this.phoneNumber)
+    formData.append('profile.country', country_value)
+    formData.append('profile.company_name', this.user.profile.company_name)
+    formData.append('profile.city', this.user.profile.city)
+    formData.append('profile.occupation', this.user.profile.occupation)
+    formData.append('profile.postalCode', this.user.profile.postalCode ? this.user.profile.postalCode : null)
+
+    this.accountService.updateAccount(formData)
       .pipe(first())
       .subscribe({
         next: () => {

@@ -5,19 +5,20 @@ import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '../_services';
 import { User } from 'src/app/_models';
+import { ExitStatus } from 'typescript';
 @Component({
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+    templateUrl: 'login.component.html',
+    styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+    form: FormGroup;
     loading = false;
     submitted = false;
     typepassword = true;
-
+    showCodeModal: boolean = false;
     user: User;
-  
+    userPhone: string = ""
 
     constructor(
         private formBuilder: FormBuilder,
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private accountService: AccountService,
         private alertService: AlertService
-    ) { 
+    ) {
         this.accountService.user.subscribe(x => this.user = x);
     }
 
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
-     }
+    }
 
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
@@ -55,21 +56,29 @@ export class LoginComponent implements OnInit {
         this.accountService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe({
-                next: () => {
-                  this.accountService.getCurrentUser().subscribe({
-                    next: () => {
-                    // get return url from query parameters or default to home page
-                    const returnUrl = '/main';
-                    window.location.reload();
-                    this.router.navigate([returnUrl]);
-                    this.alertService.success("Bienvenue");
-                    },
-                    error: error => {
-                        this.alertService.errorlaunch(error);
-                        this.loading = false;
-                    }
-                });
-                  
+                next: (data) => {
+                    //if(data.profile.)
+                    this.accountService.getCurrentUser().subscribe({
+                        next: (data) => {
+                            let aux: any = data;
+                            if (!aux.profile.phone_is_verified) {
+                                this.userPhone = aux.profile.phone;
+                                this.showCodeModal = true;
+                                this.loading = false;
+                                return;
+                            }
+                            // get return url from query parameters or default to home page
+                            const returnUrl = '/main';
+                            window.location.reload();
+                            this.router.navigate([returnUrl]);
+                            this.alertService.success("Bienvenue");
+                        },
+                        error: error => {
+                            this.alertService.errorlaunch(error);
+                            this.loading = false;
+                        }
+                    });
+
 
                 },
                 error: error => {
@@ -77,6 +86,14 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 }
             })
+    }
+
+    hideCodeModal() {
+        this.showCodeModal = false
+    }
+
+    getIntroducedCode(code) {
+        this.onSubmit()
     }
 
 }
