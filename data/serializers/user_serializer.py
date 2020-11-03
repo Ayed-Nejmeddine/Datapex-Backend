@@ -3,21 +3,25 @@ from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
 from data.models.user_model import Profile
 from phonenumber_field import phonenumber
+from django_countries import Countries
+
+class SerializableCountryField(serializers.ChoiceField):
+    def __init__(self, **kwargs):
+        super(SerializableCountryField, self).__init__(choices=Countries(), default=None)
+
+    def to_representation(self, value):
+        if value in ('', None):
+            return None # normally here it would return value. which is Country(u'') and not serialiable
+        return super(SerializableCountryField, self).to_representation(value)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for Profile model.
     """
+    country = SerializableCountryField(allow_null=True, required=False, allow_blank=True)
     phone_is_verified = serializers.ReadOnlyField()
     email_is_verified = serializers.ReadOnlyField()
-    def validate(self, attrs):
-        """Validate country field"""
-        city= attrs.get('city')
-        country = attrs.get('country')
-        if city.country != country:
-            raise serializers.ValidationError("The city does not match the country!")
-        return attrs
 
 
     def validate_phone(self, phone):

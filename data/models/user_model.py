@@ -13,7 +13,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = PhoneNumberField()
     phone_is_verified = models.BooleanField(default=False)
-    country =  models.ForeignKey(Country, on_delete=models.DO_NOTHING, blank=False, null=False)
+    country = CountryField(null=True, blank=True, default=None)
     city = models.ForeignKey(City, on_delete=models.DO_NOTHING, blank=False, null=False)
     postalCode = models.IntegerField(null=True, blank=True)
     company_name = models.CharField(max_length=100)
