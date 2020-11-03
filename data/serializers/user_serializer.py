@@ -10,6 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     Serializer for Profile model.
     """
     phone_is_verified = serializers.ReadOnlyField()
+    email_is_verified = serializers.ReadOnlyField()
     def validate(self, attrs):
         """Validate country field"""
         city= attrs.get('city')
@@ -44,7 +45,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:  # pylint: disable=C0115
         model = Profile
         fields = ('id', 'phone', 'postalCode', 'country', 'city', 'company_name',
-                  'occupation', 'phone_is_verified','photo', 'language')
+                  'occupation', 'phone_is_verified', 'email_is_verified', 'photo', 'language')
 
 
 class RegisterSerializer(RootRegSerializer):  # pylint: disable=W0223
