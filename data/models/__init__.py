@@ -17,6 +17,7 @@ STRING_ANALYSIS = 'string'
 NUMBER_ANALYSIS = 'number'
 DATE_ANALYSIS = 'date'
 
+
 ANALYSIS_TYPES = (
     (BASIC_ANALYSIS, _('Basic-Analysis')),
     (STRING_ANALYSIS, _('String-Analysis')),
