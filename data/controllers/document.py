@@ -29,7 +29,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         Get all documents according to current user.
         :return: list of documents.
         """
-        objects = Document.objects.filter(owner=self.request.user)
+        objects = Document.objects.filter(owner=self.request.user).order_by('-upload_date')
         return objects
 
     @action(detail=True, methods=['GET'], url_name='launch-syntactic-analysis', url_path='launch-syntactic-analysis')

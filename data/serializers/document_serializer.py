@@ -15,7 +15,8 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:  # pylint: disable=C0115
         model = Document
-        fields = ('id', 'document_path',)
+        fields = ('id', 'name', 'document_path', 'size', 'upload_date', 'num_col', 'num_row', 'doc_type' )
+        read_only_fields = ('name', 'size', 'upload_date', 'num_col', 'num_row', 'doc_type')
 
 
 class SemanticResultSerializer(serializers.ModelSerializer):

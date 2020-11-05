@@ -15,6 +15,8 @@ class Analyser(BaseAbstract, Thread):
         with document.document_path.open('r') as f:
             df = pd.DataFrame(pd.read_csv(f))
             self.df = df.convert_dtypes()
+        document.num_row, document.num_col = df.shape
+        document.save()
         columns = self.df.columns
         num_col = []
         date_col = []
