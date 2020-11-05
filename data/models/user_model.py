@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django_countries.fields import CountryField
 from data.models import LANGUAGE_OPTIONS, ENGLISH
-from cities_light.models import City, Country
+from cities_light.models import City
 
 
 class Profile(models.Model):
