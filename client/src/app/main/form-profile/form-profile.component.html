@@ -20,6 +20,10 @@
                 <span class="value-data">{{user.profile.company_name}}</span>
             </div>
             <div class="col-md-3">
+                <span class="label-data">Adresse du compagnie</span>
+                <span class="value-data">{{user.profile.company_address}}</span>
+            </div>
+            <div class="col-md-3">
                 <span class="label-data">Position/poste dans l'entreprise</span>
                 <span class="value-data">{{user.profile.occupation}}</span>
             </div>
@@ -81,6 +85,21 @@
                     </mat-hint>
                 </div>
 
+                <div class="col-md-4">
+                    <mat-form-field class="create-account-form-field ">
+                        <mat-label>Adresse du compagnie</mat-label>
+                        <input matInput type="text" formControlName="companyAddress"
+                            [ngClass]="{ 'is-invalid': submitted && f.companyAddress.errors }">
+
+                    </mat-form-field>
+                    <mat-hint *ngIf="submitted && f.companyAddress.errors">
+                        <ng-container *ngFor="let error of error_messages.companyAddress">
+                            <div class="error-message text-danger" *ngIf="f.companyAddress.hasError(error.type)">
+                                {{ error.message }}
+                            </div>
+                        </ng-container>
+                    </mat-hint>
+                </div>
                 <div class="col-md-4">
                     <mat-form-field class="create-account-form-field ">
                         <mat-label>Position/poste dans l'entreprise</mat-label>

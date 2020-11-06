@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { ProfileComponent } from './profile.component';
 import { DefaultComponent } from './default.component';
+import { DocumentComponent } from './document/document.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,7 @@ const routes: Routes = [
         children: [
             { path: '', component: DefaultComponent },
             { path: 'profile', component: ProfileComponent },
+            { path: 'document/:id', component: DocumentComponent },
         ]
     }
 ];

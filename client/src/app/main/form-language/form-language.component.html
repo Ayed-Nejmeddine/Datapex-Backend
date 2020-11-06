@@ -2,15 +2,49 @@
     <div class="col-12">
         <div class="title">
             <span class="text"> paramétrage </span>&nbsp;
-            <img src="../../../assets/images/profile/draw.svg" class="edit-pen">
+            <img src="../../../assets/images/profile/draw.svg" class="edit-pen" (click)="displayFormFn()">
         </div>
     </div>
-    <div class="col-12 displayed-data">
+    <div class="col-12 displayed-data" *ngIf="!displayForm">
         <div class="row">
             <div class="col-md-4">
                 <span class="label-data">Langue</span>
-                <span class="value-data-blue">Français</span>
+                <span class="value-data-blue">{{ displayedLanguage }}</span>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-12 " *ngIf="displayForm">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="create-account-form-field ">
+                        <mat-select placeholder="Langue" formControlName="language"
+                            [ngClass]="{ 'is-invalid': submitted && f.language.errors }">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let language of languages" [value]="language.code">
+                                {{language.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="submitted && f.language.errors">
+                            <ng-container *ngFor="let error of error_messages.language">
+                                <div class="error-message text-danger" *ngIf="f.language.hasError(error.type)">
+                                    {{ error.message }}
+                                </div>
+                            </ng-container>
+                        </mat-hint>
+                    </mat-form-field>
+                    
+                </div>
+            </div>
+            <div class="login-container">
+                <button class="btn btn-default btn-cancel-account" type="button" [disabled]="loading"
+                    (click)="reinitializeData()">&nbsp;Annuler</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary btn-create-account" [disabled]="loading"><span *ngIf="loading"
+                        class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
+
+            </div>
+        </form>
     </div>
 </div>

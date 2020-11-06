@@ -33,7 +33,7 @@
             margin-top: 30px;
             width: 100%;
             background-color: white;
-            
+            margin-bottom: 100px;
             .column-image{
                 position: relative;
                 .file-photo{
@@ -70,12 +70,23 @@
                 }
                 .username{
                     white-space: nowrap;
-                    line-height: 50px;
+                    line-height: 20px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    margin-top: 12px;
+                    font-size: 17px;
+                    color: rgba(0,14,43,1);
+                }
+                .companyname{
+                    white-space: nowrap;
+                    line-height: 20px;
                     font-family: Roboto;
                     font-style: normal;
                     font-weight: normal;
                     font-size: 14px;
-                    color: rgba(0,14,43,1);
+                    color: rgba(0,120,255,1);
+                    text-transform: uppercase;
                 }
             .profile-done{
                 position: relative;

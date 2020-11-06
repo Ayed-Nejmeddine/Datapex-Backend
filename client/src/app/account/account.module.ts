@@ -24,6 +24,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HidePhonePipe } from '@app/_pipes/hide-phone.pipe';
+import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -49,7 +50,8 @@ import { HidePhonePipe } from '@app/_pipes/hide-phone.pipe';
         FormSmsComponent,
         FormCodeComponent,
         FormReinitializeComponent,
-        HidePhonePipe
+        HidePhonePipe,
+        EmailConfirmationComponent
     ]
 })
 export class AccountModule { }

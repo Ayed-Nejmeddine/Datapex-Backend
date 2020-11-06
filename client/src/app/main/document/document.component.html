@@ -1,0 +1,50 @@
+<div class="document-page" *ngIf="user">
+    <div class="welcome-text border-bottom">
+        <span class="welcome-text-content">
+            Bienvenue à nouveau, <span class="username" *ngIf="user?.id" routerLink="/main/profile"
+                routerLinkActive="active">{{ user.firstName }}!</span>
+        </span>
+    </div>
+    <div class="files">
+        <p class="files-title">FICHIER</p>
+        <div class="files-content row" *ngIf="document" >
+            <div class="col-md-12 col-6 header-document">
+                <div class="row">
+                    <div class="col-md-3"><p>FILENAME</p></div>
+                    <div class="col-md-3"><p>TYPE</p></div>
+                    <div class="col-md-3"><p>NOMBRE DE COLONNE</p></div>
+                    <div class="col-md-3"><p>NOMBRE DE LIGNE</p></div>
+                </div>
+            </div>
+            <div class="col-md-12 col-6 content-document">
+                <div class="row">
+                    <div class="col-md-3"><p>{{ document.name }}</p></div>
+                    <div class="col-md-3"><p>{{ document.doc_type }}</p></div>
+                    <div class="col-md-3"><p>{{ document.num_col }}</p></div>
+                    <div class="col-md-3"><p>{{ document.num_row }}</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rapid-access">
+        <div class="row">
+            <div class="col-md-4 col-4 container-file-active mb-1 container-file text-left">
+                <div class="title-file-active title-file-active1">
+                    <p class="title-text-file-active text-center">Analyse Globale</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-4 container-file-active mb-1 container-file text-center">
+                <div class="title-file-active title-file-active2">
+                    <p class="title-text-file-active text-center">nalyse des champs 
+                        des textes</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-4 container-file-active mb-1 container-file text-right">
+                <div class="title-file-active title-file-active3">
+                    <p class="title-text-file-active text-center">Analyse des champs 
+                        numériques</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

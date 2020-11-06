@@ -39,6 +39,7 @@
                             </div>
                         </div>
                         <p class="username"> {{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="companyname"> {{ user.profile.company_name }}</p>
                         <div class="profile-done">
                             <div class="progress progress-container">
                                 <div class="progress-bar progress-bar-element" role="progressbar" [style]="'width:' + percentCompletion +'%'"></div>
@@ -57,6 +58,8 @@
                     <app-form-infos></app-form-infos>
                     <hr>
                     <app-form-language></app-form-language>
+                    <hr>
+                    <app-form-security></app-form-security>
                 </div>
             </div>
 

@@ -1,0 +1,65 @@
+<div class="row confirm-account">
+    <div class="col-12 col-md-4 column-left">
+        <div class="text-representative-container">
+            <p class="text-representative">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+        </div>
+        <div class="img-representative-container">
+            <img class="img-representative" src="../../../assets/images/create-account/image-right-create-account.svg">
+        </div>
+    </div>
+    <div class="col-12 col-md-8 column-right">
+        <div class="form-container row">
+            <div class="col-md-1 col-12"></div>
+            <div class="col-md-10 col-12">
+                <div class="logo">
+                    <img src="../../../assets/images/create-account/logo-datapex.svg">
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-12"></div>
+                    <div class="col-md-8 col-12 text-center">
+                        <div class="row step4" *ngIf="confirmed">
+                            <div class="col-12 text-center">
+                                <img src="../../../assets/images/forgotpassword/treatementcompleted.svg">
+                            </div>
+                            <div class="col-12 title">
+                                <p class="inscription-title-detail mb-4">Votre email a été confirmé avec succès!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row step4" *ngIf="!confirmed && !loading">
+                            <div class="col-12 text-center">
+                                <img src="../../../assets/images/forgotpassword/echec.svg">
+                            </div>
+                            <div class="col-12 title">
+                                <p class="inscription-title-detail mb-4">Tentative echouée de confirmation d'un compte!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row step4" *ngIf="loading">
+                            <div class="col-12 text-center">
+                                <div class="spinner-border text-primary" style="width: 6rem;
+                                    height: 6rem;
+                                    border-width: 6px;" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="col-12 title">
+                                <p class="inscription-title-detail mb-4">Confirmation de compte en cours ...
+                                </p>
+                            </div>
+                        </div>
+                        <div class="login-container" *ngIf="!loading">
+                            <button class="btn btn-primary btn-create-account" [routerLink]="['../login']">&nbsp;
+                                <span>Connexion</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-12"></div>
+                </div>
+            </div>
+            <div class="col-md-1 col-12"></div>
+
+        </div>
+        <div class="copyright"><span>© Copyright Datapex 2020, All right reserved</span></div>
+    </div>
+</div>

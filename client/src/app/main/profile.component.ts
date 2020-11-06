@@ -25,9 +25,9 @@ export class ProfileComponent implements OnInit {
   fileForFormdata: File = null
 
   // COUNT COMPLETION 
-  fieldsNumber: number = 11
+  fieldsNumber: number = 12
   completedFields: number = 0
-  notCountedField: any = ['id', 'token']
+  notCountedField: any = ['id', 'token', 'phone_is_verified', 'email_is_verified']
 
   // CROP ATTRIBUTES
   showCropper = false;
@@ -131,7 +131,6 @@ export class ProfileComponent implements OnInit {
     formData.append('profile.company_name', this.user.profile.company_name)
     formData.append('profile.city', this.user.profile.city)
     formData.append('profile.occupation', this.user.profile.occupation)
-    formData.append('profile.postalCode', this.user.profile.postalCode)
     formData.append('profile.photo', photo)
     this.accountService.updateAccount(formData)
       .pipe(first())
@@ -160,24 +159,6 @@ export class ProfileComponent implements OnInit {
 
 
   }
-
-  // password(formGroup: FormGroup) {
-  //   const { value: passwordActual } = formGroup.get('passwordactual');
-  //   const { value: password } = formGroup.get('password');
-  //   const { value: passwordVerif } = formGroup.get('passwordVerif');
-  //   let error = (password === passwordVerif) ? null : { passwordNotMatch: true };
-  //   let errorActual = (password === "" && passwordVerif === "") ? null : { required: true };
-  //   let errorNew = (password !== "") ? this.passwordRegex.test(password) ? null : { pattern: true } : { pattern: true, required: true };
-  //   formGroup.get('passwordVerif').setErrors(error);
-  //   if (passwordActual !== "") {
-  //     formGroup.get('password').setErrors(errorNew);
-  //     formGroup.get('passwordactual').setErrors(null);
-  //   } else {
-  //     formGroup.get('passwordactual').setErrors(errorActual);
-  //     formGroup.get('password').setErrors(null);
-  //   }
-  //   return error;
-  // }
 
 
   // CROP FUNCTION

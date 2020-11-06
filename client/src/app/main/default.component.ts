@@ -16,6 +16,7 @@ export class DefaultComponent {
   percentDone: number = 0;
   uploadSuccess: boolean;
   document: Document;
+  lastTreatedDocument: Document;
   @ViewChild('myInput') myInputVariable: ElementRef;
   constructor(private accountService: AccountService, private documentService: DocumentService, private router: Router, private http: HttpClient, private alertService: AlertService) {
     this.accountService.user.subscribe(x => {
@@ -25,6 +26,13 @@ export class DefaultComponent {
     });
   }
   ngOnInit(): void {
+    if (this.user)
+      this.documentService.lastTreatedDocument().subscribe(data => {
+        this.lastTreatedDocument = data;
+      },
+        error => {
+          this.alertService.errorlaunch(error)
+        });
   }
   logout() {
     this.togglePopupProfile = false;
@@ -88,6 +96,7 @@ export class DefaultComponent {
         this.alertService.success(`Demande d\'analyse de document ...`, { order: order })
 
         this.documentService.launchSyntacticAnalyse(this.document).subscribe(data => {
+          this.router.navigate([`/main/document/${this.document.id}`])
           order++;
           this.alertService.success('L\'analyse Syntaxique a été lancé !', { order: order })
         },

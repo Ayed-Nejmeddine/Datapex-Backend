@@ -42,7 +42,7 @@
     <div class="rapid-access">
         <p class="rapid-access-title">ACCÈS RAPIDE</p>
         <div class="row">
-            <div class="col-md-3 col-6 container-file-active mb-1 container-file">
+            <div class="col-md-3 col-6 container-file-active mb-1 container-file" *ngIf="lastTreatedDocument" >
                 <div class="title-file-active">
                     <p class="title-text-file-active">Dernier fichier traité</p>
                 </div>
@@ -52,11 +52,11 @@
                     </span>
                     <br>
                     <span class="details-2-file-active">
-                        250 MO
+                        {{ lastTreatedDocument.size }} MO
                     </span>
                 </div>
 
-                <img src="../../../assets/images/main-page/file-active.svg" class="img-access-rapid">
+                <img src="../../../assets/images/main-page/file-active.svg" class="img-access-rapid" [routerLink]="'/main/document/'+lastTreatedDocument.id">
             </div>
             <div class="col-md-3 col-6 mb-1 container-file">
                 <img src="../../../assets/images/main-page/file.svg" class="img-access-rapid">

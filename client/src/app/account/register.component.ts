@@ -287,7 +287,7 @@ export class RegisterComponent implements OnInit {
         company_name: this.form.value.companyName,
         phone: this.phoneNumber,
         country: country_value,
-        city: this.form.value.city,
+        city: 186,
       }
     }
 
