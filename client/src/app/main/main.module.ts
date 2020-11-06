@@ -25,6 +25,9 @@ import { VerifyChangeAccountComponent } from './form-infos/verify-account/verify
 import { FormLanguageComponent } from './form-language/form-language.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { HighlightDirective } from '@app/_directives/highlight.directive';
+import { FormSecurityComponent } from './form-security/form-security.component';
+import {MatSelectModule} from '@angular/material/select';
+import { DocumentComponent } from './document/document.component';
 
 @NgModule({
     imports: [
@@ -42,6 +45,7 @@ import { HighlightDirective } from '@app/_directives/highlight.directive';
         MatCheckboxModule,
         MatFormFieldModule,
         MatProgressBarModule,
+        MatSelectModule,
         ImageCropperModule,
     ],
     declarations: [
@@ -52,7 +56,9 @@ import { HighlightDirective } from '@app/_directives/highlight.directive';
         FormInfosComponent,
         FormLanguageComponent,
         VerifyChangeAccountComponent,
-        HighlightDirective
+        HighlightDirective,
+        FormSecurityComponent,
+        DocumentComponent
     ],
     exports: [HighlightDirective],
     providers: [

@@ -1,6 +1,6 @@
 from rest_framework import viewsets, status
 from data.models.basic_models import Document
-from data.serializers.document_serializer import DocumentSerializer, SemanticResultSerializer
+from data.serializers.document_serializer import DocumentSerializer
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
@@ -12,6 +12,7 @@ import csv
 from django.http import HttpResponse
 from data.serializers.link_serializer import LinkSerializer
 from data.services.semantic import Analyser as SemanticAnalyser
+from django.db.models import Q
 
 
 class DocumentViewSet(viewsets.ModelViewSet):
@@ -29,7 +30,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         Get all documents according to current user.
         :return: list of documents.
         """
-        objects = Document.objects.filter(owner=self.request.user)
+        objects = Document.objects.filter(owner=self.request.user).order_by('-upload_date')
         return objects
 
     @action(detail=True, methods=['GET'], url_name='launch-syntactic-analysis', url_path='launch-syntactic-analysis')
@@ -94,8 +95,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def launch_semantic_analysis(self, request, pk=None):
         """ launch the semantic analysis and get the results."""
         document = self.get_object()
-        analyser = SemanticAnalyser(document=document)
-        analyser.run()
+        try:
+            analyser = SemanticAnalyser(document=document)
+            analyser.run()
+        except SyntacticResult.DoesNotExist:
+            return Response({"message": "Run the Syntactic analysis first."})
         results = SemanticResult.objects.filter(document=document)
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="semantic-results.csv"'
@@ -122,3 +126,16 @@ class DocumentViewSet(viewsets.ModelViewSet):
             output.append(l)
         writer.writerows(output)
         return response
+
+    @action(detail=False,
+            methods=['GET'],
+            url_name='get-latest-treated-document',
+            url_path='get-latest-treated-document')
+    def get_latest_treated_document(self, request, pk=None):
+        """ Get the latest document that as treated syntactically"""
+        documents = request.user.document_set.filter(~Q(analysistrace__state=RUNNING_STATE)).distinct()
+        qs = AnalysisTrace.objects.filter(document__owner=request.user, state='finished')
+        if not qs:
+           return Response({"message": "No document has yet been analyzed"})
+        latest_doc = documents.latest('upload_date')
+        return Response(DocumentSerializer(latest_doc, read_only=True).data)

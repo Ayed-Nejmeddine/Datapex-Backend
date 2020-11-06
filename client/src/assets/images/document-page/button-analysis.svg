@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="377" height="230" viewBox="0 0 377 230">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.243" y1="-0.203" x2="0.091" y2="0.878" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#67a9f4"/>
+      <stop offset="1" stop-color="#0078ff"/>
+    </linearGradient>
+  </defs>
+  <rect id="button-analysis" width="377" height="230" rx="69" fill="url(#linear-gradient)"/>
+</svg>

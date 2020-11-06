@@ -18,7 +18,7 @@ class RegisterAdapter(DefaultAccountAdapter):
         if data.get('phone', False):
             profile_data.update(phone=data.get('phone', False))
         if data.get('country', False):
-            profile_data.update(country_id=data.get('country', False))
+            profile_data.update(country=data.get('country', False))
         if data.get('postalCode', False):
             profile_data.update(postalCode=data.get('postalCode', False))
         if data.get('company_name', False):
@@ -69,4 +69,4 @@ class RegisterAdapter(DefaultAccountAdapter):
         msg = EmailMultiAlternatives(_("Please confirm your email"), html_content,
                                      EMAIL_HOST_USER, [emailconfirmation.email_address])
         msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        msg.send(fail_silently=True)

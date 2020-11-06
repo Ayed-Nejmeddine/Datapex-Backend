@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.gis',
     # 3rd party
     'rest_framework',
     'drf_yasg',
@@ -95,10 +96,11 @@ WSGI_APPLICATION = 'data_appraisal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf'),
-        },
+            'charset': 'utf8mb4',
+            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf')
+                    },
     }
 }
 
@@ -180,7 +182,7 @@ URLs
 """
 BACKEND_ROOT_URL = "http://127.0.0.1:8000"
 FRONTEND_ROOT_URL = "http://localhost:4200"
-ROOT_VERIFICATION = "/verify/account"
+ROOT_VERIFICATION = "/account/verify"
 """
 CORS headers
 """
@@ -224,8 +226,37 @@ PHONE_VERIFICATION = {
     "SECURITY_CODE_EXPIRATION_TIME": 3600,  # In seconds only
     "VERIFY_SECURITY_CODE_ONLY_ONCE": False,  # If False, then a security code can be used multiple times for verification
 }
+# password change
+OLD_PASSWORD_FIELD_ENABLED = True
 
 """ cities light setting"""
+GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal300.dll'
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
-CITIES_LIGHT_INCLUDE_COUNTRIES = ['FR', 'US', 'CA']
-CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT', 'ADM2']
+CITIES_LIGHT_INCLUDE_COUNTRIES = [
+    'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ',
+    'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ',
+    'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ',
+    'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ',
+    'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET',
+    'FI', 'FJ', 'FK', 'FM', 'FO', 'FR',
+    'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY',
+    'HK', 'HM', 'HN', 'HR', 'HT', 'HU',
+    'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT',
+    'JE', 'JM', 'JO', 'JP',
+    'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'XK', 'KW', 'KY', 'KZ',
+    'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY',
+    'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ',
+    'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ',
+    'OM',
+    'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY',
+    'QA',
+    'RE', 'RO', 'RS', 'RU', 'RW',
+    'SA', 'SB', 'SC', 'SD', 'SS', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SX', 'SY', 'SZ',
+    'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ',
+    'UA', 'UG', 'UM', 'US', 'UY', 'UZ',
+    'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU',
+    'WF', 'WS',
+    'YE', 'YT',
+    'ZA', 'ZM', 'ZW',
+]

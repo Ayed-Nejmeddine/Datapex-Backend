@@ -47,7 +47,6 @@ export class AlertService {
     errorlaunch(error, first = true, key= '', options?: any) {
         if(first)
         this.index = 0;
-        console.log(error)
         if (typeof error === "object") {
             for (const property in error) {
                 if(typeof error[property] === "object" ){

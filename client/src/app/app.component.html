@@ -40,7 +40,7 @@
             </div>
             <div class="list-group list-group-flush">
                 <!-- items -->
-                <div class="list-group-item  d-flex" [routerLink]="['/main']" routerLinkActive="active"
+                <div class="list-group-item  d-flex" [routerLink]="['/main']" [ngClass]="{'active' : (router.url.indexOf('/main/document') > -1 || router.url == '/main')}"
                     [routerLinkActiveOptions]="{exact: true}">
                     <img class="icon" src="../assets/images/sidebar/house-black-silhouette-without-door (2).svg">
                     &nbsp; <span class="text-item"> {{ 'menu.home' | translate }}</span>

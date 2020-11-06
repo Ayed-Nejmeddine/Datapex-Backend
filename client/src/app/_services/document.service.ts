@@ -25,6 +25,10 @@ export class DocumentService {
         return this.http.get<Document>(`${environment.apiUrl}/api/v1/upload-document/${id}/`);
     }
 
+    lastTreatedDocument() {
+        return this.http.get<Document>(`${environment.apiUrl}/api/v1/upload-document/get-latest-treated-document/`);
+    }
+
     launchSemanticAnalyse(document : Document){
         return this.fetchOutput(`${environment.apiUrl}/api/v1/upload-document/${document.id}/launch-semantic-analysis/`)
     }

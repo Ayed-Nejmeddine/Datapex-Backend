@@ -61,6 +61,10 @@ export class LoginComponent implements OnInit {
                     this.accountService.getCurrentUser().subscribe({
                         next: (data) => {
                             let aux: any = data;
+                            if (!aux.profile.email_is_verified) {
+                                this.alertService.error("Veuillez confirmer votre adresse email !");
+                                return;
+                            }
                             if (!aux.profile.phone_is_verified) {
                                 this.userPhone = aux.profile.phone;
                                 this.showCodeModal = true;
@@ -69,9 +73,13 @@ export class LoginComponent implements OnInit {
                             }
                             // get return url from query parameters or default to home page
                             const returnUrl = '/main';
-                            window.location.reload();
-                            this.router.navigate([returnUrl]);
-                            this.alertService.success("Bienvenue");
+                            
+                            setTimeout(() => {
+                                this.router.navigate([returnUrl]);
+                                this.alertService.success("Bienvenue");
+                            }, 100)
+                            //window.location.reload();
+
                         },
                         error: error => {
                             this.alertService.errorlaunch(error);

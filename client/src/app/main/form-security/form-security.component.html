@@ -1,0 +1,79 @@
+<div class="row" class="security-section-settings">
+    <div class="col-12">
+        <div class="title">
+            <span class="text"> Sécurité </span>&nbsp;
+            <img src="../../../assets/images/profile/draw.svg" class="edit-pen" (click)="displayFormFn()">
+        </div>
+    </div>
+    <div class="col-12 displayed-data" *ngIf="!displayForm">
+        <div class="row">
+            <div class="col-md-3">
+                <span class="label-data-security" (click)="displayFormFn()">Changer le mot de passe</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 " *ngIf="displayForm">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="create-account-form-field ">
+                        <mat-label>Mot de passe actuel</mat-label>
+                        <input matInput type="password" formControlName="passwordactual"
+                            [ngClass]="{ 'is-invalid': submitted && f.passwordactual.errors }">
+                    </mat-form-field>
+                    <mat-hint *ngIf="submitted && f.passwordactual.errors">
+                        <ng-container *ngFor="let error of error_messages.passwordactual">
+                            <div class="error-message text-danger" *ngIf="f.passwordactual.hasError(error.type)">
+                                {{ error.message }}
+                            </div>
+                        </ng-container>
+                    </mat-hint>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="create-account-form-field ">
+                        <mat-label>Nouveau mot de passe</mat-label>
+                        <input matInput type="password" formControlName="password"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+                    </mat-form-field>
+                    <mat-hint *ngIf="submitted && f.password.errors">
+                        <ng-container *ngFor="let error of error_messages.password">
+                            <div class="error-message text-danger" *ngIf="f.password.hasError(error.type)">
+                                {{ error.message }}
+                            </div>
+                        </ng-container>
+                    </mat-hint>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="create-account-form-field ">
+                        <mat-label>Confimer le mot de passe</mat-label>
+                        <input matInput type="password" formControlName="passwordVerif"
+                            [ngClass]="{ 'is-invalid': submitted && f.passwordVerif.errors }">
+
+                    </mat-form-field>
+                    <mat-hint *ngIf="submitted && f.passwordVerif.errors">
+                        <ng-container *ngFor="let error of error_messages.passwordVerif">
+                            <div class="error-message text-danger" *ngIf="f.passwordVerif.hasError(error.type)">
+                                {{ error.message }}
+                            </div>
+                        </ng-container>
+                    </mat-hint>
+                </div>
+            </div>
+            <div class="login-container">
+                <div>
+                    <p>
+                        <a class="value-data-blue"  [routerLink]="['../../account/forgot-password']">
+                            mot de passe oublié ? 
+                        </a>
+                    </p>
+                </div>
+                <button class="btn btn-default btn-cancel-account" type="button" [disabled]="loading" (click)="reinitializeData()">&nbsp;Annuler</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary btn-create-account" [disabled]="loading"><span *ngIf="loading"
+                        class="spinner-border spinner-border-sm mr-1"></span>&nbsp;Sauvegarder</button>
+                       
+            </div>
+        </form>
+    </div>
+</div>

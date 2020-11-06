@@ -7,7 +7,7 @@ from django_filters import rest_framework as filters
 class CityFilter(filters.FilterSet):
     class Meta:
         model = City
-        fields = ['name']
+        fields = ['name', 'country__code2']
 
 
 class CityViewSet(viewsets.ReadOnlyModelViewSet):

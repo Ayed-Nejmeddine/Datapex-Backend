@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Profile, User } from '../_models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -14,7 +15,8 @@ export class AccountService {
 
     constructor(
         private router: Router,
-        private http: HttpClient
+        private http: HttpClient,
+        private translate : TranslateService
     ) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
@@ -56,12 +58,14 @@ export class AccountService {
             profileSession.language = data.profile.language ? data.profile.language : 'fr'
             profileSession.photo = data.profile.photo
             profileSession.phone_is_verified = data.profile.phone_is_verified
+            profileSession.email_is_verified = data.profile.email_is_verified
             userSession.profile = profileSession;
             //Store user data on local storage
 
-            if(profileSession.phone_is_verified){
+            if (profileSession.phone_is_verified && profileSession.email_is_verified) {
                 localStorage.setItem('user', JSON.stringify(userSession));
                 this.userSubject.next(userSession);
+                this.translate.setDefaultLang(profileSession.language);
             }
 
             return user;
@@ -84,6 +88,12 @@ export class AccountService {
         }));
     }
 
+    verifyAccount(token: any) {
+        return this.http.post(`${environment.apiUrl}/rest-auth/registration/verify-email/`, { key: token }).pipe(map(key => {
+            return key;
+        }));
+    }
+
     sendSmsCodePhone(data) {
         return this.http.post(`${environment.apiUrl}/api/v1/phone/register/`, data);
     }
@@ -93,6 +103,10 @@ export class AccountService {
 
     updateAccount(user: any) {
         return this.http.put(`${environment.apiUrl}/rest-auth/user/`, user);
+    }
+    
+    updatePassword(data: any) {
+        return this.http.post(`${environment.apiUrl}/rest-auth/password/change/`, data);
     }
 
     getAll() {

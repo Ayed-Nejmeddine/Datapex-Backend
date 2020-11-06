@@ -1,13 +1,20 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from jsonfield import JSONField
-from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES, DATE_LINK_OPTIONS, NUMERIC_LINK_OPTIONS
+from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES
 from django_currentuser.db.models import CurrentUserField
+from datetime import datetime
 
 
 class Document(models.Model):
     document_path = models.FileField(blank=False, null=False, validators=[FileExtensionValidator(allowed_extensions=['csv'])])
     owner = CurrentUserField()
+    upload_date = models.DateTimeField(default=datetime.now())
+    size = models.DecimalField(max_digits=9, decimal_places=3, null=True, blank=True)
+    num_col = models.PositiveIntegerField(null=True, blank=True)
+    num_row = models.PositiveIntegerField(null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    doc_type = models.CharField(max_length=100, default='csv')
 
     objects = models.Manager()
 

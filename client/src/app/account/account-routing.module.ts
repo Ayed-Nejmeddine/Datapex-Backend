@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import { ForgotPasswordComponent } from './forgot-password.component';
 
 import { LayoutComponent } from './layout.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
         children: [
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent },
-            { path: 'forgot-password', component: ForgotPasswordComponent }
+            { path: 'forgot-password', component: ForgotPasswordComponent },
+            { path: 'verify', component: EmailConfirmationComponent },
         ]
     }
 ];

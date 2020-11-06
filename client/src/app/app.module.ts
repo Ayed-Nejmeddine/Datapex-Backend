@@ -22,6 +22,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 import { MainModule } from './main/main.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -48,6 +49,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
         MatCardModule,
         MatCheckboxModule,
         MatFormFieldModule,
+        MatSelectModule,
         MainModule,
         TranslateModule.forRoot({
             loader: {
