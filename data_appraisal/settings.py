@@ -215,10 +215,10 @@ REST_AUTH_SERIALIZERS = {
 PHONE_VERIFICATION = {
     "BACKEND": "data.managers.sms_manager.CustomTwilioBackend",
     "OPTIONS": {
-        "SID": "fake",
-        "SECRET": "fake",
-        "FROM": "+14755292729",
-        "SANDBOX_TOKEN": "123456",
+        "SID": "ACf7ba9515e33686874ad75391f7d70142",
+        "SECRET": "7b5dd5a99ec563f537932873a53d17e7",
+        "FROM": "+33756799780",
+        "SANDBOX_TOKEN": "7b5dd5a99ec563f537932873a53d17e7",
     },
     "TOKEN_LENGTH": 6,
     "MESSAGE": "Welcome to {app}! Please use security code {security_code} to proceed.",
@@ -230,7 +230,7 @@ PHONE_VERIFICATION = {
 OLD_PASSWORD_FIELD_ENABLED = True
 
 """ cities light setting"""
-GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal300.dll'
+GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal305.dll'
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT', 'ADM2']
 CITIES_LIGHT_INCLUDE_COUNTRIES = [

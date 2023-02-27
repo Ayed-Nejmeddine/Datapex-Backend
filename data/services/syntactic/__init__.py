@@ -13,7 +13,7 @@ class Analyser(BaseAbstract, Thread):
     def __init__(self, document):
         self.document_id = document.id
         with document.document_path.open('r') as f:
-            df = pd.DataFrame(pd.read_csv(f))
+            df = pd.DataFrame(pd.read_csv(f, sep=';'))
             self.df = df.convert_dtypes()
         document.num_row, document.num_col = df.shape
         document.save()
