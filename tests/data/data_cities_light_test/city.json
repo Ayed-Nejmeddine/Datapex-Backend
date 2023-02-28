@@ -1,0 +1,2840 @@
+[
+{
+   "model": "cities_light.country",
+   "pk": 1,
+   "fields": {
+      "name": "Andorra",
+      "name_ascii": "Andorra",
+      "slug": "andorra",
+      "geoname_id": 3041565,
+      "alternate_names": "",
+      "code2": "AD",
+      "code3": "AND",
+      "continent": "EU",
+      "tld": "ad",
+      "phone": "376"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 2,
+   "fields": {
+      "name": "United Arab Emirates",
+      "name_ascii": "United Arab Emirates",
+      "slug": "united-arab-emirates",
+      "geoname_id": 290557,
+      "alternate_names": "",
+      "code2": "AE",
+      "code3": "ARE",
+      "continent": "AS",
+      "tld": "ae",
+      "phone": "971"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 3,
+   "fields": {
+      "name": "Afghanistan",
+      "name_ascii": "Afghanistan",
+      "slug": "afghanistan",
+      "geoname_id": 1149361,
+      "alternate_names": "",
+      "code2": "AF",
+      "code3": "AFG",
+      "continent": "AS",
+      "tld": "af",
+      "phone": "93"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 4,
+   "fields": {
+      "name": "Antigua and Barbuda",
+      "name_ascii": "Antigua and Barbuda",
+      "slug": "antigua-and-barbuda",
+      "geoname_id": 3576396,
+      "alternate_names": "",
+      "code2": "AG",
+      "code3": "ATG",
+      "continent": "NA",
+      "tld": "ag",
+      "phone": "1-268"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 5,
+   "fields": {
+      "name": "Anguilla",
+      "name_ascii": "Anguilla",
+      "slug": "anguilla",
+      "geoname_id": 3573511,
+      "alternate_names": "",
+      "code2": "AI",
+      "code3": "AIA",
+      "continent": "NA",
+      "tld": "ai",
+      "phone": "1-264"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 6,
+   "fields": {
+      "name": "Albania",
+      "name_ascii": "Albania",
+      "slug": "albania",
+      "geoname_id": 783754,
+      "alternate_names": "",
+      "code2": "AL",
+      "code3": "ALB",
+      "continent": "EU",
+      "tld": "al",
+      "phone": "355"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 7,
+   "fields": {
+      "name": "Armenia",
+      "name_ascii": "Armenia",
+      "slug": "armenia",
+      "geoname_id": 174982,
+      "alternate_names": "",
+      "code2": "AM",
+      "code3": "ARM",
+      "continent": "AS",
+      "tld": "am",
+      "phone": "374"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 8,
+   "fields": {
+      "name": "Angola",
+      "name_ascii": "Angola",
+      "slug": "angola",
+      "geoname_id": 3351879,
+      "alternate_names": "",
+      "code2": "AO",
+      "code3": "AGO",
+      "continent": "AF",
+      "tld": "ao",
+      "phone": "244"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 9,
+   "fields": {
+      "name": "Antarctica",
+      "name_ascii": "Antarctica",
+      "slug": "antarctica",
+      "geoname_id": 6697173,
+      "alternate_names": "",
+      "code2": "AQ",
+      "code3": "ATA",
+      "continent": "AN",
+      "tld": "aq",
+      "phone": ""
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 10,
+   "fields": {
+      "name": "Argentina",
+      "name_ascii": "Argentina",
+      "slug": "argentina",
+      "geoname_id": 3865483,
+      "alternate_names": "",
+      "code2": "AR",
+      "code3": "ARG",
+      "continent": "SA",
+      "tld": "ar",
+      "phone": "54"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 11,
+   "fields": {
+      "name": "American Samoa",
+      "name_ascii": "American Samoa",
+      "slug": "american-samoa",
+      "geoname_id": 5880801,
+      "alternate_names": "",
+      "code2": "AS",
+      "code3": "ASM",
+      "continent": "OC",
+      "tld": "as",
+      "phone": "1-684"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 12,
+   "fields": {
+      "name": "Austria",
+      "name_ascii": "Austria",
+      "slug": "austria",
+      "geoname_id": 2782113,
+      "alternate_names": "",
+      "code2": "AT",
+      "code3": "AUT",
+      "continent": "EU",
+      "tld": "at",
+      "phone": "43"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 13,
+   "fields": {
+      "name": "Australia",
+      "name_ascii": "Australia",
+      "slug": "australia",
+      "geoname_id": 2077456,
+      "alternate_names": "",
+      "code2": "AU",
+      "code3": "AUS",
+      "continent": "OC",
+      "tld": "au",
+      "phone": "61"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 14,
+   "fields": {
+      "name": "Aruba",
+      "name_ascii": "Aruba",
+      "slug": "aruba",
+      "geoname_id": 3577279,
+      "alternate_names": "",
+      "code2": "AW",
+      "code3": "ABW",
+      "continent": "NA",
+      "tld": "aw",
+      "phone": "297"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 15,
+   "fields": {
+      "name": "Aland Islands",
+      "name_ascii": "Aland Islands",
+      "slug": "aland-islands",
+      "geoname_id": 661882,
+      "alternate_names": "",
+      "code2": "AX",
+      "code3": "ALA",
+      "continent": "EU",
+      "tld": "ax",
+      "phone": "358-18"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 16,
+   "fields": {
+      "name": "Azerbaijan",
+      "name_ascii": "Azerbaijan",
+      "slug": "azerbaijan",
+      "geoname_id": 587116,
+      "alternate_names": "",
+      "code2": "AZ",
+      "code3": "AZE",
+      "continent": "AS",
+      "tld": "az",
+      "phone": "994"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 17,
+   "fields": {
+      "name": "Bosnia and Herzegovina",
+      "name_ascii": "Bosnia and Herzegovina",
+      "slug": "bosnia-and-herzegovina",
+      "geoname_id": 3277605,
+      "alternate_names": "",
+      "code2": "BA",
+      "code3": "BIH",
+      "continent": "EU",
+      "tld": "ba",
+      "phone": "387"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 18,
+   "fields": {
+      "name": "Barbados",
+      "name_ascii": "Barbados",
+      "slug": "barbados",
+      "geoname_id": 3374084,
+      "alternate_names": "",
+      "code2": "BB",
+      "code3": "BRB",
+      "continent": "NA",
+      "tld": "bb",
+      "phone": "1-246"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 19,
+   "fields": {
+      "name": "Bangladesh",
+      "name_ascii": "Bangladesh",
+      "slug": "bangladesh",
+      "geoname_id": 1210997,
+      "alternate_names": "",
+      "code2": "BD",
+      "code3": "BGD",
+      "continent": "AS",
+      "tld": "bd",
+      "phone": "880"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 20,
+   "fields": {
+      "name": "Belgium",
+      "name_ascii": "Belgium",
+      "slug": "belgium",
+      "geoname_id": 2802361,
+      "alternate_names": "",
+      "code2": "BE",
+      "code3": "BEL",
+      "continent": "EU",
+      "tld": "be",
+      "phone": "32"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 21,
+   "fields": {
+      "name": "Burkina Faso",
+      "name_ascii": "Burkina Faso",
+      "slug": "burkina-faso",
+      "geoname_id": 2361809,
+      "alternate_names": "",
+      "code2": "BF",
+      "code3": "BFA",
+      "continent": "AF",
+      "tld": "bf",
+      "phone": "226"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 22,
+   "fields": {
+      "name": "Bulgaria",
+      "name_ascii": "Bulgaria",
+      "slug": "bulgaria",
+      "geoname_id": 732800,
+      "alternate_names": "",
+      "code2": "BG",
+      "code3": "BGR",
+      "continent": "EU",
+      "tld": "bg",
+      "phone": "359"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 23,
+   "fields": {
+      "name": "Bahrain",
+      "name_ascii": "Bahrain",
+      "slug": "bahrain",
+      "geoname_id": 290291,
+      "alternate_names": "",
+      "code2": "BH",
+      "code3": "BHR",
+      "continent": "AS",
+      "tld": "bh",
+      "phone": "973"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 24,
+   "fields": {
+      "name": "Burundi",
+      "name_ascii": "Burundi",
+      "slug": "burundi",
+      "geoname_id": 433561,
+      "alternate_names": "",
+      "code2": "BI",
+      "code3": "BDI",
+      "continent": "AF",
+      "tld": "bi",
+      "phone": "257"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 25,
+   "fields": {
+      "name": "Benin",
+      "name_ascii": "Benin",
+      "slug": "benin",
+      "geoname_id": 2395170,
+      "alternate_names": "",
+      "code2": "BJ",
+      "code3": "BEN",
+      "continent": "AF",
+      "tld": "bj",
+      "phone": "229"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 26,
+   "fields": {
+      "name": "Saint Barthelemy",
+      "name_ascii": "Saint Barthelemy",
+      "slug": "saint-barthelemy",
+      "geoname_id": 3578476,
+      "alternate_names": "",
+      "code2": "BL",
+      "code3": "BLM",
+      "continent": "NA",
+      "tld": "gp",
+      "phone": "590"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 27,
+   "fields": {
+      "name": "Bermuda",
+      "name_ascii": "Bermuda",
+      "slug": "bermuda",
+      "geoname_id": 3573345,
+      "alternate_names": "",
+      "code2": "BM",
+      "code3": "BMU",
+      "continent": "NA",
+      "tld": "bm",
+      "phone": "1-441"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 28,
+   "fields": {
+      "name": "Brunei",
+      "name_ascii": "Brunei",
+      "slug": "brunei",
+      "geoname_id": 1820814,
+      "alternate_names": "",
+      "code2": "BN",
+      "code3": "BRN",
+      "continent": "AS",
+      "tld": "bn",
+      "phone": "673"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 29,
+   "fields": {
+      "name": "Bolivia",
+      "name_ascii": "Bolivia",
+      "slug": "bolivia",
+      "geoname_id": 3923057,
+      "alternate_names": "",
+      "code2": "BO",
+      "code3": "BOL",
+      "continent": "SA",
+      "tld": "bo",
+      "phone": "591"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 30,
+   "fields": {
+      "name": "Bonaire, Saint Eustatius and Saba",
+      "name_ascii": "Bonaire, Saint Eustatius and Saba",
+      "slug": "bonaire-saint-eustatius-and-saba",
+      "geoname_id": 7626844,
+      "alternate_names": "",
+      "code2": "BQ",
+      "code3": "BES",
+      "continent": "NA",
+      "tld": "bq",
+      "phone": "599"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 31,
+   "fields": {
+      "name": "Brazil",
+      "name_ascii": "Brazil",
+      "slug": "brazil",
+      "geoname_id": 3469034,
+      "alternate_names": "",
+      "code2": "BR",
+      "code3": "BRA",
+      "continent": "SA",
+      "tld": "br",
+      "phone": "55"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 32,
+   "fields": {
+      "name": "Bahamas",
+      "name_ascii": "Bahamas",
+      "slug": "bahamas",
+      "geoname_id": 3572887,
+      "alternate_names": "",
+      "code2": "BS",
+      "code3": "BHS",
+      "continent": "NA",
+      "tld": "bs",
+      "phone": "1-242"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 33,
+   "fields": {
+      "name": "Bhutan",
+      "name_ascii": "Bhutan",
+      "slug": "bhutan",
+      "geoname_id": 1252634,
+      "alternate_names": "",
+      "code2": "BT",
+      "code3": "BTN",
+      "continent": "AS",
+      "tld": "bt",
+      "phone": "975"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 34,
+   "fields": {
+      "name": "Bouvet Island",
+      "name_ascii": "Bouvet Island",
+      "slug": "bouvet-island",
+      "geoname_id": 3371123,
+      "alternate_names": "",
+      "code2": "BV",
+      "code3": "BVT",
+      "continent": "AN",
+      "tld": "bv",
+      "phone": ""
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 35,
+   "fields": {
+      "name": "Botswana",
+      "name_ascii": "Botswana",
+      "slug": "botswana",
+      "geoname_id": 933860,
+      "alternate_names": "",
+      "code2": "BW",
+      "code3": "BWA",
+      "continent": "AF",
+      "tld": "bw",
+      "phone": "267"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 36,
+   "fields": {
+      "name": "Belarus",
+      "name_ascii": "Belarus",
+      "slug": "belarus",
+      "geoname_id": 630336,
+      "alternate_names": "",
+      "code2": "BY",
+      "code3": "BLR",
+      "continent": "EU",
+      "tld": "by",
+      "phone": "375"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 37,
+   "fields": {
+      "name": "Belize",
+      "name_ascii": "Belize",
+      "slug": "belize",
+      "geoname_id": 3582678,
+      "alternate_names": "",
+      "code2": "BZ",
+      "code3": "BLZ",
+      "continent": "NA",
+      "tld": "bz",
+      "phone": "501"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 38,
+   "fields": {
+      "name": "Canada",
+      "name_ascii": "Canada",
+      "slug": "canada",
+      "geoname_id": 6251999,
+      "alternate_names": "",
+      "code2": "CA",
+      "code3": "CAN",
+      "continent": "NA",
+      "tld": "ca",
+      "phone": "1"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 39,
+   "fields": {
+      "name": "Cocos Islands",
+      "name_ascii": "Cocos Islands",
+      "slug": "cocos-islands",
+      "geoname_id": 1547376,
+      "alternate_names": "",
+      "code2": "CC",
+      "code3": "CCK",
+      "continent": "AS",
+      "tld": "cc",
+      "phone": "61"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 40,
+   "fields": {
+      "name": "Democratic Republic of the Congo",
+      "name_ascii": "Democratic Republic of the Congo",
+      "slug": "democratic-republic-of-the-congo",
+      "geoname_id": 203312,
+      "alternate_names": "",
+      "code2": "CD",
+      "code3": "COD",
+      "continent": "AF",
+      "tld": "cd",
+      "phone": "243"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 41,
+   "fields": {
+      "name": "Central African Republic",
+      "name_ascii": "Central African Republic",
+      "slug": "central-african-republic",
+      "geoname_id": 239880,
+      "alternate_names": "",
+      "code2": "CF",
+      "code3": "CAF",
+      "continent": "AF",
+      "tld": "cf",
+      "phone": "236"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 42,
+   "fields": {
+      "name": "Republic of the Congo",
+      "name_ascii": "Republic of the Congo",
+      "slug": "republic-of-the-congo",
+      "geoname_id": 2260494,
+      "alternate_names": "",
+      "code2": "CG",
+      "code3": "COG",
+      "continent": "AF",
+      "tld": "cg",
+      "phone": "242"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 43,
+   "fields": {
+      "name": "Switzerland",
+      "name_ascii": "Switzerland",
+      "slug": "switzerland",
+      "geoname_id": 2658434,
+      "alternate_names": "",
+      "code2": "CH",
+      "code3": "CHE",
+      "continent": "EU",
+      "tld": "ch",
+      "phone": "41"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 44,
+   "fields": {
+      "name": "Ivory Coast",
+      "name_ascii": "Ivory Coast",
+      "slug": "ivory-coast",
+      "geoname_id": 2287781,
+      "alternate_names": "",
+      "code2": "CI",
+      "code3": "CIV",
+      "continent": "AF",
+      "tld": "ci",
+      "phone": "225"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 45,
+   "fields": {
+      "name": "Cook Islands",
+      "name_ascii": "Cook Islands",
+      "slug": "cook-islands",
+      "geoname_id": 1899402,
+      "alternate_names": "",
+      "code2": "CK",
+      "code3": "COK",
+      "continent": "OC",
+      "tld": "ck",
+      "phone": "682"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 46,
+   "fields": {
+      "name": "Chile",
+      "name_ascii": "Chile",
+      "slug": "chile",
+      "geoname_id": 3895114,
+      "alternate_names": "",
+      "code2": "CL",
+      "code3": "CHL",
+      "continent": "SA",
+      "tld": "cl",
+      "phone": "56"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 47,
+   "fields": {
+      "name": "Cameroon",
+      "name_ascii": "Cameroon",
+      "slug": "cameroon",
+      "geoname_id": 2233387,
+      "alternate_names": "",
+      "code2": "CM",
+      "code3": "CMR",
+      "continent": "AF",
+      "tld": "cm",
+      "phone": "237"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 48,
+   "fields": {
+      "name": "China",
+      "name_ascii": "China",
+      "slug": "china",
+      "geoname_id": 1814991,
+      "alternate_names": "",
+      "code2": "CN",
+      "code3": "CHN",
+      "continent": "AS",
+      "tld": "cn",
+      "phone": "86"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 49,
+   "fields": {
+      "name": "Colombia",
+      "name_ascii": "Colombia",
+      "slug": "colombia",
+      "geoname_id": 3686110,
+      "alternate_names": "",
+      "code2": "CO",
+      "code3": "COL",
+      "continent": "SA",
+      "tld": "co",
+      "phone": "57"
+   }
+},
+{
+   "model": "cities_light.country",
+   "pk": 50,
+   "fields": {
+      "name": "Costa Rica",
+      "name_ascii": "Costa Rica",
+      "slug": "costa-rica",
+      "geoname_id": 3624060,
+      "alternate_names": "",
+      "code2": "CR",
+      "code3": "CRI",
+      "continent": "NA",
+      "tld": "cr",
+      "phone": "506"
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 1,
+   "fields": {
+      "name": "Sant Julia de Loria",
+      "name_ascii": "Sant Julia de Loria",
+      "slug": "sant-julia-de-loria",
+      "geoname_id": 3039162,
+      "alternate_names": "",
+      "display_name": "Sant Julia de Loria, Andorra",
+      "geoname_code": "06",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 2,
+   "fields": {
+      "name": "Ordino",
+      "name_ascii": "Ordino",
+      "slug": "ordino",
+      "geoname_id": 3039676,
+      "alternate_names": "",
+      "display_name": "Ordino, Andorra",
+      "geoname_code": "05",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 3,
+   "fields": {
+      "name": "La Massana",
+      "name_ascii": "La Massana",
+      "slug": "la-massana",
+      "geoname_id": 3040131,
+      "alternate_names": "",
+      "display_name": "La Massana, Andorra",
+      "geoname_code": "04",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 4,
+   "fields": {
+      "name": "Encamp",
+      "name_ascii": "Encamp",
+      "slug": "encamp",
+      "geoname_id": 3040684,
+      "alternate_names": "",
+      "display_name": "Encamp, Andorra",
+      "geoname_code": "03",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 5,
+   "fields": {
+      "name": "Canillo",
+      "name_ascii": "Canillo",
+      "slug": "canillo",
+      "geoname_id": 3041203,
+      "alternate_names": "",
+      "display_name": "Canillo, Andorra",
+      "geoname_code": "02",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 6,
+   "fields": {
+      "name": "Andorra la Vella",
+      "name_ascii": "Andorra la Vella",
+      "slug": "andorra-la-vella",
+      "geoname_id": 3041566,
+      "alternate_names": "",
+      "display_name": "Andorra la Vella, Andorra",
+      "geoname_code": "07",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 7,
+   "fields": {
+      "name": "Escaldes-Engordany",
+      "name_ascii": "Escaldes-Engordany",
+      "slug": "escaldes-engordany",
+      "geoname_id": 3338529,
+      "alternate_names": "",
+      "display_name": "Escaldes-Engordany, Andorra",
+      "geoname_code": "08",
+      "country": 1
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 8,
+   "fields": {
+      "name": "Imarat Umm al Qaywayn",
+      "name_ascii": "Imarat Umm al Qaywayn",
+      "slug": "imarat-umm-al-qaywayn",
+      "geoname_id": 290595,
+      "alternate_names": "",
+      "display_name": "Imarat Umm al Qaywayn, United Arab Emirates",
+      "geoname_code": "07",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 9,
+   "fields": {
+      "name": "Ra's al Khaymah",
+      "name_ascii": "Imarat Ra's al Khaymah",
+      "slug": "imarat-ras-al-khaymah",
+      "geoname_id": 291075,
+      "alternate_names": "",
+      "display_name": "Ra's al Khaymah, United Arab Emirates",
+      "geoname_code": "05",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 10,
+   "fields": {
+      "name": "Dubai",
+      "name_ascii": "Dubai",
+      "slug": "dubai",
+      "geoname_id": 292224,
+      "alternate_names": "",
+      "display_name": "Dubai, United Arab Emirates",
+      "geoname_code": "03",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 11,
+   "fields": {
+      "name": "Sharjah",
+      "name_ascii": "Sharjah",
+      "slug": "sharjah",
+      "geoname_id": 292673,
+      "alternate_names": "",
+      "display_name": "Sharjah, United Arab Emirates",
+      "geoname_code": "06",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 12,
+   "fields": {
+      "name": "Fujairah",
+      "name_ascii": "Fujairah",
+      "slug": "fujairah",
+      "geoname_id": 292879,
+      "alternate_names": "",
+      "display_name": "Fujairah, United Arab Emirates",
+      "geoname_code": "04",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 13,
+   "fields": {
+      "name": "Ajman",
+      "name_ascii": "Ajman",
+      "slug": "ajman",
+      "geoname_id": 292933,
+      "alternate_names": "",
+      "display_name": "Ajman, United Arab Emirates",
+      "geoname_code": "02",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 14,
+   "fields": {
+      "name": "Abu Dhabi",
+      "name_ascii": "Abu Dhabi",
+      "slug": "abu-dhabi",
+      "geoname_id": 292969,
+      "alternate_names": "",
+      "display_name": "Abu Dhabi, United Arab Emirates",
+      "geoname_code": "01",
+      "country": 2
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 15,
+   "fields": {
+      "name": "Zabul",
+      "name_ascii": "Zabul",
+      "slug": "zabul",
+      "geoname_id": 1121143,
+      "alternate_names": "",
+      "display_name": "Zabul, Afghanistan",
+      "geoname_code": "28",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 16,
+   "fields": {
+      "name": "Vardak",
+      "name_ascii": "Vardak",
+      "slug": "vardak",
+      "geoname_id": 1121863,
+      "alternate_names": "",
+      "display_name": "Vardak, Afghanistan",
+      "geoname_code": "27",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 17,
+   "fields": {
+      "name": "Takhar",
+      "name_ascii": "Takhar",
+      "slug": "takhar",
+      "geoname_id": 1123230,
+      "alternate_names": "",
+      "display_name": "Takhar, Afghanistan",
+      "geoname_code": "26",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 18,
+   "fields": {
+      "name": "Sar-e Pol",
+      "name_ascii": "Sar-e Pol",
+      "slug": "sar-e-pol",
+      "geoname_id": 1127106,
+      "alternate_names": "",
+      "display_name": "Sar-e Pol, Afghanistan",
+      "geoname_code": "33",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 19,
+   "fields": {
+      "name": "Samangan",
+      "name_ascii": "Samangan",
+      "slug": "samangan",
+      "geoname_id": 1127766,
+      "alternate_names": "",
+      "display_name": "Samangan, Afghanistan",
+      "geoname_code": "32",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 20,
+   "fields": {
+      "name": "Parwan",
+      "name_ascii": "Parwan",
+      "slug": "parwan",
+      "geoname_id": 1131054,
+      "alternate_names": "",
+      "display_name": "Parwan, Afghanistan",
+      "geoname_code": "40",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 21,
+   "fields": {
+      "name": "Paktika",
+      "name_ascii": "Paktika",
+      "slug": "paktika",
+      "geoname_id": 1131256,
+      "alternate_names": "",
+      "display_name": "Paktika, Afghanistan",
+      "geoname_code": "29",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 22,
+   "fields": {
+      "name": "Paktia",
+      "name_ascii": "Paktia",
+      "slug": "paktia",
+      "geoname_id": 1131257,
+      "alternate_names": "",
+      "display_name": "Paktia, Afghanistan",
+      "geoname_code": "36",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 23,
+   "fields": {
+      "name": "Oruzgan",
+      "name_ascii": "Oruzgan",
+      "slug": "oruzgan",
+      "geoname_id": 1131461,
+      "alternate_names": "",
+      "display_name": "Oruzgan, Afghanistan",
+      "geoname_code": "39",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 24,
+   "fields": {
+      "name": "Nimroz",
+      "name_ascii": "Nimroz",
+      "slug": "nimroz",
+      "geoname_id": 1131821,
+      "alternate_names": "",
+      "display_name": "Nimroz, Afghanistan",
+      "geoname_code": "19",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 25,
+   "fields": {
+      "name": "Nangarhar",
+      "name_ascii": "Nangarhar",
+      "slug": "nangarhar",
+      "geoname_id": 1132366,
+      "alternate_names": "",
+      "display_name": "Nangarhar, Afghanistan",
+      "geoname_code": "18",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 26,
+   "fields": {
+      "name": "Logar",
+      "name_ascii": "Logar",
+      "slug": "logar",
+      "geoname_id": 1134561,
+      "alternate_names": "",
+      "display_name": "Logar, Afghanistan",
+      "geoname_code": "17",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 27,
+   "fields": {
+      "name": "Laghman",
+      "name_ascii": "Laghman",
+      "slug": "laghman",
+      "geoname_id": 1135022,
+      "alternate_names": "",
+      "display_name": "Laghman, Afghanistan",
+      "geoname_code": "35",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 28,
+   "fields": {
+      "name": "Kunduz",
+      "name_ascii": "Kunduz",
+      "slug": "kunduz",
+      "geoname_id": 1135690,
+      "alternate_names": "",
+      "display_name": "Kunduz, Afghanistan",
+      "geoname_code": "24",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 29,
+   "fields": {
+      "name": "Kunar",
+      "name_ascii": "Kunar",
+      "slug": "kunar",
+      "geoname_id": 1135702,
+      "alternate_names": "",
+      "display_name": "Kunar, Afghanistan",
+      "geoname_code": "34",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 30,
+   "fields": {
+      "name": "Kapisa",
+      "name_ascii": "Kapisa",
+      "slug": "kapisa",
+      "geoname_id": 1138255,
+      "alternate_names": "",
+      "display_name": "Kapisa, Afghanistan",
+      "geoname_code": "14",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 31,
+   "fields": {
+      "name": "Kandahar",
+      "name_ascii": "Kandahar",
+      "slug": "kandahar",
+      "geoname_id": 1138335,
+      "alternate_names": "",
+      "display_name": "Kandahar, Afghanistan",
+      "geoname_code": "23",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 32,
+   "fields": {
+      "name": "Kabul",
+      "name_ascii": "Kabul",
+      "slug": "kabul",
+      "geoname_id": 1138957,
+      "alternate_names": "",
+      "display_name": "Kabul, Afghanistan",
+      "geoname_code": "13",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 33,
+   "fields": {
+      "name": "Jowzjan",
+      "name_ascii": "Jowzjan",
+      "slug": "jowzjan",
+      "geoname_id": 1139049,
+      "alternate_names": "",
+      "display_name": "Jowzjan, Afghanistan",
+      "geoname_code": "31",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 34,
+   "fields": {
+      "name": "Herat",
+      "name_ascii": "Herat",
+      "slug": "herat",
+      "geoname_id": 1140025,
+      "alternate_names": "",
+      "display_name": "Herat, Afghanistan",
+      "geoname_code": "11",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 35,
+   "fields": {
+      "name": "Helmand",
+      "name_ascii": "Helmand",
+      "slug": "helmand",
+      "geoname_id": 1140043,
+      "alternate_names": "",
+      "display_name": "Helmand, Afghanistan",
+      "geoname_code": "10",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 36,
+   "fields": {
+      "name": "Ghowr",
+      "name_ascii": "Ghowr",
+      "slug": "ghowr",
+      "geoname_id": 1141103,
+      "alternate_names": "",
+      "display_name": "Ghowr, Afghanistan",
+      "geoname_code": "09",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 37,
+   "fields": {
+      "name": "Ghazni",
+      "name_ascii": "Ghazni",
+      "slug": "ghazni",
+      "geoname_id": 1141268,
+      "alternate_names": "",
+      "display_name": "Ghazni, Afghanistan",
+      "geoname_code": "08",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 38,
+   "fields": {
+      "name": "Faryab",
+      "name_ascii": "Faryab",
+      "slug": "faryab",
+      "geoname_id": 1142226,
+      "alternate_names": "",
+      "display_name": "Faryab, Afghanistan",
+      "geoname_code": "07",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 39,
+   "fields": {
+      "name": "Farah",
+      "name_ascii": "Farah",
+      "slug": "farah",
+      "geoname_id": 1142263,
+      "alternate_names": "",
+      "display_name": "Farah, Afghanistan",
+      "geoname_code": "06",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 40,
+   "fields": {
+      "name": "Bamyan",
+      "name_ascii": "Bamyan",
+      "slug": "bamyan",
+      "geoname_id": 1147239,
+      "alternate_names": "",
+      "display_name": "Bamyan, Afghanistan",
+      "geoname_code": "05",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 41,
+   "fields": {
+      "name": "Balkh",
+      "name_ascii": "Balkh",
+      "slug": "balkh",
+      "geoname_id": 1147288,
+      "alternate_names": "",
+      "display_name": "Balkh, Afghanistan",
+      "geoname_code": "30",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 42,
+   "fields": {
+      "name": "Baghlan",
+      "name_ascii": "Baghlan",
+      "slug": "baghlan",
+      "geoname_id": 1147537,
+      "alternate_names": "",
+      "display_name": "Baghlan, Afghanistan",
+      "geoname_code": "03",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 43,
+   "fields": {
+      "name": "Badghis",
+      "name_ascii": "Badghis",
+      "slug": "badghis",
+      "geoname_id": 1147707,
+      "alternate_names": "",
+      "display_name": "Badghis, Afghanistan",
+      "geoname_code": "02",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 44,
+   "fields": {
+      "name": "Badakhshan",
+      "name_ascii": "Badakhshan",
+      "slug": "badakhshan",
+      "geoname_id": 1147745,
+      "alternate_names": "",
+      "display_name": "Badakhshan, Afghanistan",
+      "geoname_code": "01",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 45,
+   "fields": {
+      "name": "Khowst",
+      "name_ascii": "Khowst",
+      "slug": "khowst",
+      "geoname_id": 1444362,
+      "alternate_names": "",
+      "display_name": "Khowst, Afghanistan",
+      "geoname_code": "37",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 46,
+   "fields": {
+      "name": "Nuristan",
+      "name_ascii": "Nuristan",
+      "slug": "nuristan",
+      "geoname_id": 1444363,
+      "alternate_names": "",
+      "display_name": "Nuristan, Afghanistan",
+      "geoname_code": "38",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 47,
+   "fields": {
+      "name": "Daykundi",
+      "name_ascii": "Daykundi",
+      "slug": "daykundi",
+      "geoname_id": 6957553,
+      "alternate_names": "",
+      "display_name": "Daykundi, Afghanistan",
+      "geoname_code": "41",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 48,
+   "fields": {
+      "name": "Panjshir",
+      "name_ascii": "Panjshir",
+      "slug": "panjshir",
+      "geoname_id": 6957555,
+      "alternate_names": "",
+      "display_name": "Panjshir, Afghanistan",
+      "geoname_code": "42",
+      "country": 3
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 49,
+   "fields": {
+      "name": "Saint Philip",
+      "name_ascii": "Saint Philip",
+      "slug": "saint-philip",
+      "geoname_id": 3576015,
+      "alternate_names": "",
+      "display_name": "Saint Philip, Antigua and Barbuda",
+      "geoname_code": "08",
+      "country": 4
+   }
+},
+{
+   "model": "cities_light.region",
+   "pk": 50,
+   "fields": {
+      "name": "Saint Peter",
+      "name_ascii": "Saint Peter",
+      "slug": "saint-peter",
+      "geoname_id": 3576016,
+      "alternate_names": "",
+      "display_name": "Saint Peter, Antigua and Barbuda",
+      "geoname_code": "07",
+      "country": 4
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 1,
+   "fields": {
+      "name": "les Escaldes",
+      "name_ascii": "les Escaldes",
+      "slug": "les-escaldes",
+      "geoname_id": 3040051,
+      "alternate_names": "",
+      "display_name": "les Escaldes, Escaldes-Engordany, Andorra",
+      "search_names": "lesescaldesandorra lesescaldesescaldesengordanyandorra",
+      "latitude": "42.50729",
+      "longitude": "1.53414",
+      "subregion": null,
+      "region": 7,
+      "country": 1,
+      "population": 15853,
+      "feature_code": "PPLA",
+      "timezone": "Europe/Andorra"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 2,
+   "fields": {
+      "name": "Andorra la Vella",
+      "name_ascii": "Andorra la Vella",
+      "slug": "andorra-la-vella",
+      "geoname_id": 3041563,
+      "alternate_names": "",
+      "display_name": "Andorra la Vella, Andorra la Vella, Andorra",
+      "search_names": "andorralavellaandorra andorralavellaandorralavellaandorra",
+      "latitude": "42.50779",
+      "longitude": "1.52109",
+      "subregion": null,
+      "region": 6,
+      "country": 1,
+      "population": 20430,
+      "feature_code": "PPLC",
+      "timezone": "Europe/Andorra"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 3,
+   "fields": {
+      "name": "Umm Al Quwain City",
+      "name_ascii": "Umm Al Quwain City",
+      "slug": "umm-al-quwain-city",
+      "geoname_id": 290594,
+      "alternate_names": "",
+      "display_name": "Umm Al Quwain City, Imarat Umm al Qaywayn, United Arab Emirates",
+      "search_names": "ummalquwaincityimaratummalqaywaynunitedarabemirates ummalquwaincityunitedarabemirates",
+      "latitude": "25.56473",
+      "longitude": "55.55517",
+      "subregion": null,
+      "region": 8,
+      "country": 2,
+      "population": 62747,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 4,
+   "fields": {
+      "name": "Ras Al Khaimah City",
+      "name_ascii": "Ras Al Khaimah City",
+      "slug": "ras-al-khaimah-city",
+      "geoname_id": 291074,
+      "alternate_names": "",
+      "display_name": "Ras Al Khaimah City, Ra's al Khaymah, United Arab Emirates",
+      "search_names": "rasalkhaimahcityrasalkhaymahunitedarabemirates rasalkhaimahcityunitedarabemirates",
+      "latitude": "25.78953",
+      "longitude": "55.94320",
+      "subregion": null,
+      "region": 9,
+      "country": 2,
+      "population": 351943,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 5,
+   "fields": {
+      "name": "Zayed City",
+      "name_ascii": "Zayed City",
+      "slug": "zayed-city",
+      "geoname_id": 291580,
+      "alternate_names": "",
+      "display_name": "Zayed City, Abu Dhabi, United Arab Emirates",
+      "search_names": "zayedcityabudhabiunitedarabemirates zayedcityunitedarabemirates",
+      "latitude": "23.65416",
+      "longitude": "53.70522",
+      "subregion": 3,
+      "region": 14,
+      "country": 2,
+      "population": 63482,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 6,
+   "fields": {
+      "name": "Khawr Fakkan",
+      "name_ascii": "Khawr Fakkan",
+      "slug": "khawr-fakkan",
+      "geoname_id": 291696,
+      "alternate_names": "",
+      "display_name": "Khawr Fakkan, Sharjah, United Arab Emirates",
+      "search_names": "khawrfakkansharjahunitedarabemirates khawrfakkanunitedarabemirates",
+      "latitude": "25.33132",
+      "longitude": "56.34199",
+      "subregion": null,
+      "region": 11,
+      "country": 2,
+      "population": 40677,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 7,
+   "fields": {
+      "name": "Dubai",
+      "name_ascii": "Dubai",
+      "slug": "dubai",
+      "geoname_id": 292223,
+      "alternate_names": "",
+      "display_name": "Dubai, Dubai, United Arab Emirates",
+      "search_names": "dubaidubaiunitedarabemirates dubaiunitedarabemirates",
+      "latitude": "25.07725",
+      "longitude": "55.30927",
+      "subregion": null,
+      "region": 10,
+      "country": 2,
+      "population": 3478300,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 8,
+   "fields": {
+      "name": "Dibba Al-Fujairah",
+      "name_ascii": "Dibba Al-Fujairah",
+      "slug": "dibba-al-fujairah",
+      "geoname_id": 292231,
+      "alternate_names": "",
+      "display_name": "Dibba Al-Fujairah, Fujairah, United Arab Emirates",
+      "search_names": "dibbaalfujairahfujairahunitedarabemirates dibbaalfujairahunitedarabemirates",
+      "latitude": "25.59246",
+      "longitude": "56.26176",
+      "subregion": null,
+      "region": 12,
+      "country": 2,
+      "population": 30000,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 9,
+   "fields": {
+      "name": "Dibba Al-Hisn",
+      "name_ascii": "Dibba Al-Hisn",
+      "slug": "dibba-al-hisn",
+      "geoname_id": 292239,
+      "alternate_names": "",
+      "display_name": "Dibba Al-Hisn, Fujairah, United Arab Emirates",
+      "search_names": "dibbaalhisnfujairahunitedarabemirates dibbaalhisnunitedarabemirates",
+      "latitude": "25.61955",
+      "longitude": "56.27291",
+      "subregion": null,
+      "region": 12,
+      "country": 2,
+      "population": 26395,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 10,
+   "fields": {
+      "name": "Sharjah",
+      "name_ascii": "Sharjah",
+      "slug": "sharjah",
+      "geoname_id": 292672,
+      "alternate_names": "",
+      "display_name": "Sharjah, Sharjah, United Arab Emirates",
+      "search_names": "sharjahsharjahunitedarabemirates sharjahunitedarabemirates",
+      "latitude": "25.33737",
+      "longitude": "55.41206",
+      "subregion": null,
+      "region": 11,
+      "country": 2,
+      "population": 1324473,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 11,
+   "fields": {
+      "name": "Ar Ruways",
+      "name_ascii": "Ar Ruways",
+      "slug": "ar-ruways",
+      "geoname_id": 292688,
+      "alternate_names": "",
+      "display_name": "Ar Ruways, Abu Dhabi, United Arab Emirates",
+      "search_names": "arruwaysabudhabiunitedarabemirates arruwaysunitedarabemirates",
+      "latitude": "24.11028",
+      "longitude": "52.73056",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 16000,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 12,
+   "fields": {
+      "name": "Al Fujairah City",
+      "name_ascii": "Al Fujairah City",
+      "slug": "al-fujairah-city",
+      "geoname_id": 292878,
+      "alternate_names": "",
+      "display_name": "Al Fujairah City, Fujairah, United Arab Emirates",
+      "search_names": "alfujairahcityfujairahunitedarabemirates alfujairahcityunitedarabemirates",
+      "latitude": "25.11641",
+      "longitude": "56.34141",
+      "subregion": null,
+      "region": 12,
+      "country": 2,
+      "population": 86512,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 13,
+   "fields": {
+      "name": "Al Ain City",
+      "name_ascii": "Al Ain City",
+      "slug": "al-ain-city",
+      "geoname_id": 292913,
+      "alternate_names": "",
+      "display_name": "Al Ain City, Abu Dhabi, United Arab Emirates",
+      "search_names": "alaincityabudhabiunitedarabemirates alaincityunitedarabemirates",
+      "latitude": "24.19167",
+      "longitude": "55.76056",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 55091,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 14,
+   "fields": {
+      "name": "Ajman City",
+      "name_ascii": "Ajman City",
+      "slug": "ajman-city",
+      "geoname_id": 292932,
+      "alternate_names": "",
+      "display_name": "Ajman City, Ajman, United Arab Emirates",
+      "search_names": "ajmancityajmanunitedarabemirates ajmancityunitedarabemirates",
+      "latitude": "25.40177",
+      "longitude": "55.47878",
+      "subregion": null,
+      "region": 13,
+      "country": 2,
+      "population": 490035,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 15,
+   "fields": {
+      "name": "Adh Dhayd",
+      "name_ascii": "Adh Dhayd",
+      "slug": "adh-dhayd",
+      "geoname_id": 292953,
+      "alternate_names": "",
+      "display_name": "Adh Dhayd, Sharjah, United Arab Emirates",
+      "search_names": "adhdhaydsharjahunitedarabemirates adhdhaydunitedarabemirates",
+      "latitude": "25.28812",
+      "longitude": "55.88157",
+      "subregion": null,
+      "region": 11,
+      "country": 2,
+      "population": 24716,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 16,
+   "fields": {
+      "name": "Abu Dhabi",
+      "name_ascii": "Abu Dhabi",
+      "slug": "abu-dhabi",
+      "geoname_id": 292968,
+      "alternate_names": "",
+      "display_name": "Abu Dhabi, Abu Dhabi, United Arab Emirates",
+      "search_names": "abudhabiabudhabiunitedarabemirates abudhabiunitedarabemirates",
+      "latitude": "24.45118",
+      "longitude": "54.39696",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 603492,
+      "feature_code": "PPLC",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 17,
+   "fields": {
+      "name": "Khalifah A City",
+      "name_ascii": "Khalifah A City",
+      "slug": "khalifah-a-city",
+      "geoname_id": 8057551,
+      "alternate_names": "",
+      "display_name": "Khalifah A City, Abu Dhabi, United Arab Emirates",
+      "search_names": "khalifahacityabudhabiunitedarabemirates khalifahacityunitedarabemirates",
+      "latitude": "24.42588",
+      "longitude": "54.60500",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 85374,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 18,
+   "fields": {
+      "name": "Bani Yas City",
+      "name_ascii": "Bani Yas City",
+      "slug": "bani-yas-city",
+      "geoname_id": 12042052,
+      "alternate_names": "",
+      "display_name": "Bani Yas City, Abu Dhabi, United Arab Emirates",
+      "search_names": "baniyascityabudhabiunitedarabemirates baniyascityunitedarabemirates",
+      "latitude": "24.30978",
+      "longitude": "54.62944",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 80498,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 19,
+   "fields": {
+      "name": "Musaffah",
+      "name_ascii": "Musaffah",
+      "slug": "musaffah",
+      "geoname_id": 12042053,
+      "alternate_names": "",
+      "display_name": "Musaffah, Abu Dhabi, United Arab Emirates",
+      "search_names": "musaffahabudhabiunitedarabemirates musaffahunitedarabemirates",
+      "latitude": "24.35893",
+      "longitude": "54.48267",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 243341,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 20,
+   "fields": {
+      "name": "Al Shamkhah City",
+      "name_ascii": "Al Shamkhah City",
+      "slug": "al-shamkhah-city",
+      "geoname_id": 12047416,
+      "alternate_names": "",
+      "display_name": "Al Shamkhah City, Abu Dhabi, United Arab Emirates",
+      "search_names": "alshamkhahcityabudhabiunitedarabemirates alshamkhahcityunitedarabemirates",
+      "latitude": "24.39268",
+      "longitude": "54.70779",
+      "subregion": null,
+      "region": 14,
+      "country": 2,
+      "population": 61710,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 21,
+   "fields": {
+      "name": "Reef Al Fujairah City",
+      "name_ascii": "Reef Al Fujairah City",
+      "slug": "reef-al-fujairah-city",
+      "geoname_id": 12047417,
+      "alternate_names": "",
+      "display_name": "Reef Al Fujairah City, Fujairah, United Arab Emirates",
+      "search_names": "reefalfujairahcityfujairahunitedarabemirates reefalfujairahcityunitedarabemirates",
+      "latitude": "25.14479",
+      "longitude": "56.24764",
+      "subregion": null,
+      "region": 12,
+      "country": 2,
+      "population": 82310,
+      "feature_code": "PPL",
+      "timezone": "Asia/Dubai"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 52,
+   "fields": {
+      "name": "Ghormach",
+      "name_ascii": "Ghormach",
+      "slug": "ghormach",
+      "geoname_id": 1141089,
+      "alternate_names": "",
+      "display_name": "Ghormach, Badghis, Afghanistan",
+      "search_names": "ghormachafghanistan ghormachbadghisafghanistan",
+      "latitude": "35.73062",
+      "longitude": "63.78264",
+      "subregion": 50,
+      "region": 43,
+      "country": 3,
+      "population": 30000,
+      "feature_code": "PPLA2",
+      "timezone": "Asia/Kabul"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 56,
+   "fields": {
+      "name": "Fayzabad",
+      "name_ascii": "Fayzabad",
+      "slug": "fayzabad",
+      "geoname_id": 1142170,
+      "alternate_names": "",
+      "display_name": "Fayzabad, Badakhshan, Afghanistan",
+      "search_names": "fayzabadafghanistan fayzabadbadakhshanafghanistan",
+      "latitude": "37.11664",
+      "longitude": "70.58002",
+      "subregion": 29,
+      "region": 44,
+      "country": 3,
+      "population": 44421,
+      "feature_code": "PPLA",
+      "timezone": "Asia/Kabul"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 452,
+   "fields": {
+      "name": "Tanki Leendert",
+      "name_ascii": "Tanki Leendert",
+      "slug": "tanki-leendert",
+      "geoname_id": 3577072,
+      "alternate_names": "",
+      "display_name": "Tanki Leendert, Aruba",
+      "search_names": "tankileendertaruba",
+      "latitude": "12.53914",
+      "longitude": "-70.02004",
+      "subregion": null,
+      "region": null,
+      "country": 14,
+      "population": 21500,
+      "feature_code": "PPL",
+      "timezone": "America/Aruba"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 453,
+   "fields": {
+      "name": "San Nicolas",
+      "name_ascii": "San Nicolas",
+      "slug": "san-nicolas",
+      "geoname_id": 3577089,
+      "alternate_names": "",
+      "display_name": "San Nicolas, Aruba",
+      "search_names": "sannicolasaruba",
+      "latitude": "12.43624",
+      "longitude": "-69.90713",
+      "subregion": null,
+      "region": null,
+      "country": 14,
+      "population": 15200,
+      "feature_code": "PPL",
+      "timezone": "America/Aruba"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 454,
+   "fields": {
+      "name": "Oranjestad",
+      "name_ascii": "Oranjestad",
+      "slug": "oranjestad",
+      "geoname_id": 3577154,
+      "alternate_names": "",
+      "display_name": "Oranjestad, Aruba",
+      "search_names": "oranjestadaruba",
+      "latitude": "12.52398",
+      "longitude": "-70.02703",
+      "subregion": null,
+      "region": null,
+      "country": 14,
+      "population": 29998,
+      "feature_code": "PPLC",
+      "timezone": "America/Aruba"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 1008,
+   "fields": {
+      "name": "Gustavia",
+      "name_ascii": "Gustavia",
+      "slug": "gustavia",
+      "geoname_id": 3579132,
+      "alternate_names": "",
+      "display_name": "Gustavia, Saint Barthelemy",
+      "search_names": "gustaviasaintbarthelemy",
+      "latitude": "17.89618",
+      "longitude": "-62.84978",
+      "subregion": null,
+      "region": null,
+      "country": 26,
+      "population": 5988,
+      "feature_code": "PPLC",
+      "timezone": "America/St_Barthelemy"
+   }
+},
+{
+   "model": "cities_light.city",
+   "pk": 2586,
+   "fields": {
+      "name": "West Island",
+      "name_ascii": "West Island",
+      "slug": "west-island",
+      "geoname_id": 7304591,
+      "alternate_names": "",
+      "display_name": "West Island, Cocos Islands",
+      "search_names": "westislandcocosislands",
+      "latitude": "-12.15681",
+      "longitude": "96.82251",
+      "subregion": null,
+      "region": null,
+      "country": 39,
+      "population": 120,
+      "feature_code": "PPLC",
+      "timezone": "Indian/Cocos"
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 1,
+   "fields": {
+      "name": "Abu Dhabi Municipality",
+      "name_ascii": "Abu Dhabi Municipality",
+      "slug": "abu-dhabi-municipality",
+      "geoname_id": 12047239,
+      "alternate_names": "",
+      "display_name": "Abu Dhabi Municipality, United Arab Emirates",
+      "geoname_code": "101",
+      "country": 2,
+      "region": 14
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 2,
+   "fields": {
+      "name": "Al Ain Municipality",
+      "name_ascii": "Al Ain Municipality",
+      "slug": "al-ain-municipality",
+      "geoname_id": 12047240,
+      "alternate_names": "",
+      "display_name": "Al Ain Municipality, United Arab Emirates",
+      "geoname_code": "102",
+      "country": 2,
+      "region": 14
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 3,
+   "fields": {
+      "name": "Al Dhafra",
+      "name_ascii": "Al Dhafra",
+      "slug": "al-dhafra",
+      "geoname_id": 12047241,
+      "alternate_names": "",
+      "display_name": "Al Dhafra, United Arab Emirates",
+      "geoname_code": "103",
+      "country": 2,
+      "region": 14
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 4,
+   "fields": {
+      "name": "Al Fujairah Municipality",
+      "name_ascii": "Al Fujairah Municipality",
+      "slug": "al-fujairah-municipality",
+      "geoname_id": 12047242,
+      "alternate_names": "",
+      "display_name": "Al Fujairah Municipality, United Arab Emirates",
+      "geoname_code": "701",
+      "country": 2,
+      "region": 12
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 5,
+   "fields": {
+      "name": "Dibba Al Fujairah Municipality",
+      "name_ascii": "Dibba Al Fujairah Municipality",
+      "slug": "dibba-al-fujairah-municipality",
+      "geoname_id": 12047243,
+      "alternate_names": "",
+      "display_name": "Dibba Al Fujairah Municipality, United Arab Emirates",
+      "geoname_code": "702",
+      "country": 2,
+      "region": 12
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 6,
+   "fields": {
+      "name": "Dhaid",
+      "name_ascii": "Dhaid",
+      "slug": "dhaid",
+      "geoname_id": 12060391,
+      "alternate_names": "",
+      "display_name": "Dhaid, United Arab Emirates",
+      "geoname_code": "302",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 7,
+   "fields": {
+      "name": "Ajman",
+      "name_ascii": "Ajman",
+      "slug": "ajman",
+      "geoname_id": 12060392,
+      "alternate_names": "",
+      "display_name": "Ajman, United Arab Emirates",
+      "geoname_code": "401",
+      "country": 2,
+      "region": 13
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 8,
+   "fields": {
+      "name": "Khor Fakkan",
+      "name_ascii": "Khor Fakkan",
+      "slug": "khor-fakkan",
+      "geoname_id": 12060393,
+      "alternate_names": "",
+      "display_name": "Khor Fakkan, United Arab Emirates",
+      "geoname_code": "304",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 9,
+   "fields": {
+      "name": "Dibba Al Hesn",
+      "name_ascii": "Dibba Al Hesn",
+      "slug": "dibba-al-hesn",
+      "geoname_id": 12060394,
+      "alternate_names": "",
+      "display_name": "Dibba Al Hesn, United Arab Emirates",
+      "geoname_code": "307",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 10,
+   "fields": {
+      "name": "Kalba",
+      "name_ascii": "Kalba",
+      "slug": "kalba",
+      "geoname_id": 12060395,
+      "alternate_names": "",
+      "display_name": "Kalba, United Arab Emirates",
+      "geoname_code": "305",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 11,
+   "fields": {
+      "name": "Ras Al Khaimah",
+      "name_ascii": "Ras Al Khaimah",
+      "slug": "ras-al-khaimah",
+      "geoname_id": 12060396,
+      "alternate_names": "",
+      "display_name": "Ras Al Khaimah, United Arab Emirates",
+      "geoname_code": "601",
+      "country": 2,
+      "region": 9
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 12,
+   "fields": {
+      "name": "Umm AL Quwain",
+      "name_ascii": "Umm AL Quwain",
+      "slug": "umm-al-quwain",
+      "geoname_id": 12060397,
+      "alternate_names": "",
+      "display_name": "Umm AL Quwain, United Arab Emirates",
+      "geoname_code": "501",
+      "country": 2,
+      "region": 8
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 13,
+   "fields": {
+      "name": "Milehah",
+      "name_ascii": "Milehah",
+      "slug": "milehah",
+      "geoname_id": 12060398,
+      "alternate_names": "",
+      "display_name": "Milehah, United Arab Emirates",
+      "geoname_code": "309",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 14,
+   "fields": {
+      "name": "Al Madam",
+      "name_ascii": "Al Madam",
+      "slug": "al-madam",
+      "geoname_id": 12060399,
+      "alternate_names": "",
+      "display_name": "Al Madam, United Arab Emirates",
+      "geoname_code": "306",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 15,
+   "fields": {
+      "name": "Sharjah",
+      "name_ascii": "Sharjah",
+      "slug": "sharjah",
+      "geoname_id": 12060400,
+      "alternate_names": "",
+      "display_name": "Sharjah, United Arab Emirates",
+      "geoname_code": "301",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 16,
+   "fields": {
+      "name": "Al Hamriyah",
+      "name_ascii": "Al Hamriyah",
+      "slug": "al-hamriyah",
+      "geoname_id": 12060401,
+      "alternate_names": "",
+      "display_name": "Al Hamriyah, United Arab Emirates",
+      "geoname_code": "303",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 17,
+   "fields": {
+      "name": "Manama",
+      "name_ascii": "Manama",
+      "slug": "manama",
+      "geoname_id": 12060402,
+      "alternate_names": "",
+      "display_name": "Manama, United Arab Emirates",
+      "geoname_code": "402",
+      "country": 2,
+      "region": 13
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 18,
+   "fields": {
+      "name": "Masfout",
+      "name_ascii": "Masfout",
+      "slug": "masfout",
+      "geoname_id": 12060403,
+      "alternate_names": "",
+      "display_name": "Masfout, United Arab Emirates",
+      "geoname_code": "403",
+      "country": 2,
+      "region": 13
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 19,
+   "fields": {
+      "name": "Al Batayih",
+      "name_ascii": "Al Batayih",
+      "slug": "al-batayih",
+      "geoname_id": 12060404,
+      "alternate_names": "",
+      "display_name": "Al Batayih, United Arab Emirates",
+      "geoname_code": "308",
+      "country": 2,
+      "region": 11
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 20,
+   "fields": {
+      "name": "Dubai",
+      "name_ascii": "Dubai",
+      "slug": "dubai",
+      "geoname_id": 12060405,
+      "alternate_names": "",
+      "display_name": "Dubai, United Arab Emirates",
+      "geoname_code": "201",
+      "country": 2,
+      "region": 10
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 21,
+   "fields": {
+      "name": "Shighnan District",
+      "name_ascii": "Shighnan District",
+      "slug": "shighnan-district",
+      "geoname_id": 1125426,
+      "alternate_names": "",
+      "display_name": "Shighnan District, Afghanistan",
+      "geoname_code": "1109",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 22,
+   "fields": {
+      "name": "Gelan",
+      "name_ascii": "Gelan",
+      "slug": "gelan",
+      "geoname_id": 1140918,
+      "alternate_names": "",
+      "display_name": "Gelan, Afghanistan",
+      "geoname_code": "609",
+      "country": 3,
+      "region": 37
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 23,
+   "fields": {
+      "name": "Arghanj Khwah",
+      "name_ascii": "Arghanj Khwah",
+      "slug": "arghanj-khwah",
+      "geoname_id": 7052641,
+      "alternate_names": "",
+      "display_name": "Arghanj Khwah, Afghanistan",
+      "geoname_code": "1114",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 24,
+   "fields": {
+      "name": "Argo",
+      "name_ascii": "Argo",
+      "slug": "argo",
+      "geoname_id": 7052663,
+      "alternate_names": "",
+      "display_name": "Argo, Afghanistan",
+      "geoname_code": "1115",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 25,
+   "fields": {
+      "name": "Baharak",
+      "name_ascii": "Baharak",
+      "slug": "baharak",
+      "geoname_id": 7052664,
+      "alternate_names": "",
+      "display_name": "Baharak, Afghanistan",
+      "geoname_code": "1108",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 26,
+   "fields": {
+      "name": "Darayim",
+      "name_ascii": "Darayim",
+      "slug": "darayim",
+      "geoname_id": 7052665,
+      "alternate_names": "",
+      "display_name": "Darayim, Afghanistan",
+      "geoname_code": "1116",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 27,
+   "fields": {
+      "name": "Darwaz-e Bala",
+      "name_ascii": "Darwaz-e Bala",
+      "slug": "darwaz-e-bala",
+      "geoname_id": 7052666,
+      "alternate_names": "",
+      "display_name": "Darwaz-e Bala, Afghanistan",
+      "geoname_code": "1117",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 28,
+   "fields": {
+      "name": "Darwaz-e Pa'in",
+      "name_ascii": "Darwaz-e Pa'in",
+      "slug": "darwaz-e-pain",
+      "geoname_id": 7052667,
+      "alternate_names": "",
+      "display_name": "Darwaz-e Pa'in, Afghanistan",
+      "geoname_code": "1110",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 29,
+   "fields": {
+      "name": "Faizabad",
+      "name_ascii": "Faizabad",
+      "slug": "faizabad",
+      "geoname_id": 7052668,
+      "alternate_names": "",
+      "display_name": "Faizabad, Afghanistan",
+      "geoname_code": "1101",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 30,
+   "fields": {
+      "name": "Ishkashim",
+      "name_ascii": "Ishkashim",
+      "slug": "ishkashim",
+      "geoname_id": 7052669,
+      "alternate_names": "",
+      "display_name": "Ishkashim, Afghanistan",
+      "geoname_code": "1107",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 31,
+   "fields": {
+      "name": "Jurm",
+      "name_ascii": "Jurm",
+      "slug": "jurm",
+      "geoname_id": 7052670,
+      "alternate_names": "",
+      "display_name": "Jurm, Afghanistan",
+      "geoname_code": "1103",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 32,
+   "fields": {
+      "name": "Khash",
+      "name_ascii": "Khash",
+      "slug": "khash",
+      "geoname_id": 7052672,
+      "alternate_names": "",
+      "display_name": "Khash, Afghanistan",
+      "geoname_code": "1118",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 33,
+   "fields": {
+      "name": "Khwahan",
+      "name_ascii": "Khwahan",
+      "slug": "khwahan",
+      "geoname_id": 7052674,
+      "alternate_names": "",
+      "display_name": "Khwahan, Afghanistan",
+      "geoname_code": "1111",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 34,
+   "fields": {
+      "name": "Kishim",
+      "name_ascii": "Kishim",
+      "slug": "kishim",
+      "geoname_id": 7052679,
+      "alternate_names": "",
+      "display_name": "Kishim, Afghanistan",
+      "geoname_code": "1102",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 35,
+   "fields": {
+      "name": "Kohistan",
+      "name_ascii": "Kohistan",
+      "slug": "kohistan",
+      "geoname_id": 7052680,
+      "alternate_names": "",
+      "display_name": "Kohistan, Afghanistan",
+      "geoname_code": "1119",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 36,
+   "fields": {
+      "name": "Kuf ab",
+      "name_ascii": "Kuf Ab",
+      "slug": "kuf-ab",
+      "geoname_id": 7052682,
+      "alternate_names": "",
+      "display_name": "Kuf ab, Afghanistan",
+      "geoname_code": "1120",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 37,
+   "fields": {
+      "name": "Raghistan",
+      "name_ascii": "Raghistan",
+      "slug": "raghistan",
+      "geoname_id": 7052684,
+      "alternate_names": "",
+      "display_name": "Raghistan, Afghanistan",
+      "geoname_code": "1112",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 38,
+   "fields": {
+      "name": "Shahr-e Buzurg",
+      "name_ascii": "Shahr-e Buzurg",
+      "slug": "shahr-e-buzurg",
+      "geoname_id": 7052686,
+      "alternate_names": "",
+      "display_name": "Shahr-e Buzurg, Afghanistan",
+      "geoname_code": "1113",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 39,
+   "fields": {
+      "name": "Shiki",
+      "name_ascii": "Shiki",
+      "slug": "shiki",
+      "geoname_id": 7052689,
+      "alternate_names": "",
+      "display_name": "Shiki, Afghanistan",
+      "geoname_code": "1121",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 40,
+   "fields": {
+      "name": "Shuhada",
+      "name_ascii": "Shuhada",
+      "slug": "shuhada",
+      "geoname_id": 7052690,
+      "alternate_names": "",
+      "display_name": "Shuhada, Afghanistan",
+      "geoname_code": "1122",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 41,
+   "fields": {
+      "name": "Tagab",
+      "name_ascii": "Tagab",
+      "slug": "tagab",
+      "geoname_id": 7052691,
+      "alternate_names": "",
+      "display_name": "Tagab, Afghanistan",
+      "geoname_code": "1123",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 42,
+   "fields": {
+      "name": "Tashkan",
+      "name_ascii": "Tashkan",
+      "slug": "tashkan",
+      "geoname_id": 7052692,
+      "alternate_names": "",
+      "display_name": "Tashkan, Afghanistan",
+      "geoname_code": "1124",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 43,
+   "fields": {
+      "name": "Wakhan",
+      "name_ascii": "Wakhan",
+      "slug": "wakhan",
+      "geoname_id": 7052694,
+      "alternate_names": "",
+      "display_name": "Wakhan, Afghanistan",
+      "geoname_code": "1106",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 44,
+   "fields": {
+      "name": "Warduj",
+      "name_ascii": "Warduj",
+      "slug": "warduj",
+      "geoname_id": 7052696,
+      "alternate_names": "",
+      "display_name": "Warduj, Afghanistan",
+      "geoname_code": "1125",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 45,
+   "fields": {
+      "name": "Yaftal-e Sufla",
+      "name_ascii": "Yaftal-e Sufla",
+      "slug": "yaftal-e-sufla",
+      "geoname_id": 7052701,
+      "alternate_names": "",
+      "display_name": "Yaftal-e Sufla, Afghanistan",
+      "geoname_code": "1126",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 46,
+   "fields": {
+      "name": "Yamgan",
+      "name_ascii": "Yamgan",
+      "slug": "yamgan",
+      "geoname_id": 7052735,
+      "alternate_names": "",
+      "display_name": "Yamgan, Afghanistan",
+      "geoname_code": "1127",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 47,
+   "fields": {
+      "name": "Yawan",
+      "name_ascii": "Yawan",
+      "slug": "yawan",
+      "geoname_id": 7052736,
+      "alternate_names": "",
+      "display_name": "Yawan, Afghanistan",
+      "geoname_code": "1128",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 48,
+   "fields": {
+      "name": "Zaybak",
+      "name_ascii": "Zaybak",
+      "slug": "zaybak",
+      "geoname_id": 7052737,
+      "alternate_names": "",
+      "display_name": "Zaybak, Afghanistan",
+      "geoname_code": "1105",
+      "country": 3,
+      "region": 44
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 49,
+   "fields": {
+      "name": "ab-e Kamari",
+      "name_ascii": "Ab-e Kamari",
+      "slug": "ab-e-kamari",
+      "geoname_id": 7052785,
+      "alternate_names": "",
+      "display_name": "ab-e Kamari, Afghanistan",
+      "geoname_code": "1902",
+      "country": 3,
+      "region": 43
+   }
+},
+{
+   "model": "cities_light.subregion",
+   "pk": 50,
+   "fields": {
+      "name": "Ghormach",
+      "name_ascii": "Ghormach",
+      "slug": "ghormach",
+      "geoname_id": 7052787,
+      "alternate_names": "",
+      "display_name": "Ghormach, Afghanistan",
+      "geoname_code": "1905",
+      "country": 3,
+      "region": 43
+   }
+}
+]
