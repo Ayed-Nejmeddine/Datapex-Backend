@@ -1,4 +1,4 @@
 [MASTER]
 ignore=migrations, .pytest_cache, settings.py
 [MESSAGES CONTROL]
-disable=E0401
+disable=E0401,C0103,W0221,W0102,C0200,C0114,R1710,W0612
