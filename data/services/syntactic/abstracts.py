@@ -8,6 +8,7 @@ from data.models import M100_3
 from data.models import M101_4
 from data.models import M102_5
 from data.models import M103_6
+from data.models import M103_7
 from data.models import M104_7
 from data.models import M111_14
 from data.models import M112_15
@@ -80,7 +81,7 @@ class BaseAbstract(BaseInterface):
             res.append(len(set(d_f[col])))
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
-            rule=M103_6,
+            rule=M103_7,
             defaults={"result": {i: res[self.d_f.columns.get_loc(i)] for i in self.d_f.columns}},
         )
         return res

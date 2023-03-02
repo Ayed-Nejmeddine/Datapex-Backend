@@ -31,6 +31,7 @@ M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
+M103_7 = {"rule": "M103 [7]", "signification": "Number of different values"}
 M104_7 = {"rule": "M104 [7]", "signification": "Number of duplicate values"}
 M105_8 = {"rule": "M105 [8]", "signification": "Number of Words"}
 M106_9 = {
