@@ -267,9 +267,9 @@ class StringAnalyser(StringInterface, Thread):
                 percentage = d_f[i].value_counts(dropna=False, normalize=True) * 100
                 for j in matched_res:
                     if j in matched_dict:
-                        matched_res[j] += percentage[matched_dict[j]]
+                        matched_res[j] += percentage[matched_res.get_loc(j)]
                     else:
-                        matched_res[j] = percentage[matched_dict[j]]
+                        matched_res[j] = percentage[matched_res.get_loc(j)]
 
                 data_types.append(matched_dict)
                 percentages.append(matched_dict.values())
