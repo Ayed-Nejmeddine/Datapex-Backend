@@ -4,6 +4,7 @@ from rest_framework.test import APIClient
 
 from tests.fixtures import city_fixture
 from tests.fixtures import document_fixture
+from tests.fixtures import string_analyser_fixture
 from tests.fixtures import user_fixture
 
 # city fixture
@@ -16,6 +17,8 @@ create_user_fixture = user_fixture.create_user_fixture
 auth_user_fixture = user_fixture.auth_user_fixture
 # document fixture
 upload_document_fixture = document_fixture.upload_document_fixture
+# string analyser fixture
+element_fixture = string_analyser_fixture.element
 
 
 @pytest.fixture
