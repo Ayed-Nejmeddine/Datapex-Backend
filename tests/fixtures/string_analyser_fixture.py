@@ -5,7 +5,7 @@ import pytest
 from data.models.basic_models import Document
 
 
-@pytest.fixture(name="_base_element")
+@pytest.fixture
 def base_element(_auth_user_fixture):
     """creates a document"""
 
