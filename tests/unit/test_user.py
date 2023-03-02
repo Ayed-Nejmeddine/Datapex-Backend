@@ -49,7 +49,7 @@ def test_get_user_fail(client, _create_user_fixture):
 
 @pytest.mark.django_db
 def test_get_user_success(client, _verify_email_fixture, _phone_verification_fixture):
-    """Test a seccess of get user."""
+    """Test a success of get user."""
     response = client.get("/rest-auth/user/")
     data = response.data
     assert data["profile"]["phone_is_verified"] is True
