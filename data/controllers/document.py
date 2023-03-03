@@ -1,18 +1,27 @@
-from rest_framework import viewsets, status
-from data.models.basic_models import Document
-from data.serializers.document_serializer import DocumentSerializer
+"""Here all document APIs."""
+import csv
+
+from django.db.models import Q
+from django.http import HttpResponse
+
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import action
-from data.services.syntactic import Analyser
 from rest_framework.response import Response
-from data.models.basic_models import AnalysisTrace, SyntacticResult, Link, SemanticResult
-from data.models import BASIC_ANALYSIS, RUNNING_STATE
-import csv
-from django.http import HttpResponse
+
+from data.models import BASIC_ANALYSIS
+from data.models import RUNNING_STATE
+from data.models.basic_models import AnalysisTrace
+from data.models.basic_models import Document
+from data.models.basic_models import Link
+from data.models.basic_models import SemanticResult
+from data.models.basic_models import SyntacticResult
+from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
 from data.services.semantic import Analyser as SemanticAnalyser
-from django.db.models import Q
+from data.services.syntactic import Analyser
 
 
 class DocumentViewSet(viewsets.ModelViewSet):
@@ -23,119 +32,151 @@ class DocumentViewSet(viewsets.ModelViewSet):
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
     parser_class = (FileUploadParser,)
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         """
         Get all documents according to current user.
         :return: list of documents.
         """
-        objects = Document.objects.filter(owner=self.request.user).order_by('-upload_date')
+        objects = Document.objects.filter(owner=self.request.user).order_by("-upload_date")
         return objects
 
-    @action(detail=True, methods=['GET'], url_name='launch-syntactic-analysis', url_path='launch-syntactic-analysis')
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="launch-syntactic-analysis",
+        url_path="launch-syntactic-analysis",
+    )
     def launch_syntactic_analysis(self, request, pk=None):
-        """ launch the syntactic analysis."""
+        """launch the syntactic analysis."""
         document = self.get_object()
-        AnalysisTrace.objects.update_or_create(document=document, analysis_type=BASIC_ANALYSIS,
-                                               defaults={'document': document, 'analysis_type': BASIC_ANALYSIS, 'state': RUNNING_STATE})
+        AnalysisTrace.objects.update_or_create(
+            document=document,
+            analysis_type=BASIC_ANALYSIS,
+            defaults={
+                "document": document,
+                "analysis_type": BASIC_ANALYSIS,
+                "state": RUNNING_STATE,
+            },
+        )
         analyser = Analyser(document=document)
         analyser.start()
-        return Response({"message": "The syntactic analysis has been launched."}, status.HTTP_200_OK)
+        return Response(
+            {"message": "The syntactic analysis has been launched."}, status.HTTP_200_OK
+        )
 
-    @action(detail=True, methods=['GET'], url_name='get-syntactic-analysis-results', url_path='get-syntactic-analysis-results')
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-syntactic-analysis-results",
+        url_path="get-syntactic-analysis-results",
+    )
     def get_syntactic_results(self, request, pk=None):
-        """ Get the syntactic analysis results. """
+        """Get the syntactic analysis results."""
         document = self.get_object()
         qs = AnalysisTrace.objects.filter(document=document)
-        if not qs.filter(state='running') and qs:
-            response = HttpResponse(content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename="syntactic-results.csv"'
-            writer = csv.writer(response)
+        if not qs.filter(state="running") and qs:
+            response = HttpResponse(content_type="text/csv")
+            response["Content-Disposition"] = 'attachment; filename="syntactic-results.csv"'
+            writer = csv.writer(response, delimiter=";")
             # Header
-            with document.document_path.open('r') as f:
-                reader = csv.reader(f)
+            with document.document_path.open("r") as f:
+                reader = csv.reader(f, delimiter=";")
                 header = next(reader)
-                header.insert(0, 'Rule')
-                header.insert(1, 'Signification')
+                header.insert(0, "Rule")
+                header.insert(1, "Signification")
                 writer.writerow(header)
 
             # CSV Data
             output = []
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
-                l = []
+                liste = []
                 for i in header[2:]:
                     if i not in r.result.keys():
-                        l.append('')
+                        liste.append("")
                     else:
-                        l.append(r.result[i])
-                l.insert(0,r.rule['rule'])
-                l.insert(1, r.rule['signification'])
-                output.append(l)
+                        liste.append(r.result[i])
+                liste.insert(0, r.rule["rule"])
+                liste.insert(1, r.rule["signification"])
+                output.append(liste)
             writer.writerows(output)
             return response
         if not AnalysisTrace.objects.filter(document=document):
             return Response({"message": "Please launch the syntactic analysis first!"})
         return Response({"message": "The syntactic analysis is still running!"})
 
-    @action(detail=True, methods=['GET'], url_name='get-links-between-columns', url_path='get-links-between-columns')
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-links-between-columns",
+        url_path="get-links-between-columns",
+    )
     def get_links_between_columns(self, request, pk=None):
-        """ Get the results of the comparison between the columns """
+        """Get the results of the comparison between the columns"""
         document = self.get_object()
         qs = AnalysisTrace.objects.filter(document=document)
-        if not qs.filter(state='running') and qs:
+        if not qs.filter(state="running") and qs:
             links = Link.objects.filter(document=document)
             return Response(LinkSerializer(links, read_only=True, many=True).data)
         if not AnalysisTrace.objects.filter(document=document):
             return Response({"message": "Please launch the syntactic analysis first!"})
         return Response({"message": "Please wait for the syntactic analysis to complete!"})
 
-    @action(detail=True, methods=['GET'], url_name='launch-semantic-analysis', url_path='launch-semantic-analysis')
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="launch-semantic-analysis",
+        url_path="launch-semantic-analysis",
+    )
     def launch_semantic_analysis(self, request, pk=None):
-        """ launch the semantic analysis and get the results."""
+        """launch the semantic analysis and get the results."""
         document = self.get_object()
         try:
-            analyser = SemanticAnalyser(document=document)
-            analyser.run()
-        except SyntacticResult.DoesNotExist:
-            return Response({"message": "Run the Syntactic analysis first."})
+            SemanticAnalyser(document=document).run()
+        except Exception as e:
+            return Response({"message": f"Run the Syntactic analysis first, error:{e}"})
         results = SemanticResult.objects.filter(document=document)
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="semantic-results.csv"'
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="semantic-results.csv"'
         writer = csv.writer(response)
         # Header
-        with document.document_path.open('r') as f:
-                reader = csv.reader(f)
-                header = next(reader)
-                header.insert(0, 'Rule')
-                header.insert(1, 'Signification')
-                writer.writerow(header)
+        with document.document_path.open("r") as f:
+            reader = csv.reader(f)
+            header = next(reader)
+            header.insert(0, "Rule")
+            header.insert(1, "Signification")
+            writer.writerow(header)
 
         # CSV Data
         output = []
         for r in results:
-            l = []
+            liste = []
             for i in header[2:]:
                 if i not in r.result.keys():
-                    l.append('')
+                    liste.append("")
                 else:
-                    l.append(r.result[i])
-            l.insert(0,r.rule['rule'])
-            l.insert(1, r.rule['signification'])
-            output.append(l)
+                    liste.append(r.result[i])
+            liste.insert(0, r.rule["rule"])
+            liste.insert(1, r.rule["signification"])
+            output.append(liste)
         writer.writerows(output)
         return response
 
-    @action(detail=False,
-            methods=['GET'],
-            url_name='get-latest-treated-document',
-            url_path='get-latest-treated-document')
+    @action(
+        detail=False,
+        methods=["GET"],
+        url_name="get-latest-treated-document",
+        url_path="get-latest-treated-document",
+    )
     def get_latest_treated_document(self, request, pk=None):
-        """ Get the latest document that as treated syntactically"""
-        documents = request.user.document_set.filter(~Q(analysistrace__state=RUNNING_STATE)).distinct()
-        qs = AnalysisTrace.objects.filter(document__owner=request.user, state='finished')
+        """Get the latest document that as treated syntactically"""
+        documents = request.user.document_set.filter(
+            ~Q(analysistrace__state=RUNNING_STATE)
+        ).distinct()
+        qs = AnalysisTrace.objects.filter(document__owner=request.user, state="finished")
         if not qs:
-           return Response({"message": "No document has yet been analyzed"})
-        latest_doc = documents.latest('upload_date')
+            return Response({"message": "No document has yet been analyzed"})
+        latest_doc = documents.latest("upload_date")
         return Response(DocumentSerializer(latest_doc, read_only=True).data)
