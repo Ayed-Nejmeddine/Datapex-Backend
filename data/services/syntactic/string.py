@@ -88,6 +88,21 @@ class StringAnalyser(StringInterface, Thread):
         )
         return res
 
+    def number_of_words(self, s_t=" "):
+        """indicator of number of words."""
+        df = self.df
+        columns = df.columns
+        res = np.zeros(len(columns), dtype=int)
+        for i in columns:
+            if is_string_dtype(df[i].dtypes):
+                res[columns.get_loc(i)] = df[i].fillna("").str.split(s_t).apply(len).sum()
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M105_8,
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+        )
+        return res
+
     def frequency_table(self):
         """String type indicator."""
         df = self.df
@@ -215,7 +230,7 @@ class StringAnalyser(StringInterface, Thread):
                     if r[j] in matched_dict:
                         matched_dict[r[j]] += percentage[j]
                     else:
-                        matched_dict[r[j]] = percentage[j]
+                        matched_dict[j] = percentage[matched_dict[j]]
                 matched_expressions.append(matched_dict.keys())
                 percentages.append(matched_dict.values())
                 total_dict.append(matched_dict)
@@ -287,9 +302,9 @@ class StringAnalyser(StringInterface, Thread):
                     if matched_res[j] in matched_dict:
                         matched_dict[matched_res[j]] += percentage[j]
                     else:
-                        matched_dict[matched_res[j]] = percentage[j]
+                        matched_res[j] = percentage[matched_res.get_loc(j)]
 
-                data_types.append(matched_dict.keys())
+                data_types.append(matched_dict)
                 percentages.append(matched_dict.values())
                 total_dict.append(matched_dict)
                 invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[d.isna()].sum()

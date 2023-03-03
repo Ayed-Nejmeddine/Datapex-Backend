@@ -20,6 +20,9 @@ upload_document_fixture = document_fixture.upload_document_fixture
 # string analyser fixture
 element_fixture = string_analyser_fixture.element
 
+base_element = string_analyser_fixture.base_element
+d_f = string_analyser_fixture.data_frame
+
 
 @pytest.fixture
 def client():
