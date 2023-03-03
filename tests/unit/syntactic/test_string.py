@@ -17,12 +17,12 @@ def test_get_min_length(_element_fixture):
         name="test_string.csv", path="test_string.csv", service=StringAnalyser
     )
     res = service.get_min_length()
-    expected_result = [3, 0, 4, 6, 0]
+    expected_result = [3, 0, 4, 7, 0]
     assert np.array_equal(res, expected_result)
 
     # Check if the result was saved in the database
     syntactic_result = SyntacticResult.objects.get(document=document, rule=M102_17)
-    assert syntactic_result.result == {"Name": 3, "Age": 0, "Gender": 4, "City": 6, "Salary": 0}
+    assert syntactic_result.result == {"Name": 3, "Age": 0, "Gender": 4, "City": 7, "Salary": 0}
 
 
 @pytest.mark.django_db
@@ -47,12 +47,12 @@ def test_get_average_length(_element_fixture):
         name="test_string.csv", path="test_string.csv", service=StringAnalyser
     )
     res = service.get_average_length()
-    expected_result = [5, 0, 5, 8, 0]
+    expected_result = [4, 0, 5, 8, 0]
     assert np.array_equal(res, expected_result)
 
     # Check if the result was saved in the database
     syntactic_result = SyntacticResult.objects.get(document=document, rule=M104_19)
-    assert syntactic_result.result == {"Name": 5, "Age": 0, "Gender": 5, "City": 8, "Salary": 0}
+    assert syntactic_result.result == {"Name": 4, "Age": 0, "Gender": 5, "City": 8, "Salary": 0}
 
 
 @pytest.mark.django_db
@@ -63,9 +63,20 @@ def test_frequency_table(_element_fixture):
     )
     res = service.frequency_table()
     expected_result = [
-        ["John", "Alice", "Bob", "Emma", "David", "Samantha", "George", "Emily", "Oliver", "Lucy"],
+        ["Rachel", "Lily", "John", "Emma", "Joe", "Samantha", "George", "Amy", "Oliver", "Lucy"],
         "None",
-        ["Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"],
+        [
+            "Female",
+            "Female",
+            "Male",
+            "Female",
+            "Male",
+            "Female",
+            "Male",
+            "Female",
+            "Male",
+            "Female",
+        ],
         [
             "New York",
             "Los Angeles",
@@ -74,8 +85,8 @@ def test_frequency_table(_element_fixture):
             "Phoenix",
             "Philadelphia",
             "San Antonio",
-            "San Diego",
-            "Dallas",
+            "Phoenix",
+            "New York",
             "San Jose",
         ],
         "None",
@@ -85,20 +96,20 @@ def test_frequency_table(_element_fixture):
     syntactic_result = SyntacticResult.objects.get(document=document, rule=M105_20)
     assert syntactic_result.result == {
         "Name": [
+            "Rachel",
+            "Lily",
             "John",
-            "Alice",
-            "Bob",
             "Emma",
-            "David",
+            "Joe",
             "Samantha",
             "George",
-            "Emily",
+            "Amy",
             "Oliver",
             "Lucy",
         ],
         "Age": "None",
         "Gender": [
-            "Male",
+            "Female",
             "Female",
             "Male",
             "Female",
@@ -117,8 +128,8 @@ def test_frequency_table(_element_fixture):
             "Phoenix",
             "Philadelphia",
             "San Antonio",
-            "San Diego",
-            "Dallas",
+            "Phoenix",
+            "New York",
             "San Jose",
         ],
         "Salary": "None",
