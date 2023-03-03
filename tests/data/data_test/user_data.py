@@ -3,8 +3,8 @@ import json
 
 USER = json.dumps(
     {
-        "username": "chiraz11",
-        "email": "chiraz11@example.com",
+        "username": "manel",
+        "email": "manel@example.com",
         "password1": "test-1235&",
         "password2": "test-1235&",
         "firstName": "chiraz",

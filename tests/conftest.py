@@ -16,6 +16,9 @@ create_user_fixture = user_fixture.create_user_fixture
 auth_user_fixture = user_fixture.auth_user_fixture
 # document fixture
 upload_document_fixture = document_fixture.upload_document_fixture
+string_document_fixture = document_fixture.string_document_fixture
+number_document_fixture = document_fixture.number_document_fixture
+abstract_document_fixture = document_fixture.abstract_document_fixture
 
 
 @pytest.fixture

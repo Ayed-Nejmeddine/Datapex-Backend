@@ -17,7 +17,7 @@ def test_register_user(client, _import_city_fixture):
 @pytest.mark.django_db
 def test_login_user_success(client, _create_user_fixture):
     """Test a seccess of user login."""
-    data_login = json.dumps({"email": "chiraz11@example.com", "password": "test-1235&"})
+    data_login = json.dumps({"email": "manel@example.com", "password": "test-1235&"})
     response = client.post("/rest-auth/login/", data_login, content_type="application/json")
     assert response.status_code == 200
     assert "key" in response.data
