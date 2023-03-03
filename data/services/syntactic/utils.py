@@ -4,16 +4,37 @@ import re
 
 import pandas as pd
 
+from data.models import DAYS_TRANSLATOR
+from data.models import MONTHS_TRANSLATOR
 from data.models.basic_models import RegularExp
+
+
+def translate(text):
+    """translate the name of a day or month from any other languages to English"""
+    if text.isalpha() or text.replace("-", "").isalpha():
+        lower = text.lower()
+        for day in DAYS_TRANSLATOR:
+            if lower in DAYS_TRANSLATOR[day]:
+                return day.lower()
+        for month in MONTHS_TRANSLATOR:
+            if lower in MONTHS_TRANSLATOR[month]:
+                return month.lower()
+        return False
+
+    return False
 
 
 def check_format(date_text, date_format="%Y-%m-%d"):
     """check if a string contains a date with a given format"""
     try:
+        date_text_eng = translate(date_text)
+        if date_text_eng:
+            datetime.datetime.strptime(date_text_eng, date_format)
+            return 1
         datetime.datetime.strptime(date_text, date_format)
-        return True
+        return 1
     except ValueError:
-        return False
+        return 0
 
 
 def check_bool(text):
@@ -46,8 +67,8 @@ def get_data_dict(text, data_dict):
     """Get the matching data dictionary."""
     if not pd.isnull(text):
         text = " ".join(text.split())
-        for d in data_dict:
-            for sub, val in d.data_dict.items():
+        for data in data_dict:
+            for sub, val in data.data_dict.items():
                 if text.upper() == val:
-                    return d.data_dict["CATEGORY"], sub
+                    return data.data_dict["CATEGORY"], sub
     return None

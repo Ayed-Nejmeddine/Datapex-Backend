@@ -31,6 +31,7 @@ M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
+M103_7 = {"rule": "M103 [7]", "signification": "Number of different values"}
 M104_7 = {"rule": "M104 [7]", "signification": "Number of duplicate values"}
 M105_8 = {"rule": "M105 [8]", "signification": "Number of Words"}
 M106_9 = {
@@ -92,11 +93,16 @@ M104_4 = {
 }
 M105_5 = {
     "rule": "M105 [5]",
-    "signification": "Percentage of semantically valid values according to the dominant subcategory",
+    "signification": "Percentage of "
+    "semantically valid "
+    "values according to the dominant subcategory",
 }
 M106_6 = {
     "rule": "M106 [6]",
-    "signification": "Percentage of semantically invalid values according to the dominant subcategory",
+    "signification": "Percentage of "
+    "semantically invalid"
+    " values according to the"
+    " dominant subcategory",
 }
 
 # links between date type columns
@@ -122,3 +128,64 @@ LANGUAGE_OPTIONS = (
     (FRENCH, _("French")),
     (ENGLISH, _("English")),
 )
+
+# Dictionnaire de translation des jours respectivement dans
+# les langues:English, Frensh, Spanish, Portuguese, Indonesian, German, Italian
+DAYS_TRANSLATOR = {
+    "MONDAY": ("monday", "lundi", "lunes", "segunda-feira", "senin", "montag", "lunedi"),
+    "TUESDAY": ("tuesday", "mardi", "martes", "terca-feira", "selasa", "dienstag", "martedi"),
+    "WEDNESDAY": (
+        "wednesday",
+        "mercredi",
+        "mircoles",
+        "quarta-feira",
+        "rabu",
+        "mittwoch",
+        "mercoledi",
+    ),
+    "THURSDAY": ("thursday", "jeudi", "juves", "quinta-feira", "kamis", "donnerstag", "giovedi"),
+    "FRIDAY": ("friday", "vendredi", "viernes", "sexta-feira", "jumat", "freitag", "venerdi"),
+    "SATURDAY": ("saturday", "samedi", "sabado", "sabado", "sabtu", "samstag", "sabato"),
+    "SUNDAY": ("sunday", "dimanche", "domingo", "domingo", "minggu", "sonntag", "domenica"),
+}
+
+# Dictionnaire de translation des mois respectivement dans
+# les langues:English, Frensh, Spanish, Portuguese, Indonesian, German, Italian
+MONTHS_TRANSLATOR = {
+    "JANUARY": ("january", "janvier", "enero", "janeiro", "Januari", "Januar", "gennaio"),
+    "FEBRUARY": ("february", "février", "febrero", "fevereiro", "februari", "februar", "febbraio"),
+    "MARCH": ("march", "mars", "marzo", "março", "maret", "märz", "marzo"),
+    "APRIL": ("april", "avril", "abril", "abril", "april", "april", "aprile"),
+    "MAY": ("may", "mai", "mayo", "maio", "mei", "mai", "maggio"),
+    "JUNE": ("june", "juin", "junio", "junho", "juni", "juni", "giugno"),
+    "JULY": ("july", "juillet", "julio", "julho", "juli", "juli", "luglio"),
+    "AUGUST": ("august", "août", "agosto", "agosto", "agustus", "august", "agosto"),
+    "SEPTEMBER": (
+        "september",
+        "septembre",
+        "septiembre",
+        "setembro",
+        "september",
+        "september",
+        "settembre",
+    ),
+    "OCTOBER": ("october", "octobre", "octubre", "outubro", "oktober", "oktober", "ottobre"),
+    "NOVEMBER": (
+        "november",
+        "novembre",
+        "noviembre",
+        "novembro",
+        "november",
+        "november",
+        "novembre",
+    ),
+    "DECEMBER": (
+        "december",
+        "décembre",
+        "diciembre",
+        "dezembro",
+        "desember",
+        "dezember",
+        "dicembre",
+    ),
+}
