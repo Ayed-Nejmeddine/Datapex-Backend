@@ -37,9 +37,17 @@ def check_format(date_text, date_format="%Y-%m-%d"):
         return 0
 
 
-def check_bool(text):
+def check_bool(val):
+    """check if a value is a bool"""
+    return val in (True, False)
+
+
+def check_string_contains_bool(text):
     """check if string contains a bool"""
-    return isinstance(text, str) and text.lower() in ["true", "false"]
+    if isinstance(text, str):
+        text = text.strip().lower()
+        return text in ["true", "false"]
+    return None
 
 
 def model_text(text):

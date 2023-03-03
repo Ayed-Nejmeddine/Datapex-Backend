@@ -19,9 +19,13 @@ auth_user_fixture = user_fixture.auth_user_fixture
 upload_document_fixture = document_fixture.upload_document_fixture
 # string analyser fixture
 element_fixture = string_analyser_fixture.element
-
 base_element = string_analyser_fixture.base_element
 d_f = string_analyser_fixture.data_frame
+load_document_fixture = string_analyser_fixture.load_document_fixture
+read_document_fixture = string_analyser_fixture.read_document_fixture
+number_indicator_fixture = string_analyser_fixture.number_indicator_fixture
+base_indicator_fixture = string_analyser_fixture.base_indicator_fixture
+date_indicator_fixture = string_analyser_fixture.date_indicator_fixture
 
 
 @pytest.fixture

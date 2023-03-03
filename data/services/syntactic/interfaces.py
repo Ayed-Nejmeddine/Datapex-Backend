@@ -4,7 +4,7 @@
 class BaseInterface:
     """Base interface definition"""
 
-    def count_null_values(self):
+    def count_null_values(self, inverse):
         """
         Indicator of number of NULL values.
         """

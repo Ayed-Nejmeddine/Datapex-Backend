@@ -57,6 +57,26 @@ class DateAnalyser(DateInterface, Thread):
         )
         return res
 
+    def check_format_for_dataframe(self, rule, date_format=["%m-%d-%Y"]):
+        """For a given format, an array of booleans is returned where each value reflects the
+        existence of a date according to this format in the corresponding column."""
+        d_f = self.d_f
+        columns = d_f.columns
+        res = [0] * len(columns)
+        for date_for in date_format:
+            for i in columns:
+                if is_string_dtype(d_f[i].dtypes):
+                    res[columns.get_loc(i)] += (
+                        d_f[i].fillna("").apply(check_format, date_format=date_for).sum()
+                    )
+
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=rule,
+            defaults={"result": {i: res[self.d_f.columns.get_loc(i)] for i in self.d_f.columns}},
+        )
+        return res
+
     def count_values(self):
         """Datetime type indicator."""
         rule = M110_13
@@ -84,29 +104,41 @@ class DateAnalyser(DateInterface, Thread):
                 ) and (
                     is_string_dtype(d_f[col2].dtypes) or is_datetime64_any_dtype(d_f[col2].dtypes)
                 ):
-                    first_col = d_f[col1].apply(pd.to_datetime, errors="coerce")
-                    second_col = d_f[col2].apply(pd.to_datetime, errors="coerce")
-                    if (first_col == second_col).all():
-                        Link.objects.update_or_create(
-                            document_id=self.document_id,
-                            first_column=col1,
-                            second_column=col2,
-                            defaults={"relationship": EQUALS},
-                        )
-                    elif (first_col <= second_col).all():
-                        Link.objects.update_or_create(
-                            document_id=self.document_id,
-                            first_column=col1,
-                            second_column=col2,
-                            defaults={"relationship": BEFORE},
-                        )
-                    elif (first_col >= second_col).all():
-                        Link.objects.update_or_create(
-                            document_id=self.document_id,
-                            first_column=col1,
-                            second_column=col2,
-                            defaults={"relationship": AFTER},
-                        )
+                    first_col = d_f[col1].apply(pd.to_datetime, errors="coerce").tolist()
+                    second_col = d_f[col2].apply(pd.to_datetime, errors="coerce").tolist()
+                    equals = 0
+                    before = 0
+                    after = 0
+                    for i in range(len(first_col)):
+                        if first_col[i] < second_col[i]:
+                            before += 1
+                        elif first_col[i] > second_col[i]:
+                            after += 1
+                        elif first_col[i] == second_col[i]:
+                            equals += 1
+                    decision_val = max(before, after, equals) * 100 / len(first_col)
+                    if decision_val > 50:
+                        if decision_val == equals * 100 / len(first_col):
+                            Link.objects.update_or_create(
+                                document_id=self.document_id,
+                                first_column=col1,
+                                second_column=col2,
+                                defaults={"relationship": str(decision_val) + "% " + EQUALS},
+                            )
+                        elif decision_val == before * 100 / len(first_col):
+                            Link.objects.update_or_create(
+                                document_id=self.document_id,
+                                first_column=col1,
+                                second_column=col2,
+                                defaults={"relationship": str(decision_val) + "% " + BEFORE},
+                            )
+                        elif decision_val == after * 100 / len(first_col):
+                            Link.objects.update_or_create(
+                                document_id=self.document_id,
+                                first_column=col1,
+                                second_column=col2,
+                                defaults={"relationship": str(decision_val) + "% " + AFTER},
+                            )
 
     def run(self):
         self.count_values()
