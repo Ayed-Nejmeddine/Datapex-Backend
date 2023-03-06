@@ -16,6 +16,7 @@ from data.models import TOTAL
 from data.models.basic_models import SyntacticResult
 from data.services.syntactic.interfaces import BaseInterface
 from data.services.syntactic.utils import check_bool
+from data.services.syntactic.utils import check_string_contains_bool
 
 
 class BaseAbstract(BaseInterface):
@@ -25,7 +26,7 @@ class BaseAbstract(BaseInterface):
         self.d_f = d_f
         self.document_id = document_id
 
-    def number_null_values(self, inverse=False):
+    def count_null_values(self, inverse=False):
         """count the NULL values and the NOT NULL values"""
         d_f = self.d_f
         # Total number of values
@@ -119,8 +120,11 @@ class BaseAbstract(BaseInterface):
         for i in columns:
             if is_bool_dtype(d_f[i].dtypes):
                 res[columns.get_loc(i)] = d_f[i].count()
-            elif is_string_dtype(d_f[i].dtypes):
-                res[columns.get_loc(i)] = d_f[i].fillna("").apply(check_bool).sum()
+            if is_string_dtype(d_f[i].dtypes):
+                res[columns.get_loc(i)] = (
+                    d_f[i].apply(check_string_contains_bool).sum() + d_f[i].apply(check_bool).sum()
+                )
+
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M111_14,

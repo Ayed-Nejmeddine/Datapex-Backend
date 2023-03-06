@@ -14,7 +14,7 @@ def test_should_return_null_values(base_element, d_f):
         name="Days_test", path="Days.csv", d_f=d_f, service=BaseAbstract
     )
     expected_result = [2, 3, 3, 4, 2, 3, 1, 0, 0]
-    result = base_element_abstract.number_null_values(False)
+    result = base_element_abstract.count_null_values(False)
     assert expected_result == result.tolist()
 
 
