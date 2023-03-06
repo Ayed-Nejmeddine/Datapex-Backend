@@ -1,4 +1,4 @@
-"""Here test number"""
+"""Here test number."""
 import numpy as np
 import pytest
 
