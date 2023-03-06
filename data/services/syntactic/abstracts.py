@@ -87,6 +87,23 @@ class BaseAbstract(BaseInterface):
         )
         return res
 
+    def count_null_values_by_type(self, null=None):
+        """indicator of number of null type values."""
+        d_f = self.d_f
+        columns = d_f.columns
+        res = np.zeros(len(columns), dtype=int)
+        for i in columns:
+            if null:
+                res[columns.get_loc(i)] = d_f[i].fillna("").str.count(null).sum()
+            else:
+                res[columns.get_loc(i)] = d_f[i].isnull().sum()
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M112_15,
+            defaults={"result": {i: res[self.d_f.columns.get_loc(i)] for i in self.d_f.columns}},
+        )
+        return res
+
     def count_duplicated_values(self):
         """indicator of number of duplicated values."""
         res = self.count_distinct_values() - self.count_unique_values()
