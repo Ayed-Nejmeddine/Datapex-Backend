@@ -26,6 +26,9 @@ read_document_fixture = string_analyser_fixture.read_document_fixture
 number_indicator_fixture = string_analyser_fixture.number_indicator_fixture
 base_indicator_fixture = string_analyser_fixture.base_indicator_fixture
 date_indicator_fixture = string_analyser_fixture.date_indicator_fixture
+string_document_fixture = document_fixture.string_document_fixture
+number_document_fixture = document_fixture.number_document_fixture
+abstract_document_fixture = document_fixture.abstract_document_fixture
 
 
 @pytest.fixture
