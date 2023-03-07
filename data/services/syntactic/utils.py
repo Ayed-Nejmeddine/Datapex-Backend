@@ -44,10 +44,8 @@ def check_bool(val):
 
 def check_string_contains_bool(text):
     """check if string contains a bool"""
-    if isinstance(text, str):
-        text = text.strip().lower()
-        return text in ["true", "false"]
-    return None
+    text = str(text).strip().lower()
+    return text in ["true", "false"]
 
 
 def model_text(text):

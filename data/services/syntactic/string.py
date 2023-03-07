@@ -198,10 +198,8 @@ class StringAnalyser(StringInterface, Thread):
     def syntactic_validation_with_regexp(self):
         """
         Syntaxically validate the data according to the regular expressions in the model RegularExp.
-        res will be an array of the number of syntactically valid data according to
-        the regular expressions.
-        invalid_res will be an array of the number of syntactically invalid data according to
-        the regular expressions.
+        res will be an array of the number of syntactically valid data according to the regular expressions.
+        invalid_res will be an array of the number of syntactically invalid data according to the regular expressions.
         """
         df = self.df
         columns = df.columns
@@ -227,10 +225,10 @@ class StringAnalyser(StringInterface, Thread):
                 matched_dict = {}
                 percentage = df[i].value_counts(dropna=False, normalize=True) * 100
                 for j in range(len(r)):
-                    if r[j] in matched_dict:
+                    if r[j] in matched_dict.keys():
                         matched_dict[r[j]] += percentage[j]
                     else:
-                        matched_dict[j] = percentage[matched_dict[j]]
+                        matched_dict[r[j]] = percentage[j]
                 matched_expressions.append(matched_dict.keys())
                 percentages.append(matched_dict.values())
                 total_dict.append(matched_dict)
@@ -269,18 +267,14 @@ class StringAnalyser(StringInterface, Thread):
         """
         Syntactically validate the data according to the data dictionary.
         res is an array of the number of syntactically valid data according to the data dictionary.
-        invalid_res is an array of the number of syntactically invalid data according
-        to the data dictionary.
-        data_types will contain the data types of each column
-        (exp: city, airport, firstname, etc...)
-        and percentages will contain the percentages of
+        invalid_res is an array of the number of syntactically invalid data according to the data dictionary.
+        data_types will contain the data types of each column (exp: city, airport, firstname, etc...) and percentages will contain the percentages of
         the data_types in each column.
         """
         df = self.df
         columns = df.columns
         invalid_res = np.full(len(columns), np.array(df.shape[0]))
-        #  TODO: Matching with the data dict takes a long time due to the size of the data_dict.
-
+        #  TODO: Matching with the data dict takes a long time due to the size of the data_dict.  # pylint: disable=W0511
         data_types = []
         percentages = []
         column_type = []
@@ -299,12 +293,12 @@ class StringAnalyser(StringInterface, Thread):
                 matched_dict = {}
                 percentage = df[i].value_counts(dropna=False, normalize=True) * 100
                 for j in range(len(matched_res)):
-                    if matched_res[j] in matched_dict:
+                    if matched_res[j] in matched_dict.keys():
                         matched_dict[matched_res[j]] += percentage[j]
                     else:
-                        matched_res[j] = percentage[matched_res.get_loc(j)]
+                        matched_dict[matched_res[j]] = percentage[j]
 
-                data_types.append(matched_dict)
+                data_types.append(matched_dict.keys())
                 percentages.append(matched_dict.values())
                 total_dict.append(matched_dict)
                 invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[d.isna()].sum()
