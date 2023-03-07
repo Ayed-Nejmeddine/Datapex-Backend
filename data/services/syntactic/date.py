@@ -32,80 +32,80 @@ from data.services.syntactic.utils import check_format
 class DateAnalyser(DateInterface, Thread):
     """contains services for DateInterface"""
 
-    def __init__(self, d_f, document_id):
-        self.d_f = d_f
+    def __init__(self, df, document_id):
+        self.df = df
         self.document_id = document_id
         Thread.__init__(self)
 
     def check_format_dataframe(self, rule, date_format):
         """For a given format, an array of booleans is returned where each value reflects the
         existence of a date according to this format in the corresponding column."""
-        d_f = self.d_f
-        columns = d_f.columns
+        df = self.df
+        columns = df.columns
         res = [0] * len(columns)
         for date_for in date_format:
             for i in columns:
-                if is_string_dtype(d_f[i].dtypes):
+                if is_string_dtype(df[i].dtypes):
                     res[columns.get_loc(i)] += (
-                        d_f[i].fillna("").apply(check_format, date_format=date_for).sum()
+                        df[i].fillna("").apply(check_format, date_format=date_for).sum()
                     )
 
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=rule,
-            defaults={"result": {i: res[self.d_f.columns.get_loc(i)] for i in self.d_f.columns}},
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res
 
     def check_format_for_dataframe(self, rule, date_format=["%m-%d-%Y"]):
         """For a given format, an array of booleans is returned where each value reflects the
         existence of a date according to this format in the corresponding column."""
-        d_f = self.d_f
-        columns = d_f.columns
+        df = self.df
+        columns = df.columns
         res = [0] * len(columns)
         for date_for in date_format:
             for i in columns:
-                if is_string_dtype(d_f[i].dtypes):
+                if is_string_dtype(df[i].dtypes):
                     res[columns.get_loc(i)] += (
-                        d_f[i].fillna("").apply(check_format, date_format=date_for).sum()
+                        df[i].fillna("").apply(check_format, date_format=date_for).sum()
                     )
 
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=rule,
-            defaults={"result": {i: res[self.d_f.columns.get_loc(i)] for i in self.d_f.columns}},
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res
 
     def count_values(self):
         """Datetime type indicator."""
         rule = M110_13
-        d_f = self.d_f
-        columns = d_f.columns
+        df = self.df
+        columns = df.columns
         res = np.zeros(len(columns), dtype=int)
         for i in columns:
-            if is_string_dtype(d_f[i].dtypes) or is_datetime64_any_dtype(d_f[i].dtypes):
-                res[columns.get_loc(i)] = d_f[i].apply(pd.to_datetime, errors="coerce").count()
+            if is_string_dtype(df[i].dtypes) or is_datetime64_any_dtype(df[i].dtypes):
+                res[columns.get_loc(i)] = df[i].apply(pd.to_datetime, errors="coerce").count()
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=rule,
-            defaults={"result": {i: res[self.d_f.columns.get_loc(i)] for i in self.d_f.columns}},
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res
 
     def link(self):
         """Define the links (either before , after or equals) between columns of the type date"""
-        d_f = self.d_f
-        columns = d_f.columns
+        df = self.df
+        columns = df.columns
         for col1 in columns:
             for col2 in columns[columns.get_loc(col1) + 1 :]:
                 if (
-                    is_string_dtype(d_f[col1].dtypes) or is_datetime64_any_dtype(d_f[col1].dtypes)
+                    is_string_dtype(df[col1].dtypes) or is_datetime64_any_dtype(df[col1].dtypes)
                 ) and (
-                    is_string_dtype(d_f[col2].dtypes) or is_datetime64_any_dtype(d_f[col2].dtypes)
+                    is_string_dtype(df[col2].dtypes) or is_datetime64_any_dtype(df[col2].dtypes)
                 ):
-                    first_col = d_f[col1].apply(pd.to_datetime, errors="coerce").tolist()
-                    second_col = d_f[col2].apply(pd.to_datetime, errors="coerce").tolist()
+                    first_col = df[col1].apply(pd.to_datetime, errors="coerce").tolist()
+                    second_col = df[col2].apply(pd.to_datetime, errors="coerce").tolist()
                     equals = 0
                     before = 0
                     after = 0
