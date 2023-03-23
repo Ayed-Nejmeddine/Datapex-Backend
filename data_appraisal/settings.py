@@ -170,13 +170,14 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "data.appraisal20@gmail.com"
-EMAIL_HOST_PASSWORD = "datapex2020"
+# EMAIL_HOST_PASSWORD = "datapex2020"
+EMAIL_HOST_PASSWORD = "nkjflyjvakrcmdnu"
 
 """
 URLs
 """
 BACKEND_ROOT_URL = "http://127.0.0.1:8000"
-FRONTEND_ROOT_URL = "http://localhost:4200"
+FRONTEND_ROOT_URL = "http://localhost:3000"
 ROOT_VERIFICATION = "/account/verify"
 """
 CORS headers
@@ -204,6 +205,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 ACCOUNT_ADAPTER = "data.managers.user_manager.RegisterAdapter"
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "data.serializers.user_serializer.UserSerializer",
+    "PASSWORD_RESET_SERIALIZER": "data.serializers.password_reset_serializer.PasswordResetSerializer",
 }
 
 # Add settings for phone_verify to work
