@@ -28,29 +28,29 @@ class CustomPasswordResetForm(PasswordResetForm):
         context,
         from_email,
         to_email,
+        use_https=False,
         token_generator=default_token_generator,
         request=None,
+        html_email_template_name=None,
     ):
         """Override the send mail for reset password."""
-
-        email_field_name = UserModel.get_email_field_name()
         for user in self.get_users(self.cleaned_data["email"]):
-            site = get_current_site(request)
             context = {
-                "email": getattr(user, email_field_name),
+                "email": getattr(user, UserModel.get_email_field_name()),
                 "domain": FRONTEND_ROOT_URL,
-                "site_name": site,
+                "site_name": get_current_site(request),
                 "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                 "token": token_generator.make_token(user),
                 "user": user,
+                "protocol": "https" if use_https else "http",
             }
         subject = loader.render_to_string(subject_template_name, context)
         # Email subject *must not* contain newlines
         subject = "".join(subject.splitlines())
         body = loader.render_to_string(email_template_name, context)
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
-        if email_template_name is not None:
-            html_email = loader.render_to_string(email_template_name, context)
+        if html_email_template_name is not None:
+            html_email = loader.render_to_string(html_email_template_name, context)
             email_message.attach_alternative(html_email, "text/html")
         email_message.send()
 
