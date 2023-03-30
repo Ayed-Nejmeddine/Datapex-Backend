@@ -68,6 +68,9 @@ class RegisterSerializer(RootRegSerializer):  # pylint: disable=W0223
     lastName = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     profile = ProfileSerializer()
 
+    def save(self, request):
+        return super().save(request)
+
 
 class UserSerializer(UserDetailsSerializer):
     """
