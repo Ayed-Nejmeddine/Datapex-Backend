@@ -4,6 +4,7 @@ from rest_auth.serializers import UserDetailsSerializer
 from data.models.user_model import Profile
 from phonenumber_field import phonenumber
 from django_countries import Countries
+from cities_light.models import City
 
 class SerializableCountryField(serializers.ChoiceField):
     def __init__(self, **kwargs):
@@ -22,6 +23,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     country = SerializableCountryField(allow_null=True, required=False, allow_blank=True)
     phone_is_verified = serializers.ReadOnlyField()
     email_is_verified = serializers.ReadOnlyField()
+    city = serializers.CharField()
+
+    def validate_city(self, city):
+        city = City.objects.filter(name=city).first()
+        if not city:
+            raise serializers.ValidationError("city not found!")
+        return city.id
 
 
     def validate_phone(self, phone):
