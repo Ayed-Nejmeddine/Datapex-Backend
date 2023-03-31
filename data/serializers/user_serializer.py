@@ -90,7 +90,8 @@ class UserSerializer(UserDetailsSerializer):
             if profile.get('country', False):
                 instance.profile.country = profile['country']
             if profile.get('city', False):
-                instance.profile.city = profile['city']
+                city = City.objects.filter(id=profile['city']).first()
+                instance.profile.city = city
             if profile.get('postalCode', False):
                 instance.profile.postalCode = profile['postalCode']
             if profile.get('company_name', False):
