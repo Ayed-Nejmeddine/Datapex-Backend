@@ -189,10 +189,10 @@ class BaseAbstract(BaseInterface):
                 number_count = res[col].apply(pd.to_numeric, errors="coerce").count()
             result.append(
                 {
-                    "string": (text_count * 100) / total,
-                    "number": (number_count * 100) / total,
-                    "boolean": (boolean_count * 100) / total,
-                    "date": (date_count * 100) / total,
+                    "string": round((text_count * 100) / total, 2),
+                    "number": round((number_count * 100) / total, 2),
+                    "boolean": round((boolean_count * 100) / total, 2),
+                    "date": round((date_count * 100) / total, 2),
                 }
             )
 
@@ -211,9 +211,9 @@ class BaseAbstract(BaseInterface):
         res = np.zeros(len(columns), dtype=float)
         for i in columns:
             if is_string_dtype(df[i].dtypes):
-                res[columns.get_loc(i)] = (
-                    df[i].fillna("").apply(check_lower_case).sum() * 100
-                ) / total
+                res[columns.get_loc(i)] = round(
+                    (df[i].fillna("").apply(check_lower_case).sum() * 100) / total, 2
+                )
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M115_18,

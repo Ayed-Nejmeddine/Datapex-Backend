@@ -64,7 +64,7 @@ def read_document_fixture(_load_document_fixture):
     Fixture to load a document into a dataframe
     """
     document = _load_document_fixture
-    df = (pd.read_csv("tests\\data\\data_test\\base_abstract_source.csv", sep=";"),)
+    df = (pd.read_csv("tests\\data\\data_test_csv\\Days.csv", sep=";"),)
     data = pd.DataFrame(*df)
     return (data, document)
 
