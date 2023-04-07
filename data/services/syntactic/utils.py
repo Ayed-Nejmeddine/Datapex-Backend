@@ -48,6 +48,11 @@ def check_string_contains_bool(text):
     return text in ["true", "false"]
 
 
+def check_lower_case(text):
+    """check if string contains a bool"""
+    return str(text).islower()
+
+
 def model_text(text):
     """replace the characters in a string with 'A'"""
     res = ""

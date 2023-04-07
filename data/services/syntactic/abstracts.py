@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_bool_dtype
+from pandas.api.types import is_datetime64_any_dtype
 from pandas.api.types import is_string_dtype
 
 from data.models import M100_3
@@ -12,9 +13,13 @@ from data.models import M103_7
 from data.models import M104_7
 from data.models import M111_14
 from data.models import M112_15
+from data.models import M113_16
+from data.models import M114_17
+from data.models import M115_18
 from data.models import TOTAL
 from data.models.basic_models import SyntacticResult
 from data.services.syntactic.interfaces import BaseInterface
+from data.services.syntactic.utils import check_lower_case
 from data.services.syntactic.utils import check_string_contains_bool
 
 
@@ -142,6 +147,76 @@ class BaseAbstract(BaseInterface):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M111_14,
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+        )
+        return res
+
+    def count_number_rows(self):
+        """indicator of number of rows."""
+        df = self.df
+        res = len(df)
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id, rule=M113_16, defaults={"result": res}
+        )
+        return res
+
+    def data_type_value(self):
+        """indicator of data type of the data values"""
+        total = self.count_number_rows()
+        result = []
+        mask = self.df.applymap(type) != bool
+        res = self.df.where(mask, self.df.replace({True: "True", False: "False"}))
+        columns = res.columns
+        for col in columns:
+            text_count = 0
+            number_count = 0
+            date_count = 0
+            boolean_count = 0
+            if is_string_dtype(res[col].dtypes) or is_datetime64_any_dtype(res[col].dtypes):
+                date_count = res[col].apply(pd.to_datetime, errors="coerce").count()
+            if is_bool_dtype(res[col].dtypes):
+                boolean_count = res[col].count()
+            if is_string_dtype(res[col].dtypes):
+                boolean_count = res[col].apply(check_string_contains_bool).sum()
+                bool_mask = res[col].apply(check_string_contains_bool)
+                self.df = res[~bool_mask]
+                alpha_mask = self.df[col].fillna("").str.contains("[a-zA-Z]")
+                df_alpha = self.df[alpha_mask]
+                df_no_alpha = self.df[~alpha_mask]
+                text_count = df_alpha[col].count()
+                number_count = df_no_alpha[col].apply(pd.to_numeric, errors="coerce").count()
+            else:
+                number_count = res[col].apply(pd.to_numeric, errors="coerce").count()
+            result.append(
+                {
+                    "string": round((text_count * 100) / total, 2),
+                    "number": round((number_count * 100) / total, 2),
+                    "boolean": round((boolean_count * 100) / total, 2),
+                    "date": round((date_count * 100) / total, 2),
+                }
+            )
+
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M114_17,
+            defaults={"result": result},
+        )
+        return result
+
+    def count_lowercase_values(self):
+        """indicator of number of lowercase values"""
+        df = self.df
+        total = self.count_number_rows()
+        columns = df.columns
+        res = np.zeros(len(columns), dtype=float)
+        for i in columns:
+            if is_string_dtype(df[i].dtypes):
+                res[columns.get_loc(i)] = round(
+                    (df[i].fillna("").apply(check_lower_case).sum() * 100) / total, 2
+                )
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M115_18,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res

@@ -40,6 +40,24 @@ class BaseInterface:
         """
         pass
 
+    def count_number_rows(self):
+        """
+        Indicator of Number of rows.
+        """
+        pass
+
+    def data_type_value(self):
+        """
+        Indicator of Number of each data type.
+        """
+        pass
+
+    def count_lowercase_values(self):
+        """
+        Indicator of Number of lowercase values.
+        """
+        pass
+
 
 class StringInterface(BaseInterface):
     """String interface definition"""
