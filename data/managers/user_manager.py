@@ -30,7 +30,7 @@ class RegisterAdapter(DefaultAccountAdapter):
         if data.get('language', False):
             profile_data.update(language=data.get('language', False))
         if data.get('city', False):
-            profile_data.update(city_id=data.get('city', False))
+            profile_data.update(_city_id=data.get('city', False))
         profile_obj = Profile.objects.update_or_create(user=user, defaults=profile_data)
         return profile_obj
 
