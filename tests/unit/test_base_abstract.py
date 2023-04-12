@@ -1,4 +1,5 @@
 """Here all base indicators tests."""
+import numpy as np
 import pytest
 
 
@@ -86,3 +87,46 @@ def test_count_init_CapCase_value(_base_indicator_fixture):
     doc = _base_indicator_fixture
     expected_value=[10, 9, 0, 8, 0, 9, 8, 6, 1, 10, 5]
     assert doc.count_init_CapCase_value().tolist() ==  expected_value
+
+@pytest.mark.django_db
+def test_count_number_rows(_base_indicator_fixture):
+    """
+    Test to count number of rows
+    """
+    expected_value = 10
+    doc = _base_indicator_fixture
+    assert doc.count_number_rows() == expected_value
+
+
+@pytest.mark.django_db
+def test_data_type_value(_base_indicator_fixture):
+    """
+    Test to count type values
+    """
+    expected_value = [
+        {"string": 100.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 90.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 0.0, "number": 0.0, "boolean": 0.0, "date": 80.0},
+        {"string": 80.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 100.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 100.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 80.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 60.0, "number": 0.0, "boolean": 0.0, "date": 0.0},
+        {"string": 0.0, "number": 80.0, "boolean": 20.0, "date": 0.0},
+        {"string": 0.0, "number": 0.0, "boolean": 100.0, "date": 0.0},
+        {"string": 0.0, "number": 0.0, "boolean": 50.0, "date": 0.0},
+    ]
+    doc = _base_indicator_fixture
+
+    assert doc.data_type_value() == expected_value
+
+
+@pytest.mark.django_db
+def test_count_lowercase_values(_base_indicator_fixture):
+    """
+    Test to count type values
+    """
+    doc = _base_indicator_fixture
+
+    expected_value = [0.0, 0.0, 0.0, 0.0, 50.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0]
+    assert np.array_equal(doc.count_lowercase_values(), expected_value)
