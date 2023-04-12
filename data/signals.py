@@ -10,10 +10,10 @@ from data.models.basic_models import Document
 def verify_phone(sender, instance, **kwargs):
     """verify phone number"""
     if instance.id:
-        try:
-            res = SMSVerification.objects.filter(phone_number=instance.phone).latest('created_at')
+        res = SMSVerification.objects.filter(phone_number=instance.phone, is_verified=True).last()
+        if res:
             instance.phone_is_verified = res.is_verified
-        except SMSVerification.DoesNotExist:
+        else:
             instance.phone_is_verified = False
         instance.save()
 
