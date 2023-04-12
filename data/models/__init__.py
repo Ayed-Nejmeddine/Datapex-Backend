@@ -76,6 +76,11 @@ M103_26 = {
     "rule": "M103 [26]",
     "signification": "Number of invalid values according to the data dictionary",
 }
+M130_1 = {"rule": "M130 [1]", "signification": "Number of columns"}
+M130_2 = {"rule": "M130 [2]", "signification": "values length"}
+M130_3 = {"rule": "M130 [3]", "signification": "Number of CapCase values"}
+
+
 DATA_TYPES = {"rule": "Data-types", "signification": "Data types and their respectful percentages"}
 TOTAL = {"rule": "Total", "signification": "Total number of values(NULL values and NOT NULL values"}
 MATCHED_EXPRESSIONS = {
