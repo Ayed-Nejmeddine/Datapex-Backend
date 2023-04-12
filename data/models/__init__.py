@@ -31,6 +31,7 @@ M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
+M103_8 = {"rule": "M103 [6]", "signification": "Number of values in the dataset"}
 M103_7 = {"rule": "M103 [7]", "signification": "Number of different values"}
 M104_7 = {"rule": "M104 [7]", "signification": "Number of duplicate values"}
 M105_8 = {"rule": "M105 [8]", "signification": "Number of Words"}
@@ -50,6 +51,8 @@ M115_18 = {"rule": "M115 [18]", "signification": "Number of lowercase values"}
 M102_17 = {"rule": "M102 [17]", "signification": "Min length for string"}
 M103_18 = {"rule": "M103 [18]", "signification": "Max Length for string"}
 M104_19 = {"rule": "M104 [19]", "signification": "Average Length for string"}
+M104_20 = {"rule": "M104 [20]", "signification": "Number of uppercase values"}
+M104_21 = {"rule": "M104 [20]", "signification": "Number of Mixcasse values"}
 M105_20 = {"rule": "M105 [20]", "signification": "Frequency Table"}
 M102_20 = {"rule": "M102 [20]", "signification": " Min of numeric values"}
 M103_20 = {"rule": "M103 [20]", "signification": "Max of numeric values"}
@@ -89,7 +92,7 @@ MATCHED_EXPRESSIONS = {
 }
 COLUMN_TYPE = {"rule": "Column-type", "signification": "An estimate of the column type"}
 # rules for the semantic analysis:
-M101_1 = {"rule": "M101 [1]", "signification": "Number of the detected categories"}
+M101_1 = {"rule": "M101 [1]", "signification": "Number of categories"}
 M102_2 = {"rule": "M102 [2]", "signification": "Number of subcategories"}
 M103_3 = {
     "rule": "M103 [3]",

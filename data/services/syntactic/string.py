@@ -217,6 +217,7 @@ class StringAnalyser(StringInterface, Thread):
                     .to_series()
                     .apply(get_regexp, expressions=RegularExp.objects.all().values("expression"))
                 )
+
                 column_type.append(reg_exp)
                 invalid_res[columns.get_loc(i)] = (
                     df[i].value_counts(dropna=False)[reg_exp.isna()].sum()

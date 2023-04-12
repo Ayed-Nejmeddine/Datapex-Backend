@@ -83,3 +83,18 @@ def get_data_dict(text, data_dict):
                 if text.upper() == val:
                     return data.data_dict["CATEGORY"], sub
     return None
+
+
+def verify_Uppercase(text):
+    """Verify if the text is uppercase"""
+    if text.isupper():
+        return 1
+
+    return 0
+
+
+def verify_MixCasse(text):
+    """Verify if the text is MixCasse"""
+    if re.search(r"[A-Z]", text) and re.search(r"[a-z]", text):
+        return 1
+    return 0
