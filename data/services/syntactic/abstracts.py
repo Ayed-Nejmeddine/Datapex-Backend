@@ -10,7 +10,10 @@ from data.models import M101_4
 from data.models import M102_5
 from data.models import M103_6
 from data.models import M103_7
+from data.models import M103_8
 from data.models import M104_7
+from data.models import M104_20
+from data.models import M104_21
 from data.models import M111_14
 from data.models import M112_15
 from data.models import M113_16
@@ -21,6 +24,8 @@ from data.models.basic_models import SyntacticResult
 from data.services.syntactic.interfaces import BaseInterface
 from data.services.syntactic.utils import check_lower_case
 from data.services.syntactic.utils import check_string_contains_bool
+from data.services.syntactic.utils import verify_MixCasse
+from data.services.syntactic.utils import verify_Uppercase
 
 
 class BaseAbstract(BaseInterface):
@@ -156,7 +161,7 @@ class BaseAbstract(BaseInterface):
         df = self.df
         res = len(df)
         SyntacticResult.objects.update_or_create(
-            document_id=self.document_id, rule=M113_16, defaults={"result": res}
+            document_id=self.document_id, rule=M113_16, defaults={"result": {"Rows": res}}
         )
         return res
 
@@ -217,6 +222,54 @@ class BaseAbstract(BaseInterface):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M115_18,
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+        )
+        return res
+
+    def count_number_of_values(self):
+        """Indicator of the number of values in the dataset."""
+        df = self.df
+        rows = df.axes[0]
+        cols = df.axes[1]
+        res = len(rows) * len(cols)
+
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M103_8,
+            defaults={"result": {"Size": res}},
+        )
+        return res
+
+    def upper_case_values(self, s_t=" "):
+        """This indicator function returns 1 if the value is in uppercase, and 0 otherwise."""
+        df = self.df
+        columns = df.columns
+        rowLength = len(df)
+        res = np.zeros(len(columns), dtype=float)
+        for i in columns:
+            if is_string_dtype(df[i].dtypes):
+                nbr = df[i].fillna(s_t).apply(verify_Uppercase).sum()
+                res[columns.get_loc(i)] = round((nbr * 100) / rowLength, 2)
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M104_20,
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+        )
+        return res
+
+    def mix_case_values(self, s_t=" "):
+        """This indicator function returns 1 if the value is in uppercase, and 0 otherwise."""
+        df = self.df
+        columns = df.columns
+        rowLength = len(df)
+        res = np.zeros(len(columns), dtype=float)
+        for i in columns:
+            if is_string_dtype(df[i].dtypes) and not is_datetime64_any_dtype(df[i].dtypes):
+                nbr = df[i].fillna(s_t).apply(verify_MixCasse).sum()
+                res[columns.get_loc(i)] = round((nbr * 100) / rowLength, 2)
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M104_21,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res

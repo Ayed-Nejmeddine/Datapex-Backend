@@ -58,6 +58,24 @@ class BaseInterface:
         """
         pass
 
+    def count_number_of_values(self):
+        """
+        Indicator of Number of lowercase values.
+        """
+        pass
+
+    def upper_case_values(self):
+        """
+        Indicator of Number of lowercase values.
+        """
+        pass
+
+    def mix_case_values(self):
+        """
+        Indicator of Number of lowercase values.
+        """
+        pass
+
 
 class StringInterface(BaseInterface):
     """String interface definition"""
