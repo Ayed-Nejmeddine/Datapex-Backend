@@ -13,6 +13,10 @@ from data.models import M104_7
 from data.models import M111_14
 from data.models import M112_15
 from data.models import TOTAL
+from data.models import M130_1
+from data.models import M130_2
+from data.models import M130_3
+
 from data.models.basic_models import SyntacticResult
 from data.services.syntactic.interfaces import BaseInterface
 from data.services.syntactic.utils import check_string_contains_bool
@@ -145,3 +149,45 @@ class BaseAbstract(BaseInterface):
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res
+    
+    def count_number_columns(self):
+        """
+        indicator of number of columns
+        """ 
+        df=self.df
+        num_cols=df.shape[1]
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M130_1,
+            defaults={"result": num_cols}
+        )
+        return num_cols
+
+    def values_length(self):
+        """Indicator of length of each value
+        """
+        df=self.df
+        lengths = df.applymap(lambda x: len(str(x)) if pd.notnull(x) else None)
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M130_2,
+            defaults={"result": {i: lengths[i] for i in self.df.columns}},
+        )
+
+
+    def count_init_CapCase_value(self):
+        """Indicator of number of CapCase values
+        """
+        df=self.df
+        columns = df.columns
+        res = np.zeros(len(columns), dtype=int)
+        is_capcase = df.applymap(lambda x: 1 if str(x)[0].isupper() else 0)
+        for i in columns:
+            res[columns.get_loc(i)] = is_capcase[i].sum()
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M130_3,
+             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+        )
+        return(res)
+            
