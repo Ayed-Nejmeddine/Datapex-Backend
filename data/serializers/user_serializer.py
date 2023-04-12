@@ -1,4 +1,6 @@
-"""user serializer"""
+"""
+    This serializer represent the serializer of the user.
+    """
 from cities_light.models import City
 from django_countries import Countries
 from phonenumber_field import phonenumber

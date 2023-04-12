@@ -130,10 +130,29 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def launch_semantic_analysis(self, request, pk=None):
         """launch the semantic analysis and get the results."""
         document = self.get_object()
+        if not AnalysisTrace.objects.filter(document=document, state="running"):
+            return Response({"message": "Please launch the syntactic analysis first!"})
+
         try:
             SemanticAnalyser(document=document).run()
+            return Response(
+                {"message": "The semantic analysis has been launched."}, status.HTTP_200_OK
+            )
         except Exception as e:
             return Response({"message": f"Run the Syntactic analysis first, error:{e}"})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-semantic-analysis-results",
+        url_path="get-semantic-analysis-results",
+    )
+    def get_semantic_results(self, request, pk=None):
+        """Get the semantic analysis results."""
+        document = self.get_object()
+        if not SemanticResult.objects.filter(document=document):
+            return Response({"message": "Please launch the semantic analysis first!"})
+
         results = SemanticResult.objects.filter(document=document)
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = 'attachment; filename="semantic-results.csv"'

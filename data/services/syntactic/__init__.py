@@ -1,4 +1,4 @@
-"""Here the syntactic analyser"""
+"""BaseAbstract Analyser."""
 from threading import Thread
 
 import pandas as pd
@@ -54,6 +54,9 @@ class Analyser(BaseAbstract, Thread):
         self.count_number_rows()
         self.data_type_value()
         self.count_lowercase_values()
+        self.mix_case_values()
+        self.upper_case_values()
+        self.count_number_of_values()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
             analysis_type=BASIC_ANALYSIS,
