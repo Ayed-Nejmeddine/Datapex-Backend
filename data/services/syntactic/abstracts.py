@@ -156,7 +156,7 @@ class BaseAbstract(BaseInterface):
         df = self.df
         res = len(df)
         SyntacticResult.objects.update_or_create(
-            document_id=self.document_id, rule=M113_16, defaults={"result": res}
+            document_id=self.document_id, rule=M113_16, defaults={"result": {"Rows": res}}
         )
         return res
 
@@ -199,7 +199,7 @@ class BaseAbstract(BaseInterface):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M114_17,
-            defaults={"result": result},
+            defaults={"result": {i: result[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return result
 

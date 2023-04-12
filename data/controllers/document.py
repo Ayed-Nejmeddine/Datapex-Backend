@@ -1,5 +1,6 @@
 """Here all document APIs."""
 import csv
+import json
 
 from django.db.models import Q
 from django.http import HttpResponse
@@ -77,31 +78,27 @@ class DocumentViewSet(viewsets.ModelViewSet):
         document = self.get_object()
         qs = AnalysisTrace.objects.filter(document=document)
         if not qs.filter(state="running") and qs:
-            response = HttpResponse(content_type="text/csv")
-            response["Content-Disposition"] = 'attachment; filename="syntactic-results.csv"'
-            writer = csv.writer(response, delimiter=";")
-            # Header
+            response = HttpResponse(content_type="application/json")
+            # JSON Data
+            output = {}
             with document.document_path.open("r") as f:
                 reader = csv.reader(f, delimiter=";")
                 header = next(reader)
-                header.insert(0, "Rule")
-                header.insert(1, "Signification")
-                writer.writerow(header)
-
-            # CSV Data
-            output = []
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
-                liste = []
-                for i in header[2:]:
-                    if i not in r.result.keys():
-                        liste.append("")
+                output[r.rule["rule"]] = {}
+                res_dict = {}
+                for i in header:
+                    if i not in r.result.keys():  # noqa: SIM401
+                        res_dict = r.result
                     else:
-                        liste.append(r.result[i])
-                liste.insert(0, r.rule["rule"])
-                liste.insert(1, r.rule["signification"])
-                output.append(liste)
-            writer.writerows(output)
+                        res_dict[i] = r.result[i]
+                res_dict["Signification"] = r.rule["signification"]
+                output[r.rule["rule"]] = res_dict
+
+            # Write JSON to response
+            json.dump(output, response, ensure_ascii=False, indent=4)
+
             return response
         if not AnalysisTrace.objects.filter(document=document):
             return Response({"message": "Please launch the syntactic analysis first!"})
