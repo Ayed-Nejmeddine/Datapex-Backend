@@ -19,11 +19,10 @@ from data.models import M112_15
 from data.models import M113_16
 from data.models import M114_17
 from data.models import M115_18
-from data.models import TOTAL
 from data.models import M130_1
 from data.models import M130_2
 from data.models import M130_3
-
+from data.models import TOTAL
 from data.models.basic_models import SyntacticResult
 from data.services.syntactic.interfaces import BaseInterface
 from data.services.syntactic.utils import check_lower_case
@@ -159,24 +158,21 @@ class BaseAbstract(BaseInterface):
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
         return res
-    
+
     def count_number_columns(self):
         """
         indicator of number of columns
-        """ 
-        df=self.df
-        num_cols=df.shape[1]
+        """
+        df = self.df
+        num_cols = df.shape[1]
         SyntacticResult.objects.update_or_create(
-            document_id=self.document_id,
-            rule=M130_1,
-            defaults={"result": num_cols}
+            document_id=self.document_id, rule=M130_1, defaults={"result": num_cols}
         )
         return num_cols
 
     def values_length(self):
-        """Indicator of length of each value
-        """
-        df=self.df
+        """Indicator of length of each value"""
+        df = self.df
         lengths = df.applymap(lambda x: len(str(x)) if pd.notnull(x) else None)
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
@@ -184,11 +180,9 @@ class BaseAbstract(BaseInterface):
             defaults={"result": {i: lengths[i] for i in self.df.columns}},
         )
 
-
     def count_init_CapCase_value(self):
-        """Indicator of number of CapCase values
-        """
-        df=self.df
+        """Indicator of number of CapCase values"""
+        df = self.df
         columns = df.columns
         res = np.zeros(len(columns), dtype=int)
         is_capcase = df.applymap(lambda x: 1 if str(x)[0].isupper() else 0)
@@ -197,10 +191,9 @@ class BaseAbstract(BaseInterface):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M130_3,
-             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-        return(res)
-            
+        return res
 
     def count_number_rows(self):
         """indicator of number of rows."""
@@ -213,7 +206,6 @@ class BaseAbstract(BaseInterface):
 
     def data_type_value(self):
         """indicator of data type of the data values"""
-        total = self.count_number_rows()
         result = []
         mask = self.df.applymap(type) != bool
         res = self.df.where(mask, self.df.replace({True: "True", False: "False"}))
@@ -240,10 +232,10 @@ class BaseAbstract(BaseInterface):
                 number_count = res[col].apply(pd.to_numeric, errors="coerce").count()
             result.append(
                 {
-                    "string": round((text_count * 100) / total, 2),
-                    "number": round((number_count * 100) / total, 2),
-                    "boolean": round((boolean_count * 100) / total, 2),
-                    "date": round((date_count * 100) / total, 2),
+                    "string": text_count,
+                    "number": number_count,
+                    "boolean": boolean_count,
+                    "date": date_count,
                 }
             )
 
@@ -257,14 +249,11 @@ class BaseAbstract(BaseInterface):
     def count_lowercase_values(self):
         """indicator of number of lowercase values"""
         df = self.df
-        total = self.count_number_rows()
         columns = df.columns
-        res = np.zeros(len(columns), dtype=float)
+        res = np.zeros(len(columns), dtype=int)
         for i in columns:
             if is_string_dtype(df[i].dtypes):
-                res[columns.get_loc(i)] = round(
-                    (df[i].fillna("").apply(check_lower_case).sum() * 100) / total, 2
-                )
+                res[columns.get_loc(i)] = df[i].fillna("").apply(check_lower_case).sum()
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M115_18,
@@ -290,12 +279,11 @@ class BaseAbstract(BaseInterface):
         """This indicator function returns 1 if the value is in uppercase, and 0 otherwise."""
         df = self.df
         columns = df.columns
-        rowLength = len(df)
-        res = np.zeros(len(columns), dtype=float)
+        res = np.zeros(len(columns), dtype=int)
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 nbr = df[i].fillna(s_t).apply(verify_Uppercase).sum()
-                res[columns.get_loc(i)] = round((nbr * 100) / rowLength, 2)
+                res[columns.get_loc(i)] = nbr
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M104_20,

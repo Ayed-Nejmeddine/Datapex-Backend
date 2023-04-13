@@ -107,6 +107,69 @@ class DocumentViewSet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=["GET"],
+        url_name="get-global_syntactic-analysis-results",
+        url_path="get-global_syntactic-analysis-results",
+    )
+    def get_global_syntactic_results(self, request, pk=None):
+        """Get the global_syntactic analysis results."""
+        document = self.get_object()
+        qs = AnalysisTrace.objects.filter(document=document)
+        # pylint: disable=R1702
+        if not qs.filter(state="running") and qs:
+            response = HttpResponse(content_type="application/json")
+            # JSON Data
+            base_rule = [
+                "Total",
+                "M100 [3]",
+                "M101 [4]",
+                "M114 [17]",
+                "M102 [5]",
+                "M103 [6]",
+                "M103 [7]",
+                "M112 [15]",
+                "M104 [7]",
+                "M111 [14]",
+                "M130 [1]",
+                "M130 [2]",
+                "M130 [3]",
+                "M113 [16]",
+                "M115 [18]",
+                "M103 [8]",
+                "M104 [20]",
+                "M104 [21]",
+            ]
+            output = {}
+            with document.document_path.open("r") as f:
+                reader = csv.reader(f, delimiter=";")
+                header = next(reader)
+            for r in SyntacticResult.objects.filter(document=document):
+                if r.rule["rule"] in base_rule:
+                    output[r.rule["rule"]] = {}
+                    res_dict = {}
+                    somme = 0
+                    for i in header:
+                        if i not in r.result.keys():  # noqa: SIM401
+                            res_dict = r.result
+                        else:
+                            if isinstance(r.result[i], dict):
+                                res_dict = r.result
+                            else:
+                                somme += r.result[i]
+                                res_dict["sum"] = somme
+                    res_dict["Signification"] = r.rule["signification"]
+                    output[r.rule["rule"]] = res_dict
+
+            # Write JSON to response
+            json.dump(output, response, ensure_ascii=False, indent=4)
+
+            return response
+        if not AnalysisTrace.objects.filter(document=document):
+            return Response({"message": "Please launch the syntactic analysis first!"})
+        return Response({"message": "The syntactic analysis is still running!"})
+
+    @action(
+        detail=True,
+        methods=["GET"],
         url_name="get-links-between-columns",
         url_path="get-links-between-columns",
     )
