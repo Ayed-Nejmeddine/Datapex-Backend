@@ -16,6 +16,7 @@ ANALYSIS_TRACE_STATES = (
 BASIC_ANALYSIS = "basic"
 STRING_ANALYSIS = "string"
 NUMBER_ANALYSIS = "number"
+BOOLEAN_ANALYSIS = "boolean"
 DATE_ANALYSIS = "date"
 
 
@@ -23,6 +24,7 @@ ANALYSIS_TYPES = (
     (BASIC_ANALYSIS, _("Basic-Analysis")),
     (STRING_ANALYSIS, _("String-Analysis")),
     (NUMBER_ANALYSIS, _("Number-Analysis")),
+    (BOOLEAN_ANALYSIS, _("Boolean-Analysis")),
     (DATE_ANALYSIS, _("Date-Analysis")),
 )
 
@@ -31,7 +33,7 @@ M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
-M103_8 = {"rule": "M103 [6]", "signification": "Number of values in the dataset"}
+M103_8 = {"rule": "M103 [8]", "signification": "Number of values in the dataset"}
 M103_7 = {"rule": "M103 [7]", "signification": "Number of different values"}
 M104_7 = {"rule": "M104 [7]", "signification": "Number of duplicate values"}
 M105_8 = {"rule": "M105 [8]", "signification": "Number of Words"}
@@ -44,6 +46,7 @@ M108_11 = {"rule": "M108 [11]", "signification": "Number of values of the STRING
 M109_12 = {"rule": "M109 [12]", "signification": "Number of values of the NUMBER TYPE"}
 M110_13 = {"rule": "M110 [13]", "signification": "Number of values of the DATE TYPE"}
 M111_14 = {"rule": "M111 [14]", "signification": "Number of values of the BOOLEAN TYPE"}
+M111_12 = {"rule": "M111 [12]", "signification": "Number of true and false values of the BOOLEAN TYPE"}
 M112_15 = {"rule": "M112 [15]", "signification": "Number of values of the NULL TYPE"}
 M113_16 = {"rule": "M113 [16]", "signification": "Number of rows"}
 M114_17 = {"rule": "M114 [17]", "signification": "Number of data type"}

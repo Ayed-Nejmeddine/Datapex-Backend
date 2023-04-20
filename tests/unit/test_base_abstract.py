@@ -130,3 +130,13 @@ def test_count_lowercase_values(_base_indicator_fixture):
 
     expected_value = [0.0, 0.0, 0.0, 0.0, 50.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0]
     assert np.array_equal(doc.count_lowercase_values(), expected_value)
+
+@pytest.mark.django_db
+def test_count_boolean_value(_base_indicator_fixture):
+    """
+    Test to count type values
+    """
+    doc = _base_indicator_fixture
+
+    expected_value = [{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':1,'false':1},{'true':7,'false':3},{'true':4,'false':1}]
+    assert doc.count_boolean_value() == expected_value

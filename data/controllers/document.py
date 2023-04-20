@@ -1,5 +1,6 @@
 """Here all document APIs."""
 import csv
+import json
 
 from django.db.models import Q
 from django.http import HttpResponse
@@ -77,31 +78,113 @@ class DocumentViewSet(viewsets.ModelViewSet):
         document = self.get_object()
         qs = AnalysisTrace.objects.filter(document=document)
         if not qs.filter(state="running") and qs:
-            response = HttpResponse(content_type="text/csv")
-            response["Content-Disposition"] = 'attachment; filename="syntactic-results.csv"'
-            writer = csv.writer(response, delimiter=";")
-            # Header
+            response = HttpResponse(content_type="application/json")
+            # JSON Data
+            output = {}
             with document.document_path.open("r") as f:
                 reader = csv.reader(f, delimiter=";")
                 header = next(reader)
-                header.insert(0, "Rule")
-                header.insert(1, "Signification")
-                writer.writerow(header)
-
-            # CSV Data
-            output = []
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
-                liste = []
-                for i in header[2:]:
-                    if i not in r.result.keys():
-                        liste.append("")
+                output[r.rule["rule"]] = {}
+                res_dict = {}
+                for i in header:
+                    if i not in r.result.keys():  # noqa: SIM401
+                        res_dict = r.result
                     else:
-                        liste.append(r.result[i])
-                liste.insert(0, r.rule["rule"])
-                liste.insert(1, r.rule["signification"])
-                output.append(liste)
-            writer.writerows(output)
+                        res_dict[i] = r.result[i]
+                res_dict["Signification"] = r.rule["signification"]
+                output[r.rule["rule"]] = res_dict
+
+            # Write JSON to response
+            json.dump(output, response, ensure_ascii=False, indent=4)
+
+            return response
+        if not AnalysisTrace.objects.filter(document=document):
+            return Response({"message": "Please launch the syntactic analysis first!"})
+        return Response({"message": "The syntactic analysis is still running!"})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-global_syntactic-analysis-results",
+        url_path="get-global_syntactic-analysis-results",
+    )
+    def get_global_syntactic_results(self, request, pk=None):
+        """Get the global_syntactic analysis results."""
+        document = self.get_object()
+        qs = AnalysisTrace.objects.filter(document=document)
+        # pylint: disable=R1702
+        if not qs.filter(state="running") and qs:
+            response = HttpResponse(content_type="application/json")
+            # JSON Data
+            base_rule = [
+                "Total",
+                "M100 [3]",
+                "M101 [4]",
+                "M114 [17]",
+                "M102 [5]",
+                "M103 [6]",
+                "M103 [7]",
+                "M112 [15]",
+                "M104 [7]",
+                "M111 [14]",
+                "M130 [1]",
+                "M130 [2]",
+                "M130 [3]",
+                "M113 [16]",
+                "M115 [18]",
+                "M103 [8]",
+                "M104 [20]",
+                "M104 [21]",
+            ]
+            output = {}
+            with document.document_path.open("r") as f:
+                reader = csv.reader(f, delimiter=";")
+                header = next(reader)
+            sumText=0
+            sumDate=0
+            sumNum=0
+            sumBool=0
+            sumMixt=0
+            for r in SyntacticResult.objects.filter(document=document):
+                if r.rule["rule"] in base_rule:
+                    output[r.rule["rule"]] = {}
+                    res_dict = {}
+                    somme = 0
+                    for i in header:
+                        if i not in r.result.keys():  # noqa: SIM401
+                            res_dict = r.result
+                        else:
+                            if isinstance(r.result[i], dict):
+                                if(r.result[i]['string']==100.0):
+                                    sumText+=1
+                                elif(r.result[i]['number']==100.0):
+                                    sumNum+=1
+                                elif(r.result[i]['boolean']==100.0):
+                                    sumBool+=1
+                                elif(r.result[i]['date']==100.0):
+                                    sumDate+=1
+                                else:
+                                    sumMixt+=1
+                                res={
+                                    "string": sumText,
+                                    "number": sumNum,
+                                    "boolean": sumBool,
+                                    "date": sumDate,
+                                    "mixte":sumMixt
+                                }
+                                res_dict = res
+                            else:
+                                somme += r.result[i]
+                                res_dict["sum"] = somme
+                    res_dict["Signification"] = r.rule["signification"]
+                    print(res_dict)
+                    output[r.rule["rule"]] = res_dict
+
+            # Write JSON to response
+            json.dump(output, response, ensure_ascii=False, indent=4)
+
             return response
         if not AnalysisTrace.objects.filter(document=document):
             return Response({"message": "Please launch the syntactic analysis first!"})
