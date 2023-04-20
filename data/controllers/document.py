@@ -142,6 +142,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
             with document.document_path.open("r") as f:
                 reader = csv.reader(f, delimiter=";")
                 header = next(reader)
+            sumText=0
+            sumDate=0
+            sumNum=0
+            sumBool=0
+            sumMixt=0
             for r in SyntacticResult.objects.filter(document=document):
                 if r.rule["rule"] in base_rule:
                     output[r.rule["rule"]] = {}
@@ -152,11 +157,29 @@ class DocumentViewSet(viewsets.ModelViewSet):
                             res_dict = r.result
                         else:
                             if isinstance(r.result[i], dict):
-                                res_dict = r.result
+                                if(r.result[i]['string']==100.0):
+                                    sumText+=1
+                                elif(r.result[i]['number']==100.0):
+                                    sumNum+=1
+                                elif(r.result[i]['boolean']==100.0):
+                                    sumBool+=1
+                                elif(r.result[i]['date']==100.0):
+                                    sumDate+=1
+                                else:
+                                    sumMixt+=1
+                                res={
+                                    "string": sumText,
+                                    "number": sumNum,
+                                    "boolean": sumBool,
+                                    "date": sumDate,
+                                    "mixte":sumMixt
+                                }
+                                res_dict = res
                             else:
                                 somme += r.result[i]
                                 res_dict["sum"] = somme
                     res_dict["Signification"] = r.rule["signification"]
+                    print(res_dict)
                     output[r.rule["rule"]] = res_dict
 
             # Write JSON to response

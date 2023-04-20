@@ -31,9 +31,10 @@ class NumberAnalyser(NumberInterface, Thread):
 
     def compute_min_value(self):
         """indicator for min value."""
-        mask = self.df.applymap(type) != bool
-        res = self.df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
-        res = res.apply(pd.to_numeric, errors="coerce").min()
+        df = self.df
+        mask = df.applymap(type) != bool
+        res = df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
+        res = res.apply(lambda x: pd.to_numeric(x, errors='coerce').astype(float).replace([np.inf, -np.inf], np.nan)).min()
         res = res.fillna("non-applicable")
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
@@ -44,9 +45,10 @@ class NumberAnalyser(NumberInterface, Thread):
 
     def compute_max_value(self):
         """indicator for max value."""
-        mask = self.df.applymap(type) != bool
-        res = self.df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
-        res = res.apply(pd.to_numeric, errors="coerce").max()
+        df = self.df
+        mask = df.applymap(type) != bool
+        res = df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
+        res = res.apply(lambda x: pd.to_numeric(x, errors='coerce').astype(float).replace([np.inf, -np.inf], np.nan)).max()
         res = res.fillna("non-applicable")
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
@@ -57,9 +59,10 @@ class NumberAnalyser(NumberInterface, Thread):
 
     def compute_average_value(self):
         """indicator for average value."""
-        mask = self.df.applymap(type) != bool
-        res = self.df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
-        res = res.apply(pd.to_numeric, errors="coerce").mean()
+        df = self.df
+        mask = df.applymap(type) != bool
+        res = df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
+        res = res.apply(lambda x: pd.to_numeric(x, errors='coerce').astype(float).replace([np.inf, -np.inf], np.nan)).mean()
         res = res.fillna("non-applicable")
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
@@ -70,8 +73,9 @@ class NumberAnalyser(NumberInterface, Thread):
 
     def compute_mode_value(self):
         """indicator for mode value."""
-        mask = self.df.applymap(type) != bool
-        res = self.df.where(mask, self.df.replace({True: "TRUE", False: "FALSE"}))
+        df = self.df
+        mask = df.applymap(type) != bool
+        res = df.where(mask, df.replace({True: "TRUE", False: "FALSE"}))
         df = res.apply(pd.to_numeric, errors="coerce")
         df = df.replace(np.nan, "non-applicable", regex=True)
         res = df.mode().to_numpy()[0]
@@ -84,9 +88,10 @@ class NumberAnalyser(NumberInterface, Thread):
 
     def compute_median_value(self):
         """indicator for median value."""
-        mask = self.df.applymap(type) != bool
-        res = self.df.where(mask, self.df.replace({True: "True", False: "False"}))
-        res = res.apply(pd.to_numeric, errors="coerce").median()
+        df = self.df
+        mask = df.applymap(type) != bool
+        res = df.where(mask, df.replace({True: "True", False: "False"}))
+        res = res.apply(lambda x: pd.to_numeric(x, errors='coerce').astype(float).replace([np.inf, -np.inf], np.nan)).median()
         res = res.fillna("non-applicable")
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
@@ -97,9 +102,10 @@ class NumberAnalyser(NumberInterface, Thread):
 
     def count_values(self):
         """indicator of Number of values of the NUMBER TYPE."""
-        mask = self.df.applymap(type) != bool
-        res = self.df.where(mask, self.df.replace({True: "True", False: "False"}))
-        res = res.apply(pd.to_numeric, errors="coerce").count()
+        df = self.df
+        mask = df.applymap(type) != bool
+        res = df.where(mask, df.replace({True: "True", False: "False"}))
+        res = res.apply(lambda x: pd.to_numeric(x, errors='coerce').astype(float).replace([np.inf, -np.inf], np.nan)).count()
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M109_12,

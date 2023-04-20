@@ -33,6 +33,12 @@ class BaseInterface:
         Indicator of Number of values of the BOOLEAN TYPE.
         """
         pass
+    
+    def count_boolean_value(self):
+        """
+        Indicator of Number of values of the BOOLEAN TYPE.
+        """
+        pass
 
     def count_null_type_values(self):
         """
@@ -161,6 +167,16 @@ class NumberInterface(BaseInterface):
         count the number of values of the NUMBER TYPE.
         """
         pass
+
+class BooleanInterface(BaseInterface):
+    """Boolean Interface definition"""
+
+    def count_boolean_value(self):
+        """
+        count true and false
+        """
+        pass
+
 
 
 class DateInterface(BaseInterface):

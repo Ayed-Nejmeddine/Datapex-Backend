@@ -8,6 +8,7 @@ from data.models import M104_19
 from data.models import M105_20
 from data.models.basic_models import SyntacticResult
 from data.services.syntactic import StringAnalyser
+from data.services.syntactic import BooleanAnalyser
 
 
 @pytest.mark.django_db
@@ -134,3 +135,17 @@ def test_frequency_table(_element_fixture):
         ],
         "Salary": "None",
     }
+
+
+@pytest.mark.django_db
+def test_count_boolean_value(_element_fixture):
+    """
+    Test to count type values
+    """
+    service, document = _element_fixture(
+        name="base_abstract_source.csv", path="base_abstract_source.csv", service=BooleanAnalyser
+    )
+    res = service.count_boolean_value()
+
+    expected_value = [{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':1,'false':1},{'true':7,'false':3},{'true':4,'false':1}]
+    assert res == expected_value

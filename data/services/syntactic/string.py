@@ -390,7 +390,7 @@ class StringAnalyser(StringInterface, Thread):
         self.count_number_of_words()
         self.count_values()
         self.model_data_frequency()
-        self.get_columns_type()
+        # self.get_columns_type()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
             analysis_type=STRING_ANALYSIS,
