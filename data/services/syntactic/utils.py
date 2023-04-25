@@ -68,10 +68,10 @@ def get_regexp(text, expressions):
     """Get the matching regular expression."""
     if not pd.isnull(text):
         for exp in expressions:
-            if re.search(exp["expression"], text.upper()):
-                res = RegularExp.objects.filter(expression=exp["expression"])[0]
-                return res.category, res.subcategory
-    return None
+            if re.search(exp, text.upper()):
+                res = RegularExp.objects.filter(expression=exp).first()
+                return (res.category, res.subcategory)
+    return (None,None)
 
 
 def get_data_dict(text, data_dict):
