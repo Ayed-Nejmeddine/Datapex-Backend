@@ -62,31 +62,33 @@ def test_count_boolean_type_values(_base_indicator_fixture):
     doc = _base_indicator_fixture
     assert doc.count_boolean_type_values().tolist() == expected_value
 
+
 @pytest.mark.django_db
 def test_count_columns(_base_indicator_fixture):
     """
     Test number of columns
     """
-    expected_value =11
+    expected_value = 11
     doc = _base_indicator_fixture
     assert doc.count_number_columns() == expected_value
-    
+
+
 @pytest.mark.django_db
 def test_values_length(_base_indicator_fixture):
     """
     Test number of columns
     """
-    doc = _base_indicator_fixture
-    # print (doc.values_length()) 
-    
+
+
 @pytest.mark.django_db
 def test_count_init_CapCase_value(_base_indicator_fixture):
     """
     Test number of columns
     """
     doc = _base_indicator_fixture
-    expected_value=[10, 9, 0, 8, 0, 9, 8, 6, 1, 10, 5]
-    assert doc.count_init_CapCase_value().tolist() ==  expected_value
+    expected_value = [10, 9, 0, 8, 0, 9, 8, 6, 1, 10, 5]
+    assert doc.count_init_CapCase_value().tolist() == expected_value
+
 
 @pytest.mark.django_db
 def test_count_number_rows(_base_indicator_fixture):
@@ -131,6 +133,7 @@ def test_count_lowercase_values(_base_indicator_fixture):
     expected_value = [0.0, 0.0, 0.0, 0.0, 50.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0]
     assert np.array_equal(doc.count_lowercase_values(), expected_value)
 
+
 @pytest.mark.django_db
 def test_count_boolean_value(_base_indicator_fixture):
     """
@@ -138,5 +141,17 @@ def test_count_boolean_value(_base_indicator_fixture):
     """
     doc = _base_indicator_fixture
 
-    expected_value = [{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':0,'false':0},{'true':1,'false':1},{'true':7,'false':3},{'true':4,'false':1}]
+    expected_value = [
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 0, "false": 0},
+        {"true": 1, "false": 1},
+        {"true": 7, "false": 3},
+        {"true": 4, "false": 1},
+    ]
     assert doc.count_boolean_value() == expected_value

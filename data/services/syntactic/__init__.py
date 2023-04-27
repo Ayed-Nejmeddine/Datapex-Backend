@@ -2,23 +2,23 @@
 from threading import Thread
 
 import pandas as pd
+from pandas.api.types import is_bool_dtype
+from pandas.api.types import is_string_dtype
 
 from data.models import BASIC_ANALYSIS
+from data.models import BOOLEAN_ANALYSIS
 from data.models import DATE_ANALYSIS
 from data.models import FINISHED_STATE
 from data.models import NUMBER_ANALYSIS
 from data.models import RUNNING_STATE
 from data.models import STRING_ANALYSIS
-from data.models import BOOLEAN_ANALYSIS
-from pandas.api.types import is_bool_dtype
-from data.services.syntactic.utils import check_string_contains_bool
-from pandas.api.types import is_string_dtype
 from data.models.basic_models import AnalysisTrace
 from data.services.syntactic.abstracts import BaseAbstract
+from data.services.syntactic.boolean import BooleanAnalyser
 from data.services.syntactic.date import DateAnalyser
 from data.services.syntactic.number import NumberAnalyser
 from data.services.syntactic.string import StringAnalyser
-from data.services.syntactic.boolean import BooleanAnalyser
+from data.services.syntactic.utils import check_string_contains_bool
 
 
 class Analyser(BaseAbstract, Thread):
@@ -30,13 +30,13 @@ class Analyser(BaseAbstract, Thread):
         with document.document_path.open("r") as f:
             df = pd.DataFrame(pd.read_csv(f, sep=";"))
             self.df = df.convert_dtypes()
-            print(self.df)
+
         document.num_row, document.num_col = df.shape
         document.save()
-        df_copy=df
-        num_col = list(df_copy.fillna(0).select_dtypes(include='number').columns)
+        df_copy = df
+        num_col = list(df_copy.fillna(0).select_dtypes(include="number").columns)
         df_copy = df_copy.drop(columns=num_col)
-        print("numeric values: ",num_col)
+
         columns = df_copy.columns
         date_col = []
         string_col = []
@@ -47,13 +47,11 @@ class Analyser(BaseAbstract, Thread):
             elif is_bool_dtype(df[i].dtypes):
                 bool_col.append(i)
             elif is_string_dtype(df[i].dtypes):
-                if df[i].apply(check_string_contains_bool).sum()>0:
+                if df[i].apply(check_string_contains_bool).sum() > 0:
                     bool_col.append(i)
                 else:
                     string_col.append(i)
-        print("date values: ",date_col)
-        print("string values: ",string_col)
-        print("bool values: ",bool_col)
+
         self.string_analyser = StringAnalyser(df[string_col], document.id)
         self.number_analyser = NumberAnalyser(df[num_col], document.id)
         self.date_analyser = DateAnalyser(df[date_col], document.id)

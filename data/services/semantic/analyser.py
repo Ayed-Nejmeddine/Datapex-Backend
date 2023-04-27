@@ -1,10 +1,8 @@
 """
     SemanticAnalyser
     """
-import re
 
-from data.models import COLUMN_TYPE
-from data.models import DATA_TYPES
+
 from data.models import M101_1
 from data.models import M102_2
 from data.models import M103_3
@@ -12,7 +10,6 @@ from data.models import M104_4
 from data.models import M105_5
 from data.models import M106_6
 from data.models import MATCHED_EXPRESSIONS
-from data.models.basic_models import SemanticData
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
 from data.services.semantic.interfaces import SemanticInterface
@@ -29,85 +26,63 @@ class SemanticAnalyser(SemanticInterface):
 
     def count_number_of_categories_and_subcategories(self):
         """Count the number of the detected categories and subcategories."""
-        df = self.df
-        columns = df.columns
-        res_cat = [] * len(columns)
-        res_subcat = [] * len(columns)
+
         qs_reg = SyntacticResult.objects.get(document_id=self.document_id, rule=MATCHED_EXPRESSIONS)
-        qs_data = SyntacticResult.objects.get(document_id=self.document_id, rule=DATA_TYPES)
-        List = re.split(r"[;,]", str(list(qs_reg.result.keys())).strip("['").strip("']").strip("'"))
-        ListReg = [element.strip('"').strip(" ").strip("'") for element in List]
-        if not qs_reg and not qs_data:
+        M101_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M101_1)
+        M102_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M102_2)
+
+        if not qs_reg and not M101_res and not M102_res:
             syntactic_analyser = StringAnalyser(self.df, self.document_id)
             syntactic_analyser.syntactic_validation_with_regexp()
-            syntactic_analyser.syntactic_validation_with_data_dict()
-        for i in ListReg:
-            res = qs_reg.result[i][0] + qs_data.result[i][0]
 
-            categories = [cat[0] for cat in res]
-            res_cat.append(len(set(categories)))
-            res_subcat.append({(tuple(x) for x in res)})
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,
-            rule=M101_1["rule"],
-            defaults={"result": {i: res_cat[columns.get_loc(i)] for i in columns}},
+            rule=MATCHED_EXPRESSIONS,
+            defaults={"result": qs_reg.result},
         )
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,
+            rule=M101_1,
+            defaults={"result": M101_res.result},
+        )
+
+        SemanticResult.objects.update_or_create(
+            document_id=self.document_id,
             rule=M102_2,
-            defaults={"result": {i: res_subcat[columns.get_loc(i)] for i in columns}},
+            defaults={"result": M102_res.result},
         )
 
     def count_validation_percentages(self):
         """Count the percentage of the semantically valid and invalid to the dominant category and subcategory"""
-        qs = SyntacticResult.objects.get(document_id=self.document_id, rule=COLUMN_TYPE)
-        data_type = SemanticData.objects.get(document_id=self.document_id)
-        nbr_valid_cat = []
-        nbr_valid_subcat = []
-        for i in qs.result:
-            subcat = qs.result[i][0]
-            if data_type.data[i] == "datadict":
-                qs_res = SyntacticResult.objects.get(document_id=self.document_id, rule=DATA_TYPES)
-            else:
-                qs_res = SyntacticResult.objects.get(
-                    document_id=self.document_id, rule=MATCHED_EXPRESSIONS
-                )
-            res_cat = 0
-            for j in qs_res.result[i][0]:
-                if j[0] == qs.result[i][0][0]:
-                    res_cat += qs_res.result[i][1][qs_res.result[i][0].index(j)]
-            nbr_valid_cat.append(res_cat)
-            nbr_valid_subcat.append(qs_res.result[i][1][qs_res.result[i][0].index(subcat)])
+
+        M103_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M103_3)
+        M104_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M104_4)
+        M105_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M105_5)
+        M106_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M106_6)
+        if not M103_res and not M104_res and not M105_res and not M106_res:
+            syntactic_analyser = StringAnalyser(self.df, self.document_id)
+            syntactic_analyser.syntactic_validation_with_regexp()
+
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M103_3,
-            defaults={
-                "result": {i: nbr_valid_cat[self.df.columns.get_loc(i)] for i in self.df.columns}
-            },
-        )
-        SemanticResult.objects.update_or_create(
-            document_id=self.document_id,
-            rule=M105_5,
-            defaults={
-                "result": {i: nbr_valid_subcat[self.df.columns.get_loc(i)] for i in self.df.columns}
-            },
+            defaults={"result": M103_res.result},
         )
 
-        nbr_invalid_cat = [100 - num for num in nbr_valid_cat]
-        nbr_invalid_subcat = [100 - num for num in nbr_valid_subcat]
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M104_4,
-            defaults={
-                "result": {i: nbr_invalid_cat[self.df.columns.get_loc(i)] for i in self.df.columns}
-            },
+            defaults={"result": M104_res.result},
         )
+
+        SemanticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M105_5,
+            defaults={"result": M105_res.result},
+        )
+
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M106_6,
-            defaults={
-                "result": {
-                    i: nbr_invalid_subcat[self.df.columns.get_loc(i)] for i in self.df.columns
-                }
-            },
+            defaults={"result": M106_res.result},
         )

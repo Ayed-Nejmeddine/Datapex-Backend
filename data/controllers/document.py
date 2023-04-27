@@ -4,6 +4,7 @@ import json
 
 from django.db.models import Q
 from django.http import HttpResponse
+from django.http import JsonResponse
 
 from rest_framework import status
 from rest_framework import viewsets
@@ -110,6 +111,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
         url_name="get-global_syntactic-analysis-results",
         url_path="get-global_syntactic-analysis-results",
     )
+    # pylint: disable=R0912
+    # pylint: disable=R0914
     def get_global_syntactic_results(self, request, pk=None):
         """Get the global_syntactic analysis results."""
         document = self.get_object()
@@ -142,11 +145,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
             with document.document_path.open("r") as f:
                 reader = csv.reader(f, delimiter=";")
                 header = next(reader)
-            sumText=0
-            sumDate=0
-            sumNum=0
-            sumBool=0
-            sumMixt=0
+            sumText = 0
+            sumDate = 0
+            sumNum = 0
+            sumBool = 0
+            sumMixt = 0
             for r in SyntacticResult.objects.filter(document=document):
                 if r.rule["rule"] in base_rule:
                     output[r.rule["rule"]] = {}
@@ -157,29 +160,29 @@ class DocumentViewSet(viewsets.ModelViewSet):
                             res_dict = r.result
                         else:
                             if isinstance(r.result[i], dict):
-                                if(r.result[i]['string']==100.0):
-                                    sumText+=1
-                                elif(r.result[i]['number']==100.0):
-                                    sumNum+=1
-                                elif(r.result[i]['boolean']==100.0):
-                                    sumBool+=1
-                                elif(r.result[i]['date']==100.0):
-                                    sumDate+=1
+                                if r.result[i]["string"] == 100.0:
+                                    sumText += 1
+                                elif r.result[i]["number"] == 100.0:
+                                    sumNum += 1
+                                elif r.result[i]["boolean"] == 100.0:
+                                    sumBool += 1
+                                elif r.result[i]["date"] == 100.0:
+                                    sumDate += 1
                                 else:
-                                    sumMixt+=1
-                                res={
+                                    sumMixt += 1
+                                res = {
                                     "string": sumText,
                                     "number": sumNum,
                                     "boolean": sumBool,
                                     "date": sumDate,
-                                    "mixte":sumMixt
+                                    "mixte": sumMixt,
                                 }
                                 res_dict = res
                             else:
                                 somme += r.result[i]
                                 res_dict["sum"] = somme
                     res_dict["Signification"] = r.rule["signification"]
-                    print(res_dict)
+
                     output[r.rule["rule"]] = res_dict
 
             # Write JSON to response
@@ -216,7 +219,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def launch_semantic_analysis(self, request, pk=None):
         """launch the semantic analysis and get the results."""
         document = self.get_object()
-        if not AnalysisTrace.objects.filter(document=document, state="running"):
+
+        if not (
+            AnalysisTrace.objects.filter(document=document, state="running")
+            or AnalysisTrace.objects.filter(document=document, state="finished")
+        ):
             return Response({"message": "Please launch the syntactic analysis first!"})
 
         try:
@@ -236,35 +243,29 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def get_semantic_results(self, request, pk=None):
         """Get the semantic analysis results."""
         document = self.get_object()
-        if not SemanticResult.objects.filter(document=document):
+        if not {SemanticResult.objects.filter(document=document)}:
             return Response({"message": "Please launch the semantic analysis first!"})
 
         results = SemanticResult.objects.filter(document=document)
-        response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = 'attachment; filename="semantic-results.csv"'
-        writer = csv.writer(response)
-        # Header
-        with document.document_path.open("r") as f:
-            reader = csv.reader(f)
-            header = next(reader)
-            header.insert(0, "Rule")
-            header.insert(1, "Signification")
-            writer.writerow(header)
 
-        # CSV Data
-        output = []
+        # JSON Data
+        # base_rule = [
+        #         "MATCHED_EXPRESSIONS",
+        #         "M101_1",
+        #         "M102_2",
+        #         "M103_3",
+        #         "M104_4",
+        #         "M105_5",
+        #         "M106_6",
+        #     ]
+        output = {}
+
         for r in results:
-            liste = []
-            for i in header[2:]:
-                if i not in r.result.keys():
-                    liste.append("")
-                else:
-                    liste.append(r.result[i])
-            liste.insert(0, r.rule["rule"])
-            liste.insert(1, r.rule["signification"])
-            output.append(liste)
-        writer.writerows(output)
-        return response
+            out = {"rule": r.rule, "result": r.result}
+
+            output[r.rule["rule"]] = out
+
+        return JsonResponse(output)
 
     @action(
         detail=False,

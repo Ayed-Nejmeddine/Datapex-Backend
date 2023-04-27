@@ -8,15 +8,19 @@ from pandas.api.types import is_string_dtype
 from data.models import COLUMN_TYPE
 from data.models import DATA_TYPES
 from data.models import FINISHED_STATE
+from data.models import M101_1
+from data.models import M102_2
 from data.models import M102_17
-from data.models import M102_25
 from data.models import M102_26
+from data.models import M103_3
 from data.models import M103_18
-from data.models import M103_25
 from data.models import M103_26
+from data.models import M104_4
 from data.models import M104_19
+from data.models import M105_5
 from data.models import M105_8
 from data.models import M105_20
+from data.models import M106_6
 from data.models import M106_9
 from data.models import M107_10
 from data.models import M108_11
@@ -195,74 +199,184 @@ class StringAnalyser(StringInterface, Thread):
 
         return data_model, percentages, occurrences
 
+    # pylint: disable=R0915
+    # pylint: disable=R0912
+    # pylint: disable=R0914
     def syntactic_validation_with_regexp(self):
-        """
-        Syntaxically validate the data according to the regular expressions in the model RegularExp.
-        res will be an array of the number of syntactically valid data according to the regular expressions.
-        invalid_res will be an array of the number of syntactically invalid data according to the regular expressions.
-        """
+        """Returns the number of categories and subcategories in each column"""
         df = self.df
         columns = df.columns
-        invalid_res = np.full(len(columns), np.array(df.shape[0]))
-        matched_expressions = []
-        percentages = []
-        column_type = []
-        total_dict = []
-        for i in columns:
-            if is_string_dtype(df[i].dtypes):
-                reg_exp = (
-                    df[i]
-                    .value_counts(dropna=False)
-                    .keys()
-                    .to_series()
-                    .apply(get_regexp, expressions=RegularExp.objects.all().values("expression"))
-                )
+        expressions = RegularExp.objects.all().values_list("expression", flat=True)
+        total_categorie_list = []
+        total_number_categorie_list = []
+        total_subcategorie_list = []
+        total_number_subcategorie_list = []
+        total_dominant_category_list = []
+        total_dominant_subcategory_list = []
 
-                column_type.append(reg_exp)
-                invalid_res[columns.get_loc(i)] = (
-                    df[i].value_counts(dropna=False)[reg_exp.isna()].sum()
-                )
-                r = reg_exp.apply(lambda x: ("no-match", "no-match") if x is None else x)
-                matched_dict = {}
-                percentage = df[i].value_counts(dropna=False, normalize=True) * 100
-                for j in range(len(r)):
-                    if r[j] in matched_dict.keys():
-                        matched_dict[r[j]] += percentage[j]
-                    else:
-                        matched_dict[r[j]] = percentage[j]
-                matched_expressions.append(matched_dict.keys())
-                percentages.append(matched_dict.values())
-                total_dict.append(matched_dict)
+        for col in columns:
+            res = []
+            dominant_category = ""
+            dominant_number_category = 0
+
+            if is_string_dtype(self.df[col].dtype):
+                res = (df[col].apply(get_regexp, expressions=expressions)).tolist()
+
+            list_cat = []
+            nbre_cat = [0] * 10
+            list_subcat = []
+            nbre_subcat = [0] * 10
+            for x in res:
+                if x[0] not in list_cat:
+                    list_cat.append(x[0])
+                    index = list_cat.index(x[0])
+                    nbre_cat[index] += 1
+                else:
+                    nbre_cat[list_cat.index(x[0])] += 1
+
+                if x[1] not in list_subcat and x[1]:
+                    list_subcat.append(x[1])
+                    index = list_subcat.index(x[1])
+                    nbre_subcat[index] += 1
+                elif x[1]:
+                    nbre_subcat[list_subcat.index(x[1])] += 1
+            total_categorie_list.append(list_cat)
+            total_number_categorie_list.append(nbre_cat)
+
+            dominant_number_category = max(nbre_cat)
+            if dominant_number_category:
+                dominant_category = list_cat[nbre_cat.index(dominant_number_category)]
+                total_dominant_category_list.append(
+                    (dominant_category, dominant_number_category)
+                )  # tuple(dominant category,it's number)
             else:
-                matched_expressions.append(["non-applicable"])
-                percentages.append([0])
-                column_type.append([])
-                total_dict.append({})
-        res = np.array(df.shape[0]) - invalid_res
-        SyntacticResult.objects.update_or_create(
-            document_id=self.document_id,
-            rule=M102_25,
-            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+                total_dominant_category_list.append((None, None))
+
+            total_subcategorie_list.append(list_subcat)
+            total_number_subcategorie_list.append(nbre_subcat)
+            dominant_number_subcategory = max(nbre_subcat)
+            if dominant_number_subcategory != 0:
+                dominant_subcategory = list_subcat[nbre_subcat.index(dominant_number_subcategory)]
+                total_dominant_subcategory_list.append(
+                    (dominant_subcategory, dominant_number_subcategory)
+                )  # tuple(dominant subcategory,it's number)
+
+            else:
+                total_dominant_subcategory_list.append((None, None))
+
+            total_subcategorie_list.append(list_subcat)
+            total_number_subcategorie_list.append(nbre_subcat)
+        categories = list(
+            {element for inner_list in total_categorie_list for element in inner_list}
         )
+        matched_result = {}
+        for cat in categories:
+            res = []
+            for i in range(len(total_categorie_list)):
+                if cat in total_categorie_list[i]:
+                    ind = total_categorie_list[i].index(cat)
+                    res.append(
+                        {
+                            columns[i]: round(
+                                total_number_categorie_list[i][ind] * 100 / len(df[columns[i]])
+                            )
+                        }
+                    )
+
+                else:
+                    res.append({columns[i]: 0})
+                matched_result[cat] = res
+
+        # number of MATCHED_EXPRESSIONS of data according to regexp
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=MATCHED_EXPRESSIONS,
+            defaults={"result": matched_result},
+        )
+
+        # number of categories of data according to regexp
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M101_1,
             defaults={
                 "result": {
-                    i: (matched_expressions[columns.get_loc(i)], percentages[columns.get_loc(i)])
-                    for i in columns
+                    i: len(total_categorie_list[columns.get_loc(i)]) for i in self.df.columns
                 }
             },
         )
-        # the number of syntactically invalid data according to the regular expressions
+        # number of subcategories of data according to regexp
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
-            rule=M103_25,
+            rule=M102_2,
             defaults={
-                "result": {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}
+                "result": {
+                    i: len(total_subcategorie_list[columns.get_loc(i)]) for i in self.df.columns
+                }
             },
         )
-        return column_type, total_dict
+
+        # Number of semantically valid values according to the dominant category
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M103_3,
+            defaults={
+                "result": {
+                    i: {
+                        total_dominant_category_list[columns.get_loc(i)][0]: (
+                            total_dominant_category_list[columns.get_loc(i)][1],
+                            len(df[i]),
+                        )
+                    }
+                    for i in self.df.columns
+                }
+            },
+        )
+        # Number of semantically invalid values according to the dominant category
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M104_4,
+            defaults={
+                "result": {
+                    i: {
+                        total_dominant_category_list[columns.get_loc(i)][0]: len(df[i])
+                        - (total_dominant_category_list[columns.get_loc(i)][1] or 0)
+                    }
+                    for i in self.df.columns
+                }
+            },
+        )
+
+        # Number of semantically valid values according to the dominant category
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M105_5,
+            defaults={
+                "result": {
+                    i: {
+                        total_dominant_subcategory_list[columns.get_loc(i)][0]: (
+                            total_dominant_subcategory_list[columns.get_loc(i)][1],
+                            len(df[i]),
+                        )
+                    }
+                    for i in self.df.columns
+                }
+            },
+        )
+        # Number of semantically invalid values according to the dominant category
+        SyntacticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M106_6,
+            defaults={
+                "result": {
+                    i: {
+                        total_dominant_subcategory_list[columns.get_loc(i)][0]: len(df[i])
+                        - (total_dominant_subcategory_list[columns.get_loc(i)][1] or 0)
+                    }
+                    for i in self.df.columns
+                }
+            },
+        )
+        return total_categorie_list, total_number_categorie_list
 
     def syntactic_validation_with_data_dict(self):
         """
@@ -390,6 +504,7 @@ class StringAnalyser(StringInterface, Thread):
         self.count_number_of_words()
         self.count_values()
         self.model_data_frequency()
+        self.syntactic_validation_with_regexp()
         # self.get_columns_type()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
