@@ -30,6 +30,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
+      - name: Install GDAL
+        run: |
+          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt-get update
+          sudo apt-get -y install gdal-bin libgdal-dev
+          export GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
+        
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
       - name: Upload artifact for deployment jobs
