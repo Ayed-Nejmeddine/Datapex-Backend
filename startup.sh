@@ -1,4 +1,5 @@
 add-apt-repository ppa:ubuntugis/ppa
 apt-get update
-apt-get install gdal-bin libgdal-dev
+apt-get -y install gdal-bin libgdal-dev
 export GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
+gunicorn --bind=0.0.0.0 --timeout 600 pbird.wsgi
