@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import platform
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -227,8 +228,9 @@ PHONE_VERIFICATION = {
 OLD_PASSWORD_FIELD_ENABLED = True
 
 """ cities light setting"""
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal306.dll"
-GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
+if platform.system() == "Windows":
+    GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal306.dll"
+    GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT', 'ADM2']
 CITIES_LIGHT_INCLUDE_COUNTRIES = [
