@@ -32,10 +32,11 @@ jobs:
         
       - name: Install GDAL
         run: |
-          add-apt-repository ppa:ubuntugis/ppa
-          apt-get update
-          apt-get -y install gdal-bin libgdal-dev
-          chmod 777 "/usr/lib/libgdal.so"
+          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt-get update
+          sudo apt-get -y install gdal-bin libgdal-dev
+          echo "/usr/lib" | sudo tee -a /etc/ld.so.conf.d/gdal.conf
+          sudo ldconfig
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
