@@ -15,6 +15,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
+      - run: |
+          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt-get update
+          sudo apt-get -y install gdal-bin libgdal-dev
+        shell: bash
+        
       - uses: actions/checkout@v2
 
       - name: Set up Python version
@@ -29,14 +36,6 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
-        
-      - name: Install GDAL
-        run: |
-          sudo add-apt-repository ppa:ubuntugis/ppa
-          sudo apt-get update
-          sudo apt-get -y install gdal-bin libgdal-dev
-          echo "/usr/lib" | sudo tee -a /etc/ld.so.conf.d/gdal.conf
-          sudo ldconfig
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
