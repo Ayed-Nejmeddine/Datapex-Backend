@@ -24,7 +24,11 @@ jobs:
           python-version: '3.8'
           
       - name: Set up GDAL
-        run: ./test.sh
+        run: |
+          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt-get update
+          sudo apt-get -y install gdal-bin libgdal-dev
+          export GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
 
       - name: Create and start virtual environment
         run: |
