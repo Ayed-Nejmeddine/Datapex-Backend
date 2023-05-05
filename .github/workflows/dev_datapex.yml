@@ -15,20 +15,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-    
-      - run: |
-          sudo add-apt-repository ppa:ubuntugis/ppa
-          sudo apt-get update
-          sudo apt-get -y install gdal-bin libgdal-dev
-        shell: bash
-        
+      
       - uses: actions/checkout@v2
 
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
           python-version: '3.8'
+          
+      - name: Set up GDAL
+        run: "/home/test.sh/
 
       - name: Create and start virtual environment
         run: |
