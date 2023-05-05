@@ -236,9 +236,8 @@ if platform.system() == "Windows":
     GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal306.dll"
     GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
 else:
-    GDAL_LIBRARY_PATH = "/home/usr/lib/libgdal.so"
-
-
+    GDAL_LIBRARY_PATH = "/usr/lib/libgdal.so"
+    
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT', 'ADM2']
 CITIES_LIGHT_INCLUDE_COUNTRIES = [
