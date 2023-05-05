@@ -24,7 +24,7 @@ jobs:
           python-version: '3.8'
           
       - name: Set up GDAL
-        run: "/home/test.sh/
+        run: "/home/test.sh
 
       - name: Create and start virtual environment
         run: |
