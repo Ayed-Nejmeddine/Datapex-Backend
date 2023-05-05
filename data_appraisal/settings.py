@@ -99,7 +99,11 @@ WSGI_APPLICATION = "data_appraisal.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.mysql",
-        "OPTIONS": {"charset": "utf8mb4", "read_default_file": os.path.join(BASE_DIR, "mysql.cnf")},
+        "NAME":"xqnmbthh" ,
+        "USER":"xqnmbthh" ,
+        "PASSWORD":"BwLjJvEMwKpL1y3Gi9MVXMXFui04DE3D" ,
+        "HOST": "rogue.db.elephantsql.com",
+        "PORT": 5432,
     }
 }
 
@@ -231,7 +235,7 @@ OLD_PASSWORD_FIELD_ENABLED = True
 if platform.system() == "Windows":
     GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal306.dll"
     GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
-else: 
+else:
     GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
