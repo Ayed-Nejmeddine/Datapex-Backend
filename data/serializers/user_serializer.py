@@ -133,7 +133,7 @@ class UploadPhotoSerializer(serializers.ModelSerializer):
     """
     Serializer for Upload Profile photo.
     """
-    photo = serializers.CharField(required=True, allow_blank=False, allow_null=False)
+    photo = serializers.ImageField(required=True)
 
     class Meta:
         model = Profile
