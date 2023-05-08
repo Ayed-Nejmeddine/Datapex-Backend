@@ -30,12 +30,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
-      - name: Database migrations
-        run: |
-          python manage.py makemigrations
-          python manage.py makemigrations data
-          python manage.py migrate
-        
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
       - name: Upload artifact for deployment jobs
