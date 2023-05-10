@@ -103,9 +103,6 @@ DATABASES = {
         "PASSWORD":"T93bqrOCGYvZnUih4gZUDWAhGx-FLO1H" ,
         "HOST": "dumbo.db.elephantsql.com",
         "PORT": 5432,
-        'OPTIONS': {
-            'timezone': 'UTC',
-        },
     }
 }
 
