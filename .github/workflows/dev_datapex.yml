@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'datapex'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_585D0346EC5A4595BE06FCEEA45D8C46 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D19D369AF3AC4BC08C35DB39779D33AE }}
