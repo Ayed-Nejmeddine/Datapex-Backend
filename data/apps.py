@@ -49,7 +49,7 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
         with open(file, encoding="iso-8859-1") as f:
             csvReader = csv.DictReader(f, delimiter=";")
 
-            for row, count in enumerate(csvReader):
+            for count, row in enumerate(csvReader, 1):
                 jsonArray.append(row)
 
                 if count == 12000:
