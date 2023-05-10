@@ -27,7 +27,7 @@ SECRET_KEY = "k%w=%+0%hzi4qy6c2g_5n_g7nqrho3=jlvucv!3%766%z*pelk"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "django.contrib.gis",
     # 3rd party
     "rest_framework",
     "drf_yasg",
@@ -98,12 +97,15 @@ WSGI_APPLICATION = "data_appraisal.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.contrib.gis.db.backends.mysql",
-        "NAME":"xqnmbthh" ,
-        "USER":"xqnmbthh" ,
-        "PASSWORD":"BwLjJvEMwKpL1y3Gi9MVXMXFui04DE3D" ,
-        "HOST": "rogue.db.elephantsql.com",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME":"kgibrgtc" ,
+        "USER":"kgibrgtc" ,
+        "PASSWORD":"T93bqrOCGYvZnUih4gZUDWAhGx-FLO1H" ,
+        "HOST": "dumbo.db.elephantsql.com",
         "PORT": 5432,
+        'OPTIONS': {
+            'timezone': 'UTC',
+        },
     }
 }
 
@@ -231,13 +233,6 @@ PHONE_VERIFICATION = {
 # password change
 OLD_PASSWORD_FIELD_ENABLED = True
 
-""" cities light setting"""
-if platform.system() == "Windows":
-    GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal306.dll"
-    GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
-else:
-    GDAL_LIBRARY_PATH = "/usr/lib/libgdal.so"
-    
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT', 'ADM2']
 CITIES_LIGHT_INCLUDE_COUNTRIES = [
