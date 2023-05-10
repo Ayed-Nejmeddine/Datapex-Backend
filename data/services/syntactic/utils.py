@@ -1,12 +1,12 @@
 """Here all the utils functions"""
 import datetime
+import json
 import re
 
 import pandas as pd
 
 from data.models import DAYS_TRANSLATOR
 from data.models import MONTHS_TRANSLATOR
-from data.models.basic_models import RegularExp
 
 
 def translate(text):
@@ -66,12 +66,13 @@ def model_text(text):
 
 def get_regexp(text, expressions):
     """Get the matching regular expression."""
+
     if not pd.isnull(text):
         for exp in expressions:
-            if re.search(exp, text.upper()):
-                res = RegularExp.objects.filter(expression=exp).first()
-                return (res.category, res.subcategory)
-    return (None,None)
+            cat = re.search(exp[2], text.upper())
+            if cat:
+                return (exp[0], exp[1])
+    return (None, None)
 
 
 def get_data_dict(text, data_dict):
@@ -79,9 +80,12 @@ def get_data_dict(text, data_dict):
     if not pd.isnull(text):
         text = " ".join(text.split())
         for data in data_dict:
-            for sub, val in data.data_dict.items():
-                if text.upper() == val:
-                    return data.data_dict["CATEGORY"], sub
+            json_data_dict = json.loads(data.data_dict)
+            for row in json_data_dict:
+                for sub, val in row.items():
+                    if text.upper() == val:
+                        return row["CATEGORY"], sub
+
     return None
 
 

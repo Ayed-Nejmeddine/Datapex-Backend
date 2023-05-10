@@ -12,6 +12,7 @@ from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
 from data.models import RUNNING_STATE
@@ -220,12 +221,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
         """launch the semantic analysis and get the results."""
         document = self.get_object()
 
-        if not (
-            AnalysisTrace.objects.filter(document=document, state="running")
-            or AnalysisTrace.objects.filter(document=document, state="finished")
-        ):
-            return Response({"message": "Please launch the syntactic analysis first!"})
-
+        if AnalysisTrace.objects.filter(document=document, state="running"):
+            raise ValidationError({"message": "the syntactic analysis still running!"})
+        if not AnalysisTrace.objects.filter(document=document, state="finished"):
+            raise ValidationError({"message": "Please launch the syntactic analysis first!"})
         try:
             SemanticAnalyser(document=document).run()
             return Response(

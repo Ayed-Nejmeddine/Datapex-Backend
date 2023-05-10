@@ -1,4 +1,5 @@
 """Here all string functions"""
+
 from threading import Thread
 
 import numpy as np
@@ -206,7 +207,7 @@ class StringAnalyser(StringInterface, Thread):
         """Returns the number of categories and subcategories in each column"""
         df = self.df
         columns = df.columns
-        expressions = RegularExp.objects.all().values_list("expression", flat=True)
+        expressions = RegularExp.objects.all().values_list("category", "subcategory", "expression")
         total_categorie_list = []
         total_number_categorie_list = []
         total_subcategorie_list = []
@@ -216,7 +217,7 @@ class StringAnalyser(StringInterface, Thread):
 
         for col in columns:
             res = []
-            dominant_category = ""
+
             dominant_number_category = 0
 
             if is_string_dtype(self.df[col].dtype):
@@ -246,13 +247,16 @@ class StringAnalyser(StringInterface, Thread):
             dominant_number_category = max(nbre_cat)
             if dominant_number_category:
                 dominant_category = list_cat[nbre_cat.index(dominant_number_category)]
+                if dominant_category is None:
+                    nbre_cat[nbre_cat.index(dominant_number_category)] = 0
+                    dominant_number_category = max(nbre_cat)
+                    dominant_category = list_cat[nbre_cat.index(dominant_number_category)]
                 total_dominant_category_list.append(
                     (dominant_category, dominant_number_category)
                 )  # tuple(dominant category,it's number)
             else:
                 total_dominant_category_list.append((None, None))
 
-            total_subcategorie_list.append(list_subcat)
             total_number_subcategorie_list.append(nbre_subcat)
             dominant_number_subcategory = max(nbre_subcat)
             if dominant_number_subcategory != 0:
@@ -265,7 +269,7 @@ class StringAnalyser(StringInterface, Thread):
                 total_dominant_subcategory_list.append((None, None))
 
             total_subcategorie_list.append(list_subcat)
-            total_number_subcategorie_list.append(nbre_subcat)
+
         categories = list(
             {element for inner_list in total_categorie_list for element in inner_list}
         )
@@ -386,14 +390,13 @@ class StringAnalyser(StringInterface, Thread):
         data_types will contain the data types of each column (exp: city, airport, firstname, etc...) and percentages will contain the percentages of
         the data_types in each column.
         """
+
+        data_dict = DataDict.objects.all()
         df = self.df
         columns = df.columns
-        invalid_res = np.full(len(columns), np.array(df.shape[0]))
+
         #  TODO: Matching with the data dict takes a long time due to the size of the data_dict.  # pylint: disable=W0511
-        data_types = []
-        percentages = []
-        column_type = []
-        total_dict = []
+        total_dominant_cat_sub = []
         for i in columns:
             if is_string_dtype(df[i].dtypes):
                 d = (
@@ -401,52 +404,52 @@ class StringAnalyser(StringInterface, Thread):
                     .value_counts(dropna=False)
                     .keys()
                     .to_series()
-                    .apply(get_data_dict, data_dict=DataDict.objects.all())
+                    .apply(get_data_dict, data_dict=data_dict)
                 )
-                column_type.append(d)
                 matched_res = d.apply(lambda x: ("no-match", "no-match") if x is None else x)
                 matched_dict = {}
-                percentage = df[i].value_counts(dropna=False, normalize=True) * 100
                 for j in range(len(matched_res)):
                     if matched_res[j] in matched_dict.keys():
-                        matched_dict[matched_res[j]] += percentage[j]
+                        matched_dict[matched_res[j]] += 1
                     else:
-                        matched_dict[matched_res[j]] = percentage[j]
-
-                data_types.append(matched_dict.keys())
-                percentages.append(matched_dict.values())
-                total_dict.append(matched_dict)
-                invalid_res[columns.get_loc(i)] = df[i].value_counts(dropna=False)[d.isna()].sum()
+                        matched_dict[matched_res[j]] = 1
+                matched_dict_percentages = {
+                    key: int(matched_dict[key] * 100 / len(df[i])) for key in matched_dict
+                }
+                dominant_category = (
+                    [
+                        category
+                        for category in matched_dict_percentages
+                        if matched_dict_percentages[category]
+                        == max(matched_dict_percentages.values())
+                    ][0],
+                    max(matched_dict_percentages.values()),
+                )
+                total_dominant_cat_sub.append(dominant_category)
             else:
-                data_types.append(["non-applicable"])
-                percentages.append([0])
-                column_type.append([])
-                total_dict.append({})
-        res = np.array(df.shape[0]) - invalid_res
+                total_dominant_cat_sub.append(["Non applicable"])
+
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M102_26,
-            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
+            defaults={
+                "result": {i: total_dominant_cat_sub[columns.get_loc(i)][1] for i in columns}
+            },
         )
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=DATA_TYPES,
-            defaults={
-                "result": {
-                    i: (data_types[columns.get_loc(i)], percentages[columns.get_loc(i)])
-                    for i in columns
-                }
-            },
+            defaults={"result": {i: total_dominant_cat_sub[columns.get_loc(i)] for i in columns}},
         )
         # number of syntactically invalid data according to the data dictionary
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M103_26,
             defaults={
-                "result": {i: invalid_res[self.df.columns.get_loc(i)] for i in self.df.columns}
+                "result": {i: 100 - total_dominant_cat_sub[columns.get_loc(i)][1] for i in columns}
             },
         )
-        return column_type, total_dict
+        return matched_dict_percentages, total_dominant_cat_sub
 
     def get_columns_type(self):
         """Get an estimate of the column type"""
@@ -505,6 +508,7 @@ class StringAnalyser(StringInterface, Thread):
         self.count_values()
         self.model_data_frequency()
         self.syntactic_validation_with_regexp()
+        self.syntactic_validation_with_data_dict()
         # self.get_columns_type()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
