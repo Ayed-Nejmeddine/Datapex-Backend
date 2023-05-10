@@ -46,24 +46,24 @@
             color: #67748E;
         }
         button {
-            display: block;
-            margin: 0 auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            width: 188px;
-            height: 41px;
-            background: #00B8D9;
-            box-shadow: 0px 4px 7px -1px rgba(0, 5, 0, 0.11), 0px 2px 4px -1px rgba(0, 0, 0, 0.07);
-            border-radius: 8px;
-            color: #FFFFFF;
-            font-family: 'Public Sans', sans-serif;
-            font-style: normal;
-            font-weight: 700;
-            font-size: 12px;
-            text-align: center;
-            text-transform: uppercase;
-            border: none !important;
-          }
+          display: block;
+          margin: 0 auto;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          width: 188px;
+          height: 41px;
+          background: #00B8D9;
+          box-shadow: 0px 4px 7px -1px rgba(0, 5, 0, 0.11), 0px 2px 4px -1px rgba(0, 0, 0, 0.07);
+          border-radius: 8px;
+          color: #FFFFFF;
+          font-family: 'Public Sans', sans-serif;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 12px;
+          text-align: center;
+          text-transform: uppercase;
+          border: none !important;
+        }
         .img {
           text-align: center;
           margin-top: 40px;
@@ -84,19 +84,17 @@
       <table cellpadding="0" cellspacing="0" border="0" width="50%" bgcolor="#FFFFFF">
         <tr>
           <td align="center">
-            <img src="cid:reset-password.png" width="250" height="250" alt="Reset password">
-            <h1>Réinitialisation de votre mot de passe</h1>
-            <p>Bonjour {{user}}</p>
-            <p>Nous avons bien reçu votre demande de réinitialisation de mot <br/>de passe pour votre compte sur DATAPEX. Afin de pouvoir <br/>choisir un nouveau mot de passe, veuillez suivre les</br> instructions ci-dessous :</p>
-            <p id="link">Pour ce faire, veuillez cliquer sur le lien ci-dessous pour la réinitialisation de mot de passe</p>
-            <a href="{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">{% block reset_link %}<button>réinitialiser votre mot de passe</button>{% endblock %}</a>
-            <p>Vous serez redirigé vers une page où vous pourrez choisir <br/>un nouveau mot de passe. Veuillez choisir un mot de passe sécurisé <br/>et ne le partager avec personne.</p>
-            <p>Si vous n'avez pas effectué cette demande de réinitialisation <br/>de mot de passe veuillez nous contacter immédiatement à<br/> l’adresse suivante :[adresse e-mail du support technique). </p>
-            <p >Nous vous remercions de votre confiance et restons à votre<br/>disposition pour toute question</p>
+            <img src="cid:update-password.png" width="250" height="250" alt="Update password">
+            <h1>Modification de mot de passe</h1>
+            <p>Bonjour {{username}}</p>
+            <p>Nous vous informons que votre mot de passe a bien été<br/> modifié pour votre compte sur DATAPEX. Cette <br/>modification a été effectuée à {{time}}<br/> le {{date}}.</p>
+            <p>Si vous n'êtes pas à l'origine de cette modification,veuillez  <br/>contacter immédiatement notre équipe de support<br/> technique à l'adresse suivante : [adresse e-mail <br/>du support technique].</p>
+            <p>Nous vous rappelons qu'il est important de choisir un<br/> mot de passe sécurisé et de ne le partager avec <br/>personne. Nous vous conseillons également de changer <br/>régulièrement votre mot de passe pour garantir la <br/>sécurité de votre compte.</p>
+            <p>Nous vous remercions de votre confiance et restons à votre <br/>disposition pour toute question.</p>
             <p >Cordialement<br/>L'équipe DATAPEX</p>
         <div class="img">
-            <img src='cid:facebook.png'/>
-            <img src='cid:instagram.png'/>
+            <img style="margin-right:20px;" src='cid:facebook.png'/>
+            <img style="margin-right:20px;" src='cid:instagram.png'/>
             <img src='cid:linkedin.png'/>
         </div>
         <div id="trait"></div>
