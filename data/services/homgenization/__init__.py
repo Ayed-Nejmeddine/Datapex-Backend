@@ -9,14 +9,12 @@ class Homogenization(HomogenizationAnalyser, Thread):
         self.document_id = document.id
         self.document_path = document.document_path
         with document.document_path.open('r') as f:
-            df = pd.DataFrame(pd.read_csv(f))
+            df = pd.read_csv(f,sep=';')
             df = df.convert_dtypes()
-        columns = df.columns
-        string_col = []
-        for i in columns:
-                string_col.append(i)
-        self.df = df[string_col]
+        self.df = df
         Thread.__init__(self)
 
     def run(self):
+        self.remove_extra_spaces()
         self.remove_duplicated_rows()
+        
