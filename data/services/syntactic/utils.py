@@ -84,7 +84,7 @@ def get_data_dict(text, data_dict):
             for row in json_data_dict:
                 for sub, val in row.items():
                     if text.upper() == val:
-                        return row["CATEGORY"], sub
+                        return {"category": row["CATEGORY"], "subcategory": sub}
 
     return None
 

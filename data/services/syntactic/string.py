@@ -394,6 +394,7 @@ class StringAnalyser(StringInterface, Thread):
         data_dict = DataDict.objects.all()
         df = self.df
         columns = df.columns
+        data_types = {}
 
         #  TODO: Matching with the data dict takes a long time due to the size of the data_dict.  # pylint: disable=W0511
         total_dominant_cat_sub = []
@@ -406,16 +407,31 @@ class StringAnalyser(StringInterface, Thread):
                     .to_series()
                     .apply(get_data_dict, data_dict=data_dict)
                 )
-                matched_res = d.apply(lambda x: ("no-match", "no-match") if x is None else x)
+
+                matched_res = d.apply(
+                    lambda x: {k: "no-match" if v is None else v for k, v in x.items()}
+                )
+
                 matched_dict = {}
                 for j in range(len(matched_res)):
                     if matched_res[j] in matched_dict.keys():
                         matched_dict[matched_res[j]] += 1
                     else:
                         matched_dict[matched_res[j]] = 1
+                # print(matched_dict)
                 matched_dict_percentages = {
                     key: int(matched_dict[key] * 100 / len(df[i])) for key in matched_dict
                 }
+
+                for cat_sub in matched_dict_percentages:
+                    if cat_sub in data_types:
+                        if i in data_types[cat_sub]:
+                            data_types[cat_sub][i] += matched_dict_percentages[cat_sub]
+                        else:
+                            data_types[cat_sub][i] = matched_dict_percentages[cat_sub]
+                    else:
+                        data_types[cat_sub] = {i: matched_dict_percentages[cat_sub]}
+
                 dominant_category = (
                     [
                         category
@@ -439,7 +455,7 @@ class StringAnalyser(StringInterface, Thread):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=DATA_TYPES,
-            defaults={"result": {i: total_dominant_cat_sub[columns.get_loc(i)] for i in columns}},
+            defaults={"result": data_types},
         )
         # number of syntactically invalid data according to the data dictionary
         SyntacticResult.objects.update_or_create(

@@ -41,7 +41,7 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
     files_list = [
         f for f in listdir(repository) if isfile(join(repository, f)) and f.endswith(".csv")
     ]
-    nbr = 0
+
     for f in files_list:
         file = os.path.join(settings.BASE_DIR, "data", "data_dictionaries", f)
         globalJsonArray = []
@@ -62,8 +62,7 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
                 globalJsonArray.append(jsonArrayString)
 
             for Array in globalJsonArray:
-                DataDict.objects.update_or_create(data_dict=Array)
-                nbr += 1
+                DataDict.objects.update_or_create(data_dict=Array, category=Array["CATEGORY"])
 
 
 def create_tasks(sender, **kwargs):  # pylint: disable=W0613
