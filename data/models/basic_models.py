@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from jsonfield import JSONField
-from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES
+from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES, HOMOGENIZATION_TYPES
 from django_currentuser.db.models import CurrentUserField
 from datetime import datetime
 
@@ -101,3 +101,13 @@ class Link(models.Model):
 
     objects = models.Manager()
 
+class HomogenizationTrace(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)
+    homogenization_type = models.CharField(max_length=100, choices=HOMOGENIZATION_TYPES)
+
+    def __str__(self):
+        """
+        Override this method to format HomogenizationTrace object.'
+        """
+        return f'{self.document} - {self.homogenization_type}'

@@ -12,3 +12,8 @@ class SemanticInterface:
         category and subcategory.
         """
         pass
+        """
+        Indicator of percentage of semantically valid (and invalid) values according to the dominant
+        category and subcategory.
+        """
+        pass

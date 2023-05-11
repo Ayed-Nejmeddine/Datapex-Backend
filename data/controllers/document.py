@@ -14,8 +14,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from data.models import BASIC_ANALYSIS
+from data.models import HOMOGENIZATION_DUPLICATION
 from data.models import RUNNING_STATE
-from data.models.basic_models import AnalysisTrace
+from data.models.basic_models import AnalysisTrace, HomogenizationTrace
 from data.models.basic_models import Document
 from data.models.basic_models import Link
 from data.models.basic_models import SemanticResult
@@ -24,7 +25,7 @@ from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
 from data.services.semantic import Analyser as SemanticAnalyser
 from data.services.syntactic import Analyser
-
+from data.services.homgenization import Homogenization
 
 class DocumentViewSet(viewsets.ModelViewSet):
     """
@@ -283,3 +284,30 @@ class DocumentViewSet(viewsets.ModelViewSet):
             return Response({"message": "No document has yet been analyzed"})
         latest_doc = documents.latest("upload_date")
         return Response(DocumentSerializer(latest_doc, read_only=True).data)
+
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        url_name="lunch-document-cleaning",
+        url_path="lunch-document-cleaning",
+    )
+    def lunch_document_cleaning(self, request,pk=None):
+        """Remove spaces and duplicated rows in the document"""
+        document = self.get_object()
+        HomogenizationTrace.objects.update_or_create(
+            document=document,
+            homogenization_type=HOMOGENIZATION_DUPLICATION,
+            defaults={
+                "document": document,
+                "homogenization_type": HOMOGENIZATION_DUPLICATION,
+                "state": RUNNING_STATE,
+            },
+        )
+        try:
+            Homogenization(document=document).run()
+            return Response(
+                {"message": "The document is cleanned successfully ."}, status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response({"message": f"The document cleaning failed, error:{e}"})
