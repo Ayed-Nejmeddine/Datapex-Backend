@@ -2,11 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+        h1 {
+          font-family: 'Marcellus', serif;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 40px;
+          line-height: 33px;
+          color: #000000;
+          text-align: center;
+          margin-top: 30px;
+          margin-bottom: 20px;
+        }
+        p {
+          font-family: 'Public Sans', sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 20px;
+          color: #000000;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        a {
+          text-decoration: none;
+        }
+        #link{
+            font-family: 'Public Sans', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            width: 100%;
+            height: 16px;
+            text-align: center;
+            color: #67748E;
+        }
+        button {
+          display: block;
+          margin: 0 auto;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          width: 188px;
+          height: 41px;
+          background: #00B8D9;
+          box-shadow: 0px 4px 7px -1px rgba(0, 5, 0, 0.11), 0px 2px 4px -1px rgba(0, 0, 0, 0.07);
+          border-radius: 8px;
+          color: #FFFFFF;
+          font-family: 'Public Sans', sans-serif;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 12px;
+          text-align: center;
+          text-transform: uppercase;
+          border: none !important;
+        }
+        .img {
+          text-align: center;
+          margin-top: 40px;
+          display:flex;
+          width:20%;
+          padding-bottom:20px;
+        }
+        #trait {
+          border-top: 1px solid #000000;
+          margin-top: 40px;
+          width: 400px;
+          display: block;
+          margin: 0 auto;
+        }
+      </style>
+    </head>
     <body>
-        <p>Hello from {{site}}!</p><br>
-        <p>You're receiving this e-mail because user {{username}} has given yours as an e-mail address to connect their account.</p>
-        <p> To confirm this is correct, go to this <strong> <a href="{{link}}">link</a></strong>.</p>
+      <table cellpadding="0" cellspacing="0" border="0" width="50%" bgcolor="#FFFFFF">
+        <tr>
+          <td align="center">
+            <img src="cid:confirm-email.png" width="250" height="250" alt="Confirm Email">
+            <h1>Validation de votre Email</h1>
+            <p>Bonjour {{username}}</p>
+            <p>Nous avons bien reçu votre demande d'inscription à DATAPEX.<br/> Afin de finaliser votre inscription, nous avons besoin de <br/> valider votre adresse e-mail.</p>
+            <p id="link">Pour ce faire, veuillez cliquer sur le lien ci-dessous:</p>
+            <p><a href="{{link}}"><button>Confirmer votre email</button></a></p>
+            <p>Si vous rencontrez des difficultés pour valider votre adresse<br/> e-mail, n'hésitez pas à nous contacter à l'adresse suivante: <br/>[adresse e-mail du support technique).</p>
+            <p>Nous vous rappelons que votre compte sera activé une fois <br/>que vous aurez validé votre adresse e-mail.</p>
+            <p >Merci d'avoir choisi DATAPEX!<br/>Votre aventure va pouvoir commencer!</p>
+            <p >Cordialement<br/>L'équipe DATAPEX</p>
+        <div class="img">
+            <img style="margin-right:20px;" src='cid:facebook.png'/>
+            <img style="margin-right:20px;" src='cid:instagram.png'/>
+            <img src='cid:linkedin.png'/>
+        </div>
+        <div id="trait"></div>
     </body>
 </html>
