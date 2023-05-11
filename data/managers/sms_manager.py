@@ -1,10 +1,24 @@
 """Define SMS Manager"""
+import random
+
+from django.conf import settings
+
+import jwt
 from phone_verify.backends.twilio import TwilioBackend
 from phone_verify.models import SMSVerification
 
 
 class CustomTwilioBackend(TwilioBackend):
     """Override Twilio backend in order to disable deleting SmsVerification objects"""
+
+    def generate_session_token(self, phone_number):
+        """
+        Returns a unique session_token for
+        identifying a particular device in subsequent calls.
+        """
+        data = {"phone_number": phone_number, "nonce": random.random()}
+        return jwt.encode(data, settings.SECRET_KEY)
+
     def create_security_code_and_session_token(self, number):
         """
         Creates a temporary `security_code` and `session_token` inside the DB.
