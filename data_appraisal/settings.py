@@ -17,7 +17,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -27,7 +26,7 @@ SECRET_KEY = "k%w=%+0%hzi4qy6c2g_5n_g7nqrho3=jlvucv!3%766%z*pelk"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "django.contrib.gis",
     # 3rd party
     "rest_framework",
     "drf_yasg",
@@ -98,8 +96,12 @@ WSGI_APPLICATION = "data_appraisal.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.contrib.gis.db.backends.mysql",
-        "OPTIONS": {"charset": "utf8mb4", "read_default_file": os.path.join(BASE_DIR, "mysql.cnf")},
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME":"datapex-db" ,
+        "USER":"datapex-user" ,
+        "PASSWORD":"T93bqrOCGYvZnUih4gZUDWAhGx-FLO1H" ,
+        "HOST": "postgresql-125790-0.cloudclusters.net",
+        "PORT": 10034,
     }
 }
 
@@ -227,9 +229,6 @@ PHONE_VERIFICATION = {
 # password change
 OLD_PASSWORD_FIELD_ENABLED = True
 
-""" cities light setting"""
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal306.dll"
-GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr', 'en']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT', 'ADM2']
 CITIES_LIGHT_INCLUDE_COUNTRIES = [
@@ -259,8 +258,8 @@ CITIES_LIGHT_INCLUDE_COUNTRIES = [
     'YE', 'YT',
     'ZA', 'ZM', 'ZW',
 ]
-ICON_LINK = r"/media/email_icons"
 
+ICON_LINK = r"/media/email_icons"
 IMAGES = [
     (BASE_DIR + ICON_LINK, "confirm-email.png"),
     (BASE_DIR + ICON_LINK, "reset-password.png"),
