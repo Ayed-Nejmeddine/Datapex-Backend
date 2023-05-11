@@ -98,11 +98,11 @@ WSGI_APPLICATION = "data_appraisal.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME":"kgibrgtc" ,
-        "USER":"kgibrgtc" ,
+        "NAME":"datapex-db" ,
+        "USER":"datapex-user" ,
         "PASSWORD":"T93bqrOCGYvZnUih4gZUDWAhGx-FLO1H" ,
-        "HOST": "dumbo.db.elephantsql.com",
-        "PORT": 5432,
+        "HOST": "postgresql-125790-0.cloudclusters.net",
+        "PORT": 10034,
     }
 }
 
