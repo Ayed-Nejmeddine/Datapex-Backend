@@ -24,7 +24,7 @@ from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
 from data.services.semantic import Analyser as SemanticAnalyser
 from data.services.syntactic import Analyser
-
+from data.services.homgenization import Homogenization
 
 class DocumentViewSet(viewsets.ModelViewSet):
     """
@@ -283,3 +283,27 @@ class DocumentViewSet(viewsets.ModelViewSet):
             return Response({"message": "No document has yet been analyzed"})
         latest_doc = documents.latest("upload_date")
         return Response(DocumentSerializer(latest_doc, read_only=True).data)
+
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        url_name="lunch-document-cleaning",
+        url_path="lunch-document-cleaning",
+    )
+    def lunch_document_cleaning(self, request,pk=None):
+        """Remove spaces and duplicated rows in the document"""
+        document = self.get_object()
+        
+        if not (
+            AnalysisTrace.objects.filter(document=document, state="running")
+            or AnalysisTrace.objects.filter(document=document, state="finished")
+        ):
+            return Response({"message": "Please launch the syntactic analysis first!"})
+        try:
+            Homogenization(document=document).run()
+            return Response(
+                {"message": "The document is cleanned successfully ."}, status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response({"message": f"The document cleaning failed, error:{e}"})
