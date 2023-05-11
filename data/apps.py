@@ -9,18 +9,13 @@ from os.path import join
 from django.apps import AppConfig
 from django.conf import settings
 from django.db.models.signals import post_migrate
-from django.utils import timezone
-
-from background_task.models import Task
-
-from data.models.basic_models import DataDict
-from data.models.basic_models import RegularExp
 
 
 def fill_out_regexp_model(sender, **kwargs):  # pylint: disable=W0613
     """
     fill in the RegularExp table from DDRE file
     """
+    from data.models.basic_models import RegularExp
 
     file = os.path.join(settings.BASE_DIR, "data", "data_types", "DDRE.csv")
     with open(file, encoding="iso-8859-1") as csv_file:
@@ -36,6 +31,7 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
     """
     fill in the data_dict table from files in the "data_dictionaries" directory
     """
+    from data.models.basic_models import DataDict
 
     repository = os.path.abspath("data/data_dictionaries")
     files_list = [
@@ -45,13 +41,16 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
     for f in files_list:
         file = os.path.join(settings.BASE_DIR, "data", "data_dictionaries", f)
         globalJsonArray = []
+
         jsonArray = []
         with open(file, encoding="iso-8859-1") as f:
             csvReader = csv.DictReader(f, delimiter=";")
-
-            for count, row in enumerate(csvReader, 1):
+            first_row = next(csvReader)
+            category = first_row["CATEGORY"]
+            count = 0  # noqa
+            for row in csvReader:
                 jsonArray.append(row)
-
+                count += 1
                 if count == 12000:
                     jsonArrayString = json.dumps(jsonArray)
                     globalJsonArray.append(jsonArrayString)
@@ -62,13 +61,16 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
                 globalJsonArray.append(jsonArrayString)
 
             for Array in globalJsonArray:
-                DataDict.objects.update_or_create(data_dict=Array, category=Array["CATEGORY"])
+                DataDict.objects.update_or_create(data_dict=Array, category=category)
 
 
 def create_tasks(sender, **kwargs):  # pylint: disable=W0613
     """
     Create scheduled periodic task to trace the running threads.
     """
+    from django.utils import timezone
+
+    from background_task.models import Task
 
     Task.objects.update_or_create(
         task_name="data.services.trace_threads",

@@ -28,6 +28,13 @@ ANALYSIS_TYPES = (
     (DATE_ANALYSIS, _("Date-Analysis")),
 )
 
+# homogenization types
+HOMOGENIZATION_DUPLICATION = "Duplication"
+
+HOMOGENIZATION_TYPES =(
+    (HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplication")),
+)
+
 # rules for the syntactic analysis:
 M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}

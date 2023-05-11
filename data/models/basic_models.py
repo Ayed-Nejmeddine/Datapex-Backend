@@ -111,7 +111,7 @@ class DataDict(models.Model):
     """Data dict model"""
 
     data_dict = JSONField()
-    category = models.CharField(max_length=150, default="default_category")
+    category = models.CharField(max_length=150)
     objects = models.Manager()
 
 
@@ -126,7 +126,7 @@ class Link(models.Model):
 
 
 class HomogenizationTrace(models.Model):
-    """Homogenization trace Model"""
+    """Homogenization class"""
 
     document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
     state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)

@@ -128,3 +128,13 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
 
     class Meta(UserDetailsSerializer.Meta):  # pylint: disable=C0115,R0903
         fields = UserDetailsSerializer.Meta.fields + ("profile",)
+
+class UploadPhotoSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Upload Profile photo.
+    """
+    photo = serializers.ImageField(required=True)
+
+    class Meta:
+        model = Profile
+        fields = ('photo',)

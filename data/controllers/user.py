@@ -5,7 +5,11 @@ from phone_verify.serializers import PhoneSerializer
 from data.services.utils import send_security_code_and_generate_session_token
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import viewsets,mixins
+from ..serializers.user_serializer import UploadPhotoSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from data.models.user_model import Profile
 
 class VerificationViewSet(VerifyViewSET):
     """
@@ -40,3 +44,8 @@ class VerificationViewSet(VerifyViewSET):
             )
             return response.Ok({"session_token": session_token})
         return response.Ok({"phone_number": f'Your number {phone_number} is already verified!'})
+
+class UploadPhotoViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    serializer_class = UploadPhotoSerializer
+    permission_classes=[IsAuthenticated,]
+    queryset = Profile.objects.all()
