@@ -3,19 +3,53 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.http import urlsafe_base64_decode
 
+from allauth.account.models import EmailAddress
 from phone_verify.api import VerificationViewSet as VerifyViewSET
 from phone_verify.base import response
 from phone_verify.serializers import PhoneSerializer
 from rest_auth.views import PasswordResetConfirmView
 from rest_framework import mixins
+from rest_framework import serializers
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from data.models.user_model import Profile
 from data.serializers.user_serializer import UploadPhotoSerializer
 from data.services.utils import send_email
 from data.services.utils import send_security_code_and_generate_session_token
+
+
+class EmailConfirmationViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    """
+    API endpoint for email verification.
+    """
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        permission_classes=[IsAuthenticated],
+        url_name="resend-email-verification-link",
+        url_path="resend-email-verification-link",
+    )
+    def resend_email_verification_link(self, request, pk=None):
+        """
+        Resend email verification link.
+        """
+        email = EmailAddress.objects.get(user=request.user)
+        if email.user.profile.email_is_verified:
+            return serializers.ValidationError(
+                {"error": "email is already verified"}, status=status.HTTP_409_CONFLICT
+            )
+        email.send_confirmation()
+        return Response({"email_verification": "sent"}, status=status.HTTP_200_OK)
+
+    def get_queryset(self):
+        """Override the get_queryset method."""
+        # Customize the queryset if needed
+        return EmailAddress.objects.all()
 
 
 class VerificationViewSet(VerifyViewSET):  # pylint: disable=R0903
