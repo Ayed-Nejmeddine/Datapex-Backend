@@ -79,6 +79,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "email_is_verified",
             "photo",
             "language",
+            "gender",
         )
 
 
@@ -135,6 +136,8 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
                 instance.profile.occupation = profile["occupation"]
             if profile.get("language", False):
                 instance.profile.language = profile["language"]
+            if profile.get("gender", False):
+                instance.profile.gender = profile["gender"]
             instance.profile.save()
         return instance
 
@@ -146,6 +149,7 @@ class UploadPhotoSerializer(serializers.ModelSerializer):  # pylint: disable=R09
     """
     Serializer for Upload Profile photo.
     """
+
     photo = serializers.ImageField(required=True)
 
     class Meta:  # pylint: disable=R0903
