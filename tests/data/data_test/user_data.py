@@ -14,7 +14,7 @@ USER = json.dumps(
             "postalCode": 2034,
             "country": "TN",
             "city": "Dubai",
-            "company_name": "Clevertech",
+            "company": "Clevertech",
             "occupation": "ttt",
             "language": "fr",
             "email_is_verified": True,
