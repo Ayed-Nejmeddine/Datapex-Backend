@@ -1,8 +1,3 @@
-from django.db import models
-from django.core.validators import FileExtensionValidator
-from jsonfield import JSONField
-from data.models import ANALYSIS_TRACE_STATES, RUNNING_STATE, ANALYSIS_TYPES, HOMOGENIZATION_TYPES
-from django_currentuser.db.models import CurrentUserField
 """Here all Basic models"""
 from datetime import datetime
 
@@ -14,6 +9,7 @@ from jsonfield import JSONField
 
 from data.models import ANALYSIS_TRACE_STATES
 from data.models import ANALYSIS_TYPES
+from data.models import HOMOGENIZATION_TYPES
 from data.models import RUNNING_STATE
 
 
@@ -30,7 +26,6 @@ class Document(models.Model):
     num_row = models.PositiveIntegerField(null=True, blank=True)
     name = models.CharField(max_length=100, null=False, blank=False)
     doc_type = models.CharField(max_length=100, default="csv")
-
     objects = models.Manager()
 
     def __str__(self):
@@ -44,7 +39,6 @@ class RegularExp(models.Model):
     category = models.CharField(max_length=150)
     subcategory = models.CharField(max_length=150)
     expression = models.CharField(max_length=1000)
-
     objects = models.Manager()
 
     def __str__(self):
@@ -68,7 +62,6 @@ class SyntacticResult(AnalysisResult):
     """Syntactic Analysis result model"""
 
     rule = JSONField()
-
     objects = models.Manager()
 
     def __str__(self):
@@ -82,7 +75,6 @@ class SemanticResult(AnalysisResult):
     """Semantic Analysis result model"""
 
     rule = JSONField()
-
     objects = models.Manager()
 
     def __str__(self):
@@ -106,7 +98,6 @@ class AnalysisTrace(models.Model):
     document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
     state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)
     analysis_type = models.CharField(max_length=100, choices=ANALYSIS_TYPES)
-
     objects = models.Manager()
 
     def __str__(self):
@@ -120,6 +111,7 @@ class DataDict(models.Model):
     """Data dict model"""
 
     data_dict = JSONField()
+    category = models.CharField(max_length=150)
     objects = models.Manager()
 
 
@@ -130,10 +122,12 @@ class Link(models.Model):
     first_column = models.CharField(max_length=200)
     second_column = models.CharField(max_length=200)
     relationship = models.CharField(max_length=100)
-
     objects = models.Manager()
 
+
 class HomogenizationTrace(models.Model):
+    """Homogenization class"""
+
     document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
     state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)
     homogenization_type = models.CharField(max_length=100, choices=HOMOGENIZATION_TYPES)
@@ -142,4 +136,4 @@ class HomogenizationTrace(models.Model):
         """
         Override this method to format HomogenizationTrace object.'
         """
-        return f'{self.document} - {self.homogenization_type}'
+        return f"{self.document} - {self.homogenization_type}"
