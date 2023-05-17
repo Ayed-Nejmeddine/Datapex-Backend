@@ -64,15 +64,22 @@ def model_text(text):
     return res
 
 
-def get_regexp(text, expressions):
+def get_regexp(value, expressions):
     """Get the matching regular expression."""
 
-    if not pd.isnull(text):
+    if not pd.isnull(value):
+        # print(value)
         for exp in expressions:
-            cat = re.search(exp[2], text.upper())
-            if cat:
-                return (exp[0], exp[1])
-    return (None, None)
+            if isinstance(value, str):
+                cat = re.search(exp[2], value.upper())
+                if cat:
+                    return (exp[0], exp[1])
+
+            elif isinstance(value, bool):
+                cat = re.search(exp[2], str(value))
+                if cat:
+                    return (exp[0], exp[1])
+    return ("no-match", "no-match")
 
 
 def get_data_dict(text, data_dict):
@@ -84,9 +91,9 @@ def get_data_dict(text, data_dict):
             for row in json_data_dict:
                 for sub, val in row.items():
                     if text.upper() == val:
-                        return {"category": row["CATEGORY"], "subcategory": sub}
+                        return (row["CATEGORY"], sub)
 
-    return None
+    return ("no-match", "no-match")
 
 
 def verify_Uppercase(text):

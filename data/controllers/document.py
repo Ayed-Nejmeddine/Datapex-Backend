@@ -16,6 +16,11 @@ from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
 from data.models import HOMOGENIZATION_DUPLICATION
+from data.models import M102_25
+from data.models import M103_30
+from data.models import M103_31
+from data.models import M104_5
+from data.models import M104_6
 from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
@@ -248,25 +253,63 @@ class DocumentViewSet(viewsets.ModelViewSet):
         if not {SemanticResult.objects.filter(document=document)}:
             return Response({"message": "Please launch the semantic analysis first!"})
 
-        results = SemanticResult.objects.filter(document=document)
+        categories_res = SemanticResult.objects.get(document=document, rule=M102_25)
+        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_30)
+        invalid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M104_5)
+        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M103_31)
+        invalid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M104_6)
 
-        # JSON Data
-        # base_rule = [
-        #         "MATCHED_EXPRESSIONS",
-        #         "M101_1",
-        #         "M102_2",
-        #         "M103_3",
-        #         "M104_4",
-        #         "M105_5",
-        #         "M106_6",
-        #     ]
         output = {}
+        columns = []
+        categories = {}
+        for col in categories_res.result:
+            columns.append(col)
 
-        for r in results:
-            out = {"rule": r.rule, "result": r.result}
-
-            output[r.rule["rule"]] = out
-
+            for cat in categories_res.result[col]:
+                if categories_res.result[col] == "NON APPLICABLE":
+                    if "no-match" in categories:
+                        categories["no-match"][col] = 100
+                    else:
+                        categories["no-match"] = {col: 100}
+                else:
+                    if cat in categories:
+                        categories[cat][col] = categories_res.result[col][cat]
+                    else:
+                        categories[cat] = {col: categories_res.result[col][cat]}
+        for category in categories:
+            missing_columns = set(columns) - set(categories[category].keys())
+            for column in missing_columns:
+                categories[category][column] = 0
+        categories_result = {
+            "Rule": categories_res.rule["rule"],
+            "Signification": categories_res.rule["signification"],
+            "Result": categories,
+        }
+        valid_values_dom_cat = {
+            "Rule": valid_values_dom_cat.rule["rule"],
+            "Signification": valid_values_dom_cat.rule["signification"],
+            "Result": valid_values_dom_cat.result,
+        }
+        invalid_values_dom_cat = {
+            "Rule": invalid_values_dom_cat.rule["rule"],
+            "Signification": invalid_values_dom_cat.rule["signification"],
+            "Result": invalid_values_dom_cat.result,
+        }
+        valid_values_dom_sub_cat = {
+            "Rule": valid_values_dom_sub_cat.rule["rule"],
+            "Signification": valid_values_dom_sub_cat.rule["signification"],
+            "Result": valid_values_dom_sub_cat.result,
+        }
+        invalid_values_dom_sub_cat = {
+            "Rule": invalid_values_dom_sub_cat.rule["rule"],
+            "Signification": invalid_values_dom_sub_cat.rule["signification"],
+            "Result": invalid_values_dom_sub_cat.result,
+        }
+        output[1] = categories_result
+        output[2] = valid_values_dom_cat
+        output[3] = invalid_values_dom_cat
+        output[4] = valid_values_dom_sub_cat
+        output[5] = invalid_values_dom_sub_cat
         return JsonResponse(output)
 
     @action(
@@ -292,7 +335,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         url_name="lunch-document-cleaning",
         url_path="lunch-document-cleaning",
     )
-    def lunch_document_cleaning(self, request, pk=None):
+    def launch_document_cleaning(self, request, pk=None):
         """Remove spaces and duplicated rows in the document"""
         document = self.get_object()
         HomogenizationTrace.objects.update_or_create(
