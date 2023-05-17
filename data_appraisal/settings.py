@@ -17,6 +17,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -257,4 +258,15 @@ CITIES_LIGHT_INCLUDE_COUNTRIES = [
     'WF', 'WS',
     'YE', 'YT',
     'ZA', 'ZM', 'ZW',
+]
+ICON_LINK = r"/media/email_icons"
+
+IMAGES = [
+    (BASE_DIR + ICON_LINK, "confirm-email.png"),
+    (BASE_DIR + ICON_LINK, "reset-password.png"),
+    (BASE_DIR + ICON_LINK, "confirm-inscription.png"),
+    (BASE_DIR + ICON_LINK, "update-password.png"),
+    (BASE_DIR + ICON_LINK, "facebook.png"),
+    (BASE_DIR + ICON_LINK, "instagram.png"),
+    (BASE_DIR + ICON_LINK, "linkedin.png")
 ]

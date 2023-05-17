@@ -13,6 +13,7 @@ from django.utils.translation import gettext as _
 
 from rest_framework import serializers
 
+from data.services.utils import attach_email_icons
 from data_appraisal.settings import FRONTEND_ROOT_URL
 
 UserModel = get_user_model()
@@ -41,17 +42,16 @@ class CustomPasswordResetForm(PasswordResetForm):
                 "site_name": get_current_site(request),
                 "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                 "token": token_generator.make_token(user),
-                "user": user,
+                "user": user.first_name,
                 "protocol": "https" if use_https else "http",
             }
         subject = loader.render_to_string(subject_template_name, context)
         # Email subject *must not* contain newlines
         subject = "".join(subject.splitlines())
-        body = loader.render_to_string(email_template_name, context)
+        body = loader.render_to_string(template_name="password_reset_email.html", context=context)
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
-        if html_email_template_name is not None:
-            html_email = loader.render_to_string(html_email_template_name, context)
-            email_message.attach_alternative(html_email, "text/html")
+        email_message.attach_alternative(body, "text/html")
+        attach_email_icons(email_message, settings.IMAGES)
         email_message.send()
 
 

@@ -15,7 +15,6 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
-from data.models import HOMOGENIZATION_DUPLICATION
 from data.models import M102_25
 from data.models import M103_30
 from data.models import M103_31
@@ -24,7 +23,6 @@ from data.models import M104_6
 from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
-from data.models.basic_models import HomogenizationTrace
 from data.models.basic_models import Link
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
@@ -338,15 +336,12 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def launch_document_cleaning(self, request, pk=None):
         """Remove spaces and duplicated rows in the document"""
         document = self.get_object()
-        HomogenizationTrace.objects.update_or_create(
-            document=document,
-            homogenization_type=HOMOGENIZATION_DUPLICATION,
-            defaults={
-                "document": document,
-                "homogenization_type": HOMOGENIZATION_DUPLICATION,
-                "state": RUNNING_STATE,
-            },
-        )
+
+        if not (
+            AnalysisTrace.objects.filter(document=document, state="running")
+            or AnalysisTrace.objects.filter(document=document, state="finished")
+        ):
+            return Response({"message": "Please launch the syntactic analysis first!"})
         try:
             Homogenization(document=document).run()
             return Response(

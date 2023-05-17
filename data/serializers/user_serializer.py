@@ -1,6 +1,7 @@
 """
     This serializer represent the serializer of the user.
     """
+
 from cities_light.models import City
 from django_countries import Countries
 from phonenumber_field import phonenumber
@@ -9,6 +10,7 @@ from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 
 from data.models.user_model import Profile
+from data.services.utils import send_email
 
 
 class SerializableCountryField(serializers.ChoiceField):  # pylint: disable=R0903
@@ -71,7 +73,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "postalCode",
             "country",
             "city",
-            "company_name",
+            "company",
             "occupation",
             "phone_is_verified",
             "email_is_verified",
@@ -88,6 +90,16 @@ class RegisterSerializer(RootRegSerializer):  # pylint: disable=W0223,R0903
     firstName = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     lastName = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     profile = ProfileSerializer()
+
+    def save(self, request):
+        """Override of save funtion in register serializer"""
+        user = super().save(request)
+        ctx = {
+            "username": user,
+            "email": user.email,
+        }
+        send_email("confirm_inscription.html", "Your registration is confirmed", ctx, user)
+        return user
 
 
 class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
@@ -115,8 +127,8 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
                 instance.profile._city = city
             if profile.get("postalCode", False):
                 instance.profile.postalCode = profile["postalCode"]
-            if profile.get("company_name", False):
-                instance.profile.company_name = profile["company_name"]
+            if profile.get("company", False):
+                instance.profile.company = profile["company"]
             if profile.get("photo", False):
                 instance.profile.photo = profile["photo"]
             if profile.get("occupation", False):
@@ -129,12 +141,15 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
     class Meta(UserDetailsSerializer.Meta):  # pylint: disable=C0115,R0903
         fields = UserDetailsSerializer.Meta.fields + ("profile",)
 
-class UploadPhotoSerializer(serializers.ModelSerializer):
+
+class UploadPhotoSerializer(serializers.ModelSerializer):  # pylint: disable=R0903
     """
     Serializer for Upload Profile photo.
     """
     photo = serializers.ImageField(required=True)
 
-    class Meta:
+    class Meta:  # pylint: disable=R0903
+        """Meta class"""
+
         model = Profile
-        fields = ('photo',)
+        fields = ("photo",)
