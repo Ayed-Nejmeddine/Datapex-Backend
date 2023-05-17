@@ -73,7 +73,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "postalCode",
             "country",
             "city",
-            "company_name",
+            "company",
             "occupation",
             "phone_is_verified",
             "email_is_verified",
@@ -127,8 +127,8 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
                 instance.profile._city = city
             if profile.get("postalCode", False):
                 instance.profile.postalCode = profile["postalCode"]
-            if profile.get("company_name", False):
-                instance.profile.company_name = profile["company_name"]
+            if profile.get("company", False):
+                instance.profile.company = profile["company"]
             if profile.get("photo", False):
                 instance.profile.photo = profile["photo"]
             if profile.get("occupation", False):
