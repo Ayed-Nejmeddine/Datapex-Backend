@@ -421,7 +421,7 @@ class BaseAbstract(BaseInterface):
             data = data_serie.tolist()
             matched_dict = {cat_sub: data.count(cat_sub) for cat_sub in data}
             matched_dict_percentages = {
-                key: int(matched_dict[key] * 100 / len(df[i])) for key in matched_dict
+                key: round(int(matched_dict[key] * 100 / len(df[i])), 2) for key in matched_dict
             }
             column_detected_types = self._detected_types(matched_dict_percentages)
             global_detected_types.append(column_detected_types)
@@ -475,7 +475,7 @@ class BaseAbstract(BaseInterface):
                 data = data_serie.tolist()
                 matched_dict = {cat_sub: data.count(cat_sub) for cat_sub in data}
                 matched_dict_percentages = {
-                    key: int(matched_dict[key] * 100 / len(df[i])) for key in matched_dict
+                    key: round(int(matched_dict[key] * 100 / len(df[i])), 2) for key in matched_dict
                 }
                 column_detected_types = self._detected_types(matched_dict_percentages)
                 global_detected_types.append(column_detected_types)
