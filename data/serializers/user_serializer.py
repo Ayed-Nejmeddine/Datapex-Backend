@@ -3,6 +3,7 @@
     """
 
 from cities_light.models import City
+from cities_light.models import Country
 from django_countries import Countries
 from phonenumber_field import phonenumber
 from rest_auth.registration.serializers import RegisterSerializer as RootRegSerializer
@@ -31,7 +32,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     Serializer for Profile model.
     """
 
-    country = SerializableCountryField(allow_null=True, required=False, allow_blank=True)
+    country = serializers.CharField()
     phone_is_verified = serializers.ReadOnlyField()
     email_is_verified = serializers.ReadOnlyField()
     city = serializers.CharField()
@@ -42,6 +43,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         if not city:
             raise serializers.ValidationError("city not found!")
         return city.id
+
+    def validate_country(self, country):
+        """validate country by name"""
+        country = Country.objects.filter(name=country).first()
+        if not country:
+            raise serializers.ValidationError("country not found!")
+        return country.id
 
     def validate_phone(self, phone):
         """
@@ -79,6 +87,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "email_is_verified",
             "photo",
             "language",
+            "gender",
         )
 
 
@@ -120,7 +129,9 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
             if profile.get("phone", False):
                 instance.profile.phone = profile["phone"]
             if profile.get("country", False):
-                instance.profile.country = profile["country"]
+                country = Country.objects.filter(id=profile["country"]).first()
+                # pylint: disable=W0212
+                instance.profile._country = country
             if profile.get("city", False):
                 city = City.objects.filter(id=profile["city"]).first()
                 # pylint: disable=W0212
@@ -135,6 +146,8 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
                 instance.profile.occupation = profile["occupation"]
             if profile.get("language", False):
                 instance.profile.language = profile["language"]
+            if profile.get("gender", False):
+                instance.profile.gender = profile["gender"]
             instance.profile.save()
         return instance
 
@@ -146,6 +159,7 @@ class UploadPhotoSerializer(serializers.ModelSerializer):  # pylint: disable=R09
     """
     Serializer for Upload Profile photo.
     """
+
     photo = serializers.ImageField(required=True)
 
     class Meta:  # pylint: disable=R0903

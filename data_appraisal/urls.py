@@ -24,6 +24,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from data.controllers.user import CustomPasswordChangeView
 from data.controllers.user import CustomPasswordResetConfirmView
 
 schema_view = get_schema_view(
@@ -47,6 +48,11 @@ urlpatterns = [
         "rest-auth/password/reset/confirm/",
         CustomPasswordResetConfirmView.as_view(),
         name="rest_password_reset_confirm",
+    ),
+    path(
+        "rest-auth/password/change/",
+        CustomPasswordChangeView.as_view(),
+        name="rest_password_change",
     ),
     path("rest-auth/", include("rest_auth.urls")),
     path("rest-auth/registration/", include("rest_auth.registration.urls")),

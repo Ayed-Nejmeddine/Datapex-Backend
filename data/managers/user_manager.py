@@ -22,7 +22,7 @@ class RegisterAdapter(DefaultAccountAdapter):
         if data.get("phone", False):
             profile_data.update(phone=data.get("phone", False))
         if data.get("country", False):
-            profile_data.update(country=data.get("country", False))
+            profile_data.update(_country_id=data.get("country", False))
         if data.get("postalCode", False):
             profile_data.update(postalCode=data.get("postalCode", False))
         if data.get("company", False):
