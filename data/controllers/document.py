@@ -258,26 +258,33 @@ class DocumentViewSet(viewsets.ModelViewSet):
         invalid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M104_6)
 
         output = {}
-        columns = []
+        columns = list(categories_res.result.keys())
+        # columns.append("NO-MATCH")
         categories = {}
-        for col in categories_res.result:
-            columns.append(col)
 
-            for cat in categories_res.result[col]:
-                if categories_res.result[col] == "NON APPLICABLE":
-                    if "no-match" in categories:
-                        categories["no-match"][col] = 100
-                    else:
-                        categories["no-match"] = {col: 100}
-                else:
-                    if cat in categories:
-                        categories[cat][col] = categories_res.result[col][cat]
-                    else:
-                        categories[cat] = {col: categories_res.result[col][cat]}
-        for category in categories:
-            missing_columns = set(columns) - set(categories[category].keys())
-            for column in missing_columns:
-                categories[category][column] = 0
+        for col in categories_res.result:
+            if categories_res.result[col] == "NON APPLICABLE":
+                pass
+                # if "no-match" not in categories:
+                #             categories["no-match"]=[{col:0} for col in columns]
+                #             categories["no-match"][columns.index["NO-MATCH"]] = {col:100}
+                # else:
+                #     categories["no-match"][columns.index(col)] = {col:100}
+            else:
+                for cat in categories_res.result[col]:
+                    if cat != "no-match":
+                        if cat not in categories:
+                            categories[cat] = [
+                                {colum: 0} for colum in columns
+                            ]  # WE MUST KEEP THE SAME ORDER OF COLUMNS TO HAVE AN EXACT RESULT IN THE FRONT
+                            categories[cat][columns.index(col)] = {
+                                col: categories_res.result[col][cat]
+                            }  # lEST4S AFFECT THE CORRESPONDING VALUE TO THE RIGHT COLUMN
+                        else:
+                            categories[cat][columns.index(col)] = {
+                                col: categories_res.result[col][cat]
+                            }
+
         categories_result = {
             "Rule": categories_res.rule["rule"],
             "Signification": categories_res.rule["signification"],

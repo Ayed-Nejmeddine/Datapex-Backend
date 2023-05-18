@@ -68,14 +68,12 @@ def get_regexp(value, expressions):
     """Get the matching regular expression."""
 
     if not pd.isnull(value):
-        # print(value)
         for exp in expressions:
             if isinstance(value, str):
                 cat = re.search(exp[2], value.upper())
                 if cat:
                     return (exp[0], exp[1])
-
-            elif isinstance(value, bool):
+            elif not isinstance(value, bool):
                 cat = re.search(exp[2], str(value))
                 if cat:
                     return (exp[0], exp[1])
