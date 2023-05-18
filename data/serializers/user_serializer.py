@@ -3,6 +3,7 @@
     """
 
 from cities_light.models import City
+from cities_light.models import Country
 from django_countries import Countries
 from phonenumber_field import phonenumber
 from rest_auth.registration.serializers import RegisterSerializer as RootRegSerializer
@@ -31,7 +32,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     Serializer for Profile model.
     """
 
-    country = SerializableCountryField(allow_null=True, required=False, allow_blank=True)
+    country = serializers.CharField()
     phone_is_verified = serializers.ReadOnlyField()
     email_is_verified = serializers.ReadOnlyField()
     city = serializers.CharField()
@@ -42,6 +43,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         if not city:
             raise serializers.ValidationError("city not found!")
         return city.id
+
+    def validate_country(self, country):
+        """validate country by name"""
+        country = Country.objects.filter(name=country).first()
+        if not country:
+            raise serializers.ValidationError("country not found!")
+        return country.id
 
     def validate_phone(self, phone):
         """
@@ -73,7 +81,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "postalCode",
             "country",
             "city",
-            "company_name",
+            "company",
             "occupation",
             "phone_is_verified",
             "email_is_verified",
@@ -121,15 +129,17 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
             if profile.get("phone", False):
                 instance.profile.phone = profile["phone"]
             if profile.get("country", False):
-                instance.profile.country = profile["country"]
+                country = Country.objects.filter(id=profile["country"]).first()
+                # pylint: disable=W0212
+                instance.profile._country = country
             if profile.get("city", False):
                 city = City.objects.filter(id=profile["city"]).first()
                 # pylint: disable=W0212
                 instance.profile._city = city
             if profile.get("postalCode", False):
                 instance.profile.postalCode = profile["postalCode"]
-            if profile.get("company_name", False):
-                instance.profile.company_name = profile["company_name"]
+            if profile.get("company", False):
+                instance.profile.company = profile["company"]
             if profile.get("photo", False):
                 instance.profile.photo = profile["photo"]
             if profile.get("occupation", False):
