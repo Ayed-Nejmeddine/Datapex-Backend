@@ -259,17 +259,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
         output = {}
         columns = list(categories_res.result.keys())
-        # columns.append("NO-MATCH")
         categories = {}
 
         for col in categories_res.result:
             if categories_res.result[col] == "NON APPLICABLE":
                 pass
-                # if "no-match" not in categories:
-                #             categories["no-match"]=[{col:0} for col in columns]
-                #             categories["no-match"][columns.index["NO-MATCH"]] = {col:100}
-                # else:
-                #     categories["no-match"][columns.index(col)] = {col:100}
             else:
                 for cat in categories_res.result[col]:
                     if cat != "no-match":
