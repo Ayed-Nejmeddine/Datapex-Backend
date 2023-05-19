@@ -371,11 +371,12 @@ class BaseAbstract(BaseInterface):
 
     def _column_dominant_category(self, column_detected_category):
         """detect the dominant category in the column"""
+        result_dict = {}
         for key in column_detected_category:
             if column_detected_category[key] == max(column_detected_category.values()):
-                dict[key] = column_detected_category[key]
+                result_dict[key] = column_detected_category[key]
                 break
-        return dict
+        return result_dict
 
     def _column_dominant_subcategory(self, column_dominant_categories, column_detected_types):
         """detect the dominant subcategory in the column"""
