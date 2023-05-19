@@ -371,11 +371,12 @@ class BaseAbstract(BaseInterface):
 
     def _column_dominant_category(self, column_detected_category):
         """detect the dominant category in the column"""
-        return {
-            key: column_detected_category[key]
-            for key in column_detected_category
-            if column_detected_category[key] == max(column_detected_category.values())
-        }
+        result_dict = {}
+        for key in column_detected_category:
+            if column_detected_category[key] == max(column_detected_category.values()):
+                result_dict[key] = column_detected_category[key]
+                break
+        return result_dict
 
     def _column_dominant_subcategory(self, column_dominant_categories, column_detected_types):
         """detect the dominant subcategory in the column"""
@@ -384,11 +385,10 @@ class BaseAbstract(BaseInterface):
             maxVal = 0
             first_key = next(iter(column_dominant_categories.keys()))
             for col_type in column_detected_types:
-                if col_type["CATEGORY"] == first_key:
-                    if col_type["POURCENTAGE"] > maxVal:
-                        maxVal = col_type["POURCENTAGE"]
-                        sub_cat = col_type["SUBCATEGORY"]
-                    column_dominant_sub_categories[sub_cat] = maxVal
+                if col_type["CATEGORY"] == first_key and col_type["POURCENTAGE"] > maxVal:
+                    maxVal = col_type["POURCENTAGE"]
+                    sub_cat = col_type["SUBCATEGORY"]
+            column_dominant_sub_categories[sub_cat] = maxVal
             return column_dominant_sub_categories
 
         return "NON APPLICABLE"
@@ -495,6 +495,7 @@ class BaseAbstract(BaseInterface):
                 global_detected_categories.append("NON APPLICABLE")
                 global_dominant_categories.append("NON APPLICABLE")
                 global_dominant_subcategories.append("NON APPLICABLE")
+
         # data types: detected categories and subcategories and their respectful percentages according to the data dictionary
         self._update_or_create_db(columns, DATA_TYPES, global_detected_types)
         # Detected categories and their respectful percentages according to the data dictionary
