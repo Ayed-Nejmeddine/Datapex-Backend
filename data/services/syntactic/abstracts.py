@@ -1,5 +1,4 @@
 """ Abstract """
-
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_bool_dtype
@@ -71,7 +70,6 @@ class BaseAbstract(BaseInterface):
             rule=rule,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return np.array(res)
 
     def count_distinct_values(self):
@@ -82,7 +80,6 @@ class BaseAbstract(BaseInterface):
             rule=M102_5,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_unique_values(self):
@@ -98,7 +95,6 @@ class BaseAbstract(BaseInterface):
             rule=M103_6,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_different_values(self):
@@ -113,7 +109,6 @@ class BaseAbstract(BaseInterface):
             rule=M103_7,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_null_values_by_type(self, null=None):
@@ -131,7 +126,6 @@ class BaseAbstract(BaseInterface):
             rule=M112_15,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_duplicated_values(self):
@@ -142,7 +136,6 @@ class BaseAbstract(BaseInterface):
             rule=M104_7,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def number_null_type_values(self, null="NULL"):
@@ -158,7 +151,6 @@ class BaseAbstract(BaseInterface):
             rule=M112_15,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_boolean_type_values(self):
@@ -177,7 +169,6 @@ class BaseAbstract(BaseInterface):
             rule=M111_14,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_number_columns(self):
@@ -189,7 +180,6 @@ class BaseAbstract(BaseInterface):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id, rule=M130_1, defaults={"result": num_cols}
         )
-
         return num_cols
 
     def values_length(self):
@@ -215,7 +205,6 @@ class BaseAbstract(BaseInterface):
             rule=M130_3,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_number_rows(self):
@@ -225,7 +214,6 @@ class BaseAbstract(BaseInterface):
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id, rule=M113_16, defaults={"result": {"Rows": res}}
         )
-
         return res
 
     def data_type_value(self):
@@ -271,7 +259,6 @@ class BaseAbstract(BaseInterface):
             rule=M114_17,
             defaults={"result": {i: result[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return result
 
     def count_lowercase_values(self):
@@ -287,7 +274,6 @@ class BaseAbstract(BaseInterface):
             rule=M115_18,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def count_number_of_values(self):
@@ -301,7 +287,6 @@ class BaseAbstract(BaseInterface):
             rule=M103_8,
             defaults={"result": {"Size": res}},
         )
-
         return res
 
     def upper_case_values(self, s_t=" "):
@@ -318,7 +303,6 @@ class BaseAbstract(BaseInterface):
             rule=M104_20,
             defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
         )
-
         return res
 
     def mix_case_values(self, s_t=" "):

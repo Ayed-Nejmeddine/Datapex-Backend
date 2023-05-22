@@ -1,5 +1,4 @@
 """Here all string functions"""
-
 from threading import Thread
 
 import numpy as np
@@ -243,7 +242,6 @@ class StringAnalyser(StringInterface, Thread):
         self.count_number_of_words()
         self.count_values()
         self.model_data_frequency()
-
         # self.get_columns_type()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,

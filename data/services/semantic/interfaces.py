@@ -1,5 +1,6 @@
 class SemanticInterface:
     """ Semantic interface definition """
+
     def count_number_of_categories_and_subcategories(self):
         """
         Indicator of number of detected categories and subcategories.

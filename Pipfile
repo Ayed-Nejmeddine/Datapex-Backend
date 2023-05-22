@@ -14,7 +14,7 @@ djangorestframework = "*"
 django = "==3.0.8"
 numpy = "==1.19.0"
 pandas = "==1.1.2"
-drf-yasg = {extras = ["validation"],version = "==1.17.1"}
+drf-yasg = {extras = ["validation"],version = "==1.21.5"}
 django-allauth = "==0.42.0"
 django-rest-auth = "==0.9.5"
 django-crum = "==0.7.6"
@@ -30,6 +30,7 @@ django-phone-verify = "==2.0.0"
 pillow = "==8.0.1"
 django-cities-light = "==3.8.1"
 django-filter = "==2.4.0"
+psycopg2 = "==2.8.6"
 
 [requires]
 python_version = "3.8"
