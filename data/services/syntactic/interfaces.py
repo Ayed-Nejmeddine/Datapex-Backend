@@ -1,10 +1,6 @@
-"""Base Interface"""
-
-
 class BaseInterface:
-    """Base interface definition"""
-
-    def count_null_values(self, inverse):
+    """ Base interface definition """
+    def count_null_values(self):
         """
         Indicator of number of NULL values.
         """
@@ -33,12 +29,6 @@ class BaseInterface:
         Indicator of Number of values of the BOOLEAN TYPE.
         """
         pass
-    
-    def count_boolean_value(self):
-        """
-        Indicator of Number of values of the BOOLEAN TYPE.
-        """
-        pass
 
     def count_null_type_values(self):
         """
@@ -46,46 +36,10 @@ class BaseInterface:
         """
         pass
 
-    def count_number_rows(self):
-        """
-        Indicator of Number of rows.
-        """
-        pass
-
-    def data_type_value(self):
-        """
-        Indicator of Number of each data type.
-        """
-        pass
-
-    def count_lowercase_values(self):
-        """
-        Indicator of Number of lowercase values.
-        """
-        pass
-
-    def count_number_of_values(self):
-        """
-        Indicator of Number of lowercase values.
-        """
-        pass
-
-    def upper_case_values(self):
-        """
-        Indicator of Number of lowercase values.
-        """
-        pass
-
-    def mix_case_values(self):
-        """
-        Indicator of Number of lowercase values.
-        """
-        pass
 
 
 class StringInterface(BaseInterface):
-    """String interface definition"""
-
+    """ String interface definition """
     def get_min_length(self):
         """
         Indicator of Min length.
@@ -104,7 +58,7 @@ class StringInterface(BaseInterface):
         """
         pass
 
-    def count_number_of_words(self, s):
+    def count_number_of_words(self):
         """
         Indicator of number of words.
         """
@@ -130,8 +84,7 @@ class StringInterface(BaseInterface):
 
 
 class NumberInterface(BaseInterface):
-    """Number Interface definition"""
-
+    """ Number Interface definition"""
     def compute_min_value(self):
         """
         Min value indicator
@@ -168,21 +121,11 @@ class NumberInterface(BaseInterface):
         """
         pass
 
-class BooleanInterface(BaseInterface):
-    """Boolean Interface definition"""
-
-    def count_boolean_value(self):
-        """
-        count true and false
-        """
-        pass
-
-
 
 class DateInterface(BaseInterface):
-    """Date Interface definition"""
+    """ Date Interface definition"""
 
-    def check_format_for_dataframe(self, rule, date_format="%m-%d-%Y"):
+    def check_format_for_dataframe(self, rule, date_format='%m-%d-%Y'):
         """
         Indicator for the date and datetime format and for the weekday and the month.
         The date format can be :
