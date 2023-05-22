@@ -20,7 +20,7 @@ def auth_user_fixture(_create_user_fixture, client):
     """
     Fixture to authenticate user
     """
-    login = {"email": "manel@example.com", "password": "test-1235&"}
+    login = {"email": "chiraz11@example.com", "password": "test-1235&"}
     client.post("/rest-auth/login/", login, content_type="application/json")
     return client
 
