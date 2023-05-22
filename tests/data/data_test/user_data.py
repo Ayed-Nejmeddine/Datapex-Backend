@@ -13,7 +13,7 @@ USER = json.dumps(
             "phone": "+21640083429",
             "postalCode": 2034,
             "country": "TN",
-            "city": "Dubai",
+            "city": 21,
             "company_name": "Clevertech",
             "occupation": "ttt",
             "language": "fr",
