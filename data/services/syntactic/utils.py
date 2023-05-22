@@ -1,12 +1,12 @@
 """Here all the utils functions"""
 import datetime
+import json
 import re
 
 import pandas as pd
 
 from data.models import DAYS_TRANSLATOR
 from data.models import MONTHS_TRANSLATOR
-from data.models.basic_models import RegularExp
 
 
 def translate(text):
@@ -64,14 +64,20 @@ def model_text(text):
     return res
 
 
-def get_regexp(text, expressions):
+def get_regexp(value, expressions):
     """Get the matching regular expression."""
-    if not pd.isnull(text):
+
+    if not pd.isnull(value):
         for exp in expressions:
-            if re.search(exp, text.upper()):
-                res = RegularExp.objects.filter(expression=exp).first()
-                return (res.category, res.subcategory)
-    return (None,None)
+            if isinstance(value, str):
+                cat = re.search(exp[2], value.upper())
+                if cat:
+                    return (exp[0], exp[1])
+            elif not isinstance(value, bool):
+                cat = re.search(exp[2], str(value))
+                if cat:
+                    return (exp[0], exp[1])
+    return ("no-match", "no-match")
 
 
 def get_data_dict(text, data_dict):
@@ -79,10 +85,13 @@ def get_data_dict(text, data_dict):
     if not pd.isnull(text):
         text = " ".join(text.split())
         for data in data_dict:
-            for sub, val in data.data_dict.items():
-                if text.upper() == val:
-                    return data.data_dict["CATEGORY"], sub
-    return None
+            json_data_dict = json.loads(data.data_dict)
+            for row in json_data_dict:
+                for sub, val in row.items():
+                    if text.upper() == val:
+                        return (row["CATEGORY"], sub)
+
+    return ("no-match", "no-match")
 
 
 def verify_Uppercase(text):

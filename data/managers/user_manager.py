@@ -22,11 +22,11 @@ class RegisterAdapter(DefaultAccountAdapter):
         if data.get("phone", False):
             profile_data.update(phone=data.get("phone", False))
         if data.get("country", False):
-            profile_data.update(country=data.get("country", False))
+            profile_data.update(_country_id=data.get("country", False))
         if data.get("postalCode", False):
             profile_data.update(postalCode=data.get("postalCode", False))
-        if data.get("company_name", False):
-            profile_data.update(company_name=data.get("company_name", False))
+        if data.get("company", False):
+            profile_data.update(company=data.get("company", False))
         if data.get("photo", False):
             profile_data.update(photo=data.get("photo", False))
         if data.get("occupation", False):

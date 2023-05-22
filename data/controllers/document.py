@@ -12,8 +12,14 @@ from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
+from data.models import M102_25
+from data.models import M103_30
+from data.models import M103_31
+from data.models import M104_5
+from data.models import M104_6
 from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
@@ -22,6 +28,7 @@ from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
 from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
+from data.services.homgenization import Homogenization
 from data.services.semantic import Analyser as SemanticAnalyser
 from data.services.syntactic import Analyser
 
@@ -220,12 +227,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
         """launch the semantic analysis and get the results."""
         document = self.get_object()
 
-        if not (
-            AnalysisTrace.objects.filter(document=document, state="running")
-            or AnalysisTrace.objects.filter(document=document, state="finished")
-        ):
-            return Response({"message": "Please launch the syntactic analysis first!"})
-
+        if AnalysisTrace.objects.filter(document=document, state="running"):
+            raise ValidationError({"message": "the syntactic analysis still running!"})
+        if not AnalysisTrace.objects.filter(document=document, state="finished"):
+            raise ValidationError({"message": "Please launch the syntactic analysis first!"})
         try:
             SemanticAnalyser(document=document).run()
             return Response(
@@ -246,25 +251,64 @@ class DocumentViewSet(viewsets.ModelViewSet):
         if not {SemanticResult.objects.filter(document=document)}:
             return Response({"message": "Please launch the semantic analysis first!"})
 
-        results = SemanticResult.objects.filter(document=document)
+        categories_res = SemanticResult.objects.get(document=document, rule=M102_25)
+        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_30)
+        invalid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M104_5)
+        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M103_31)
+        invalid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M104_6)
 
-        # JSON Data
-        # base_rule = [
-        #         "MATCHED_EXPRESSIONS",
-        #         "M101_1",
-        #         "M102_2",
-        #         "M103_3",
-        #         "M104_4",
-        #         "M105_5",
-        #         "M106_6",
-        #     ]
         output = {}
+        columns = list(categories_res.result.keys())
+        categories = {}
 
-        for r in results:
-            out = {"rule": r.rule, "result": r.result}
+        for col in categories_res.result:
+            if categories_res.result[col] == "NON APPLICABLE":
+                pass
+            else:
+                for cat in categories_res.result[col]:
+                    if cat != "no-match":
+                        if cat not in categories:
+                            categories[cat] = [
+                                {colum: 0} for colum in columns
+                            ]  # WE MUST KEEP THE SAME ORDER OF COLUMNS TO HAVE AN EXACT RESULT IN THE FRONT
+                            categories[cat][columns.index(col)] = {
+                                col: categories_res.result[col][cat]
+                            }  # lEST4S AFFECT THE CORRESPONDING VALUE TO THE RIGHT COLUMN
+                        else:
+                            categories[cat][columns.index(col)] = {
+                                col: categories_res.result[col][cat]
+                            }
 
-            output[r.rule["rule"]] = out
-
+        categories_result = {
+            "Rule": categories_res.rule["rule"],
+            "Signification": categories_res.rule["signification"],
+            "Result": categories,
+        }
+        valid_values_dom_cat = {
+            "Rule": valid_values_dom_cat.rule["rule"],
+            "Signification": valid_values_dom_cat.rule["signification"],
+            "Result": valid_values_dom_cat.result,
+        }
+        invalid_values_dom_cat = {
+            "Rule": invalid_values_dom_cat.rule["rule"],
+            "Signification": invalid_values_dom_cat.rule["signification"],
+            "Result": invalid_values_dom_cat.result,
+        }
+        valid_values_dom_sub_cat = {
+            "Rule": valid_values_dom_sub_cat.rule["rule"],
+            "Signification": valid_values_dom_sub_cat.rule["signification"],
+            "Result": valid_values_dom_sub_cat.result,
+        }
+        invalid_values_dom_sub_cat = {
+            "Rule": invalid_values_dom_sub_cat.rule["rule"],
+            "Signification": invalid_values_dom_sub_cat.rule["signification"],
+            "Result": invalid_values_dom_sub_cat.result,
+        }
+        output[1] = categories_result
+        output[2] = valid_values_dom_cat
+        output[3] = invalid_values_dom_cat
+        output[4] = valid_values_dom_sub_cat
+        output[5] = invalid_values_dom_sub_cat
         return JsonResponse(output)
 
     @action(
@@ -283,3 +327,26 @@ class DocumentViewSet(viewsets.ModelViewSet):
             return Response({"message": "No document has yet been analyzed"})
         latest_doc = documents.latest("upload_date")
         return Response(DocumentSerializer(latest_doc, read_only=True).data)
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        url_name="lunch-document-cleaning",
+        url_path="lunch-document-cleaning",
+    )
+    def launch_document_cleaning(self, request, pk=None):
+        """Remove spaces and duplicated rows in the document"""
+        document = self.get_object()
+
+        if not (
+            AnalysisTrace.objects.filter(document=document, state="running")
+            or AnalysisTrace.objects.filter(document=document, state="finished")
+        ):
+            return Response({"message": "Please launch the syntactic analysis first!"})
+        try:
+            Homogenization(document=document).run()
+            return Response(
+                {"message": "The document is cleanned successfully ."}, status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response({"message": f"The document cleaning failed, error:{e}"})
