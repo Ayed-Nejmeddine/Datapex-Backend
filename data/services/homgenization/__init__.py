@@ -10,6 +10,7 @@ class Homogenization(HomogenizationAnalyser, Thread):
     """ "Homogenization function"""
 
     def __init__(self, document):
+        super().__init__(df=None, document_id=None, document_path=None)
         self.document_id = document.id
         self.document_path = document.document_path
         with document.document_path.open("r") as f:
@@ -22,4 +23,5 @@ class Homogenization(HomogenizationAnalyser, Thread):
         self.remove_extra_spaces()
         self.remove_duplicated_rows()
         self.standardisation_date()
+        self.SubCategory_correction()
         self.cleaning_document()
