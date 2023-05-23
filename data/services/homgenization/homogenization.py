@@ -3,6 +3,9 @@
 """
 from django.conf import settings
 
+import unidecode
+from pandas.api.types import is_string_dtype
+
 from data.models import M112
 from data.models import M113
 from data.models import M114
@@ -13,8 +16,10 @@ from data.models import M118
 from data.models import M119
 from data.models import M120
 from data.models import M121
-from data.models.basic_models import SyntacticResult
 from data.services.homgenization.interfaces import HomogenizationInterface
+from data.services.homgenization.utils import get_Data_Dict
+from data.services.homgenization.utils import get_db_result
+from data.services.homgenization.utils import get_Dominant_Category_subcategory
 from data.services.homgenization.utils import to_date
 
 
@@ -35,10 +40,6 @@ class HomogenizationAnalyser(HomogenizationInterface):
         """remove duplications"""
         self.df = self.df.drop_duplicates()
 
-    def _get_db_result(self, document_id, rule):
-        """get syntactic result from db"""
-        return SyntacticResult.objects.get(document=document_id, rule=rule)
-
     def standardisation_date(self):
         """format the dates to the format of the dominant format of the dates in this column"""
         document_id = self.document_id
@@ -55,7 +56,7 @@ class HomogenizationAnalyser(HomogenizationInterface):
             "%A",
         ]
         rules = [M112, M113, M114, M115, M116, M117, M118, M119, M120, M121]
-        date_result = [self._get_db_result(document_id, rule) for rule in rules]
+        date_result = [get_db_result(document_id, rule) for rule in rules]
         columns = list(date_result[0].result.keys())
         for col in columns:
             format_values = [i.result[col] for i in date_result]
@@ -65,8 +66,36 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 self.df[col].fillna("").apply(to_date, dominant_date_format=dominant_format)
             )
 
+    def SubCategory_correction(self):
+        """corrects the subcategories of each column"""
+        Dom_cat, Dom_subcat = get_Dominant_Category_subcategory(self.document_id)
+        columns = self.df.columns
+
+        for col in columns:
+            if not is_string_dtype(self.df[col].dtypes):
+                continue
+
+            self.df[col].fillna("", inplace=True)
+            self.df[col] = self.df[col].apply(lambda x: unidecode.unidecode(str(x)))
+
+            if Dom_cat[col] == "NON APPLICABLE" or Dom_subcat[col] == "NON APPLICABLE":
+                continue
+
+            category = list(Dom_cat[col].keys())[0]
+            subCategory = list(Dom_subcat[col].keys())[0]
+            data_list = get_Data_Dict(category)
+            data_list_string = " ".join(str(x) for x in data_list)
+
+            for _idx, value in self.df[col].iteritems():
+                if str(value).upper() in data_list_string and not any(
+                    obj[subCategory].lower() == value for obj in data_list
+                ):
+                    for obj in data_list:
+                        if value.upper() in list(obj.values()):
+                            self.df[col] = self.df[col].replace(value, obj[subCategory])
+
     def cleaning_document(self):
-        """save changes to the new file"""
+        """save changes tob  the new file"""
         df = self.df
         document_path = self.document_path
         full_document_path = settings.BASE_DIR + "/media/" + str(document_path)

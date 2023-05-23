@@ -111,7 +111,7 @@ class DataDict(models.Model):
     """Data dict model"""
 
     data_dict = JSONField()
-    category = models.CharField(max_length=150, default=None)
+    category = models.CharField(max_length=150)
     objects = models.Manager()
 
 
