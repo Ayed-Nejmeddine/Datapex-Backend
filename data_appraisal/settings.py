@@ -96,12 +96,8 @@ WSGI_APPLICATION = "data_appraisal.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME":"datapex-db" ,
-        "USER":"datapex-user" ,
-        "PASSWORD":"T93bqrOCGYvZnUih4gZUDWAhGx-FLO1H" ,
-        "HOST": "postgresql-125790-0.cloudclusters.net",
-        "PORT": 10034,
+        "ENGINE": "django.db.backends.mysql",
+        "OPTIONS": {"charset": "utf8mb4", "read_default_file": os.path.join(BASE_DIR, "mysql.cnf")},
     }
 }
 

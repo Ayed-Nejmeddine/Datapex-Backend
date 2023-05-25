@@ -66,7 +66,6 @@ def model_text(text):
 
 def get_regexp(value, expressions):
     """Get the matching regular expression."""
-
     if not pd.isnull(value):
         for exp in expressions:
             if isinstance(value, str):
@@ -85,11 +84,12 @@ def get_data_dict(text, data_dict):
     if not pd.isnull(text):
         text = " ".join(text.split())
         for data in data_dict:
-            json_data_dict = json.loads(data.data_dict)
-            for row in json_data_dict:
-                for sub, val in row.items():
-                    if text.upper() == val:
-                        return (row["CATEGORY"], sub)
+            if text.upper() in data.data_dict:
+                json_data_dict = json.loads(data.data_dict)
+                for row in json_data_dict:
+                    for sub, val in row.items():
+                        if text.upper() == val:
+                            return (row["CATEGORY"], sub)
 
     return ("no-match", "no-match")
 

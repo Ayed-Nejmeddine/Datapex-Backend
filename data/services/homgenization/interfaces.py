@@ -21,3 +21,9 @@ class HomogenizationInterface:
         Corrects the sub-categories
         """
         pass
+
+    def correction_unities(self):
+        """
+        Corrects the unities
+        """
+        pass

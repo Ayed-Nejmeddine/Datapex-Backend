@@ -24,4 +24,5 @@ class Homogenization(HomogenizationAnalyser, Thread):
         self.remove_duplicated_rows()
         self.standardisation_date()
         self.SubCategory_correction()
+        self.correction_unities()
         self.cleaning_document()

@@ -6,6 +6,8 @@ from django.conf import settings
 import unidecode
 from pandas.api.types import is_string_dtype
 
+from data.models import M103_3
+from data.models import M105_5
 from data.models import M112
 from data.models import M113
 from data.models import M114
@@ -16,11 +18,14 @@ from data.models import M118
 from data.models import M119
 from data.models import M120
 from data.models import M121
+from data.models import PHYSICAL_METRICS
+from data.models.basic_models import RegularExp
 from data.services.homgenization.interfaces import HomogenizationInterface
 from data.services.homgenization.utils import get_Data_Dict
 from data.services.homgenization.utils import get_db_result
 from data.services.homgenization.utils import get_Dominant_Category_subcategory
 from data.services.homgenization.utils import to_date
+from data.services.homgenization.utils import transform_unite
 
 
 class HomogenizationAnalyser(HomogenizationInterface):
@@ -93,6 +98,23 @@ class HomogenizationAnalyser(HomogenizationInterface):
                     for obj in data_list:
                         if value.upper() in list(obj.values()):
                             self.df[col] = self.df[col].replace(value, obj[subCategory])
+
+    def correction_unities(self):
+        df = self.df
+        document_id = self.document_id
+        dominants_categories = get_db_result(document_id, M103_3).result
+        dominants_sub_categories = get_db_result(document_id, M105_5).result
+        for column in dominants_categories:
+            category = list(dominants_categories[column].keys())[0]
+            if category in PHYSICAL_METRICS:
+                subcategory = list(dominants_sub_categories[column].keys())[0]
+                regexp = RegularExp.objects.filter(subcategory=subcategory).values_list(
+                    "expression", flat=True
+                )
+                abreviation = regexp[0].split(r"\s")[1].strip("?").strip("+(").split("|")[0]
+                self.df[column] = (
+                    df[column].fillna("").apply(transform_unite, abreviation=abreviation)
+                )
 
     def cleaning_document(self):
         """save changes tob  the new file"""
