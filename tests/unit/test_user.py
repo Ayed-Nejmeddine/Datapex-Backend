@@ -8,7 +8,7 @@ from tests.data.data_test.user_data import USER
 
 @pytest.mark.django_db
 def test_register_user(client, _import_city_fixture):
-    """Test a seccess of user register."""
+    """Test a success of user register."""
     response = client.post("/rest-auth/registration/", USER, content_type="application/json")
     assert response.status_code == 201
     assert "key" in response.data
@@ -16,7 +16,7 @@ def test_register_user(client, _import_city_fixture):
 
 @pytest.mark.django_db
 def test_login_user_success(client, _create_user_fixture):
-    """Test a seccess of user login."""
+    """Test a success of user login."""
     data_login = json.dumps({"email": "chiraz11@example.com", "password": "test-1235&"})
     response = client.post("/rest-auth/login/", data_login, content_type="application/json")
     assert response.status_code == 200
@@ -33,7 +33,7 @@ def test_login_user_fail(client, _create_user_fixture):
 
 @pytest.mark.django_db
 def test_logout(_auth_user_fixture):
-    """Test a seccess of user logout."""
+    """Test a success of user logout."""
     response = _auth_user_fixture.post("/rest-auth/logout/")
     assert response.status_code == 200
 
@@ -49,7 +49,7 @@ def test_get_user_fail(client, _create_user_fixture):
 
 @pytest.mark.django_db
 def test_get_user_success(client, _verify_email_fixture, _phone_verification_fixture):
-    """Test a seccess of get user."""
+    """Test a success of get user."""
     response = client.get("/rest-auth/user/")
     data = response.data
     assert data["profile"]["phone_is_verified"] is True

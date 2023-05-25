@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io
-media
+**media**
+!media/email_icons
+
 data/migrations
 
 ### OSX ###
