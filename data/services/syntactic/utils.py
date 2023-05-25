@@ -66,7 +66,6 @@ def model_text(text):
 
 def get_regexp(value, expressions):
     """Get the matching regular expression."""
-
     if not pd.isnull(value):
         for exp in expressions:
             if isinstance(value, str):
@@ -92,6 +91,7 @@ def get_data_dict(text, data_dict):
                         if text.upper() == val:
                             return (row["CATEGORY"], sub)
     return ("no-match", "no-match")
+
 
 def verify_Uppercase(text):
     """Verify if the text is uppercase"""
