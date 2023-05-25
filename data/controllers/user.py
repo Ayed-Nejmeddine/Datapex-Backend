@@ -42,10 +42,10 @@ class EmailConfirmationViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet)
         email = EmailAddress.objects.get(user=request.user)
         if email.user.profile.email_is_verified:
             return serializers.ValidationError(
-                {"error": "email is already verified"}, status=status.HTTP_409_CONFLICT
+                {"error": ["email is already verified"]}, status=status.HTTP_409_CONFLICT
             )
         email.send_confirmation()
-        return Response({"email_verification": "sent"}, status=status.HTTP_200_OK)
+        return Response({"email_verification": ["sent"]}, status=status.HTTP_200_OK)
 
     def get_queryset(self):
         """Override the get_queryset method."""
@@ -75,9 +75,9 @@ class VerificationViewSet(VerifyViewSET):  # pylint: disable=R0903
         if hasattr(request.user, "profile"):
             user_phone_number = request.user.profile.phone
         else:
-            return response.Ok({"error": "User doesn't have a phone number!"})
+            return response.Ok({"error": ["User doesn't have a phone number!"]})
         if user_phone_number != phone_number:
-            return response.Ok({"error": "You have entered the wrong phone number!"})
+            return response.Ok({"error": ["You have entered the wrong phone number!"]})
         if not request.user.profile.phone_is_verified:
             session_token = send_security_code_and_generate_session_token(
                 phone_number=str(phone_number),
@@ -86,7 +86,7 @@ class VerificationViewSet(VerifyViewSET):  # pylint: disable=R0903
                 field_name="phone_number",
             )
             return response.Ok({"session_token": session_token})
-        return response.Ok({"phone_number": f"Your number {phone_number} is already verified!"})
+        return response.Ok({"phone_number": [f"Your number {phone_number} is already verified!"]})
 
 
 class UploadPhotoViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):  # pylint: disable=R0903
