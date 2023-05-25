@@ -395,6 +395,7 @@ class BaseAbstract(BaseInterface):
         global_dominant_categories = []
         global_dominant_subcategories = []
         for i in columns:
+            df[i] = df[i].apply(lambda x: str(x).replace("Â°", "°"))
             data_serie = (
                 df[i]
                 .value_counts(dropna=False)

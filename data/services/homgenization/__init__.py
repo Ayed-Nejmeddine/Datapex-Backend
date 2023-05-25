@@ -25,4 +25,5 @@ class Homogenization(HomogenizationAnalyser, Thread):
         self.data_correction()
         self.standardisation_date()
         self.SubCategory_correction()
+        self.correction_unities()
         self.cleaning_document()
