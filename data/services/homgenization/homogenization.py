@@ -60,7 +60,7 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 data_dict_unique_values= list(all_elements)
                 # search of each value in the dictionnary and replace it by the most similar one
             for i, word in enumerate(df[column]):
-                characters_to_check=['/','@']
+                characters_to_check=['/','@','°']
                 if isinstance(word, str) and not pd.isna(word) and not any(char in word for char in characters_to_check):
                     # detect closest words in the dictionary
                     similars =[]
