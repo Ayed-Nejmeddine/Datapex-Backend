@@ -257,6 +257,7 @@ CITIES_LIGHT_INCLUDE_COUNTRIES = [
     'WF', 'WS',
     'YE', 'YT',
     'ZA', 'ZM', 'ZW',
+]
 
 ICON_LINK = r"/media/email_icons"
 IMAGES = [
