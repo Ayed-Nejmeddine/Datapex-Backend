@@ -90,7 +90,6 @@ def get_data_dict(text, data_dict):
                     for sub, val in row.items():
                         if text.upper() == val:
                             return (row["CATEGORY"], sub)
-
     return ("no-match", "no-match")
 
 
