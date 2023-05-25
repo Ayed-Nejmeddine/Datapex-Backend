@@ -11,3 +11,6 @@ class HomogenizationInterface:
         Removes duplicated rows in the file
         """
         pass
+    def data_correction(self):
+        
+        pass
