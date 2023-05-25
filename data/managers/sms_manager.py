@@ -5,6 +5,7 @@ from phone_verify.models import SMSVerification
 
 class CustomTwilioBackend(TwilioBackend):
     """Override Twilio backend in order to disable deleting SmsVerification objects"""
+
     def create_security_code_and_session_token(self, number):
         """
         Creates a temporary `security_code` and `session_token` inside the DB.
