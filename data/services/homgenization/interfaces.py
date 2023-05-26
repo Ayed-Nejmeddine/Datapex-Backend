@@ -16,8 +16,20 @@ class HomogenizationInterface:
         """
         pass
 
+    def data_correction(self):
+        """
+        Corrects data based on the semantic result
+        """
+        pass
+
     def SubCategory_correction(self):
         """
         Corrects the sub-categories
+        """
+        pass
+
+    def correction_unities(self):
+        """
+        Corrects the unities
         """
         pass

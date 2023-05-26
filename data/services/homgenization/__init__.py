@@ -22,6 +22,8 @@ class Homogenization(HomogenizationAnalyser, Thread):
     def run(self):
         self.remove_extra_spaces()
         self.remove_duplicated_rows()
+        self.data_correction()
         self.standardisation_date()
         self.SubCategory_correction()
+        self.correction_unities()
         self.cleaning_document()
