@@ -1,6 +1,7 @@
 """utils of homogenization"""
 import datetime
 import json
+import re
 
 from cachetools import TTLCache
 from cachetools import cached
@@ -63,6 +64,18 @@ def get_Dominant_Category_subcategory(doc_id):
     Dom_cat = SemanticResult.objects.get(rule=M103_30, document_id=doc_id).result
     Dom_subcat = SemanticResult.objects.get(rule=M103_31, document_id=doc_id).result
     return Dom_cat, Dom_subcat
+
+
+def transform_unite(text, abreviation):
+    """transform unit from full name to abreviations"""
+    value = text.split(" ")
+    numeric_value = ""
+    if len(value) == 1:
+        numeric_value = re.search(r"\d+", value[0]).group()
+    else:
+        numeric_value = value[0]
+    abreviated_value = numeric_value + " " + abreviation
+    return abreviated_value
 
 
 @cached(cache)
