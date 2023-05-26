@@ -59,7 +59,6 @@ def fill_out_data_dict_model(sender, **kwargs):  # pylint: disable=W0613
             if jsonArray != []:
                 jsonArrayString = json.dumps(jsonArray)
                 globalJsonArray.append(jsonArrayString)
-
             for Array in globalJsonArray:
                 DataDict.objects.update_or_create(data_dict=Array, category=category)
 
