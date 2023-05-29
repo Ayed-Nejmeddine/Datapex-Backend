@@ -35,6 +35,7 @@ HOMOGENIZATION_TYPES = ((HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplicati
 
 # rules for the syntactic analysis:
 M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
+M100_4={"rule": "M100 [4]", "signification": "Indexes of null values (profilage result)"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
