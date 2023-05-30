@@ -38,15 +38,18 @@ class ProfilageAnalyser(ProfilageInterface):
         for i in range(len(columns)):
             if null_values[columns[i]]:
                 col_null = [
-                    (j, i) for j in range(len(df[columns[i]])) if df[columns[i]].isnull().iloc[j]
+                    (i, j) for j in range(len(df[columns[i]])) if df[columns[i]].isnull().iloc[j]
                 ]
                 result[i] = col_null
+        
+        
         # save null values (i,j) in database
         ProfilageResult.objects.update_or_create(
-            document_id=self.document_id,
-            rule=M100_4,
-            defaults={"result": {i: result[columns.get_loc(i)] for i in columns}},
-        )
+                document_id=self.document_id,
+                rule=M100_4,
+                defaults={"result": result},
+            )
+        
 
     def detect_invalid_values_according_categories(self):
         """returns position of invalid values according to categories"""
