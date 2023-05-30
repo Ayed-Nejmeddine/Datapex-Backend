@@ -18,7 +18,6 @@ class ProfilageAnalyser(ProfilageInterface):
         self.document_path = document_path
 
     def detect_null_values(self):
-        print("aaaaaaaaaaaa")
         """return position of null values"""
         df = self.df
         columns = df.columns
@@ -27,18 +26,16 @@ class ProfilageAnalyser(ProfilageInterface):
         for i in range(len(columns)):
             if null_values[columns[i]]:
                 col_null = [
-                    (j, i) for j in range(len(df[columns[i]])) if df[columns[i]].isnull().iloc[j]
+                    (i, j) for j in range(len(df[columns[i]])) if df[columns[i]].isnull().iloc[j]
                 ]
                 result[i] = col_null
-        print(result)
-        final_result={i:result[columns.get_loc(i)] for i in columns}
-        print(final_result)
+        
         
         # save null values (i,j) in database
         ProfilageResult.objects.update_or_create(
                 document_id=self.document_id,
                 rule=M100_4,
-                defaults={"result": {i:result[columns.get_loc(i)] for i in columns}},
+                defaults={"result": result},
             )
         
 

@@ -377,7 +377,6 @@ class DocumentViewSet(viewsets.ModelViewSet):
     )
     def launch_document_profilage(self, request, pk=None):
         """Returs null and invalid values"""
-        print("document")
         document = self.get_object()
         
 
@@ -403,12 +402,9 @@ class DocumentViewSet(viewsets.ModelViewSet):
             """Get the profilage results."""
             
             document = self.get_object()
-            print("aaaaaaaaaaaaaa")
             if not {ProfilageResult.objects.get(document=document)}:
                  return Response({"message": "Please launch the profilage first!"})
             null_indexes= ProfilageResult.objects.get(document=document, rule=M100_4)
-            print(null_indexes)
             output={}
             output["M100_4"]=null_indexes.result
-            print('output', output)
             return JsonResponse(output)
