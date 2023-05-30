@@ -100,7 +100,7 @@ class HomogenizationAnalyser(HomogenizationInterface):
 
             for _idx, value in self.df[col].iteritems():
                 if str(value).upper() in data_list_string and not any(
-                    obj[subCategory].lower() == value for obj in data_list
+                    obj[subCategory] == str(value).upper() for obj in data_list
                 ):
                     for obj in data_list:
                         if value.upper() in list(obj.values()):
