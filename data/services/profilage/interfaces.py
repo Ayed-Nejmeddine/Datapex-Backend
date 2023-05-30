@@ -10,8 +10,10 @@ class ProfilageInterface:
         """
         pass
 
-    def detect_invalid_values(self):
-        """
-        Removes duplicated rows in the file
-        """
+    def detect_invalid_values_according_categories(self):
+        """invalid values according to categories"""
+        pass
+
+    def detect_invalid_values_according_subcategories(self):
+        """invalid values according to subcategories"""
         pass

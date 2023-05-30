@@ -51,7 +51,7 @@ class RegularExp(models.Model):
 class AnalysisResult(models.Model):
     """Analysis result model"""
 
-    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
     result = JSONField()
 
     class Meta:  # pylint: disable=C0115,R0903
@@ -83,11 +83,21 @@ class SemanticResult(AnalysisResult):
         """
         return f"{self.document} - {self.rule}"
 
+class ProfilageResult(AnalysisResult):
+    """Semantic Analysis result model"""
 
+    rule = JSONField()
+    objects = models.Manager()
+
+    def __str__(self):
+        """
+        Override this method to format ProfilageResult object.'
+        """
+        return f"{self.document} - {self.rule}"
 class SemanticData(models.Model):
     """Semantic Analysis data model"""
 
-    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
     data = JSONField()
     objects = models.Manager()
 
@@ -95,7 +105,7 @@ class SemanticData(models.Model):
 class AnalysisTrace(models.Model):
     """Analysis trace model"""
 
-    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
     state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)
     analysis_type = models.CharField(max_length=100, choices=ANALYSIS_TYPES)
     objects = models.Manager()
@@ -118,7 +128,7 @@ class DataDict(models.Model):
 class Link(models.Model):
     """link model"""
 
-    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
     first_column = models.CharField(max_length=200)
     second_column = models.CharField(max_length=200)
     relationship = models.CharField(max_length=100)
@@ -128,7 +138,7 @@ class Link(models.Model):
 class HomogenizationTrace(models.Model):
     """Homogenization class"""
 
-    document = models.ForeignKey(Document, on_delete=models.DO_NOTHING)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
     state = models.CharField(max_length=100, choices=ANALYSIS_TRACE_STATES, default=RUNNING_STATE)
     homogenization_type = models.CharField(max_length=100, choices=HOMOGENIZATION_TYPES)
 

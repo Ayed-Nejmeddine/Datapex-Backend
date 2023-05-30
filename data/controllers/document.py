@@ -15,6 +15,7 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
+from data.models import M100_4
 from data.models import M102_25
 from data.models import M103_30
 from data.models import M103_31
@@ -24,6 +25,7 @@ from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
 from data.models.basic_models import Link
+from data.models.basic_models import ProfilageResult
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
 from data.serializers.document_serializer import DocumentSerializer
@@ -73,7 +75,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         analyser = Analyser(document=document)
         analyser.start()
         return Response(
-            {"message": "The syntactic analysis has been launched."}, status.HTTP_200_OK
+            {"message": ["The syntactic analysis has been launched."]}, status.HTTP_200_OK
         )
 
     @action(
@@ -110,8 +112,14 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
             return response
         if not AnalysisTrace.objects.filter(document=document):
-            return Response({"message": "Please launch the syntactic analysis first!"})
-        return Response({"message": "The syntactic analysis is still running!"})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response(
+            {"message": ["The syntactic analysis is still running!"]},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     @action(
         detail=True,
@@ -198,8 +206,14 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
             return response
         if not AnalysisTrace.objects.filter(document=document):
-            return Response({"message": "Please launch the syntactic analysis first!"})
-        return Response({"message": "The syntactic analysis is still running!"})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response(
+            {"message": ["The syntactic analysis is still running!"]},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     @action(
         detail=True,
@@ -215,8 +229,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
             links = Link.objects.filter(document=document)
             return Response(LinkSerializer(links, read_only=True, many=True).data)
         if not AnalysisTrace.objects.filter(document=document):
-            return Response({"message": "Please launch the syntactic analysis first!"})
-        return Response({"message": "Please wait for the syntactic analysis to complete!"})
+            return Response({"message": ["Please launch the syntactic analysis first!"]})
+        return Response({"message": ["Please wait for the syntactic analysis to complete!"]})
 
     @action(
         detail=True,
@@ -229,16 +243,16 @@ class DocumentViewSet(viewsets.ModelViewSet):
         document = self.get_object()
 
         if AnalysisTrace.objects.filter(document=document, state="running"):
-            raise ValidationError({"message": "the syntactic analysis still running!"})
+            raise ValidationError({"message": ["the syntactic analysis still running!"]})
         if not AnalysisTrace.objects.filter(document=document, state="finished"):
-            raise ValidationError({"message": "Please launch the syntactic analysis first!"})
+            raise ValidationError({"message": ["Please launch the syntactic analysis first!"]})
         try:
             SemanticAnalyser(document=document).run()
             return Response(
-                {"message": "The semantic analysis has been launched."}, status.HTTP_200_OK
+                {"message": ["The semantic analysis has been launched."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": f"Run the Syntactic analysis first, error:{e}"})
+            return Response({"message": [f"Run the Syntactic analysis first, error:{e}"]})
 
     @action(
         detail=True,
@@ -249,8 +263,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def get_semantic_results(self, request, pk=None):
         """Get the semantic analysis results."""
         document = self.get_object()
-        if not {SemanticResult.objects.filter(document=document)}:
-            return Response({"message": "Please launch the semantic analysis first!"})
+        if not SemanticResult.objects.filter(document=document):
+            return Response(
+                {"message": ["Please launch the semantic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         categories_res = SemanticResult.objects.get(document=document, rule=M102_25)
         valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_30)
@@ -325,7 +342,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         ).distinct()
         qs = AnalysisTrace.objects.filter(document__owner=request.user, state="finished")
         if not qs:
-            return Response({"message": "No document has yet been analyzed"})
+            return Response({"message": ["No document has yet been analyzed"]})
         latest_doc = documents.latest("upload_date")
         return Response(DocumentSerializer(latest_doc, read_only=True).data)
 
@@ -343,18 +360,21 @@ class DocumentViewSet(viewsets.ModelViewSet):
             AnalysisTrace.objects.filter(document=document, state="running")
             or AnalysisTrace.objects.filter(document=document, state="finished")
         ):
-            return Response({"message": "Please launch the syntactic analysis first!"})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             Homogenization(document=document).run()
             return Response(
-                {"message": "The document is cleanned successfully ."}, status.HTTP_200_OK
+                {"message": ["The document is cleanned successfully."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": f"The document cleaning failed, error:{e}"})
+            return Response({"message": [f"The document cleaning failed, error:{e}"]})
 
     @action(
         detail=True,
-        methods=["POST"],
+        methods=["GET"],
         url_name="launch-document-profilage",
         url_path="launch-document-profilage",
     )
@@ -366,11 +386,33 @@ class DocumentViewSet(viewsets.ModelViewSet):
             AnalysisTrace.objects.filter(document=document, state="running")
             or AnalysisTrace.objects.filter(document=document, state="finished")
         ):
-            return Response({"message": "Please launch the syntactic analysis first!"})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             Profilage(document=document).run()
             return Response(
-                {"message": "document profilage is launched successfully ."}, status.HTTP_200_OK
+                {"message": ["document profilage is launched successfully ."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": f"The document profilage failed, error:{e}"})
+            return Response({"message": [f"The document profilage failed, error:{e}"]})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-profilage-results",
+        url_path="get-profilage-results",
+    )
+    def get_profilage_results(self, request, pk=None):
+        """Get the profilage results."""
+
+        document = self.get_object()
+        if not {ProfilageResult.objects.get(document=document)}:
+            return Response(
+                {"message": ["Please launch the profilage first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        null_indexes = ProfilageResult.objects.get(document=document, rule=M100_4)
+        output = {"M100_4": null_indexes.result}
+        return JsonResponse(output)

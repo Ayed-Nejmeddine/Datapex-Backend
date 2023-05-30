@@ -10,7 +10,7 @@ class Profilage(ProfilageAnalyser, Thread):
     """ "Profilage function"""
 
     def __init__(self, document):
-        super().__init__(df=None, document_id=None, document_path=None)
+        super().__init__(df=None, document_id=None)
         self.document_id = document.id
         self.document_path = document.document_path
         with document.document_path.open("r") as f:
@@ -21,4 +21,5 @@ class Profilage(ProfilageAnalyser, Thread):
 
     def run(self):
         self.detect_null_values()
-        self.detect_invalid_values()
+        self.detect_invalid_values_according_categories()
+        self.detect_invalid_values_according_subcategories()
