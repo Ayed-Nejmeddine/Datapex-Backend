@@ -15,19 +15,19 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
+from data.models import M100_4
 from data.models import M102_25
 from data.models import M103_30
 from data.models import M103_31
 from data.models import M104_5
 from data.models import M104_6
-from data.models import M100_4
 from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
 from data.models.basic_models import Link
+from data.models.basic_models import ProfilageResult
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
-from data.models.basic_models import ProfilageResult
 from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
 from data.services.homgenization import Homogenization
@@ -360,14 +360,17 @@ class DocumentViewSet(viewsets.ModelViewSet):
             AnalysisTrace.objects.filter(document=document, state="running")
             or AnalysisTrace.objects.filter(document=document, state="finished")
         ):
-            return Response({"message": ["Please launch the syntactic analysis first!"]})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             Homogenization(document=document).run()
             return Response(
                 {"message": ["The document is cleanned successfully."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": f"The document cleaning failed, error:{e}"})
+            return Response({"message": [f"The document cleaning failed, error:{e}"]})
 
     @action(
         detail=True,
@@ -378,33 +381,38 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def launch_document_profilage(self, request, pk=None):
         """Returs null and invalid values"""
         document = self.get_object()
-        
 
         if not (
             AnalysisTrace.objects.filter(document=document, state="running")
             or AnalysisTrace.objects.filter(document=document, state="finished")
         ):
-            return Response({"message": "Please launch the syntactic analysis first!"})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             Profilage(document=document).run()
             return Response(
-                {"message": "document profilage is launched successfully ."}, status.HTTP_200_OK
+                {"message": ["document profilage is launched successfully ."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": f"The document profilage failed, error:{e}"})
+            return Response({"message": [f"The document profilage failed, error:{e}"]})
+
     @action(
-            detail=True,
-            methods=["GET"],
-            url_name="get-profilage-results",
-            url_path="get-profilage-results",
+        detail=True,
+        methods=["GET"],
+        url_name="get-profilage-results",
+        url_path="get-profilage-results",
     )
     def get_profilage_results(self, request, pk=None):
-            """Get the profilage results."""
-            
-            document = self.get_object()
-            if not {ProfilageResult.objects.get(document=document)}:
-                 return Response({"message": "Please launch the profilage first!"})
-            null_indexes= ProfilageResult.objects.get(document=document, rule=M100_4)
-            output={}
-            output["M100_4"]=null_indexes.result
-            return JsonResponse(output)
+        """Get the profilage results."""
+
+        document = self.get_object()
+        if not {ProfilageResult.objects.get(document=document)}:
+            return Response(
+                {"message": ["Please launch the profilage first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        null_indexes = ProfilageResult.objects.get(document=document, rule=M100_4)
+        output = {"M100_4": null_indexes.result}
+        return JsonResponse(output)
