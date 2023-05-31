@@ -408,7 +408,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         """Get the profilage results."""
 
         document = self.get_object()
-        if not {ProfilageResult.objects.get(document=document)}:
+        if not {ProfilageResult.objects.filter(document=document)}:
             return Response(
                 {"message": ["Please launch the profilage first!"]},
                 status=status.HTTP_400_BAD_REQUEST,
