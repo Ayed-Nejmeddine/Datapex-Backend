@@ -15,6 +15,9 @@ from data.models import M103_30
 from data.models import M103_31
 from data.models import M104_5
 from data.models import M104_6
+from data.models import M104_26
+from data.models import M104_27
+from data.models import M104_28
 from data.models import M105_5
 from data.models import M113_16
 from data.models import MATCHED_EXPRESSIONS
@@ -37,7 +40,10 @@ class SemanticAnalyser(SemanticInterface):
         global_dominant_categories = {}
         global_dominant_sub_categories = {}
         global_categories = {}
+        global_index_result = {}
         qs_reg = SyntacticResult.objects.get(document_id=self.document_id, rule=MATCHED_EXPRESSIONS)
+        M104_26_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M104_26)
+        M104_27_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M104_27)
         M103_3_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M103_3)
         M105_5_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M105_5)
         M101_1_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M101_1)
@@ -51,6 +57,16 @@ class SemanticAnalyser(SemanticInterface):
             syntactic_analyser.syntactic_validation_with_data_dict()
         qs_total = {}
         for column in qs_reg.result:
+            global_index_values = {}
+            global_index_values = {
+                index: M104_27_res.result[column][index]
+                for index in M104_27_res.result[column]
+                if M104_27_res.result[column][index] != ["no-match", "no-match"]
+            }
+            for index in M104_26_res.result[column]:
+                if index not in global_index_values:
+                    global_index_values[index] = M104_26_res.result[column][index]
+            global_index_result[column] = global_index_values
             if not (
                 qs_reg.result[column] == "NON APPLICABLE"
                 or list(M103_3_res.result[column].keys()) == ["no-match"]
@@ -81,6 +97,11 @@ class SemanticAnalyser(SemanticInterface):
             document_id=self.document_id,
             rule=M103_30,
             defaults={"result": global_dominant_categories},
+        )
+        SemanticResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M104_28,
+            defaults={"result": global_index_result},
         )
         # dominant subcategories and their respectful percentages according to regex and data_dict
         SemanticResult.objects.update_or_create(

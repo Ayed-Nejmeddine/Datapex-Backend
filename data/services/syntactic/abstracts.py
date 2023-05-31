@@ -20,6 +20,8 @@ from data.models import M103_27
 from data.models import M104_7
 from data.models import M104_20
 from data.models import M104_21
+from data.models import M104_26
+from data.models import M104_27
 from data.models import M105_5
 from data.models import M111_14
 from data.models import M112_15
@@ -394,20 +396,20 @@ class BaseAbstract(BaseInterface):
         global_detected_categories = []
         global_dominant_categories = []
         global_dominant_subcategories = []
-        for i in columns:
-            df[i] = df[i].apply(lambda x: str(x).replace("Â°", "°"))
-            data_serie = (
-                df[i]
-                .value_counts(dropna=False)
-                .keys()
-                .to_series()
-                .apply(get_regexp, expressions=expressions)
-            )
-            data = data_serie.tolist()
+        data_result = []
+        for i, column in enumerate(df.columns):
+            data_series = {}
+            df[column] = df[column].apply(lambda x: str(x).replace("Â°", "°"))
+            for idx, value in df[column].iteritems():
+                data_series[str((i, idx))] = get_regexp(value, expressions)
+            data_result.append(data_series)
+            data = list(data_series.values())
             matched_dict = {cat_sub: data.count(cat_sub) for cat_sub in data}
             matched_dict_percentages = {
-                key: round(int(matched_dict[key] * 100 / len(df[i])), 2) for key in matched_dict
+                key: round(int(matched_dict[key] * 100 / len(df[column])), 2)
+                for key in matched_dict
             }
+
             column_detected_types = self._detected_types(matched_dict_percentages)
             global_detected_types.append(column_detected_types)
             column_detected_category = self._detected_categories(column_detected_types)
@@ -423,11 +425,13 @@ class BaseAbstract(BaseInterface):
         self._update_or_create_db(columns, M101_1, global_detected_categories)
         self._update_or_create_db(columns, M103_3, global_dominant_categories)
         self._update_or_create_db(columns, M105_5, global_dominant_subcategories)
+        self._update_or_create_db(columns, M104_27, data_result)
         return (
             global_detected_types,
             global_detected_categories,
             global_dominant_categories,
             global_dominant_subcategories,
+            data_result,
         )
 
     def syntactic_validation_with_data_dict(self):
@@ -447,20 +451,18 @@ class BaseAbstract(BaseInterface):
         global_detected_categories = []
         global_dominant_categories = []
         global_dominant_subcategories = []
-
-        for i in columns:
-            if is_string_dtype(df[i].dtypes):
-                data_serie = (
-                    df[i]
-                    .value_counts(dropna=False)
-                    .keys()
-                    .to_series()
-                    .apply(get_data_dict, data_dict=data_dict)
-                )
-                data = data_serie.tolist()
+        data_result = []
+        for i, column in enumerate(df.columns):
+            if is_string_dtype(df[column].dtypes):
+                data_series = {}
+                for idx, value in df[column].iteritems():
+                    data_series[str((i, idx))] = get_data_dict(value, data_dict)
+                data_result.append(data_series)
+                data = list(data_series.values())
                 matched_dict = {cat_sub: data.count(cat_sub) for cat_sub in data}
                 matched_dict_percentages = {
-                    key: round(int(matched_dict[key] * 100 / len(df[i])), 2) for key in matched_dict
+                    key: round(int(matched_dict[key] * 100 / len(df[column])), 2)
+                    for key in matched_dict
                 }
                 column_detected_types = self._detected_types(matched_dict_percentages)
                 global_detected_types.append(column_detected_types)
@@ -489,6 +491,7 @@ class BaseAbstract(BaseInterface):
         self._update_or_create_db(columns, M102_26, global_dominant_categories)
         # Number of valid values according to the dominant Subcategory according to the data dictionary
         self._update_or_create_db(columns, M103_27, global_dominant_subcategories)
+        self._update_or_create_db(columns, M104_26, data_result)
         return (
             global_detected_types,
             global_detected_categories,
