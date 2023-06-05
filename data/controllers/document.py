@@ -15,7 +15,6 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
-from data.models import M100_4
 from data.models import M102_25
 from data.models import M103_30
 from data.models import M103_31
@@ -406,13 +405,18 @@ class DocumentViewSet(viewsets.ModelViewSet):
     )
     def get_profilage_results(self, request, pk=None):
         """Get the profilage results."""
-
         document = self.get_object()
-        if not {ProfilageResult.objects.get(document=document)}:
+        response = HttpResponse(content_type="application/json")
+        if not {ProfilageResult.objects.filter(document=document)}:
             return Response(
                 {"message": ["Please launch the profilage first!"]},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        null_indexes = ProfilageResult.objects.get(document=document, rule=M100_4)
-        output = {"M100_4": null_indexes.result}
-        return JsonResponse(output)
+        output = {}
+        results = ProfilageResult.objects.filter(document=document)
+        for r in results:
+            output[r.rule["rule"]] = {}
+            res_dict = {"result": r.result}
+            output[r.rule["rule"]] = res_dict
+        json.dump(output, response, ensure_ascii=False, indent=4)
+        return response
