@@ -30,7 +30,9 @@ class Analyser(BaseAbstract, Thread):
         with document.document_path.open("r") as f:
             df = pd.DataFrame(pd.read_csv(f, sep=";"))
             self.df = df.convert_dtypes()
-
+        # header = [f'column-{i+1}' for i in range(len(df.columns))]
+        # df.columns = header
+        # self.df = df
         document.num_row, document.num_col = df.shape
         document.save()
         df_copy = df
