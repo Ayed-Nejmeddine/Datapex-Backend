@@ -41,31 +41,49 @@ class SemanticAnalyser(SemanticInterface):
         global_dominant_sub_categories = {}
         global_categories = {}
         global_index_result = {}
-        qs_reg = SyntacticResult.objects.get(document_id=self.document_id, rule=MATCHED_EXPRESSIONS)
-        M104_26_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M104_26)
-        M104_27_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M104_27)
-        M103_3_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M103_3)
-        M105_5_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M105_5)
-        M101_1_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M101_1)
-        qs_dict = SyntacticResult.objects.get(document_id=self.document_id, rule=DATA_TYPES)
-        M102_26_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M102_26)
-        M103_27_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M103_27)
-        M103_26_res = SyntacticResult.objects.get(document_id=self.document_id, rule=M103_26)
-        if not qs_reg or not qs_dict:
-            syntactic_analyser = BaseAbstract(self.df, self.document_id)
-            syntactic_analyser.syntactic_validation_with_regexp()
-            syntactic_analyser.syntactic_validation_with_data_dict()
+        qs_reg = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=MATCHED_EXPRESSIONS
+        )  # global_detected_types regexp {category: ,subcategory: ,sum: }
+        M104_26_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M104_26
+        )  # profilage
+        M104_27_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M104_27
+        )  # profilage
+        M103_3_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M103_3
+        )  # dominant categories {domCat: 64}
+        M105_5_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M105_5
+        )  # dominant subcategories {'first_name': {'no-match': 94.59},...}
+        M101_1_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M101_1
+        )  # global_detected_categories regexp{'first_name': {'no-match': 94.59, 'BIC-BANKCODE': 5.41},...}
+        qs_dict = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=DATA_TYPES
+        )  # global_detected_types data dict{category: ,subcategory: ,sum: }
+        M102_26_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M102_26
+        )  # profilage
+        M103_27_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M103_27
+        )  # profilage
+        M103_26_res = SyntacticResult.objects.get(
+            document_id=self.document_id, rule=M103_26
+        )  # global_detected_categories data dict{'first_name': {'no-match': 94.59, 'BIC-BANKCODE': 5.41},...}
+        # if not qs_reg or not qs_dict:
+        #     syntactic_analyser = BaseAbstract(self.df, self.document_id)
+        #     syntactic_analyser.syntactic_validation_with_regexp()
+        #     syntactic_analyser.syntactic_validation_with_data_dict()
         qs_total = {}
         for column in qs_reg.result:
             global_index_values = {}
-            global_index_values = {
-                index: M104_27_res.result[column][index]
-                for index in M104_27_res.result[column]
-                if M104_27_res.result[column][index] != ["no-match", "no-match"]
-            }
+            for index in M104_27_res.result[column]:
+                global_index_values[index] = []
+                global_index_values[index].append(M104_27_res.result[column][index])
+
             for index in M104_26_res.result[column]:
-                if index not in global_index_values:
-                    global_index_values[index] = M104_26_res.result[column][index]
+                global_index_values[index].append(M104_26_res.result[column][index])
             global_index_result[column] = global_index_values
             if not (
                 qs_reg.result[column] == "NON APPLICABLE"

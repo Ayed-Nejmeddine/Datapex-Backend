@@ -53,8 +53,9 @@ class ProfilageAnalyser(ProfilageInterface):
             list_index = []
             category = list(Dom_cat[column_key].keys())[0]
             for key, value in column_value.items():
-                if value[0] != category:
-                    list_index.append(ast.literal_eval(key))
+                if any(res[0] == category for res in value):
+                    continue
+                list_index.append(ast.literal_eval(key))
             if not list_index:
                 list_index = None
             result[i] = list_index
@@ -73,8 +74,9 @@ class ProfilageAnalyser(ProfilageInterface):
             list_index = []
             subcategory = list(Dom_subcat[column_key].keys())[0]
             for key, value in column_value.items():
-                if value[1] != subcategory:
-                    list_index.append(ast.literal_eval(key))
+                if any(res[1] == subcategory for res in value):
+                    continue
+                list_index.append(ast.literal_eval(key))
             if not list_index:
                 list_index = None
             result[i] = list_index
