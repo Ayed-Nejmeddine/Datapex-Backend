@@ -73,6 +73,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
         )
         analyser = Analyser(document=document)
         analyser.start()
+        
+        analyser.join()
         return Response(
             {"message": ["The syntactic analysis has been launched."]}, status.HTTP_200_OK
         )
