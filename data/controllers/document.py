@@ -1,11 +1,11 @@
 """Here all document APIs."""
-import csv
 import json
 
 from django.db.models import Q
 from django.http import HttpResponse
 from django.http import JsonResponse
 
+import pandas as pd
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -73,7 +73,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         )
         analyser = Analyser(document=document)
         analyser.start()
-        
+
         analyser.join()
         return Response(
             {"message": ["The syntactic analysis has been launched."]}, status.HTTP_200_OK
@@ -93,9 +93,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
             response = HttpResponse(content_type="application/json")
             # JSON Data
             output = {}
-            with document.document_path.open("r") as f:
-                reader = csv.reader(f, delimiter=";")
-                header = next(reader)
+            reader = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+            header = reader.columns.tolist()
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
                 output[r.rule["rule"]] = {}
@@ -159,9 +158,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 "M104 [21]",
             ]
             output = {}
-            with document.document_path.open("r") as f:
-                reader = csv.reader(f, delimiter=";")
-                header = next(reader)
+            reader = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+            header = reader.columns.tolist()
             sumText = 0
             sumDate = 0
             sumNum = 0
