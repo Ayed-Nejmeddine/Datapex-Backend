@@ -116,7 +116,6 @@ class SemanticAnalyser(SemanticInterface):
             rule=M103_30,
             defaults={"result": global_dominant_categories},
         )
-        # detected categories using regex and data_dict
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=M104_28,
