@@ -35,6 +35,15 @@ HOMOGENIZATION_TYPES = ((HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplicati
 
 # rules for the syntactic analysis:
 M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
+M100_4 = {"rule": "M100 [4]", "signification": "Indexes of null values (profilage result)"}
+M100_5 = {
+    "rule": "M100 [5]",
+    "signification": "Indexes of invalid values according to categories (profilage result)",
+}
+M100_6 = {
+    "rule": "M100 [6]",
+    "signification": "Indexes of invalid values according to subcategories (profilage result)",
+}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
@@ -92,6 +101,18 @@ M103_25 = {"rule": "M103 [25]", "signification": "Number of invalid values accor
 M103_26 = {
     "rule": "M103 [26]",
     "signification": "Detected categories and subcategories and their respectful percentages according to the data dictionary and regular expressions",
+}
+M104_26 = {
+    "rule": "M104 [26]",
+    "signification": "Indexes of categories and subcategories of data_dict",
+}
+M104_27 = {
+    "rule": "M104 [27]",
+    "signification": "Indexes of categories and subcategories of regular expression",
+}
+M104_28 = {
+    "rule": "M104 [28]",
+    "signification": "Indexes of categories and subcategories of regular expression and data dictionary",
 }
 M103_27 = {
     "rule": "M103 [27]",

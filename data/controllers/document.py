@@ -1,11 +1,11 @@
 """Here all document APIs."""
-import csv
 import json
 
 from django.db.models import Q
 from django.http import HttpResponse
 from django.http import JsonResponse
 
+import pandas as pd
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -24,11 +24,13 @@ from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
 from data.models.basic_models import Link
+from data.models.basic_models import ProfilageResult
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
 from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
 from data.services.homgenization import Homogenization
+from data.services.profilage import Profilage
 from data.services.semantic import Analyser as SemanticAnalyser
 from data.services.syntactic import Analyser
 
@@ -71,6 +73,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
         )
         analyser = Analyser(document=document)
         analyser.start()
+
+        analyser.join()
         return Response(
             {"message": ["The syntactic analysis has been launched."]}, status.HTTP_200_OK
         )
@@ -89,9 +93,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
             response = HttpResponse(content_type="application/json")
             # JSON Data
             output = {}
-            with document.document_path.open("r") as f:
-                reader = csv.reader(f, delimiter=";")
-                header = next(reader)
+            reader = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+            header = reader.columns.tolist()
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
                 output[r.rule["rule"]] = {}
@@ -155,9 +158,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 "M104 [21]",
             ]
             output = {}
-            with document.document_path.open("r") as f:
-                reader = csv.reader(f, delimiter=";")
-                header = next(reader)
+            reader = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+            header = reader.columns.tolist()
             sumText = 0
             sumDate = 0
             sumNum = 0
@@ -346,8 +348,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=["POST"],
-        url_name="lunch-document-cleaning",
-        url_path="lunch-document-cleaning",
+        url_name="launch-document-cleaning",
+        url_path="launch-document-cleaning",
     )
     def launch_document_cleaning(self, request, pk=None):
         """Remove spaces and duplicated rows in the document"""
@@ -357,7 +359,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
             AnalysisTrace.objects.filter(document=document, state="running")
             or AnalysisTrace.objects.filter(document=document, state="finished")
         ):
-            return Response({"message": ["Please launch the syntactic analysis first!"]})
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             Homogenization(document=document).run()
             return Response(
@@ -365,3 +370,53 @@ class DocumentViewSet(viewsets.ModelViewSet):
             )
         except Exception as e:
             return Response({"message": [f"The document cleaning failed, error:{e}"]})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="launch-document-profilage",
+        url_path="launch-document-profilage",
+    )
+    def launch_document_profilage(self, request, pk=None):
+        """Returs null and invalid values"""
+        document = self.get_object()
+
+        if not (
+            AnalysisTrace.objects.filter(document=document, state="running")
+            or AnalysisTrace.objects.filter(document=document, state="finished")
+        ):
+            return Response(
+                {"message": ["Please launch the syntactic analysis first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            Profilage(document=document).run()
+            return Response(
+                {"message": ["document profilage is launched successfully ."]}, status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response({"message": [f"The document profilage failed, error:{e}"]})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-profilage-results",
+        url_path="get-profilage-results",
+    )
+    def get_profilage_results(self, request, pk=None):
+        """Get the profilage results."""
+        document = self.get_object()
+        response = HttpResponse(content_type="application/json")
+        if not {ProfilageResult.objects.filter(document=document)}:
+            return Response(
+                {"message": ["Please launch the profilage first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        output = {}
+        results = ProfilageResult.objects.filter(document=document)
+        for r in results:
+            output[r.rule["rule"]] = {}
+            res_dict = {"result": r.result}
+            output[r.rule["rule"]] = res_dict
+        json.dump(output, response, ensure_ascii=False, indent=4)
+        return response
