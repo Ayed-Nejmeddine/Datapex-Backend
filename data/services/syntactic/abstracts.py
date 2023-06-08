@@ -348,7 +348,7 @@ class BaseAbstract(BaseInterface):
     def _detected_categories(self, column_detected_types):
         """detected categories in the column"""
         column_detected_category = {}
-        for col_type in column_detected_types: 
+        for col_type in column_detected_types:
             if col_type["CATEGORY"] not in column_detected_category:
                 column_detected_category[col_type["CATEGORY"]] = col_type["POURCENTAGE"]
             else:
