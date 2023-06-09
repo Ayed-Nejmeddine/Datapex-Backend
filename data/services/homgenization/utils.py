@@ -68,14 +68,8 @@ def get_Dominant_Category_subcategory(doc_id):
 
 def transform_unite(text, abreviation):
     """transform unit from full name to abreviations"""
-    value = text.split(" ")
-    numeric_value = ""
-    if len(value) == 1:
-        numeric_value = re.search(r"\d+", value[0]).group()
-    else:
-        numeric_value = value[0]
-    abreviated_value = numeric_value + " " + abreviation
-    return abreviated_value
+    numeric_value = ''.join(re.findall(r'\d+', text))
+    return numeric_value + " " + abreviation
 
 
 @cached(cache)
