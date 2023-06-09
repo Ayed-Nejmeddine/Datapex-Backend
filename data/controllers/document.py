@@ -24,6 +24,7 @@ from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
 from data.models.basic_models import Link
+from data.models.basic_models import HomogenizationResult
 from data.models.basic_models import ProfilageResult
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
@@ -374,6 +375,30 @@ class DocumentViewSet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=["GET"],
+        url_name="get-cleaning-results",
+        url_path="get-cleaning-results",
+    )
+    def get_cleaning_results(self, request, pk=None):
+        """Get the cleaning and data correction results."""
+        document = self.get_object()
+        response = HttpResponse(content_type="application/json")
+        if not {HomogenizationResult.objects.filter(document=document)}:
+            return Response(
+                {"message": ["Please launch the cleaning first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        output = {}
+        results = HomogenizationResult.objects.filter(document=document)
+        for r in results:
+            output[r.rule["rule"]] = {}
+            res_dict = {"result": r.result}
+            output[r.rule["rule"]] = res_dict
+        json.dump(output, response, ensure_ascii=False, indent=4)
+        return response
+    
+    @action(
+        detail=True,
+        methods=["GET"],
         url_name="launch-document-profilage",
         url_path="launch-document-profilage",
     )
@@ -395,7 +420,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 {"message": ["document profilage is launched successfully ."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": [f"The document profilage failed, error:{e}"]})
+            return Response({"message": [f"The document profilage failed, error:{e}"]}) 
 
     @action(
         detail=True,
