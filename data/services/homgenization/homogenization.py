@@ -23,8 +23,10 @@ from data.models import M118
 from data.models import M119
 from data.models import M120
 from data.models import M121
+from data.models import M200_1
 from data.models import PHYSICAL_METRICS
 from data.models.basic_models import DataDict
+from data.models.basic_models import HomogenizationResult
 from data.models.basic_models import RegularExp
 from data.models.basic_models import SemanticResult
 from data.services.homgenization.interfaces import HomogenizationInterface
@@ -82,29 +84,42 @@ class HomogenizationAnalyser(HomogenizationInterface):
         """corrects the subcategories of each column"""
         Dom_cat, Dom_subcat = get_Dominant_Category_subcategory(self.document_id)
         columns = self.df.columns
-
-        for col in columns:
-            if not is_string_dtype(self.df[col].dtypes):
+        result = [None] * len(self.df.columns)
+        for i in range(len(columns)):
+            list_index = []
+            if not is_string_dtype(self.df[columns[i]].dtypes):
                 continue
+            self.df[columns[i]].fillna("", inplace=True)
+            self.df[columns[i]] = self.df[columns[i]].apply(lambda x: unidecode.unidecode(str(x)))
 
-            self.df[col].fillna("", inplace=True)
-            self.df[col] = self.df[col].apply(lambda x: unidecode.unidecode(str(x)))
-
-            if Dom_cat[col] == "NON APPLICABLE" or Dom_subcat[col] == "NON APPLICABLE":
+            if (
+                Dom_cat[columns[i]] == "NON APPLICABLE"
+                or Dom_subcat[columns[i]] == "NON APPLICABLE"
+            ):
                 continue
-
-            category = list(Dom_cat[col].keys())[0]
-            subCategory = list(Dom_subcat[col].keys())[0]
+            category = list(Dom_cat[columns[i]].keys())[0]
+            subCategory = list(Dom_subcat[columns[i]].keys())[0]
             data_list = get_Data_Dict(category)
             data_list_string = " ".join(str(x) for x in data_list)
 
-            for _idx, value in self.df[col].iteritems():
+            for idx, value in self.df[columns[i]].iteritems():
                 if str(value).upper() in data_list_string and not any(
                     obj[subCategory] == str(value).upper() for obj in data_list
                 ):
                     for obj in data_list:
                         if value.upper() in list(obj.values()):
-                            self.df[col] = self.df[col].replace(value, obj[subCategory])
+                            self.df[columns[i]] = self.df[columns[i]].replace(
+                                value, obj[subCategory]
+                            )
+                            list_index.append((i, idx))
+            if not list_index:
+                list_index = None
+            result[i] = list_index
+        HomogenizationResult.objects.update_or_create(
+            document_id=self.document_id,
+            rule=M200_1,
+            defaults={"result": result},
+        )
 
     def correction_unities(self):
         """correction des unités en abréviations"""
@@ -125,7 +140,7 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 )
 
     def cleaning_document(self):
-        """save changes tob  the new file"""
+        """save changes to  the new file"""
         df = self.df
         document_path = self.document_path
         full_document_path = settings.BASE_DIR + "/media/" + str(document_path)
