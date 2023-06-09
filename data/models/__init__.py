@@ -30,11 +30,10 @@ ANALYSIS_TYPES = (
 
 # homogenization types
 HOMOGENIZATION_DUPLICATION = "Duplication"
-
 HOMOGENIZATION_TYPES = ((HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplication")),)
+M200_1 = {"rule": "M200 [1]", "signification": "Indexes of language correction"}
 
-# rules for the syntactic analysis:
-M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
+# Profiling rules
 M100_4 = {"rule": "M100 [4]", "signification": "Indexes of null values (profilage result)"}
 M100_5 = {
     "rule": "M100 [5]",
@@ -44,6 +43,9 @@ M100_6 = {
     "rule": "M100 [6]",
     "signification": "Indexes of invalid values according to subcategories (profilage result)",
 }
+
+# rules for the syntactic analysis:
+M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
@@ -290,11 +292,9 @@ PHYSICAL_METRICS = {
     "FREQUENCY",
     "ELECTRIC_QUANTITY",
     "ENERGY",
-    "ENERGY",
     "ELECTRIC_FIELD",
     "METERS",
     "GRAVITY",
-    "ENERGY",
     "PRESSURE_AND_CONTRAINT",
     "TIME_SECONDS",
     "ASTRONOMY_DISTANCE",

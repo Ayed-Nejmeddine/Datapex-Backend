@@ -83,6 +83,7 @@ class SemanticResult(AnalysisResult):
         """
         return f"{self.document} - {self.rule}"
 
+
 class ProfilageResult(AnalysisResult):
     """Semantic Analysis result model"""
 
@@ -94,6 +95,8 @@ class ProfilageResult(AnalysisResult):
         Override this method to format ProfilageResult object.'
         """
         return f"{self.document} - {self.rule}"
+
+
 class SemanticData(models.Model):
     """Semantic Analysis data model"""
 
@@ -147,3 +150,16 @@ class HomogenizationTrace(models.Model):
         Override this method to format HomogenizationTrace object.'
         """
         return f"{self.document} - {self.homogenization_type}"
+
+
+class HomogenizationResult(AnalysisResult):
+    """Homogenization result model"""
+
+    rule = JSONField()
+    objects = models.Manager()
+
+    def __str__(self):
+        """
+        Override this method to format ProfilageResult object.'
+        """
+        return f"{self.document} - {self.rule}"
