@@ -157,13 +157,16 @@ class HomogenizationAnalyser(HomogenizationInterface):
         semantic_result_values = semantic_result.result.values()
         # List of dominant categories
         columns_dominant_categories = []
+        changed_indices=[]
         for item in semantic_result_values:
             if isinstance(item, dict):
                 columns_dominant_categories.append(list(item.keys())[0])
 
         for category, column in zip(columns_dominant_categories, columns):
+            print(column, category)
             # Import data from dictionary by category
             data_dict = DataDict.objects.filter(category=category)
+            data_dict_unique_values=[]
             for data in data_dict:
                 json_data_dict = json.loads(data.data_dict)
                 # remove duplicated values from a list and combine all the values into a single list data_dict_unique_values
@@ -172,23 +175,22 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 ]
                 all_elements = set().union(*data_dict_values)
                 data_dict_unique_values = list(all_elements)
-                # search of each value in the dictionnary and replace it by the most similar one
+            # search of each value in the dictionnary and replace it by the most similar one
             for i, word in enumerate(df[column]):
                 characters_to_check = ["/", "@", "°"]
                 if (
-                    isinstance(word, str)
+                    isinstance(word, str)   
                     and not pd.isna(word)
                     and not any(char in word for char in characters_to_check)
                 ):
                     # detect closest words in the dictionary
                     similars = []
-                    for dict_word in data_dict_unique_values:
-                        if word.upper() in dict_word:
-                            similars.append(dict_word)
-                        else:
-                            if dict_word in word.upper():
-                                similars.append(dict_word)
+                    print(word)
+                    similars=process.extractBests(word.upper(),data_dict_unique_values)
+                    print(similars)
                     closest_match = process.extractOne(word, similars)
                     if closest_match:
-                        closest_word = closest_match[0]
-                        self.df.at[i, column] = closest_word
+                        if closest_match[1] < 100:
+                            closest_word = closest_match[0]
+                            self.df.at[i, column] = closest_word
+                            changed_indices.append((column,i))  
