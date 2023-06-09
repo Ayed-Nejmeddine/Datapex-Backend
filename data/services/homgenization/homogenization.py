@@ -2,14 +2,11 @@
     Homogenization
 """
 import json
-
 from django.conf import settings
-
 import pandas as pd
 import unidecode
 from fuzzywuzzy import process
 from pandas.api.types import is_string_dtype
-
 from data.models import M103_3
 from data.models import M103_30
 from data.models import M105_5
@@ -29,31 +26,26 @@ from data.models.basic_models import DataDict
 from data.models.basic_models import HomogenizationResult
 from data.models.basic_models import RegularExp
 from data.models.basic_models import SemanticResult
+from data.models.basic_models import HomogenizationResult
 from data.services.homgenization.interfaces import HomogenizationInterface
 from data.services.homgenization.utils import get_Data_Dict
 from data.services.homgenization.utils import get_db_result
 from data.services.homgenization.utils import get_Dominant_Category_subcategory
 from data.services.homgenization.utils import to_date
 from data.services.homgenization.utils import transform_unite
-
-
 class HomogenizationAnalyser(HomogenizationInterface):
     """contains services for Homogenization"""
-
     def __init__(self, df, document_id, document_path):
         super().__init__()
         self.df = df
         self.document_id = document_id
         self.document_path = document_path
-
     def remove_extra_spaces(self):
         """remove extra spaces for every value"""
         self.df = self.df.applymap(lambda x: " ".join(x.split()) if isinstance(x, str) else x)
-
     def remove_duplicated_rows(self):
         """remove duplications"""
         self.df = self.df.drop_duplicates()
-
     def standardisation_date(self):
         """format the dates to the format of the dominant format of the dates in this column"""
         document_id = self.document_id
@@ -79,7 +71,6 @@ class HomogenizationAnalyser(HomogenizationInterface):
             self.df[col] = (
                 self.df[col].fillna("").apply(to_date, dominant_date_format=dominant_format)
             )
-
     def SubCategory_correction(self):
         """corrects the subcategories of each column"""
         Dom_cat, Dom_subcat = get_Dominant_Category_subcategory(self.document_id)
@@ -101,7 +92,6 @@ class HomogenizationAnalyser(HomogenizationInterface):
             subCategory = list(Dom_subcat[columns[i]].keys())[0]
             data_list = get_Data_Dict(category)
             data_list_string = " ".join(str(x) for x in data_list)
-
             for idx, value in self.df[columns[i]].iteritems():
                 if str(value).upper() in data_list_string and not any(
                     obj[subCategory] == str(value).upper() for obj in data_list
@@ -120,25 +110,31 @@ class HomogenizationAnalyser(HomogenizationInterface):
             rule=M200_1,
             defaults={"result": result},
         )
-
     def correction_unities(self):
         """correction des unités en abréviations"""
+        print("correction_unities")
         df = self.df
         document_id = self.document_id
         dominants_categories = get_db_result(document_id, M103_3).result
+        print(dominants_categories)
         dominants_sub_categories = get_db_result(document_id, M105_5).result
+        print(dominants_sub_categories)
         for column in dominants_categories:
             category = list(dominants_categories[column].keys())[0]
             if category in PHYSICAL_METRICS:
+                print(category)
                 subcategory = list(dominants_sub_categories[column].keys())[0]
+                print(subcategory)
                 regexp = RegularExp.objects.filter(subcategory=subcategory).values_list(
                     "expression", flat=True
                 )
+                print(regexp)
                 abreviation = regexp[0].split(r"\s")[1].strip("?").strip("+(").split("|")[0]
+                print(self.df)
                 self.df[column] = (
                     df[column].fillna("").apply(transform_unite, abreviation=abreviation)
                 )
-
+                print(df)
     def cleaning_document(self):
         """save changes to  the new file"""
         df = self.df
@@ -147,7 +143,6 @@ class HomogenizationAnalyser(HomogenizationInterface):
         with open(full_document_path, "w") as document:
             df.to_csv(document, index=False, na_rep="", line_terminator="\n", sep=";")
         return full_document_path
-
     def data_correction(self):
         """correction data"""
         df = self.df
@@ -161,7 +156,6 @@ class HomogenizationAnalyser(HomogenizationInterface):
         for item in semantic_result_values:
             if isinstance(item, dict):
                 columns_dominant_categories.append(list(item.keys())[0])
-
         for category, column in zip(columns_dominant_categories, columns):
             print (category, column)
             # Import data from dictionary by category

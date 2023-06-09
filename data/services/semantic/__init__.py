@@ -7,9 +7,9 @@ class Analyser(SemanticAnalyser, Thread):
 
     def __init__(self, document):
         self.document_id = document.id
-        with document.document_path.open('r') as f:
-            df = pd.DataFrame(pd.read_csv(f))
-            df = df.convert_dtypes()
+        reader = pd.read_csv(document.document_path, sep=";",encoding='latin-1')
+        df = pd.DataFrame(reader)
+        df = df.convert_dtypes()
         columns = df.columns
         num_col = []
         date_col = []
