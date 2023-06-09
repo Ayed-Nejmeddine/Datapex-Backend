@@ -23,6 +23,7 @@ from data.models import M121
 from data.models import M200_1
 from data.models import PHYSICAL_METRICS
 from data.models.basic_models import DataDict
+from data.models.basic_models import HomogenizationResult
 from data.models.basic_models import RegularExp
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import HomogenizationResult
@@ -76,12 +77,16 @@ class HomogenizationAnalyser(HomogenizationInterface):
         columns = self.df.columns
         result = [None] * len(self.df.columns)
         for i in range(len(columns)):
-            list_index=[]
+            list_index = []
             if not is_string_dtype(self.df[columns[i]].dtypes):
                 continue
             self.df[columns[i]].fillna("", inplace=True)
             self.df[columns[i]] = self.df[columns[i]].apply(lambda x: unidecode.unidecode(str(x)))
-            if Dom_cat[columns[i]] == "NON APPLICABLE" or Dom_subcat[columns[i]] == "NON APPLICABLE":
+
+            if (
+                Dom_cat[columns[i]] == "NON APPLICABLE"
+                or Dom_subcat[columns[i]] == "NON APPLICABLE"
+            ):
                 continue
             category = list(Dom_cat[columns[i]].keys())[0]
             subCategory = list(Dom_subcat[columns[i]].keys())[0]
@@ -93,8 +98,10 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 ):
                     for obj in data_list:
                         if value.upper() in list(obj.values()):
-                            self.df[columns[i]] = self.df[columns[i]].replace(value, obj[subCategory])
-                            list_index.append((i,idx))
+                            self.df[columns[i]] = self.df[columns[i]].replace(
+                                value, obj[subCategory]
+                            )
+                            list_index.append((i, idx))
             if not list_index:
                 list_index = None
             result[i] = list_index
@@ -130,7 +137,6 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 print(df)
     def cleaning_document(self):
         """save changes to  the new file"""
-        print("standardisation_date")
         df = self.df
         document_path = self.document_path
         full_document_path = settings.BASE_DIR + "/media/" + str(document_path)
