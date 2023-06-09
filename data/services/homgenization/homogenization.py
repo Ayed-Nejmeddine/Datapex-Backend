@@ -157,13 +157,13 @@ class HomogenizationAnalyser(HomogenizationInterface):
         semantic_result_values = semantic_result.result.values()
         # List of dominant categories
         columns_dominant_categories = []
-        changed_indices=[]
+        changed_indexes=[]
         for item in semantic_result_values:
             if isinstance(item, dict):
                 columns_dominant_categories.append(list(item.keys())[0])
 
         for category, column in zip(columns_dominant_categories, columns):
-            print(column, category)
+            print (category, column)
             # Import data from dictionary by category
             data_dict = DataDict.objects.filter(category=category)
             data_dict_unique_values=[]
@@ -183,14 +183,13 @@ class HomogenizationAnalyser(HomogenizationInterface):
                     and not pd.isna(word)
                     and not any(char in word for char in characters_to_check)
                 ):
-                    # detect closest words in the dictionary
-                    similars = []
-                    print(word)
-                    similars=process.extractBests(word.upper(),data_dict_unique_values)
-                    print(similars)
-                    closest_match = process.extractOne(word, similars)
-                    if closest_match:
-                        if closest_match[1] < 100:
-                            closest_word = closest_match[0]
-                            self.df.at[i, column] = closest_word
-                            changed_indices.append((column,i))  
+                    
+                    if (word.upper() not in data_dict_unique_values):
+                        closest_match = process.extractOne(word.upper(),data_dict_unique_values)
+                        # print(closest_match)
+                        if closest_match:
+                            if 60< closest_match[1] < 100:
+                                closest_word = closest_match[0]
+                                self.df.at[i, column] = closest_word
+                                changed_indexes.append((column,i))
+        print(changed_indexes)  
