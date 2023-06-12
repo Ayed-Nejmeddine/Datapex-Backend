@@ -21,6 +21,7 @@ from data.models import M119
 from data.models import M120
 from data.models import M121
 from data.models import M200_1
+from data.models import M200_5
 from data.models import PHYSICAL_METRICS
 from data.models.basic_models import DataDict
 from data.models.basic_models import HomogenizationResult
@@ -147,17 +148,17 @@ class HomogenizationAnalyser(HomogenizationInterface):
         """correction data"""
         df = self.df
         columns = df.columns
+        result = [None] * len(self.df.columns)
         # semantic result to get the dominant categories
         semantic_result = SemanticResult.objects.get(document=self.document_id, rule=M103_30)
         semantic_result_values = semantic_result.result.values()
         # List of dominant categories
         columns_dominant_categories = []
-        changed_indexes=[]
         for item in semantic_result_values:
             if isinstance(item, dict):
                 columns_dominant_categories.append(list(item.keys())[0])
-        for category, column in zip(columns_dominant_categories, columns):
-            print (category, column)
+        for category, column, idx in zip(columns_dominant_categories, columns,range(len(columns))):
+            changed_indexes_list=[]
             # Import data from dictionary by category
             data_dict = DataDict.objects.filter(category=category)
             data_dict_unique_values=[]
@@ -170,20 +171,24 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 all_elements = set().union(*data_dict_values)
                 data_dict_unique_values = list(all_elements)
             # search of each value in the dictionnary and replace it by the most similar one
+            characters_to_check = ["/", "@", "°"]
             for i, word in enumerate(df[column]):
-                characters_to_check = ["/", "@", "°"]
                 if (
                     isinstance(word, str)   
                     and not pd.isna(word)
                     and not any(char in word for char in characters_to_check)
                 ):
-                    
                     if (word.upper() not in data_dict_unique_values):
                         closest_match = process.extractOne(word.upper(),data_dict_unique_values)
-                        # print(closest_match)
                         if closest_match:
                             if 60< closest_match[1] < 100:
                                 closest_word = closest_match[0]
                                 self.df.at[i, column] = closest_word
-                                changed_indexes.append((column,i))
-        print(changed_indexes)  
+                                changed_indexes_list.append((idx,i))
+            if not changed_indexes_list:
+                changed_indexes_list = None
+            result[idx] = changed_indexes_list
+            HomogenizationResult.objects.update_or_create(
+                document_id=self.document_id,
+                rule=M200_5,
+                defaults={"result": result},)
