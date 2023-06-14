@@ -142,6 +142,9 @@ HOMOGENIZATION_DUPLICATION = "Duplication"
 HOMOGENIZATION_TYPES = ((HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplication")),)
 M200_1 = {"rule": "M200 [1]", "signification": "Indexes of language correction"}
 M200_5 = {"rule": "M200 [5]","signification": "Indexes of data correction from dictionnary"}
+M200_4 = {"rule": "M200 [4]","signification": "Indexes of unities correction "}
+M200_3 = {"rule": "M200 [3]","signification": "Indexes of date correction "}
+
 TOTAL = {"rule": "Total", "signification": "Total number of values(NULL values and NOT NULL values"}
 MATCHED_EXPRESSIONS = {
     "rule": "Matched-regexp",
