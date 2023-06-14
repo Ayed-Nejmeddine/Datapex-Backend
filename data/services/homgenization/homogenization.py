@@ -4,6 +4,7 @@
 import json
 from django.conf import settings
 import pandas as pd
+import numpy as np
 import unidecode
 from fuzzywuzzy import process
 from pandas.api.types import is_string_dtype
@@ -22,6 +23,8 @@ from data.models import M120
 from data.models import M121
 from data.models import M200_1
 from data.models import M200_5
+from data.models import M200_4
+from data.models import M200_3
 from data.models import PHYSICAL_METRICS
 from data.models.basic_models import DataDict
 from data.models.basic_models import HomogenizationResult
@@ -65,13 +68,23 @@ class HomogenizationAnalyser(HomogenizationInterface):
         rules = [M112, M113, M114, M115, M116, M117, M118, M119, M120, M121]
         date_result = [get_db_result(document_id, rule) for rule in rules]
         columns = list(date_result[0].result.keys())
+        result=[None] * len(self.df.columns)
         for col in columns:
             format_values = [i.result[col] for i in date_result]
             dominant_value = max(format_values)
             dominant_format = date_formats[format_values.index(dominant_value)]
-            self.df[col] = (
+            corrected_column = (
                 self.df[col].fillna("").apply(to_date, dominant_date_format=dominant_format)
             )
+            different_indices = np.where(corrected_column != self.df[col])[0]
+            list_index=[(columns.index(col),i) for i in different_indices]
+            # list_index=compare_two_column(corrected_column,self.df[column])
+            self.df[col]=corrected_column
+            result[columns.index(col)]=list_index
+            HomogenizationResult.objects.update_or_create(
+                document_id=self.document_id,
+                rule=M200_3,
+                defaults={"result": result},)
     def SubCategory_correction(self):
         """corrects the subcategories of each column"""
         Dom_cat, Dom_subcat = get_Dominant_Category_subcategory(self.document_id)
@@ -113,29 +126,34 @@ class HomogenizationAnalyser(HomogenizationInterface):
         )
     def correction_unities(self):
         """correction des unités en abréviations"""
-        print("correction_unities")
         df = self.df
         document_id = self.document_id
         dominants_categories = get_db_result(document_id, M103_3).result
-        print(dominants_categories)
         dominants_sub_categories = get_db_result(document_id, M105_5).result
-        print(dominants_sub_categories)
+        result = [None] * len(self.df.columns)
         for column in dominants_categories:
             category = list(dominants_categories[column].keys())[0]
             if category in PHYSICAL_METRICS:
-                print(category)
+                list_index=[]
                 subcategory = list(dominants_sub_categories[column].keys())[0]
-                print(subcategory)
                 regexp = RegularExp.objects.filter(subcategory=subcategory).values_list(
                     "expression", flat=True
                 )
-                print(regexp)
                 abreviation = regexp[0].split(r"\s")[1].strip("?").strip("+(").split("|")[0]
-                print(self.df)
-                self.df[column] = (
+                corrected_column = (
                     df[column].fillna("").apply(transform_unite, abreviation=abreviation)
                 )
-                print(df)
+                print(self.df[column])
+                different_indices = np.where(corrected_column != self.df[column])[0]
+                list_index=[(self.df.columns.get_loc(column),i) for i in different_indices]
+                # list_index=compare_two_column(corrected_column,self.df[column])
+                self.df[column]=corrected_column
+                result[self.df.columns.get_loc(column)]=list_index
+                print(result)
+                HomogenizationResult.objects.update_or_create(
+                document_id=self.document_id,
+                rule=M200_4,
+                defaults={"result": result},)
     def cleaning_document(self):
         """save changes to  the new file"""
         df = self.df
