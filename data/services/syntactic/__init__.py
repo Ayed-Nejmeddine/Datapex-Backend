@@ -28,9 +28,8 @@ class Analyser(BaseAbstract, Thread):
     def __init__(self, document):
         super().__init__(self, document)
         self.document_id = document.id
-        with document.document_path.open("r") as f:
-            df = pd.DataFrame(pd.read_csv(f, sep=";"))
-            self.df = df.convert_dtypes()
+        df = pd.read_csv(document.document_path, sep=";",encoding='latin-1')
+        self.df = df.convert_dtypes()
         #check if the header is correctly formatted
         header_is_valid = df.columns.str.isalpha().all()
         if not header_is_valid:
