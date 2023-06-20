@@ -67,8 +67,8 @@ class HomogenizationAnalyser(HomogenizationInterface):
         ]
         rules = [M112, M113, M114, M115, M116, M117, M118, M119, M120, M121]
         date_result = [get_db_result(document_id, rule) for rule in rules]
-        columns = list(date_result[0].result.keys())
-        result=[None] * len(self.df.columns)
+        columns = self.df.columns
+        result=[None] * len(columns)
         for col in columns:
             format_values = [i.result[col] for i in date_result]
             dominant_value = max(format_values)
@@ -143,13 +143,11 @@ class HomogenizationAnalyser(HomogenizationInterface):
                 corrected_column = (
                     df[column].fillna("").apply(transform_unite, abreviation=abreviation)
                 )
-                print(self.df[column])
                 different_indices = np.where(corrected_column != self.df[column])[0]
                 list_index=[(self.df.columns.get_loc(column),i) for i in different_indices]
                 # list_index=compare_two_column(corrected_column,self.df[column])
                 self.df[column]=corrected_column
                 result[self.df.columns.get_loc(column)]=list_index
-                print(result)
                 HomogenizationResult.objects.update_or_create(
                 document_id=self.document_id,
                 rule=M200_4,
