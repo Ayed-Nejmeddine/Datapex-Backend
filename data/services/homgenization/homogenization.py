@@ -44,12 +44,12 @@ class HomogenizationAnalyser(HomogenizationInterface):
         self.df = df
         self.document_id = document_id
         self.document_path = document_path
-    def remove_extra_spaces(self):
-        """remove extra spaces for every value"""
-        self.df = self.df.applymap(lambda x: " ".join(x.split()) if isinstance(x, str) else x)
-    def remove_duplicated_rows(self):
-        """remove duplications"""
-        self.df = self.df.drop_duplicates()
+    # def remove_extra_spaces(self):
+    #     """remove extra spaces for every value"""
+    #     self.df = self.df.applymap(lambda x: " ".join(x.split()) if isinstance(x, str) else x)
+    # def remove_duplicated_rows(self):
+    #     """remove duplications"""
+    #     self.df = self.df.drop_duplicates()
     def standardisation_date(self):
         """format the dates to the format of the dominant format of the dates in this column"""
         document_id = self.document_id
@@ -69,19 +69,18 @@ class HomogenizationAnalyser(HomogenizationInterface):
         date_result = [get_db_result(document_id, rule) for rule in rules]
         columns = self.df.columns
         result=[None] * len(columns)
-        for col in columns:
-            format_values = [i.result[col] for i in date_result]
-            dominant_value = max(format_values)
-            dominant_format = date_formats[format_values.index(dominant_value)]
-            corrected_column = (
-                self.df[col].fillna("").apply(to_date, dominant_date_format=dominant_format)
-            )
-            different_indices = np.where(corrected_column != self.df[col])[0]
-            list_index=[(columns.index(col),i) for i in different_indices]
-            # list_index=compare_two_column(corrected_column,self.df[column])
-            self.df[col]=corrected_column
-            result[columns.index(col)]=list_index
-            HomogenizationResult.objects.update_or_create(
+        for col in date_result[0].result.keys():
+                format_values = [i.result[col] for i in date_result]
+                dominant_value = max(format_values)
+                dominant_format = date_formats[format_values.index(dominant_value)]
+                corrected_column = (
+                    self.df[col].fillna("").apply(to_date, dominant_date_format=dominant_format)
+                )
+                different_indices = np.where(corrected_column != self.df[col].fillna(""))[0]
+                list_index=[(self.df.columns.get_loc(col), i) for i in different_indices]
+                self.df[col]=corrected_column
+                result[self.df.columns.get_loc(col)]=list_index
+        HomogenizationResult.objects.update_or_create(
                 document_id=self.document_id,
                 rule=M200_3,
                 defaults={"result": result},)
