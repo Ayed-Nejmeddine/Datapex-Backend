@@ -245,7 +245,7 @@ class BaseAbstract(BaseInterface):
                 text_count = df[col].fillna("").count()
                 number_count = df_no_alpha[col].apply(pd.to_numeric, errors="coerce").count()
             else:
-                if df[col].dtype in ["float", "int"]:
+                if df[col].dtype in ["float", "int", "Int64"]:
                     number_count = df[col].fillna(0).apply(pd.to_numeric, errors="coerce").count()
             result.append(
                 {
@@ -348,7 +348,7 @@ class BaseAbstract(BaseInterface):
     def _detected_categories(self, column_detected_types):
         """detected categories in the column"""
         column_detected_category = {}
-        for col_type in column_detected_types: 
+        for col_type in column_detected_types:
             if col_type["CATEGORY"] not in column_detected_category:
                 column_detected_category[col_type["CATEGORY"]] = col_type["POURCENTAGE"]
             else:
