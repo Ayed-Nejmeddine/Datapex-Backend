@@ -221,3 +221,4 @@ class HomogenizationAnalyser(HomogenizationInterface):
             rule=M200_5,
             defaults={"result": result},
         )
+
