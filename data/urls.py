@@ -7,6 +7,7 @@ from rest_framework import routers
 from data.controllers.city import CityViewSet
 from data.controllers.city import CountryViewSet
 from data.controllers.company import CompanyViewSet
+from data.controllers.document import CleanedDocumentViewSet
 from data.controllers.document import DocumentViewSet
 from data.controllers.user import EmailConfirmationViewSet
 from data.controllers.user import UploadPhotoViewSet
@@ -14,6 +15,7 @@ from data.controllers.user import VerificationViewSet
 
 ROUTER = routers.DefaultRouter()
 ROUTER.register(r"upload-document", DocumentViewSet)
+ROUTER.register(r"clean-document", CleanedDocumentViewSet)
 ROUTER.register(r"phone", VerificationViewSet, basename="phone")
 ROUTER.register(r"cities", CityViewSet)
 ROUTER.register(r"countries", CountryViewSet)
