@@ -13,9 +13,8 @@ class Homogenization(HomogenizationAnalyser, Thread):
         super().__init__(df=None, document_id=None, document_path=None)
         self.document_id = document.id
         self.document_path = document.document_path
-        with document.document_path.open("r") as f:
-            df = pd.read_csv(f, sep=";")
-            df = df.convert_dtypes()
+        df = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+        df = df.convert_dtypes()
         self.df = df
         Thread.__init__(self)
 

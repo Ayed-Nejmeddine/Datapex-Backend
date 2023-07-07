@@ -38,7 +38,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         for user in self.get_users(self.cleaned_data["email"]):
             context = {
                 "email": getattr(user, UserModel.get_email_field_name()),
-                "domain": FRONTEND_ROOT_URL,
+                "domain": FRONTEND_ROOT_URL + "/Datapex",
                 "site_name": get_current_site(request),
                 "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                 "token": token_generator.make_token(user),

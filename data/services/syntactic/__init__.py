@@ -19,6 +19,7 @@ from data.services.syntactic.date import DateAnalyser
 from data.services.syntactic.number import NumberAnalyser
 from data.services.syntactic.string import StringAnalyser
 from data.services.syntactic.utils import check_string_contains_bool
+import re
 
 
 class Analyser(BaseAbstract, Thread):
@@ -27,10 +28,20 @@ class Analyser(BaseAbstract, Thread):
     def __init__(self, document):
         super().__init__(self, document)
         self.document_id = document.id
-        with document.document_path.open("r") as f:
-            df = pd.DataFrame(pd.read_csv(f, sep=";"))
-            self.df = df.convert_dtypes()
-
+        df = pd.read_csv(document.document_path, sep=";",encoding='latin-1')
+        self.df = df.convert_dtypes()
+        #check if the header is correctly formatted
+        header_is_valid = df.columns.str.isalpha().all()
+        if not header_is_valid:
+            header = [f'column-{i+1}' for i in range(len(df.columns))]
+            df.columns = header
+            self.df = df
+            with document.document_path.open("w") as f:
+                df.to_csv(f, sep=';', index=False)
+            with document.document_path.open("r") as f:
+                df = pd.DataFrame(pd.read_csv(f, sep=";"))
+                self.df = df.convert_dtypes()
+        
         document.num_row, document.num_col = df.shape
         document.save()
         df_copy = df
@@ -73,8 +84,6 @@ class Analyser(BaseAbstract, Thread):
         self.upper_case_values()
         self.count_number_of_values()
         self.count_boolean_value()
-        self.syntactic_validation_with_regexp()
-        self.syntactic_validation_with_data_dict()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
             analysis_type=BASIC_ANALYSIS,

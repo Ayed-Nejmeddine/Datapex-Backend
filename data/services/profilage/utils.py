@@ -1,5 +1,4 @@
 import json
-import re
 
 from cachetools import TTLCache
 from cachetools import cached
@@ -21,47 +20,13 @@ def get_Data_Dict(category):
     return data_list
 
 
-def get_Dominant_Category_subcategory(doc_id):
+def get_Dominant_subcategory(doc_id):
+    """get the semantic analysis of a document"""
+    Dom_subcat = SemanticResult.objects.get(rule=M103_31, document_id=doc_id).result
+    return Dom_subcat
+
+
+def get_Dominant_Category(doc_id):
     """get the semantic analysis of a document"""
     Dom_cat = SemanticResult.objects.get(rule=M103_30, document_id=doc_id).result
-    Dom_subcat = SemanticResult.objects.get(rule=M103_31, document_id=doc_id).result
-    return Dom_cat, Dom_subcat
-
-
-def check_match_data_dict_cat(values, category, i):
-    """check if the values exist in the data dictionary of the dominant category"""
-    res = []
-    data_list = get_Data_Dict(category)
-    data_list_string = "".join(str(x) for x in data_list)
-    for idx, value in values.iteritems():
-        if str(value).upper() not in data_list_string:
-            res.append((idx, i))
-    return res
-
-
-def check_match_data_dict_subcat(values, category, i, subCategory):
-    """check if the values exist in the data dictionary of the dominant subcategory"""
-    res = []
-    data_list = get_Data_Dict(category)
-    data_list_string = "".join(str(x) for x in data_list)
-    for idx, value in values.iteritems():
-        if str(value).upper() in data_list_string and not any(
-            obj[subCategory] == str(value).upper() for obj in data_list
-        ):
-            res.append((idx, i))
-    return res
-
-
-def check_match_reg(value, expressions):
-    """check if the values match the regular expressions"""
-    if any(re.match(exp[0], str(value).upper()) for exp in expressions):
-        return True
-    return False
-
-
-def check_category(category):
-    """check the dominant category exist in the data dictionary"""
-    categories = DataDict.objects.values_list("category", flat=True)
-    if category in categories:
-        return True
-    return False
+    return Dom_cat

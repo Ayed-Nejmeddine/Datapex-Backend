@@ -1,11 +1,11 @@
 """Here all document APIs."""
-import csv
 import json
 
 from django.db.models import Q
 from django.http import HttpResponse
 from django.http import JsonResponse
 
+import pandas as pd
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -15,16 +15,16 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
-from data.models import M100_4
-from data.models import M102_25
-from data.models import M103_30
-from data.models import M103_31
+from data.models import M101_1
+from data.models import M103_3
+from data.models import M105_5
 from data.models import M104_5
 from data.models import M104_6
 from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Document
 from data.models.basic_models import Link
+from data.models.basic_models import HomogenizationResult
 from data.models.basic_models import ProfilageResult
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
@@ -74,6 +74,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
         )
         analyser = Analyser(document=document)
         analyser.start()
+
+        analyser.join()
         return Response(
             {"message": ["The syntactic analysis has been launched."]}, status.HTTP_200_OK
         )
@@ -92,9 +94,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
             response = HttpResponse(content_type="application/json")
             # JSON Data
             output = {}
-            with document.document_path.open("r") as f:
-                reader = csv.reader(f, delimiter=";")
-                header = next(reader)
+            reader = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+            header = reader.columns.tolist()
             results = SyntacticResult.objects.filter(document=document)
             for r in results:
                 output[r.rule["rule"]] = {}
@@ -158,9 +159,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 "M104 [21]",
             ]
             output = {}
-            with document.document_path.open("r") as f:
-                reader = csv.reader(f, delimiter=";")
-                header = next(reader)
+            reader = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
+            header = reader.columns.tolist()
             sumText = 0
             sumDate = 0
             sumNum = 0
@@ -247,6 +247,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         if not AnalysisTrace.objects.filter(document=document, state="finished"):
             raise ValidationError({"message": ["Please launch the syntactic analysis first!"]})
         try:
+            
             SemanticAnalyser(document=document).run()
             return Response(
                 {"message": ["The semantic analysis has been launched."]}, status.HTTP_200_OK
@@ -269,10 +270,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        categories_res = SemanticResult.objects.get(document=document, rule=M102_25)
-        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_30)
+        categories_res = SemanticResult.objects.get(document=document, rule=M101_1)
+        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_3)
         invalid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M104_5)
-        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M103_31)
+        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M105_5)
         invalid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M104_6)
 
         output = {}
@@ -375,6 +376,30 @@ class DocumentViewSet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=["GET"],
+        url_name="get-cleaning-results",
+        url_path="get-cleaning-results",
+    )
+    def get_cleaning_results(self, request, pk=None):
+        """Get the cleaning and data correction results."""
+        document = self.get_object()
+        response = HttpResponse(content_type="application/json")
+        if not {HomogenizationResult.objects.filter(document=document)}:
+            return Response(
+                {"message": ["Please launch the cleaning first!"]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        output = {}
+        results = HomogenizationResult.objects.filter(document=document)
+        for r in results:
+            output[r.rule["rule"]] = {}
+            res_dict = {"result": r.result}
+            output[r.rule["rule"]] = res_dict
+        json.dump(output, response, ensure_ascii=False, indent=4)
+        return response
+    
+    @action(
+        detail=True,
+        methods=["GET"],
         url_name="launch-document-profilage",
         url_path="launch-document-profilage",
     )
@@ -396,7 +421,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 {"message": ["document profilage is launched successfully ."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": [f"The document profilage failed, error:{e}"]})
+            return Response({"message": [f"The document profilage failed, error:{e}"]}) 
 
     @action(
         detail=True,
@@ -406,13 +431,18 @@ class DocumentViewSet(viewsets.ModelViewSet):
     )
     def get_profilage_results(self, request, pk=None):
         """Get the profilage results."""
-
         document = self.get_object()
+        response = HttpResponse(content_type="application/json")
         if not {ProfilageResult.objects.filter(document=document)}:
             return Response(
                 {"message": ["Please launch the profilage first!"]},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        null_indexes = ProfilageResult.objects.get(document=document, rule=M100_4)
-        output = {"M100_4": null_indexes.result}
-        return JsonResponse(output)
+        output = {}
+        results = ProfilageResult.objects.filter(document=document)
+        for r in results:
+            output[r.rule["rule"]] = {}
+            res_dict = {"result": r.result}
+            output[r.rule["rule"]] = res_dict
+        json.dump(output, response, ensure_ascii=False, indent=4)
+        return response

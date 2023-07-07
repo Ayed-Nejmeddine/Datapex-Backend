@@ -30,12 +30,22 @@ ANALYSIS_TYPES = (
 
 # homogenization types
 HOMOGENIZATION_DUPLICATION = "Duplication"
-
 HOMOGENIZATION_TYPES = ((HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplication")),)
+M200_1 = {"rule": "M200 [1]", "signification": "Indexes of language correction"}
+
+# Profiling rules
+M100_4 = {"rule": "M100 [4]", "signification": "Indexes of null values (profilage result)"}
+M100_5 = {
+    "rule": "M100 [5]",
+    "signification": "Indexes of invalid values according to categories (profilage result)",
+}
+M100_6 = {
+    "rule": "M100 [6]",
+    "signification": "Indexes of invalid values according to subcategories (profilage result)",
+}
 
 # rules for the syntactic analysis:
 M100_3 = {"rule": "M100 [3]", "signification": "Number of NULL values"}
-M100_4 = {"rule": "M100 [4]", "signification": "Indexes of null values (profilage result)"}
 M101_4 = {"rule": "M101 [4]", "signification": "Number of NOT NULL values"}
 M102_5 = {"rule": "M102 [5]", "signification": "Number of distinct values"}
 M103_6 = {"rule": "M103 [6]", "signification": "Number of unique values"}
@@ -81,53 +91,30 @@ M118 = {"rule": "M118", "signification": "DateTime mm/dd/yyyy hh:mm"}
 M119 = {"rule": "M119", "signification": "DateTime mm/dd/yyyy hh:mm:ss"}
 M120 = {"rule": "M120", "signification": "Month"}
 M121 = {"rule": "M121", "signification": "Week Day"}
-M102_25 = {
-    "rule": "M102 [25]",
-    "signification": "Detected categories according to data dict and regular expressions",
+
+
+
+
+
+M104_28 = {
+    "rule": "M104 [28]",
+    "signification": "Indexes of categories and subcategories of regular expression and data dictionary",
 }
-M102_26 = {
-    "rule": "M102 [26]",
-    "signification": "Dominant categories and their respectful percentages according to the data dictionary",
-}
-M103_25 = {"rule": "M103 [25]", "signification": "Number of invalid values according to regexp"}
-M103_26 = {
-    "rule": "M103 [26]",
-    "signification": "Detected categories and subcategories and their respectful percentages according to the data dictionary and regular expressions",
-}
-M104_26 = {
-    "rule": "M104 [26]",
-    "signification": "Indexes of invalid values according to dominant categories(profilage result)",
-}
-M104_27 = {
-    "rule": "M104 [27]",
-    "signification": "Indexes of invalid values according to dominant subcategories(profilage result)",
-}
-M103_27 = {
-    "rule": "M103 [27]",
-    "signification": "Dominant Subcategory according to the data dictionary",
-}
-M103_28 = {
-    "rule": "M103 [28]",
-    "signification": "Number of valid values according to the dominant Category according to the data dictionary",
-}
-M103_29 = {
-    "rule": "M103 [26]",
-    "signification": "Number of valid values according to the dominant Subcategory according to the data dictionary",
-}
+
 M130_1 = {"rule": "M130 [1]", "signification": "Number of columns"}
 M130_2 = {"rule": "M130 [2]", "signification": "values length"}
 M130_3 = {"rule": "M130 [3]", "signification": "Number of CapCase values"}
 
+# homogenization types
+HOMOGENIZATION_DUPLICATION = "Duplication"
+HOMOGENIZATION_TYPES = ((HOMOGENIZATION_DUPLICATION, _("Homogenization-Duplication")),)
+M200_1 = {"rule": "M200 [1]", "signification": "Indexes of language correction"}
+M200_5 = {"rule": "M200 [5]","signification": "Indexes of data correction from dictionnary"}
+M200_4 = {"rule": "M200 [4]","signification": "Indexes of unities correction "}
+M200_3 = {"rule": "M200 [3]","signification": "Indexes of date correction "}
 
-DATA_TYPES = {
-    "rule": "Data-types",
-    "signification": "Data types: detected types according to the data dictionary",
-}
 TOTAL = {"rule": "Total", "signification": "Total number of values(NULL values and NOT NULL values"}
-MATCHED_EXPRESSIONS = {
-    "rule": "Matched-regexp",
-    "signification": "Matched regular expressions and their respectful percentages",
-}
+
 COLUMN_TYPE = {"rule": "Column-type", "signification": "An estimate of the column type"}
 # rules for the semantic analysis:
 M101_1 = {
@@ -142,10 +129,7 @@ M103_3 = {
     "rule": "M103 [3]",
     "signification": "Number of semantically valid values according to the dominant category",
 }
-M103_5 = {
-    "rule": "M103 [5]",
-    "signification": "Number of categories and subcategories in each column according to regexp and data_dict",
-}
+
 M103_30 = {
     "rule": "M103 [30]",
     "signification": "dominant categories and their respective percentage in each column according to regexp and data_dict",
@@ -154,10 +138,7 @@ M103_31 = {
     "rule": "M103 [31]",
     "signification": "dominant subcategories and their respective percentage in each column according to regexp and data_dict",
 }
-M104_4 = {
-    "rule": "M104 [4]",
-    "signification": "Number of semantically invalid values according to the dominant category (regexp)",
-}
+
 M104_5 = {
     "rule": "M104 [5]",
     "signification": "Number of semantically invalid values according to the dominant category (regexp and data dict)",
@@ -278,11 +259,9 @@ PHYSICAL_METRICS = {
     "FREQUENCY",
     "ELECTRIC_QUANTITY",
     "ENERGY",
-    "ENERGY",
     "ELECTRIC_FIELD",
     "METERS",
     "GRAVITY",
-    "ENERGY",
     "PRESSURE_AND_CONTRAINT",
     "TIME_SECONDS",
     "ASTRONOMY_DISTANCE",
