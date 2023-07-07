@@ -15,9 +15,9 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
-from data.models import M102_25
-from data.models import M103_30
-from data.models import M103_31
+from data.models import M101_1
+from data.models import M103_3
+from data.models import M105_5
 from data.models import M104_5
 from data.models import M104_6
 from data.models import RUNNING_STATE
@@ -247,6 +247,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         if not AnalysisTrace.objects.filter(document=document, state="finished"):
             raise ValidationError({"message": ["Please launch the syntactic analysis first!"]})
         try:
+            
             SemanticAnalyser(document=document).run()
             return Response(
                 {"message": ["The semantic analysis has been launched."]}, status.HTTP_200_OK
@@ -269,10 +270,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        categories_res = SemanticResult.objects.get(document=document, rule=M102_25)
-        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_30)
+        categories_res = SemanticResult.objects.get(document=document, rule=M101_1)
+        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_3)
         invalid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M104_5)
-        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M103_31)
+        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M105_5)
         invalid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M104_6)
 
         output = {}
