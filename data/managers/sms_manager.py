@@ -21,7 +21,7 @@ class CustomTwilioBackend(TwilioBackend):
         :return session_token: string of session_token
         """
         security_code = self.generate_security_code()
-        session_token = self.generate_session_token(str(number))
+        session_token = self.generate_session_token(number)
         # Default security_code generated of 6 digits
         SMSVerification.objects.create(
             phone_number=number,
