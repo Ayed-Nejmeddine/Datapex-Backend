@@ -1,6 +1,9 @@
 """Define SMS Manager"""
 from phone_verify.backends.twilio import TwilioBackend
 from phone_verify.models import SMSVerification
+from django.conf import settings
+import jwt
+import random
 
 
 class CustomTwilioBackend(TwilioBackend):
@@ -21,7 +24,8 @@ class CustomTwilioBackend(TwilioBackend):
         :return session_token: string of session_token
         """
         security_code = self.generate_security_code()
-        session_token = self.generate_session_token(number)
+        data = {"phone_number": number, "nonce": random.random(),"security_code":security_code}
+        session_token= jwt.encode(data, settings.SECRET_KEY)
         # Default security_code generated of 6 digits
         SMSVerification.objects.create(
             phone_number=number,
