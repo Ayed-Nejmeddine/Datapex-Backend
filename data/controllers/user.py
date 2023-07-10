@@ -79,8 +79,9 @@ class VerificationViewSet(VerifyViewSET):  # pylint: disable=R0903
         if user_phone_number != phone_number:
             return response.Ok({"error": ["You have entered the wrong phone number!"]})
         if not request.user.profile.phone_is_verified:
+            print('feefefefefef')
             session_token = send_security_code_and_generate_session_token(
-                phone_number=phone_number,
+                phone_number=str(phone_number),
                 model=User,
                 instance_id=self.request.user.id,
                 field_name="phone_number",
