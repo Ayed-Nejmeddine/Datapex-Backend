@@ -71,7 +71,7 @@ class VerificationViewSet(VerifyViewSET):  # pylint: disable=R0903
         # TODO: Use service implementation  # pylint: disable=W0511
         serializer = PhoneSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        phone_number = serializer.validated_data["phone_number"]
+        phone_number = request.data.get("phone_number")
         if hasattr(request.user, "profile"):
             user_phone_number = request.user.profile.phone
         else:
