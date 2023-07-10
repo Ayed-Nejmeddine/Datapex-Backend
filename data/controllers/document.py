@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 
 import pandas as pd
+from django_filters import rest_framework as filters
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -15,19 +16,21 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from data.models import BASIC_ANALYSIS
-from data.models import M102_25
-from data.models import M103_30
-from data.models import M103_31
+from data.models import M101_1
+from data.models import M103_3
 from data.models import M104_5
 from data.models import M104_6
+from data.models import M105_5
 from data.models import RUNNING_STATE
 from data.models.basic_models import AnalysisTrace
+from data.models.basic_models import Clean_Document
 from data.models.basic_models import Document
-from data.models.basic_models import Link
 from data.models.basic_models import HomogenizationResult
+from data.models.basic_models import Link
 from data.models.basic_models import ProfilageResult
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
+from data.serializers.document_serializer import CleanedDocumentSerializer
 from data.serializers.document_serializer import DocumentSerializer
 from data.serializers.link_serializer import LinkSerializer
 from data.services.homgenization import Homogenization
@@ -269,10 +272,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        categories_res = SemanticResult.objects.get(document=document, rule=M102_25)
-        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_30)
+        categories_res = SemanticResult.objects.get(document=document, rule=M101_1)
+        valid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M103_3)
         invalid_values_dom_cat = SemanticResult.objects.get(document=document, rule=M104_5)
-        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M103_31)
+        valid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M105_5)
         invalid_values_dom_sub_cat = SemanticResult.objects.get(document=document, rule=M104_6)
 
         output = {}
@@ -395,7 +398,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
             output[r.rule["rule"]] = res_dict
         json.dump(output, response, ensure_ascii=False, indent=4)
         return response
-    
+
     @action(
         detail=True,
         methods=["GET"],
@@ -420,7 +423,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
                 {"message": ["document profilage is launched successfully ."]}, status.HTTP_200_OK
             )
         except Exception as e:
-            return Response({"message": [f"The document profilage failed, error:{e}"]}) 
+            return Response({"message": [f"The document profilage failed, error:{e}"]})
 
     @action(
         detail=True,
@@ -445,3 +448,27 @@ class DocumentViewSet(viewsets.ModelViewSet):
             output[r.rule["rule"]] = res_dict
         json.dump(output, response, ensure_ascii=False, indent=4)
         return response
+
+
+class DocumentFilter(filters.FilterSet):  # pylint: disable=R0903
+    """Filtre on the cleaning document list"""
+
+    class Meta:  # pylint: disable=R0903
+        """meta class for filtering documents"""
+
+        model = Clean_Document
+        fields = ["original_document"]
+
+
+# pylint: disable=R0903
+class CleanedDocumentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Document attachments to be viewed or edited.
+    """
+
+    queryset = Clean_Document.objects.all()
+    serializer_class = CleanedDocumentSerializer
+    parser_class = (FileUploadParser,)
+    filter_backends = [filters.DjangoFilterBackend]
+    filter_class = DocumentFilter
+    permission_classes = (IsAuthenticated,)

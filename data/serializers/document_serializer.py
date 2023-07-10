@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import serializers
 
+from data.models.basic_models import Clean_Document
 from data.models.basic_models import Document
 from data.models.basic_models import SemanticResult
 
@@ -33,6 +34,18 @@ class DocumentSerializer(serializers.ModelSerializer):
             "doc_type",
         )
         read_only_fields = ("size", "upload_date", "num_col", "num_row", "doc_type")
+
+
+class CleanedDocumentSerializer(serializers.ModelSerializer):
+    # pylint: disable=R0903
+    """
+    Serializer class for Cleaned Document model.
+    """
+
+    class Meta:  # pylint: disable=C0115,R0903
+        model = Clean_Document
+        fields = ("id", "cleaned_document_path", "size", "cleaning_date")
+        read_only_fields = ("size", "cleaned_document_path")
 
 
 class SemanticResultSerializer(serializers.ModelSerializer):

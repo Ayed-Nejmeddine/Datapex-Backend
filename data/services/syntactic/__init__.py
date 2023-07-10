@@ -84,8 +84,6 @@ class Analyser(BaseAbstract, Thread):
         self.upper_case_values()
         self.count_number_of_values()
         self.count_boolean_value()
-        self.syntactic_validation_with_regexp()
-        self.syntactic_validation_with_data_dict()
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
             analysis_type=BASIC_ANALYSIS,

@@ -29,6 +29,7 @@ from data.models import M200_3
 from data.models import M200_4
 from data.models import M200_5
 from data.models import PHYSICAL_METRICS
+from data.models.basic_models import Clean_Document
 from data.models.basic_models import DataDict
 from data.models.basic_models import HomogenizationResult
 from data.models.basic_models import RegularExp
@@ -168,10 +169,14 @@ class HomogenizationAnalyser(HomogenizationInterface):
         """save changes to  the new file"""
         df = self.df
         document_path = self.document_path
-        full_document_path = settings.BASE_DIR + "/media/" + str(document_path)
-        with open(full_document_path, "w") as document:
+        new_file_name = str(document_path).split(".csv")[0] + "_clean.csv"
+        new_file_path = settings.BASE_DIR + "/media/" + new_file_name
+        with open(new_file_path, "w") as document:
             df.to_csv(document, index=False, na_rep="", line_terminator="\n", sep=";")
-        return full_document_path
+        Clean_Document.objects.update_or_create(
+            original_document_id=self.document_id, defaults={"cleaned_document_path": new_file_name}
+        )
+        return new_file_path
 
     def data_correction(self):
         """correction data"""
