@@ -65,6 +65,7 @@ def send_security_code_and_generate_session_token(
     obj.save()
     service = PhoneVerificationService(phone_number=phone_number)
     try:
+        print(security_code)
         service.send_verification(phone_number, security_code)
     except service.backend.exception_class:
         logger.error("Error in sending verification code.")
