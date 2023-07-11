@@ -22,6 +22,7 @@ from data.models import M118
 from data.models import M119
 from data.models import M120
 from data.models import M121
+from data.models import M122
 from data.models.basic_models import AnalysisTrace
 from data.models.basic_models import Link
 from data.models.basic_models import SyntacticResult
@@ -37,7 +38,7 @@ class DateAnalyser(DateInterface, Thread):
         self.document_id = document_id
         Thread.__init__(self)
 
-    def check_format_dataframe(self, rule, date_format):
+    def check_format_for_dataframe(self, rule, date_format):
         """For a given format, an array of booleans is returned where each value reflects the
         existence of a date according to this format in the corresponding column."""
         df = self.df
@@ -49,7 +50,7 @@ class DateAnalyser(DateInterface, Thread):
                     res[columns.get_loc(i)] += (
                         df[i].fillna("").apply(check_format, date_format=date_for).sum()
                     )
-
+        print(res)
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=rule,
@@ -57,25 +58,6 @@ class DateAnalyser(DateInterface, Thread):
         )
         return res
 
-    def check_format_for_dataframe(self, rule, date_format=["%m-%d-%Y"]):
-        """For a given format, an array of booleans is returned where each value reflects the
-        existence of a date according to this format in the corresponding column."""
-        df = self.df
-        columns = df.columns
-        res = [0] * len(columns)
-        for date_for in date_format:
-            for i in columns:
-                if is_string_dtype(df[i].dtypes):
-                    res[columns.get_loc(i)] += (
-                        df[i].fillna("").apply(check_format, date_format=date_for).sum()
-                    )
-
-        SyntacticResult.objects.update_or_create(
-            document_id=self.document_id,
-            rule=rule,
-            defaults={"result": {i: res[self.df.columns.get_loc(i)] for i in self.df.columns}},
-        )
-        return res
 
     def count_values(self):
         """Datetime type indicator."""
@@ -152,6 +134,8 @@ class DateAnalyser(DateInterface, Thread):
         self.check_format_for_dataframe(rule=M119, date_format=["%m/%d/%Y %H:%M:%S"])
         self.check_format_for_dataframe(rule=M120, date_format=["%B"])
         self.check_format_for_dataframe(rule=M121, date_format=["%A", "%a"])
+        self.check_format_for_dataframe(rule=M122, date_format=["%B %d, %Y","%B %d %Y"])
+
         AnalysisTrace.objects.update_or_create(
             document_id=self.document_id,
             analysis_type=DATE_ANALYSIS,
