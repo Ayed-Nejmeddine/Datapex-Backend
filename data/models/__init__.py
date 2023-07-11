@@ -91,6 +91,8 @@ M118 = {"rule": "M118", "signification": "DateTime mm/dd/yyyy hh:mm"}
 M119 = {"rule": "M119", "signification": "DateTime mm/dd/yyyy hh:mm:ss"}
 M120 = {"rule": "M120", "signification": "Month"}
 M121 = {"rule": "M121", "signification": "Week Day"}
+M122 = {"rule": "M122", "signification": "Month Day, year"}
+
 
 
 
