@@ -1,23 +1,22 @@
 """
     SemanticAnalyser
     """
+from data.models import M101_1
 from data.models import M103_3
 from data.models import M104_5
 from data.models import M104_6
+from data.models import M104_28
 from data.models import M105_5
 from data.models import M113_16
+from data.models.basic_models import DataDict
+from data.models.basic_models import RegularExp
 from data.models.basic_models import SemanticResult
 from data.models.basic_models import SyntacticResult
 from data.services.semantic.interfaces import SemanticInterface
 from data.services.semantic.utils import get_data_dict
-from data.models.basic_models import SemanticResult
-from data.models.basic_models import RegularExp
-from data.models.basic_models import DataDict
-from data.models import M101_1
-
-from data.services.semantic.interfaces import SemanticInterface
-from data.services.syntactic import BaseAbstract
 from data.services.semantic.utils import get_regexp
+from data.services.syntactic import BaseAbstract
+
 
 class SemanticAnalyser(SemanticInterface):
     """contains services for SemanticInterface"""
@@ -98,19 +97,23 @@ class SemanticAnalyser(SemanticInterface):
         global_detected_categories = []
         global_dominant_categories = []
         global_dominant_subcategories = []
-        for i in columns:
-            df[i] = df[i].apply(lambda x: str(x).replace("Â°", "°"))
-            data_serie=[]
-            for j in df[i]:
-                regex_result=get_regexp(j,expressions=expressions)
-                if regex_result!= ("no-match","no-match") :
-                    data_serie.append(regex_result)
+        data_result = []
+        for i, column in enumerate(df.columns):
+            df[column] = df[column].apply(lambda x: str(x).replace("Â°", "°"))
+            data_serie = {}
+            for idx, value in df[column].iteritems():
+                regex_result = get_regexp(value, expressions=expressions)
+                if regex_result != ("no-match", "no-match"):
+                    data_serie[str((i, idx))] = regex_result
                 else:
-                    dict_result=get_data_dict(j,data_dict)
-                    data_serie.append(dict_result)
-            matched_dict = {cat_sub: data_serie.count(cat_sub) for cat_sub in data_serie}
+                    dict_result = get_data_dict(value, data_dict)
+                    data_serie[str((i, idx))] = dict_result
+            data_result.append(data_serie)
+            data = list(data_serie.values())
+            matched_dict = {cat_sub: data.count(cat_sub) for cat_sub in data}
             matched_dict_percentages = {
-                key: round(int(matched_dict[key] * 100 / len(df[i])), 2) for key in matched_dict
+                key: round(int(matched_dict[key] * 100 / len(df[column])), 2)
+                for key in matched_dict
             }
             column_detected_types = self._detected_types(matched_dict_percentages)
             column_detected_category = self._detected_categories(column_detected_types)
@@ -122,10 +125,10 @@ class SemanticAnalyser(SemanticInterface):
                 column_dominant_categories, column_detected_types
             )
             global_dominant_subcategories.append(column_dominant_sub_categories)
-        # print(global_dominant_categories)
         self._update_or_create_db(columns, M101_1, global_detected_categories)
         self._update_or_create_db(columns, M103_3, global_dominant_categories)
         self._update_or_create_db(columns, M105_5, global_dominant_subcategories)
+        self._update_or_create_db(columns, M104_28, data_result)
 
         return (
             global_detected_categories,
@@ -141,39 +144,43 @@ class SemanticAnalyser(SemanticInterface):
         dom_sub_cat_res = self.semantic_validation()[2]
         rows = SyntacticResult.objects.get(document_id=self.document_id, rule=M113_16)
         number_rows = rows.result["Rows"]
-        
+
         if not number_rows:
             syntactic_analyser = BaseAbstract(self.df, self.document_id)
             syntactic_analyser.count_number_rows()
         # convert the percentages to numbers
-        dom_cat ={
-            k:{list(dom_cat_res[columns.get_loc(k)].keys())[0]: int(list(dom_cat_res[columns.get_loc(k)].values())[0] * number_rows / 100)}
-                if dom_cat_res[columns.get_loc(k)] != "NON APPLICABLE"
-                else {"no-match": number_rows}
-                for k in columns}
-   
-        
+        dom_cat = {
+            k: {
+                list(dom_cat_res[columns.get_loc(k)].keys())[0]: int(
+                    list(dom_cat_res[columns.get_loc(k)].values())[0] * number_rows / 100
+                )
+            }
+            if dom_cat_res[columns.get_loc(k)] != "NON APPLICABLE"
+            else {"no-match": number_rows}
+            for k in columns
+        }
+
         dom_sub_cat = {
-            k:{list(dom_sub_cat_res[columns.get_loc(k)].keys())[0]: round(
+            k: {
+                list(dom_sub_cat_res[columns.get_loc(k)].keys())[0]: round(
                     list(dom_sub_cat_res[columns.get_loc(k)].values())[0] * number_rows / 100
-                )}
+                )
+            }
             if dom_sub_cat_res[columns.get_loc(k)] != "NON APPLICABLE"
             else {"no-match": number_rows}
             for k in columns
         }
-        
-  
+
         invalid_dom_cat = {
             k: {list(dom_cat[k].keys())[0]: number_rows - int(list(dom_cat[k].values())[0])}
             for k in columns
         }
-        
-    
+
         invalid_dom_sub_cat = {
             k: {list(dom_sub_cat[k].keys())[0]: number_rows - list(dom_sub_cat[k].values())[0]}
-            for k in columns 
+            for k in columns
         }
-        
+
         # Number of invalid values according to dominant category
         SemanticResult.objects.update_or_create(
             document_id=self.document_id,

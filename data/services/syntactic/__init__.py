@@ -19,7 +19,6 @@ from data.services.syntactic.date import DateAnalyser
 from data.services.syntactic.number import NumberAnalyser
 from data.services.syntactic.string import StringAnalyser
 from data.services.syntactic.utils import check_string_contains_bool
-import re
 
 
 class Analyser(BaseAbstract, Thread):
@@ -28,20 +27,25 @@ class Analyser(BaseAbstract, Thread):
     def __init__(self, document):
         super().__init__(self, document)
         self.document_id = document.id
-        df = pd.read_csv(document.document_path, sep=";",encoding='latin-1')
+        df = pd.read_csv(document.document_path, sep=";", encoding="latin-1")
         self.df = df.convert_dtypes()
-        #check if the header is correctly formatted
+        # check if the header is correctly formatted
         header_is_valid = df.columns.str.isalpha().all()
         if not header_is_valid:
-            header = [f'column-{i+1}' for i in range(len(df.columns))]
+            header = [f"column-{i+1}" for i in range(len(df.columns))]
+            columns = df.columns
             df.columns = header
+            row = {}
+            for i, column in enumerate(columns):
+                row[f"column-{i+1}"] = [column]
+            new_row = pd.DataFrame(row, index=[0])
+            df = pd.concat([new_row, df.loc[:]]).reset_index(drop=True)
             self.df = df
             with document.document_path.open("w") as f:
-                df.to_csv(f, sep=';', index=False)
+                df.to_csv(f, sep=";", index=False)
             with document.document_path.open("r") as f:
                 df = pd.DataFrame(pd.read_csv(f, sep=";"))
                 self.df = df.convert_dtypes()
-        
         document.num_row, document.num_col = df.shape
         document.save()
         df_copy = df

@@ -3,8 +3,8 @@ import json
 from cachetools import TTLCache
 from cachetools import cached
 
-from data.models import M103_30
-from data.models import M103_31
+from data.models import M103_3
+from data.models import M105_5
 from data.models.basic_models import DataDict
 from data.models.basic_models import SemanticResult
 
@@ -22,11 +22,11 @@ def get_Data_Dict(category):
 
 def get_Dominant_subcategory(doc_id):
     """get the semantic analysis of a document"""
-    Dom_subcat = SemanticResult.objects.get(rule=M103_31, document_id=doc_id).result
+    Dom_subcat = SemanticResult.objects.get(rule=M105_5, document_id=doc_id).result
     return Dom_subcat
 
 
 def get_Dominant_Category(doc_id):
     """get the semantic analysis of a document"""
-    Dom_cat = SemanticResult.objects.get(rule=M103_30, document_id=doc_id).result
+    Dom_cat = SemanticResult.objects.get(rule=M103_3, document_id=doc_id).result
     return Dom_cat

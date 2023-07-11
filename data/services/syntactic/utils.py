@@ -23,14 +23,17 @@ def translate(text):
     return False
 
 
-def check_format(date_text, date_format="%Y-%m-%d"):
+def check_format(date_text, date_format):
     """check if a string contains a date with a given format"""
     try:
+        
         date_text_eng = translate(date_text)
         if date_text_eng:
             datetime.datetime.strptime(date_text_eng, date_format)
             return 1
         datetime.datetime.strptime(date_text, date_format)
+        print(date_text)
+
         return 1
     except ValueError:
         return 0
