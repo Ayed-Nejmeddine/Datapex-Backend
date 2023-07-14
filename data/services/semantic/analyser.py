@@ -122,7 +122,6 @@ class SemanticAnalyser(SemanticInterface):
                 column_dominant_categories, column_detected_types
             )
             global_dominant_subcategories.append(column_dominant_sub_categories)
-        # print(global_dominant_categories)
         self._update_or_create_db(columns, M101_1, global_detected_categories)
         self._update_or_create_db(columns, M103_3, global_dominant_categories)
         self._update_or_create_db(columns, M105_5, global_dominant_subcategories)

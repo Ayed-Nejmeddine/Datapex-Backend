@@ -43,6 +43,7 @@ class Analyser(BaseAbstract, Thread):
                 self.df = df.convert_dtypes()
         
         document.num_row, document.num_col = df.shape
+        document.size=document.document_path.size
         document.save()
         df_copy = df
         num_col = list(df_copy.fillna(0).select_dtypes(include="number").columns)
