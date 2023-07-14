@@ -32,8 +32,6 @@ def check_format(date_text, date_format):
             datetime.datetime.strptime(date_text_eng, date_format)
             return 1
         datetime.datetime.strptime(date_text, date_format)
-        print(date_text)
-
         return 1
     except ValueError:
         return 0
