@@ -50,7 +50,6 @@ class DateAnalyser(DateInterface, Thread):
                     res[columns.get_loc(i)] += (
                         df[i].fillna("").apply(check_format, date_format=date_for).sum()
                     )
-        print(res)
         SyntacticResult.objects.update_or_create(
             document_id=self.document_id,
             rule=rule,
