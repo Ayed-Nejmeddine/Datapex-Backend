@@ -348,6 +348,32 @@ class DocumentViewSet(viewsets.ModelViewSet):
             return Response({"message": ["No document has yet been analyzed"]})
         latest_doc = documents.latest("upload_date")
         return Response(DocumentSerializer(latest_doc, read_only=True).data)
+    
+    @action(
+        detail=False,
+        methods=["POST"],
+        url_name="delete-documents-list",
+        url_path="delete-documents-list",
+    )
+    def delete_documents_list(self, request):
+        """Delete the list of selected files"""
+        documents_list=request.data
+        if documents_list is None or not isinstance(documents_list,list):
+            return(Response({"message":"Invalid or missing list of documents"},status=status.HTTP_400_BAD_REQUEST,))
+        try:
+            for doc_id in documents_list:
+                document=Document.objects.get(id=doc_id, owner_id=request.user.id)
+                if document.owner_id == request.user.id:
+                    document.delete()
+                else:
+                    return(Response({"message":"PERMISSIONS DENIED"},status=status.HTTP_400_BAD_REQUEST,))
+            return (Response({"message":"file deleted successfully"}, status.HTTP_200_OK))
+        except Document.DoesNotExist:
+            return(Response({"One or more documents not found"},
+            status=status.HTTP_400_BAD_REQUEST,))
+        except Exception as e:
+            return(Response({"message":[f"Files can't be deleted:{e}"]},
+            status=status.HTTP_400_BAD_REQUEST,))
 
     @action(
         detail=True,
