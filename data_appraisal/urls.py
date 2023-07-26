@@ -26,6 +26,7 @@ from rest_framework import permissions
 
 from data.controllers.user import CustomPasswordChangeView
 from data.controllers.user import CustomPasswordResetConfirmView
+from data.controllers.user import UserLoginView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -53,6 +54,11 @@ urlpatterns = [
         "rest-auth/password/change/",
         CustomPasswordChangeView.as_view(),
         name="rest_password_change",
+    ),
+    path(
+        "rest-auth/login/",
+        UserLoginView.as_view(),
+        name="rest_login",
     ),
     path("rest-auth/", include("rest_auth.urls")),
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
