@@ -10,6 +10,7 @@ from cities_light.models import Country
 from django_countries import Countries
 from phonenumber_field import phonenumber
 from rest_auth.registration.serializers import RegisterSerializer as RootRegSerializer
+from rest_auth.serializers import LoginSerializer
 from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 
@@ -193,3 +194,13 @@ class UploadPhotoSerializer(serializers.ModelSerializer):  # pylint: disable=R09
 
         model = Profile
         fields = ("photo",)
+
+
+class UserLoginSerializer(LoginSerializer):  # pylint: disable=R0903
+    """
+    Serializer for Login
+    """
+
+    username = serializers.CharField(required=False, allow_blank=True)
+    email = serializers.EmailField(required=False, allow_blank=True)
+    password = serializers.CharField(style={"input_type": "password"}, trim_whitespace=False)
