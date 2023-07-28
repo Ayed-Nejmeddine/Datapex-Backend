@@ -2,11 +2,15 @@
     This serializer represent the serializer of the user.
     """
 
+from django.contrib.auth.models import User
+
+from allauth.account.models import EmailAddress
 from cities_light.models import City
 from cities_light.models import Country
 from django_countries import Countries
 from phonenumber_field import phonenumber
 from rest_auth.registration.serializers import RegisterSerializer as RootRegSerializer
+from rest_auth.serializers import LoginSerializer
 from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 
@@ -121,10 +125,30 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
         if hasattr(self.context.get("request"), "user"):
             self.fields["profile"] = ProfileSerializer()
 
+    def validate_email(self, value):
+        """
+        Check if the email is unique.
+        """
+        user = self.context["request"].user
+
+        # Check if the email is being updated and if the new email is different from the current one
+        if user.email != value and User.objects.filter(email=value).exists():
+            raise serializers.ValidationError(
+                "A user is already registered with this e-mail address."
+            )
+        return value
+
     def update(self, instance, data):
         """Update both user and profile models."""
         profile = data.pop("profile")
+        email = data.get("email", None)
         instance = super().update(instance, data)
+        if email and not EmailAddress.objects.filter(email=email):
+            EmailAddress.objects.get(user_id=instance.id).delete()
+            EmailAddress.objects.create(
+                email=email, primary=True, verified=False, user_id=instance.id
+            )
+
         if hasattr(instance, "profile"):
             if profile.get("phone", False):
                 instance.profile.phone = profile["phone"]
@@ -153,6 +177,9 @@ class UserSerializer(UserDetailsSerializer):  # pylint: disable=R0903
 
     class Meta(UserDetailsSerializer.Meta):  # pylint: disable=C0115,R0903
         fields = UserDetailsSerializer.Meta.fields + ("profile",)
+        read_only_fields = tuple(
+            field for field in UserDetailsSerializer.Meta.read_only_fields if field != "email"
+        )
 
 
 class UploadPhotoSerializer(serializers.ModelSerializer):  # pylint: disable=R0903
@@ -167,3 +194,13 @@ class UploadPhotoSerializer(serializers.ModelSerializer):  # pylint: disable=R09
 
         model = Profile
         fields = ("photo",)
+
+
+class UserLoginSerializer(LoginSerializer):  # pylint: disable=R0903
+    """
+    Serializer for Login
+    """
+
+    username = serializers.CharField(required=False, allow_blank=True)
+    email = serializers.EmailField(required=False, allow_blank=True)
+    password = serializers.CharField(style={"input_type": "password"}, trim_whitespace=False)

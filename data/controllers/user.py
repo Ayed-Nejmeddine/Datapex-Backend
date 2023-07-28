@@ -7,6 +7,7 @@ from allauth.account.models import EmailAddress
 from phone_verify.api import VerificationViewSet as VerifyViewSET
 from phone_verify.base import response
 from phone_verify.serializers import PhoneSerializer
+from rest_auth.views import LoginView
 from rest_auth.views import PasswordChangeView
 from rest_auth.views import PasswordResetConfirmView
 from rest_framework import mixins
@@ -19,6 +20,7 @@ from rest_framework.response import Response
 
 from data.models.user_model import Profile
 from data.serializers.user_serializer import UploadPhotoSerializer
+from data.serializers.user_serializer import UserLoginSerializer
 from data.services.utils import send_email
 from data.services.utils import send_security_code_and_generate_session_token
 
@@ -135,3 +137,9 @@ class CustomPasswordChangeView(PasswordChangeView):  # pylint: disable=R0903
         }
         send_email("modification_mot_passe.html", "Your password has been changed", ctx, user)
         return resp
+
+
+class UserLoginView(LoginView):  # pylint: disable=R0903
+    """Override of PasswordChangeView"""
+
+    serializer_class = UserLoginSerializer
